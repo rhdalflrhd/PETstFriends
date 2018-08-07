@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+
+	<context:component-scan base-package="service" />
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="mysql"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/pest"></property>
+		<property name="maxActive" value="8"></property>
+		<property name="maxIdle" value="8"></property>
+		<property name="minIdle" value="0"></property>
+		<property name="initialSize" value="0"></property>
+	</bean>
+
+
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="SqlSessionFactory">
+		<property name="mapperLocations" value="classpath:dao/mapper/*.xml"></property>
+		<property name="typeAliasesPackage" value="model"></property>
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="userDao">
+		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		<property name="mapperInterface" value="dao.UserDao"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="meetingBoardDao">
+		<property name="mapperInterface" value="dao.MeetingBoardDao"></property>
+		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="applyDao">
+		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		<property name="mapperInterface" value="dao.ApplyDao"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="meetingCommentDao">
+		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		<property name="mapperInterface" value="dao.MeetingCommentDao"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="reviewDao">
+		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		<property name="mapperInterface" value="dao.ReviewDao"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="reviewCommentDao">
+		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		<property name="mapperInterface" value="dao.ReviewCommentDao"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="reviewLikesDao">
+		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		<property name="mapperInterface" value="dao.ReviewLikesDao"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="msgDao">
+		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		<property name="mapperInterface" value="dao.MsgDao"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="msgAdminDao">
+		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		<property name="mapperInterface" value="dao.MsgAdminDao"></property>
+	</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+
+
+</beans>

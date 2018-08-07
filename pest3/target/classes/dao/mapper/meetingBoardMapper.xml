@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.MeetingBoardDao">
+<insert id="insertBoard">
+insert into meetingBoard values(#{boardname}, #{meeting_boardno}, #{meetingBoard_userId}, #{meetingBoard_nickname},
+ #{meetingBoard_proPic}, #{meetingBoard_title}, #{meetingBoard_startMeetingDate}, #{meetingBoard_endMeetingDate},
+  #{meetingBoard_startAcceptingDate}, #{meetingBoard_endAcceptingDate}, #{meetingBoard_place}, #{meetingBoard_content}, 
+  #{meetingBoard_contentPic}, #{meetingBoard_phone}, #{meetingBoard_email}, #{meetingBoard_readCount}, #{meetingBoard_writeDate}, 
+  #{meetingBoard_LikeCount});
+</insert>
+
+</mapper>
