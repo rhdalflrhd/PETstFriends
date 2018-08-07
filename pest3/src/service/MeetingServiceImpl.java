@@ -41,6 +41,7 @@ public class MeetingServiceImpl implements MeetingService{
 	@Override
 	public boolean writeMeetingBoard(MeetingBoard mboard) {
 		// TODO Auto-generated method stub
+		meetingBoardDao.insertBoard(mboard);
 		return true;
 	}
 	@Override
@@ -51,22 +52,24 @@ public class MeetingServiceImpl implements MeetingService{
 	@Override
 	public boolean modifyMeetingBoard(MeetingBoard mboard) {
 		// TODO Auto-generated method stub
-		return false;
+		meetingBoardDao.updateBoard(mboard);
+		return true;
 	}
 	@Override
 	public boolean deleteMeetingBoard(int meeting_boardno) {
 		// TODO Auto-generated method stub
-		return false;
+		meetingBoardDao.deleteBoard(meeting_boardno);
+		return true;
 	}
 	@Override
 	public List<MeetingBoard> showMeetingBoard() {
 		// TODO Auto-generated method stub
-		return null;
+		return meetingBoardDao.selectBoardAll();
 	}
 	@Override
 	public MeetingBoard selectMeetingBoard(int meeting_boardno) {
 		// TODO Auto-generated method stub
-		return null;
+		return meetingBoardDao.selectOneBoard(meeting_boardno);
 	}
 	@Override
 	public boolean insertApply(MeetingBoardApply mApply) {
