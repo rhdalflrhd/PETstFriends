@@ -35,7 +35,6 @@ public class QnAController {
 	}
 	@RequestMapping("aa.do")
 	public String aa() {
-		
 		return "qna/aa";
 		
 		
