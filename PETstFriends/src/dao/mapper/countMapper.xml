@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CountDao">
+
+
+
+
+
+<!-- 	<select id="getWriteCount" resultType="int" parameterType="String"> -->
+
+<!-- 		select count(*) from ( -->
+<!-- 		select FreeBoard_boardno from FreeBoard where -->
+<!-- 		FreeBoard_userid = #{userid} -->
+<!-- 		UNION ALL -->
+<!-- 		select TipBoard_boardno from -->
+<!-- 		TipBoard where TipBoard_userid = #{userid} -->
+<!-- 		UNION ALL -->
+<!-- 		select -->
+<!-- 		meeting_boardno from MeetingBoard where MeetingBoard_userid = -->
+<!-- 		#{userid} -->
+
+<!-- 		) cnt; -->
+
+<!-- 	</select> -->
+
+
+
+<!-- 	<select id="getLikesCount " resultType="int" parameterType="String"> -->
+
+<!-- 		select count(*) from ( -->
+<!-- 		select fb.FreeBoard_boardno from FreeBoard fb, FreeLikes fl where -->
+<!-- 		fb.FreeBoard_userid = fl.FreeLikes_userid and fb.userid = #{user_id} -->
+<!-- 		UNION -->
+<!-- 		select tb.TipBoard_boardno from TipBoard tb, TipLikes tl where -->
+<!-- 		tb.TipBoard_id = tl.TipLikes_id and tb.TipBoard_id = #{user_id} -->
+<!-- 		UNION -->
+<!-- 		select mb.meeting_boardno from meetingBoard mb , meetingLikes ml where -->
+<!-- 		mb.meetingBoarduserid = ml.meetingLikes_userid and -->
+<!-- 		mb.meetingBoarduserid= #{user_id} -->
+<!-- 		UNION -->
+<!-- 		select mr.meeting_boardno from meetingReview mr , meetingLikes mtl where -->
+<!-- 		mr.meetingReview_userid = mtl.meetingLikes_userid and -->
+<!-- 		mr.meetingReview_userid = #{user_id} -->
+<!-- 		) cnt; -->
+
+<!-- 	</select> -->
+
+<!-- 	<select id="getMyQnACount " resultType="int" parameterType="String"> -->
+
+<!-- 		select count(*) from QnA where QnA_userid = #{user_id} -->
+
+<!-- 	</select> -->
+
+<!-- 	<select id="getMymeetingCount " resultType="int" parameterType="String"> -->
+
+<!-- 		select count(*) from ApplyDao where -->
+<!-- 		meetingBoardApply_userId=#{user_id}; -->
+
+<!-- 	</select> -->
+
+
+
+</mapper>

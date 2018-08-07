@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.UserDao">
+	
+
+<!-- 	<update id="updateUser" parameterType="java.util.HashMap"> -->
+<!-- 	update User set user_name = #{user_name}, user_nickname = #{user_nickname},  -->
+<!-- 	user_pass = #{user_pass} , user_email = #{user_email} , user_phone = #{user_phone},  -->
+<!-- 	user_proPic = #{user_proPic} where user_id = #{user_id} -->
+<!-- 	</update> -->
+	
+<!-- 		<update id="updatePet" parameterType="java.util.HashMap"> -->
+<!-- 	update Pet set pet_name = #{pet_name}, pet_species = #{species}, pet_gender = #{pet_gender}, pet_age = #{pet_age},  -->
+<!-- pet_file = #{pet_file} where user_no = #{user_no} -->
+<!-- 	</update> -->
+
+<!-- 	<delete id="deleteUser" parameterType="String"> -->
+<!-- 	delete from User where user_id = #{user_id}  -->
+	
+<!-- 	</delete> -->
+
+<!-- <delete id="deletePet" parameterType="int"> -->
+<!-- delete from Pet where user_no = #{user_no} -->
+<!-- 		userid = #{userid} -->
+<!-- 	</delete> -->
+
+<!-- 	<select id="selectUserPet" parameterType="int" resultType="java.util.HashMap"> -->
+<!-- select * from User u , Pet p where u.user_no = p.user_no and u.user_no = #{user_no}; -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectUserNn" parameterType="String" resultType="User"> -->
+<!-- select * from User where user_nickname = #{user_nickname}; -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectUserEmail" parameterType="String" resultType="User"> -->
+<!-- select * from User where user_email = #{user_email}; -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectmyWrite" parameterType="String" resultType="java.util.HashMap"> -->
+<!-- select FreeBoard_boardno,FreeBoard_title, FreeBoard_userid, FreeBoard_writeDate from FreeBoard where userid = #{user_id} -->
+<!-- UNION ALL -->
+<!-- select TipBoard_boardno,TipBoard_title, TipBoard_id, TipBoard_writeDate from TipBoard where TipBoard_id = #{user_id} -->
+<!-- UNION ALL -->
+<!-- select meeting_boardno, meetingBoard_title , meetingBoarduserid, meetingBoard_writeDate  from  MeetingBoard where meetingBoarduserid = #{user_id} order by writedate limit #{skip},10 -->
+<!-- 	</select> -->
+	
+<!-- 		<select id="selectmyLikes" parameterType="String" resultType="java.util.HashMap"> -->
+<!-- select fb.FreeBoard_boardno,fb.FreeBoard_title, fb.userid, fb.FreeBoard_writeDate from FreeBoard fb , FreeLikes fl where fb.userid = fl.FreeLikes_userid and fb.userid = #{user_id} -->
+<!-- UNION -->
+<!-- select tb.TipBoard_boardno, tb.TipBoard_title,tb.TipBoard_id , tb.TipBoard_writeDate from TipBoard tb , TipLikes tl where tb.TipBoard_id = tl.TipLikes_id and tb.TipBoard_id = #{user_id} -->
+<!-- UNION -->
+<!-- select mb.meeting_boardno, mb.meetingBoard_title, mb.meetingBoarduserid, mb.meetingBoard_writeDate  from meetingBoard mb , meetingLikes ml where mb.meetingBoarduserid = ml.meetingLikes_userid and mb.meetingBoarduserid= #{user_id} -->
+<!-- UNION -->
+<!-- select mr.meeting_boardno , mr.meetingReview_title , mr.meetingReview_userid, mr.writeDate from meetingReview mr , meetingLikes mtl where mr.meetingReview_userid = mtl.meetingLikes_userid and mr.meetingReview_userid = #{user_id} limit #{skip},10 -->
+<!-- 	</select> -->
+	
+<!-- 		<select id="selectBoardAllbyId" parameterType="String" resultType="QnABoard"> -->
+<!-- select * from QnA where  QnA_userid = #{user_id} limit #{skip},10 -->
+<!-- 	</select> -->
+	
+	
+
+	
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.QnADao">
+<insert id="insertBoard" parameterType="qna">
+insert into qna values (#{qnA_boardname}, 0,#{qnA_adminId},#{qnA_userId}, #{qnA_title}, #{qnA_content}, #{qnA_contentPic}, #{qnA_reply}, #{qnA_writeDate})
+</insert>
+</mapper>
