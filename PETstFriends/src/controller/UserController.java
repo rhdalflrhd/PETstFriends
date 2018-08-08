@@ -15,6 +15,8 @@ public class UserController {
 	
 	@Autowired
 	UserServiceImpl userService;
+	
+	
 }
 
 	
