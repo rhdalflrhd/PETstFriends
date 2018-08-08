@@ -1,13 +1,10 @@
 package dao;
 
-import model.Pet;
 import model.User;
 
 public interface UserDao {
-	
-//	public boolean insertUser(User user);
-//	public boolean insertPet(Pet pet);
-	
-	
 
+	public boolean updateUser(User user);
+	
+	public User selectUserId(String user_id);
 }
