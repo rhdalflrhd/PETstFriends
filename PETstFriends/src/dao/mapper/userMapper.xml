@@ -4,8 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.UserDao">
-	
 
+<!-- ***오경*** -->
+<insert id="insertUser" parameterType="user">
+insert into user values
+(0,user_name,user_id,user_nickname,user_pass,user_email,
+user_phone,user_proPic,user_score,user_joinDate,
+user_adminCheck,user_state)
+</insert>
+
+<insert id="insertPet" parameterType="pet">
+insert into pet values(user_no,pet_no,pet_name,pet_species,
+pet_gender,user_age, user_file);
+</insert>
+
+<!-- string이 맞나 -->
+<select id="selectUserFindId" parameterType="String">
+select * from user where user_name=? and user_email=? 
+</select>
+
+<select id="selectUserFindPw" parameterType="String">
+select * from user where user_id=? and user_name=? and user_email=?
+</select>
+
+
+
+
+
+
+
+
+
+
+	
+<!-- ****소현**** -->
 <!-- 	<update id="updateUser" parameterType="java.util.HashMap"> -->
 <!-- 	update User set user_name = #{user_name}, user_nickname = #{user_nickname},  -->
 <!-- 	user_pass = #{user_pass} , user_email = #{user_email} , user_phone = #{user_phone},  -->

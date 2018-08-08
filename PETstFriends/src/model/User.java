@@ -3,7 +3,7 @@ package model;
 import java.sql.Date;
 
 public class User {
-	private int user_name;
+	private String user_name;
 	private String user_id;
 	private String user_nickname;
 	private String user_pass;
@@ -16,10 +16,10 @@ public class User {
 	private Date user_state;
 	private boolean user_havePet;
 	
-	public int getUser_name() {
+	public String getUser_name() {
 		return user_name;
 	}
-	public void setUser_name(int user_name) {
+	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
 	public String getUser_id() {
