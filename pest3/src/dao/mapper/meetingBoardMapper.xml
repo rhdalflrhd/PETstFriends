@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.MeetingBoardDao">
+<insert id="insertBoard" parameterType="MeetingBoard">
+insert into meetingBoard values(#{boardname}, #{meeting_boardno}, #{meetingBoard_userId}, #{meetingBoard_proPic}, 
+ #{meetingBoard_title}, #{meetingBoard_startMeetingDate}, #{meetingBoard_endMeetingDate},
+  #{meetingBoard_startAcceptingDate}, #{meetingBoard_endAcceptingDate}, #{meetingBoard_place}, #{meetingBoard_content}, 
+  #{meetingBoard_contentPic}, #{meetingBoard_phone}, #{meetingBoard_email}, #{meetingBoard_readCount}, #{meetingBoard_writeDate}, 
+  #{meetingBoard_nickname}, #{meetingBoard_LikeCount});
+</insert>
+<update id="updateBoard" parameterType="MeetingBoard">
+update meetingBoard set meetingBoard_nickname=#{meetingBoard_nickname}, meetingBoard_proPic=#{meetingBoard_proPic}, 
+meetingBoard_title=#{meetingBoard_title}, meetingBoard_startMeetingDate=#{meetingBoard_startMeetingDate}, 
+meetingBoard_endMeetingDate=#{meetingBoard_endMeetingDate}, meetingBoard_startAcceptingDate=#{meetingBoard_startAcceptingDate}, 
+meetingBoard_endAcceptingDate=#{meetingBoard_endAcceptingDate}, meetingBoard_place=#{meetingBoard_place},
+ meetingBoard_content=#{meetingBoard_content}, meetingBoard_contentPic=#{meetingBoard_contentPic}, 
+ meetingBoard_phone=#{meetingBoard_phone}, meetingBoard_email=#{meetingBoard_email}, 
+ meetingBoard_writeDate=#{meetingBoard_writeDate} where meeting_boardno=#{meeting_boardno};
+</update>
+<delete id="deleteBoard" parameterType="int">
+delete from meetingBoard where meeting_boardno = #{meeting_boardno}; 
+</delete>
+<select id="selectOneBoard" parameterType="int">
+select*from meetingBoard where meeting_boardno=#{meeting_boardno};
+</select>
+<select id="selectBoardAll" resultType="MeetingBoard">
+select*from meetingBoard;
+</select>
+<select id="selectBoardAllbyID" resultType="MeetingBoard">
+select*from meetingBoard where meetingBoard_userId=#{meetingBoard_userId};
+</select>
+<select id="getCount" resultType="int">
+select count(*) from meetingBoard;
+</select>
+
+</mapper>
