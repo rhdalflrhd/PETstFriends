@@ -9,6 +9,6 @@
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property value="petst/" name="prefix" />
-		<property value=".html" name="suffix" />
+		<property value=".jsp" name="suffix" />
 	</bean>
 </beans>
