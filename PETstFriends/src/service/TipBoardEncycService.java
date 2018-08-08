@@ -44,12 +44,7 @@ public class TipBoardEncycService {
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 
-			String data = "";
-//			String msg = br.readLine();
-//			while (!msg.contains("호랑이")) {
-//				data += msg;
-//			}
-			
+			String data = "";		
 			String msg = null;
 			while ((msg = br.readLine()) != null) {
 				data += msg;
