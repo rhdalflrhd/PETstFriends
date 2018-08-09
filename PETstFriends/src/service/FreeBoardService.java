@@ -11,7 +11,7 @@ import model.FreeLikes;
 public interface FreeBoardService {
 
 	public int writeFreeBoard(FreeBoard freeboard); //게시글 쓰기
-	public int ModifyFreeBoard(HashMap<String, Object> params); //게시글 수정
+	public int ModifyFreeBoard(FreeBoard freeBoard); //게시글 수정
 	public int DeleteFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno); //게시글 삭제
 	public List<FreeBoard> SearchFreeBoardbyTNC(int FreeBoard_boardname,String FreeBoard_title,String FreeBoard_nickname,String FreeBoard_content); //제목,닉넴,내용으로검색
 	public List<FreeBoard> SearchFreeBoardbyTitle(int FreeBoard_boardname,String FreeBoard_title);//제목으로 검색
@@ -26,11 +26,11 @@ public interface FreeBoardService {
 	public boolean deleteLikesFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno); //좋아요취소
 	
 	
-	public HashMap<String, Object> getBoardListPage(HashMap<String, Object> params, int FreeBoard_boardno); //이게 게시판목록보기인가?
+	public HashMap<String, Object> getBoardListPage(HashMap<String, Object> params, int page); //이게 게시판목록보기인가?
 
 	public int getStartPage(int FreeBoard_boardno); //처음페이지 1페이지
 
-	public int getEndPage(int FreeBoard_boardno); // 마지막페이지
+	public int getEndPage(HashMap<String, Object> params,int FreeBoard_boardno); // 마지막페이지
 	
 	public int getLastPage(HashMap<String, Object> params); //얘도 마지막페이지?
 	

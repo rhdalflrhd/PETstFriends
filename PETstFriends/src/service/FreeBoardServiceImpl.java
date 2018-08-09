@@ -20,50 +20,58 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	
 	@Autowired
 	private UserDao uDao;
+	
+	
+	
 
 	@Override
 	public int writeFreeBoard(FreeBoard freeboard) {
-		// TODO Auto-generated method stub
-		return 0;
+		bDao.insertBoard(freeboard);
+		return freeboard.getFreeBoard_boardname();
 	}
 
 	@Override
-	public int ModifyFreeBoard(HashMap<String, Object> params) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int ModifyFreeBoard(FreeBoard freeBoard) {
+	
+		return bDao.updateBoard(freeBoard);
 	}
 
 	@Override
 	public int DeleteFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return bDao.deleteBoard(FreeBoard_boardname, FreeBoard_boardno);
 	}
 
-	@Override
+	//제목,내용,닉넴으로 검색
+	@Override 
 	public List<FreeBoard> SearchFreeBoardbyTNC(int FreeBoard_boardname, String FreeBoard_title,
 			String FreeBoard_nickname, String FreeBoard_content) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	//제목으로 검색
+	@Override 
 	public List<FreeBoard> SearchFreeBoardbyTitle(int FreeBoard_boardname, String FreeBoard_title) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	//닉넴으로 검색
 	@Override
 	public List<FreeBoard> SearchFreeBoardbyNN(int FreeBoard_boardname, String FreeBoard_nickname) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	//내용으로 검색
 	@Override
 	public List<FreeBoard> SearchFreeBoardbyCon(int FreeBoard_boardname, String FreeBoard_content) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	//게시판 글 목록보기 
 	@Override
 	public List<FreeBoard> ShowFreeBoard(int FreeBoard_boardname) {
 		// TODO Auto-generated method stub
@@ -107,39 +115,57 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public HashMap<String, Object> getBoardListPage(HashMap<String, Object> params, int FreeBoard_boardno) {
-		// TODO Auto-generated method stub
+	public HashMap<String, Object> getBoardListPage(HashMap<String, Object> params,int page) {
+		
+//		HashMap<String, Object> result = new HashMap<String, Object>();
+//		
+//		result.put("current", page);
+//		result.put("start", getStartPage(page));
+//		
+//		if(getEndPage(page)<=getLastPage(params)) {
+//			result.put("end", getEndPage(page));
+//		}else {
+//			result.put("end", getLastPage(params));
+//		}
+//		result.put("last", getLastPage(params));
+//		
+//		params.put("skip", getSkip(page));
+//		params.put("qty", 10);
+//		result.put("boardList", bDao.selectOneBoard(FreeBoard_boardname, FreeBoard_boardno));
+		
+		
+		
 		return null;
 	}
 
 	@Override
 	public int getStartPage(int FreeBoard_boardno) {
 		// TODO Auto-generated method stub
-		return 0;
+		return ((FreeBoard_boardno-1)/10+1)*10;
 	}
 
 	@Override
-	public int getEndPage(int FreeBoard_boardno) {
+	public int getEndPage(HashMap<String, Object> params,int FreeBoard_boardno) {
 		// TODO Auto-generated method stub
-		return 0;
+		return ((FreeBoard_boardno-1)/10+1)*10;
 	}
 
 	@Override
 	public int getLastPage(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		return 0;
+		return (bDao.getCount(params)-1)/10+1;
 	}
 
 	@Override
 	public int getSkip(int page) {
 		// TODO Auto-generated method stub
-		return 0;
+		return (page-1)*10;
 	}
 
 	@Override
 	public FreeBoard getBoard(int FreeBoard_boardname, int FreeBoard_boardno) {
 		// TODO Auto-generated method stub
-		return null;
+		return bDao.selectOneBoard(FreeBoard_boardname, FreeBoard_boardno);
 	}
 
 

@@ -81,7 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertBoard" parameterType="java.util.HashMap"
 		useGeneratedKeys="true" keyProperty="FreeBoard_boardno">
-		insert into FreeBoard values (#{FreeBoard_boardname}, 0,
+		insert into FreeBoard values (#{FreeBoard_boardname},
 		#{FreeBoard_userid},
 		<include refid="FreeBoard_title" />
 		,

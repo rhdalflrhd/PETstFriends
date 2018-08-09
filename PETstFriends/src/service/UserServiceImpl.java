@@ -1,10 +1,18 @@
 package service;
 
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mysql.fabric.xmlrpc.base.Value;
 
 import dao.FreeBoardDao;
 import dao.UserDao;
@@ -29,47 +37,81 @@ public class UserServiceImpl implements UserService {
 		String user_pw = (String) params.get("user_pw");
 		String user_pwc = (String) params.get("user_pwc");
 		User user = new User();
+
 			user.setUser_id(user_id);
 			user.setUser_name((String) params.get("user_name"));
+			user.setUser_nickname((String) params.get("user_nickname"));
 			user.setUser_email((String) params.get("user_email"));
 			user.setUser_phone((String) params.get("user_phone"));
+			user.setUser_phone((String) params.get("user_proPic"));
 			user.setUser_pass(user_pw);
-//			user.setAdmin(Integer.parseInt((String) params.get("admin")));
-			user.setUser_havePet((boolean) params.get("user_havePet"));
+
+			Date date = new Date(new java.util.Date().getDate());
+			user.setUser_joinDate(date);
+			
+		
+			user.setUser_adminCheck(0); //0=일반 1=관리자
+		
+			user.setUser_score(0);  //회원가입하자마자 점수는 0점 
+			
+
+			Calendar cal = new GregorianCalendar(Locale.KOREA);
+			cal.setTime(new java.util.Date());
+			cal.add(Calendar.DAY_OF_YEAR, -1);
+			
+			SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+			String strDate = sim.format(cal.getTime());
+			
+			user.setUser_pan_date(strDate);
+			user.setUser_state(0); //0=정상 1=정지
+			
+			
+			System.out.println(params.get("user_havePet"));
+			Integer.parseInt((String) params.get("user_havePet"));
+			
 			uDao.insertUser(user);
 			
 			//pet
-			if(user.isUser_havePet() == true) {
+			if(user.getUser_havePet() == 1) {
 			Pet pet = new Pet();
 			pet.setPet_name((String) params.get("pet_name"));
 			pet.setPet_species((String) params.get("pet_species"));
 			pet.setPet_gender(pet.isPet_gender());
 			pet.setPet_age((int) params.get("pet_age"));
+			uDao.insertPet(pet);
 			
 			}
 			return true;
 	}
 
 	
+
 	@Override
 	public boolean loginuser(String user_id, String user_pw) {
-		
+		// TODO Auto-generated method stub
+		if(uDao.getUserbyId(user_id).equals(user_id) && uDao.getUserbyId(user_id).getUser_pass().equals(user_pw)) {
+			return true;
+		}else
 		return false;
+		
 	}
 
 	@Override
 	public User getUserFindbyId(String user_name, String user_email) {
 		// TODO Auto-generated method stub
-		return null;
+		return uDao.selectUserFindId(user_name, user_email);
 	}
 
 	@Override
 	public User getUserFindbyPw(String user_id, String user_name, String user_email) {
 		// TODO Auto-generated method stub
-		return null;
+		return uDao.selectUserFindPw(user_id, user_name, user_email);
 	}
-
-
+}
 
 	
-}
+
+
+
+
+
