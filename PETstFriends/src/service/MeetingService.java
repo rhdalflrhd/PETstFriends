@@ -26,21 +26,25 @@ public interface MeetingService {
     public boolean commentWriteMeetingBoard(MeetingComment mComment);
     public boolean commentModifyMeetingBoard(MeetingComment mComment);
     public boolean commentDeleteMeetingBoard(int meetingComment_commentno, int meeting_boardno);
+    public MeetingComment selectCommentMeetingBoard(int meetingComment_commentno, int meeting_boardno);
     public List<MeetingComment> showCommentMeetingBoard(int meeting_boardno);
     
     public boolean writeReview(MeetingBoardReview mReview);
     public boolean modifyReview(MeetingBoardReview mReview);
-    public boolean deleteReview(int meeting_boardno,int meetingReview_no);
-    public List<MeetingBoardReview> showReview(int meeting_boardno,int meetingReview_no);
-    public MeetingBoardReview selectReview(int meeting_boardno);
+    public boolean deleteReview(int Meeting_boardno, int MeetingReview_no);
+    public MeetingBoardReview selectReview(int Meeting_boardno, int MeetingReview_no);
+    public List<MeetingBoardReview> showReview(int meeting_boardno);
     
     public boolean commentWriteReview(ReviewComment rComment);
     public boolean commentModifyReview(ReviewComment rComment);
-    public boolean commentDeleteReview(int reviewComment_commentno,int reviewno);
-    public List<ReviewComment> showCommentReview(int reviewno);
+    public boolean commentDeleteReview(int Meeting_boardno, int reviewComment_commentno,int reviewno);
+    public ReviewComment commentSelectReview(int Meeting_boardno, int reviewComment_commentno,int reviewno);
+    public List<ReviewComment> showCommentReview(int Meeting_boardno, int reviewno);
     
     public boolean insertReviewLikes(MeetingLikes rLikes);
-    public boolean deleteReviewLikes(int reviewno, String meetingLikes_userId);
+    public boolean deleteReviewLikes(int Meeting_boardno, int reviewno, String meetingLikes_userId);
+    public List<MeetingLikes> selectAllReviewLikes(int Meeting_boardno, int reviewno, String meetingLikes_userId);
+    public int getReviewLikesCount(int Meeting_boardno, int reviewno);
     
     public int getMeetingBoardListPage(int meetingPage);
     public int getMeetingBoardStartPage(int meetingPage);

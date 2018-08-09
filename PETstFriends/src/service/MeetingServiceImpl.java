@@ -108,13 +108,24 @@ public class MeetingServiceImpl implements MeetingService{
 	public boolean commentModifyMeetingBoard(MeetingComment mComment) {
 		// TODO Auto-generated method stub
 		meetingCommentDao.updateComment(mComment);
-		return false;
+		return true;
 	}
 	@Override
 	public boolean commentDeleteMeetingBoard(int meetingComment_commentno, int meeting_boardno) {
 		// TODO Auto-generated method stub
-		meetingCommentDao.deleteComment(meetingComment_commentno, meeting_boardno);
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("meetingComment_commentno", meetingComment_commentno);
+		params.put("meeting_boardno", meeting_boardno);
+		meetingCommentDao.deleteComment(params);
 		return true;
+	}
+	@Override
+	public MeetingComment selectCommentMeetingBoard(int meetingComment_commentno, int meeting_boardno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("meetingComment_commentno", meetingComment_commentno);
+		params.put("meeting_boardno", meeting_boardno);
+		return meetingCommentDao.selectCommentOne(params);
 	}
 	@Override
 	public List<MeetingComment> showCommentMeetingBoard(int meeting_boardno) {
@@ -124,57 +135,113 @@ public class MeetingServiceImpl implements MeetingService{
 	@Override
 	public boolean writeReview(MeetingBoardReview mReview) {
 		// TODO Auto-generated method stub
-		return false;
+		reviewDao.insertReview(mReview);
+		return true;
 	}
 	@Override
 	public boolean modifyReview(MeetingBoardReview mReview) {
 		// TODO Auto-generated method stub
-		return false;
+		reviewDao.updateReview(mReview);
+		return true;
 	}
 	@Override
 	public boolean deleteReview(int meeting_boardno, int meetingReview_no) {
 		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("meetingReview_no", meetingReview_no);
+		reviewDao.deleteReview(param);
 		return false;
 	}
 	@Override
-	public List<MeetingBoardReview> showReview(int meeting_boardno, int meetingReview_no) {
+	public MeetingBoardReview selectReview(int meeting_boardno, int meetingReview_no) {
 		// TODO Auto-generated method stub
-		return null;
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("meetingReview_no", meetingReview_no);
+		return reviewDao.selectOneReview(param);
 	}
 	@Override
-	public MeetingBoardReview selectReview(int meeting_boardno) {
+	public List<MeetingBoardReview> showReview(int meeting_boardno) {
 		// TODO Auto-generated method stub
-		return null;
+		return reviewDao.selectReviewAll(meeting_boardno);
 	}
+	
 	@Override
 	public boolean commentWriteReview(ReviewComment rComment) {
 		// TODO Auto-generated method stub
-		return false;
+		reviewCommentDao.insertReviewComment(rComment);
+		return true;
 	}
 	@Override
 	public boolean commentModifyReview(ReviewComment rComment) {
 		// TODO Auto-generated method stub
-		return false;
+		reviewCommentDao.updateReviewComment(rComment);
+		return true;
 	}
 	@Override
-	public boolean commentDeleteReview(int reviewComment_commentno, int reviewno) {
+	public boolean commentDeleteReview(int meeting_boardno, int reviewComment_commentno, int reviewno) {
 		// TODO Auto-generated method stub
-		return false;
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewComment_commentno", reviewComment_commentno);
+		param.put("reviewno", reviewno);
+		reviewCommentDao.deleteReviewComment(param);
+		return true;
+	}
+	
+	@Override
+	public ReviewComment commentSelectReview(int meeting_boardno, int reviewComment_commentno, int reviewno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewComment_commentno", reviewComment_commentno);
+		param.put("reviewno", reviewno);
+		return reviewCommentDao.selectReviewCommentOne(param);
 	}
 	@Override
-	public List<ReviewComment> showCommentReview(int reviewno) {
+	public List<ReviewComment> showCommentReview(int meeting_boardno, int reviewno) {
 		// TODO Auto-generated method stub
-		return null;
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewno", reviewno);
+		return reviewCommentDao.selectReviewCommentAll(param);
 	}
 	@Override
 	public boolean insertReviewLikes(MeetingLikes rLikes) {
 		// TODO Auto-generated method stub
+		reviewLikesDao.insertReviewLikes(rLikes);
+		return true;
+	}
+
+	@Override
+	public boolean deleteReviewLikes(int meeting_boardno, int reviewno, String meetingLikes_userId) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewno", reviewno);
+		param.put("meetingLikes_userId", meetingLikes_userId);
+		reviewLikesDao.deleteReviewLikes(param);
 		return false;
 	}
+	
 	@Override
-	public boolean deleteReviewLikes(int reviewno, String meetingLikes_userId) {
+	public List<MeetingLikes> selectAllReviewLikes(int meeting_boardno, int reviewno, String meetingLikes_userId) {
 		// TODO Auto-generated method stub
-		return false;
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewno", reviewno);
+		param.put("meetingLikes_userId", meetingLikes_userId);
+		return reviewLikesDao.selectAllReviewLikes(param);
+	}
+	@Override
+	public int getReviewLikesCount(int meeting_boardno, int reviewno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewno", reviewno);
+		
+		return reviewLikesDao.getReviewLikesCount(param);
 	}
 	@Override
 	public int getMeetingBoardListPage(int meetingPage) {
