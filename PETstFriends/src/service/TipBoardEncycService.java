@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -30,12 +31,13 @@ public class TipBoardEncycService {
 		try {
 			url = new URL(
 					"https://openapi.naver.com/v1/search/encyc.xml?query="
-							+ URLEncoder.encode(keyword, "UTF-8")
+							+ URLEncoder.encode(keyword, "UTF-8")+"&dicType=1&cid=40942&categoryId=32622"
 							+ (display != 0 ? "&display=" + display : "")
 							+ (start != 0 ? "&start=" + start : "")); 
 
-			URLConnection urlConn = url.openConnection();
-
+			HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+			
+			urlConn.setRequestMethod("GET");
 			urlConn.setRequestProperty("X-Naver-Client-Id", clientID);
 			urlConn.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 
