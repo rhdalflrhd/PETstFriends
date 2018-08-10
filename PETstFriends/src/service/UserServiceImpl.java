@@ -19,5 +19,16 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	@Override
+	public boolean getUserbyNn(String user_nickname) {
+		// TODO Auto-generated method stub
+		if(udao.selectUserNn(user_nickname) == null)
+			return true;
+		else 
+			return false;
+	}
+	
+	
+
 	
 }

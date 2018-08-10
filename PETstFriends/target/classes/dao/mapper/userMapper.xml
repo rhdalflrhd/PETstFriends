@@ -31,9 +31,9 @@
 <!-- select * from User u , Pet p where u.user_no = p.user_no and u.user_no = #{user_no}; -->
 <!-- 	</select> -->
 
-<!-- 	<select id="selectUserNn" parameterType="String" resultType="User"> -->
-<!-- select * from User where user_nickname = #{user_nickname}; -->
-<!-- 	</select> -->
+	<select id="selectUserNn" parameterType="String" resultType="User">
+		select * from User where user_nickname = #{user_nickname};
+	</select>
 
 <!-- 	<select id="selectUserEmail" parameterType="String" resultType="User"> -->
 <!-- select * from User where user_email = #{user_email}; -->
