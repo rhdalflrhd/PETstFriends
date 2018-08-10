@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
-
 import service.TipBoardEncycService;
 import service.TipBoardService;
 
@@ -90,27 +89,49 @@ public class TipBoardController {
 		return "Tipboard/RabbitInfoSquareSpecies";
 	}
 	
-	@RequestMapping(value= "Rabbit.do", method=RequestMethod.GET)
-	public void RabbitTest(@RequestParam("id") String id, HttpServletResponse response) {	
-		System.out.println("토끼 ajax test");
+	@RequestMapping("InfoSquareSpecies.do")
+	public String InfoSquareSpecies(Model model) {
+		System.out.println("모든종류 백과사전 요청");
+		return "Tipboard/InfoSquareSpecies";
+	}
+	
+	
+	
+	@RequestMapping(value= "Species.do", method=RequestMethod.GET)
+	public void RabbitTest(HttpServletResponse response, HttpServletRequest req) {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");	
-//		id =req.getParameter("id");
-		System.out.println(id);
+		String query = req.getParameter("query");
+		System.out.println(query);
+		
+		int display = Integer.parseInt(req.getParameter("display"));
+		int start = Integer.parseInt(req.getParameter("start"));		
+		
+		String EncResult = EncycService.searchEncyc(query, display, start);
+		
+//		JsonParser jsonParser = new JsonParser();
+//		JsonObject jsonObject = (JsonObject) jsonParser.parse(EncResult);	
+//		String rr = (String.valueOf(jsonObject.get("lastBuildDate")));
+//		System.out.print("lastBuildDate : " + jsonObject.get("lastBuildDate"));
 	
 		Gson gson = new Gson();		
-		String msg = "테스트임";
-		String Gjson = gson.toJson(msg);
+		String EncResultGjson = gson.toJson(EncResult);		
+
+		
 		try {
-			response.getWriter().println(Gjson);
+			response.getWriter().println(EncResultGjson);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		model.addAttribute("msg", "메시지가 제대로 가나");
-//		return "dogInfoSquareSpecies";
-		System.out.println("나갔나");
-	
-	
+		System.out.println(EncResultGjson);	
+		System.out.println("제이슨 데이터 전송!!");
+		 
+//		try {
+//			response.getWriter().flush();
+//			response.getWriter().close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 }
