@@ -17,29 +17,79 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDao udao;
 
+
+	public HashMap<String, Object> selectUserPet(String user_id) {
+	
+		return udao.selectUserPet(user_id);
+	}
+
 	@Override
-	public boolean updateUser(HashMap<String, Object> params) {
+	public boolean getUserNn(String user_nickname) {
 		// TODO Auto-generated method stub
+		if(udao.selectUserNn(user_nickname) == null)
+			return true;
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean getUserEmail(String user_email) {
+		// TODO Auto-generated method stub
+		if (udao.selectUserEmail(user_email)==null) {
+			return true;
+		}
+		else 
 		return false;
 	}
 
+
+
+
 	@Override
-	public boolean updatePet(HashMap<String, Object> params) {
+	public HashMap<String, Object> infoForUpdate(int user_no) {
 		// TODO Auto-generated method stub
-		return false;
+		return udao.infoForUpdate(user_no);
 	}
 
 	@Override
-	public User infoForUpdate(int user_no) {
+	public User selectUser(String user_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return udao.selectOne(user_id);
 	}
 
 	@Override
-	public void deleteUser(String user_id) {
+	public boolean updateUserPet(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
+	if (params != null) {
+		udao.updateUserPet(params);
+		return true;
+	}
+	else
+		 return false;
+	}
+
+	@Override
+	public void deleteUserPet(String user_id) {
+	
+		
+		udao.deleteUserPet(user_id);
 		
 	}
 
+	@Override
+	public boolean getUserbyId(String user_id) {
+		// TODO Auto-generated method stub
+		if(udao.selectUserbyId(user_id) == null) {
+	         return true;
+		}   else
+	      return true;
+	   }
 	
 }
+
+
+
+
+
+
+

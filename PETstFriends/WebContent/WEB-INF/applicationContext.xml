@@ -9,7 +9,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="mysql"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/PETstFriends"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/petstfriends"></property>
 		<property name="maxActive" value="8"></property>
 		<property name="maxIdle" value="8"></property>
 		<property name="minIdle" value="0"></property>
