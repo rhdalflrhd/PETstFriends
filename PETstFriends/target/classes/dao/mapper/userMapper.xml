@@ -11,26 +11,33 @@ insert into user values(
 0,#{user_name},#{user_id},#{user_nickname},#{user_pass},#{user_email},
 #{user_phone},#{user_proPic},#{user_havePet},#{user_score},#{user_joinDate},
 #{user_adminCheck},#{user_state},#{user_pan_date}
-)
+);
 </insert>
 
 <insert id="insertPet" parameterType="pet">
-insert into pet values(user_no,pet_no,pet_name,pet_species,
-pet_gender,user_age, user_file);
+insert into pet values(
+0,#{pet_no},#{pet_name},#{pet_species},
+#{pet_gender},#{user_age}, #{user_file}
+);
 </insert>
 
 <!-- string이 맞나 -->
-<select id="selectUserFindId" parameterType="String">
+<select id="selectUserFindId" parameterType="java.util.HashMap">
 select * from user where user_name=? and user_email=? 
 </select>
 
-<select id="selectUserFindPw" parameterType="String">
-select * from user where user_id=? and user_name=? and user_email=?
+<select id="selectUserFindPw" parameterType="java.util.HashMap" resultType="User">
+select * from user where user_id=#{user_id} and user_name=#{user_name} and user_email=#{user_email}
+</select>
+
+<select id="selectUserbyId" parameterType="String" resultType="User">
+select * from user where user_id = #{user_id}
 </select>
 
 
-
-
+<select id="selectUserbyNn" parameterType="String" resultType="User">
+select * from User where user_nickname = #{user_nickname};
+</select>
 
 
 
@@ -64,7 +71,7 @@ select * from user where user_id=? and user_name=? and user_email=?
 <!-- select * from User u , Pet p where u.user_no = p.user_no and u.user_no = #{user_no}; -->
 <!-- 	</select> -->
 
-<!-- 	<select id="selectUserNn" parameterType="String" resultType="User"> -->
+<!-- 	<select id="getUserbyNn" parameterType="String" resultType="User"> -->
 <!-- select * from User where user_nickname = #{user_nickname}; -->
 <!-- 	</select> -->
 

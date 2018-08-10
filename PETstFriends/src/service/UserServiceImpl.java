@@ -25,8 +25,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao uDao;
-	@Autowired
-	private FreeBoardDao bDao;
+
 
 	@Override
 	public boolean joinUser(HashMap<String, Object> params) {
@@ -36,8 +35,9 @@ public class UserServiceImpl implements UserService {
 		
 		String user_pw = (String) params.get("user_pw");
 		String user_pwc = (String) params.get("user_pwc");
+	
 		User user = new User();
-
+		
 			user.setUser_id(user_id);
 			user.setUser_name((String) params.get("user_name"));
 			user.setUser_nickname((String) params.get("user_nickname"));
@@ -45,29 +45,22 @@ public class UserServiceImpl implements UserService {
 			user.setUser_phone((String) params.get("user_phone"));
 			user.setUser_phone((String) params.get("user_proPic"));
 			user.setUser_pass(user_pw);
-
 			Date date = new Date(new java.util.Date().getDate());
 			user.setUser_joinDate(date);
-			
-		
 			user.setUser_adminCheck(0); //0=일반 1=관리자
-		
 			user.setUser_score(0);  //회원가입하자마자 점수는 0점 
-			
-
 			Calendar cal = new GregorianCalendar(Locale.KOREA);
 			cal.setTime(new java.util.Date());
 			cal.add(Calendar.DAY_OF_YEAR, -1);
-			
 			SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 			String strDate = sim.format(cal.getTime());
-			
 			user.setUser_pan_date(strDate);
 			user.setUser_state(0); //0=정상 1=정지
-			
-			
-			System.out.println(params.get("user_havePet"));
+
+//			System.out.println(params.get("user_havePet"));
 			Integer.parseInt((String) params.get("user_havePet"));
+			
+//			user.setUser_havePet(0);
 			
 			uDao.insertUser(user);
 			
@@ -87,11 +80,9 @@ public class UserServiceImpl implements UserService {
 	
 
 	@Override
-	public boolean loginuser(String user_id, String user_pw) {
+	public boolean loginUser(String user_id, String user_pw) {
 		// TODO Auto-generated method stub
-		if(uDao.getUserbyId(user_id).equals(user_id) && uDao.getUserbyId(user_id).getUser_pass().equals(user_pw)) {
-			return true;
-		}else
+	
 		return false;
 		
 	}
@@ -99,13 +90,45 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserFindbyId(String user_name, String user_email) {
 		// TODO Auto-generated method stub
-		return uDao.selectUserFindId(user_name, user_email);
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		
+		param.put("user_name", user_name);
+		param.put("user_email", user_email);
+		return uDao.selectUserFindId(param);
 	}
 
 	@Override
 	public User getUserFindbyPw(String user_id, String user_name, String user_email) {
 		// TODO Auto-generated method stub
-		return uDao.selectUserFindPw(user_id, user_name, user_email);
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("user_id", user_id);
+		param.put("user_name", user_name);
+		param.put("user_email", user_email);
+				
+		return uDao.selectUserFindPw(param);
+	}
+
+
+
+	@Override
+	public boolean getUserbyId(String user_id) {
+		// TODO Auto-generated method stub
+		if(uDao.selectUserbyId(user_id) == null)
+			return true;
+		else
+		return true;
+	}
+
+
+
+	@Override
+	public boolean getUserbyNn(String user_nickname) {
+		// TODO Auto-generated method stub
+		if(uDao.selectUserbyNn(user_nickname) == null)
+			return true;
+		else
+		return true;
+		
 	}
 }
 
