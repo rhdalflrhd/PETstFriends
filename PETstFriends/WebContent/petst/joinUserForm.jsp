@@ -11,7 +11,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-	$('#user_id').blur(function() { //닉네임 중복 검사
+	$('#user_id').blur(function() { //id 중복 검사
 		$.ajax({
 			method : 'GET',
 			url : 'idCheck.do',
@@ -19,9 +19,9 @@ $(document).ready(function() {
 				user_id : $('#user_id').val()
 			},
 			success : function(result) {
-				alert("와라");
+		
 				if (result == true) {
-					$('#user_idResult').html('사용가능한 id입니다.'); alert("좀 와라")
+					$('#user_idResult').html('사용가능한 id입니다.'); 
 				} else {
 					$('#user_idResult').html('사용 불가한 id입니다.');
 					$(this).focus();
@@ -31,8 +31,8 @@ $(document).ready(function() {
 				alert(error)
 			}
 		});
-	});
-});
+	}); //아디
+
 
 //-----------------
 	$('#user_nickname').blur(function() { //닉네임 중복 검사
@@ -42,10 +42,10 @@ $(document).ready(function() {
 			data : {
 				user_nickname : $('#user_nickname').val()
 			},
-			success : function(result) {
-				alert("와라");
-				if (result == true) {
-					$('#user_nicknameResult').html('사용가능한 닉네임입니다.'); alert("좀 와라")
+			success : function(result1) {
+
+				if (result1 == true) {
+					$('#user_nicknameResult').html('사용가능한 닉네임입니다.');
 				} else {
 					$('#user_nicknameResult').html('사용 불가한 닉네임입니다.');
 					$(this).focus();
@@ -55,9 +55,43 @@ $(document).ready(function() {
 				alert(error)
 			}
 		});
-	});
+	});//닉넴
+	
+	
+	//-----------------
+	
+	//가입버튼 누르면...
+	$('#joinUserBtn').on('click',function(){
+		$.ajax({
+			type: "POST",
+			url: "/joinUser.do",
+			data: {
+			"user_id":$('#user_id').val(),
+			"user_name":$('#user_name').val(),
+			"user_nickname":$('#user_nickname').val(),
+			"user_email":$('#user_email').val(),
+			"user_phone":$('#user_phone').val(),
+			"user_havePet":$('#user_havePet').val()
+			},
+			success: function(result){
+				alert("가입성공");
+			},
+			error:function(XhrReq,status,error){
+				alert(status);
+				alert(error);	
+			}
+		});
 
+	}); //가입버튼
+	
+	
+	
+	
+	
+	
+	
 
+}); //ready
 </script>
 </head>
 <body>
@@ -115,7 +149,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<button id=joinUser
+						<button id=joinUserBtn
 							style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white">가입하기</button>
 						<input type="reset" value="다시입력"
 						style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white">

@@ -45,9 +45,10 @@ public class UserController {
 		
 		resp.setContentType("text/html; charset=UTF-8");
 		String user_nickname = req.getParameter("user_nickname");
-		boolean result = userService.getUserbyNn(user_nickname);
+		System.out.println("ddd");
+		boolean result1 = userService.getUserbyNn(user_nickname);
 		user_nickname = req.getParameter("user_nickname");
-		return result;
+		return result1;
 	}
 	
 	
@@ -60,7 +61,7 @@ public class UserController {
 		return "joinUserForm";
 	}
 
-	@RequestMapping(value = "joinUser.do", method = RequestMethod.GET)
+	@RequestMapping(value = "joinUser.do", method = RequestMethod.POST)
 	public String join(@RequestParam HashMap<String, Object> params, Model model) {
 		System.out.println("dddjo");
 		if (userService.joinUser(params)) {
