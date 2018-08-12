@@ -15,7 +15,7 @@ public interface UserDao {
 	//얘네 쓰는거 맞나 아디, 닉넴, 이멜 중복체크할때 쓸껀데
 	public User selectUserbyId(String user_id);
 	public User selectUserbyNn(String user_nickname);
-//	public UserselectUserbyEmail(String user_email);
+	public User selectUserbyEmail(String user_email);
 
 
 	

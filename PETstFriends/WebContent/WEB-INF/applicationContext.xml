@@ -9,12 +9,37 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="mysql"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/PETstFriends"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/petstfriends"></property>
 		<property name="maxActive" value="8"></property>
 		<property name="maxIdle" value="8"></property>
 		<property name="minIdle" value="0"></property>
 		<property name="initialSize" value="0"></property>
 	</bean>
+
+
+<bean id="javaMailSender" 
+    class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com"/>
+    <property name="port" value="465"/>        
+    <property name="username" value="ok7sw7@gmail.com"/>
+    <property name="password" value="rnjsdhrud.1"/>
+    <property name="protocol" value="smtps"/>        
+    <property name="defaultEncoding" value="utf-8"/>
+    <property name="javaMailProperties">
+        <props>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.ssl.checkserveridentity">true</prop>
+            <prop key="mail.smtp.ssl.trust">*</prop>
+            <prop key = "mail.smtp.ssl.enable">true</prop>
+            <prop key = "mail.smtp.ssl.trust"> smtp.gmail.com</prop>
+        </props>
+    </property>        
+</bean>
+<bean class="controller.UserController">
+    <property name="mailSender" ref="javaMailSender"/>
+</bean>
+
 
 
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="SqlSessionFactory">

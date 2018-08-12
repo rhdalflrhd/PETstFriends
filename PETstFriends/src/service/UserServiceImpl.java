@@ -130,9 +130,24 @@ public class UserServiceImpl implements UserService {
 		return true;
 		
 	}
-}
 
+
+
+	@Override
+	public boolean getUserbyEmail(String user_email) {
+		// TODO Auto-generated method stub
+		if (uDao.selectUserbyEmail(user_email)==null) {
+			return true;
+		}
+		else 
+		return false;
+	}
 	
+
+
+
+
+}//서비스
 
 
 

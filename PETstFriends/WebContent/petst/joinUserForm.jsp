@@ -157,17 +157,53 @@ $('#user_email').blur(function() {
 
 //------------------------------------------------------------------------------------
 
+$(function () {
+   var chk = -1;
+$("#auth_btn").click(function () {   // 이메일 인증 받기 
+    var authNum = "";
+    
+    $.ajax({
+    	method : 'GET',
+    	url : "emailAuth.do",
+        data : {
+        	
+        	user_email : $('#user_email').val()
+        	
+        },
+        success : function (str) {
+            authNum = str;
+            alert("인증번호 전송완료.");
+//             alert(authNum);
+            
+            $('#user_authNum').blur(function(){
+            	
+            
+            if( $('#user_authNum').val()==authNum){
+                alert("인증완료");
+                
+                $("#lab1").html("<label>인증완료</label>");
+            }else{
+                alert("인증실패");
+                $("#lab1").html("<label>인증실패</label>");
+            }
+            
+        });
+         }
+    
+});
+});
+});
 
 
 	
-	
-	
-	
-	
-	
-	
-
 });//ready
+	
+	
+	
+	
+	
+
+
 
 </script>
 </head>
@@ -211,10 +247,17 @@ $('#user_email').blur(function() {
 				</tr>
 				<tr>
 					<td>이메일</td>
-					<td><input type="text" id="user_email">
-						<button id="user_emailMult">중복확인</button> <span
-						id='user_emailResult'></span><input type="hidden" value="uncheck"
-						id="user_emailChecked"></td>
+					<td><input type = "text"   name  = "user_email"   id ="user_email">
+						<button type="button" id="auth_btn">인증하기</button>
+						 <span id = "email"></span><br>
+						
+						</tr>
+						<tr>
+						<td>인증번호</td>
+						<td><input type="text" id="user_authNum" name="user_authNum" >
+						<div id="lab1"></div></td>
+						
+						
 				</tr>
 				<tr>
 					<td>전화번호</td>

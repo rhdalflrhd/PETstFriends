@@ -7,14 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
+
 
 import dao.UserDao;
 import service.UserServiceImpl;
@@ -24,9 +27,13 @@ public class UserController {
 
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private MailSender mailSender;
 
 	private String contextPath;
 	private String reqUri;
+	
 	
 	@RequestMapping(value = "/idCheck.do")
 	@ResponseBody
@@ -73,6 +80,82 @@ public class UserController {
 
 	}
 
+	//----------------------------------------------------------------------
 
+
+	public void setMailSender(MailSender mailSender) {    // 이메일 인증 받기 
+	    this.mailSender = mailSender;
 	}
+	
+		
+		@RequestMapping(value="/emailAuth.do" , produces="text/plain;charset=utf-8")
+		@ResponseBody
+		public String emailAuth(HttpServletRequest request) {
+		    ModelAndView mav = new ModelAndView();
+		        
+		    String user_email = request.getParameter("user_email");
+		    String authNum = "";
+		        
+		    System.out.println(user_email);
+		    authNum = randomNum();
+		    //가입승인에 사용될 인증키 난수 발생    
+		    sendEmail(user_email, authNum);
+		    //이메일전송
+		    String str = authNum;
+		    
+	        
+		    return str;
+		}
+		    
+		private String randomNum() {
+		    StringBuffer buffer = new StringBuffer();
+		        
+		    for( int i = 0 ; i <= 6 ; i++) {
+		        int n = (int)(Math.random()*10);
+		        buffer.append(n);
+		    }
+		        
+		    return buffer.toString();
+		}
+		 
+		public void sendEmail(String user_email , String authNum ) {
+		    //이메일 발송 메소드
+		    SimpleMailMessage mailMessage = new SimpleMailMessage();
+		    mailMessage.setSubject("회원가입 안내 .[이메일 제목]");
+		    mailMessage.setFrom("ok7sw7@gmail.com");
+		    mailMessage.setText("[이메일 내용]회원가입을 환영합니다. 인증번호를 확인해주세요. [ "+authNum+" ]");
+		    mailMessage.setTo(user_email);
+		    System.out.println(mailMessage);
+		    try {
+		        mailSender.send(mailMessage);
+		        
+		    } catch (Exception e) {
+		        System.out.println(e);
+		    }
+		}   //이메일 인증 받기 끝 
+		
+		@RequestMapping(value = "/emailCheck.do")
+		@ResponseBody                                                        // 이메일중복확인
+		public boolean getUserEmail(HttpServletRequest req, HttpServletResponse resp)  {
+			resp.setContentType("text/html; charset=UTF-8");
+			String user_email= req.getParameter("user_email");
+//			System.out.println(user_nickname);
+			boolean result = userService.getUserbyEmail(user_email);
+//			System.out.println(result);
+			user_email = req.getParameter("user_email");
+//			System.out.println(user_nickname);
+			return result;
+			
+		}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+
+	}//컨트롤러
 

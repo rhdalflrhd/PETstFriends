@@ -39,6 +39,10 @@ select * from user where user_id = #{user_id}
 select * from User where user_nickname = #{user_nickname};
 </select>
 
+	<select id="selectUserEmail" parameterType="String" resultType="User">
+select user_email from User where user_email = #{user_email}
+	</select>
+
 
 
 
