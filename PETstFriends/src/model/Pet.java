@@ -3,7 +3,7 @@ package model;
 public class Pet {
 	private String pet_name;
 	private String pet_species;
-	private boolean pet_gender;
+	private int pet_gender;
 	private int pet_age;
 	private String pet_file;
 	
@@ -19,10 +19,10 @@ public class Pet {
 	public void setPet_species(String pet_species) {
 		this.pet_species = pet_species;
 	}
-	public boolean isPet_gender() {
+	public int isPet_gender() {
 		return pet_gender;
 	}
-	public void setPet_gender(boolean pet_gender) {
+	public void setPet_gender(int pet_gender) {
 		this.pet_gender = pet_gender;
 	}
 	public int getPet_age() {

@@ -27,6 +27,12 @@ public class UserServiceImpl implements UserService {
 		else 
 			return false;
 	}
+
+	@Override
+	public boolean getUserbyId(String user_id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 

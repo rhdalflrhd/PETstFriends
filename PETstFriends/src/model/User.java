@@ -3,7 +3,8 @@ package model;
 import java.sql.Date;
 
 public class User {
-	private int user_name;
+	private int user_no;
+	private String user_name;
 	private String user_id;
 	private String user_nickname;
 	private String user_pass;
@@ -11,15 +12,20 @@ public class User {
 	private String user_phone;
 	private String user_proPic;
 	private int user_score;
-	private Date user_joinDate;
+	private String user_joinDate;
 	private boolean user_adminCheck;
-	private Date user_state;
+	private String user_state;
 	private boolean user_havePet;
-	
-	public int getUser_name() {
+	public int getUser_no() {
+		return user_no;
+	}
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
+	}
+	public String getUser_name() {
 		return user_name;
 	}
-	public void setUser_name(int user_name) {
+	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
 	public String getUser_id() {
@@ -64,10 +70,10 @@ public class User {
 	public void setUser_score(int user_score) {
 		this.user_score = user_score;
 	}
-	public Date getUser_joinDate() {
+	public String getUser_joinDate() {
 		return user_joinDate;
 	}
-	public void setUser_joinDate(Date user_joinDate) {
+	public void setUser_joinDate(String user_joinDate) {
 		this.user_joinDate = user_joinDate;
 	}
 	public boolean isUser_adminCheck() {
@@ -76,10 +82,10 @@ public class User {
 	public void setUser_adminCheck(boolean user_adminCheck) {
 		this.user_adminCheck = user_adminCheck;
 	}
-	public Date getUser_state() {
+	public String getUser_state() {
 		return user_state;
 	}
-	public void setUser_state(Date user_state) {
+	public void setUser_state(String user_state) {
 		this.user_state = user_state;
 	}
 	public boolean isUser_havePet() {
@@ -90,13 +96,12 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "user [user_name=" + user_name + ", user_id=" + user_id + ", user_nickname=" + user_nickname
-				+ ", user_pass=" + user_pass + ", user_email=" + user_email + ", user_phone=" + user_phone
-				+ ", user_proPic=" + user_proPic + ", user_score=" + user_score + ", user_joinDate=" + user_joinDate
-				+ ", user_adminCheck=" + user_adminCheck + ", user_state=" + user_state + ", user_havePet="
-				+ user_havePet + "]";
+		return "User [user_no=" + user_no + ", user_name=" + user_name + ", user_id=" + user_id + ", user_nickname="
+				+ user_nickname + ", user_pass=" + user_pass + ", user_email=" + user_email + ", user_phone="
+				+ user_phone + ", user_proPic=" + user_proPic + ", user_score=" + user_score + ", user_joinDate="
+				+ user_joinDate + ", user_adminCheck=" + user_adminCheck + ", user_state=" + user_state
+				+ ", user_havePet=" + user_havePet + "]";
 	}
-	
 	
 	
 	
