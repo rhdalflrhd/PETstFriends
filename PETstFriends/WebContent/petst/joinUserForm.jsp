@@ -1,8 +1,12 @@
+<%@page import="org.apache.catalina.ssi.SSICommand"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -34,7 +38,8 @@ $(document).ready(function() {
 	}); //아디
 
 
-//-----------------
+//-------------------------------------------------------------------
+
 	$('#user_nickname').blur(function() { //닉네임 중복 검사
 		$.ajax({
 			method : 'GET',
@@ -58,40 +63,112 @@ $(document).ready(function() {
 	});//닉넴
 	
 	
-	//-----------------
-	
-	//가입버튼 누르면...
-	$('#joinUserBtn').on('click',function(){
-		$.ajax({
-			type: "POST",
-			url: "/joinUser.do",
-			data: {
-			"user_id":$('#user_id').val(),
-			"user_name":$('#user_name').val(),
-			"user_nickname":$('#user_nickname').val(),
-			"user_email":$('#user_email').val(),
-			"user_phone":$('#user_phone').val(),
-			"user_havePet":$('#user_havePet').val()
-			},
-			success: function(result){
-				alert("가입성공");
-			},
-			error:function(XhrReq,status,error){
-				alert(status);
-				alert(error);	
-			}
-		});
 
-	}); //가입버튼
 	
+	//-----------------------------------------------------------------
 	
-	
-	
-	
-	
+	//핸드폰 정규식
+	$('#user_phone').blur(function() { //휴대폰 정규식
+		var phonePattern = /^\d{3}-\d{3,4}-\d{4}$/;
+		if ((phonePattern.test($('#user_phone').val()))) {
+			$('#user_phoneResult').html('ㅇㅇ');	
+		
+		}
+		else{
+			$('#user_phoneResult').html('ㄴㄴ');
+			$(this).focus();
+		}
 	
 
-}); //ready
+	});// user_phone
+	
+
+	//-----------------------------------------------------------------
+	
+	$('#user_havePet').click(function() { //반려동물 있음 =>펫테이블 보이게하기
+		if ($(this).val() == 1) {
+			$('#petTable').css('display', 'inline');
+		}
+	});
+	
+	$(document).on('click', '.addPet', function() {//+클릭시 종 입력 줄 한줄 생성
+	
+		$('#petTable').append('<tr><td><input type="text" class="pet_name"></td>'
+				+'<td><select class="pet_species">'
+				+'<option value="0">종 선택</option>'
+				+'<option value="1">개</option>'
+				+'<option value="2">고양이</option>'
+				+'<option value="3">토끼</option>'
+				+'<option value="4">기타</option>'
+				+'</select></td>'
+				+'<td><select class="pet_gender">'
+				+'<option value="0">성별</option>'
+				+'<option value="1">여</option>'
+				+'<option value="2">남</option>'
+				+'<option value="3">중성화</option>'
+				+'</select></td>'
+			+ '<td><input type="text" class="pet_age"></td>'
+			+ '<td><input type="text" class="pet_file"></td>'
+			+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
+			+ '</tr>')
+	})
+	
+	$(document).on('click', '.removePet', function() {//-클릭시 그 줄 삭제
+		var thisR = $(this);
+		thisR.parent().remove();
+	});
+	
+	$('#user_havePet').click(function() { //반려동물 없음 =>펫테이블 사라지게하기
+		if ($(this).val() == 0) {
+			$('#petTable').css('display', 'none');
+		}
+	});
+	//----------------------------------------------------------------	
+
+	//비번정규식
+	$('#user_pass').blur(function() {
+		var passPt = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+
+		if((passPt.test($('#user_pass').val()))){
+			$('#user_passResult').html('ㅇㅇ');
+		}
+		else{
+			$('#user_passResult').html('ㄴㄴ');
+			$(this).focus();
+		}
+
+		
+	});//pass
+	
+//-----------------------------------------------------------------------------------
+
+//이멜 정규식
+$('#user_email').blur(function() {
+	var emailPt = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	if((emailPt.test($('#user_email').val()))){
+		$('#user_emailResult').html('ㅇㅇ');
+	}
+	else{
+		$('#user_emailResult').html('ㄴㄴ');
+		$(this).focus();
+	}
+	
+}); //이멜
+
+//------------------------------------------------------------------------------------
+
+
+
+	
+	
+	
+	
+	
+	
+	
+
+});//ready
+
 </script>
 </head>
 <body>
@@ -102,7 +179,9 @@ $(document).ready(function() {
 		<form action="">
 
 			<b><font color="gray">${msg }</font></b>
-			<table>
+<!-- ------------------------------------------------------------------------------------------------------ -->
+			
+			<table id="user_table">
 				<tr>
 					<td>아이디</td>
 					<td><input type="text" id="user_id">
@@ -112,7 +191,9 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td>비밀번호</td>
-					<td><input type="password" id="user_pass"></td>
+					<td><input type="password" id="user_pass">
+						<span id='user_passResult'></span>
+					</td>
 				</tr>
 				<tr>
 					<td>비밀번호 확인</td>
@@ -137,13 +218,59 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td>전화번호</td>
-					<td><input type="text" id="user_phone"></td>
+					<td><input type="text" id="user_phone">
+					<span id='user_phoneResult'></span>
+					</td>
 				</tr>
 				<tr>
-					<td>반려동물 유무</td>
-					<td><input type="radio" value="1" name="user_havePet">유
-						<input type="radio" value="0" name="user_havePet">무</td>
+					<td>반려동물</td>
+					<td><input type="radio" value="1" id="user_havePet" class="user_havePet">있음
+						<input type="radio" value="0" id="user_havePet" class="user_havePet">없음</td>
 				</tr>
+				</table>
+				
+<!-- ------------------------------------------------------------------------------------------------------ -->
+				<table id="petTable" style="display: none">
+			<tr>
+				<td colspan="6" align="right" class="addPet">반려동물 추가<i
+					class="fa fa-plus-square"></i></td>
+			</tr>
+			<tr>
+				<th>이름 *</th>
+				<th>종 *</th>
+				<th>성별 *</th>
+				<th>나이</th>
+				<th>사진</th>
+				<th></th>
+			</tr>
+			<tr>
+				<td><input type="text" class="pet_name"></td>
+				
+				<td>
+				<select class="pet_species">
+				<option value="0">종 선택</option>
+				<option value="1">개</option>
+				<option value="2">고양이</option>
+				<option value="3">토끼</option>
+				<option value="4">기타</option>
+				</select>
+				</td>
+				<td>
+				<select class="pet_gender">
+				<option value="0">성별</option>
+				<option value="1">여</option>
+				<option value="2">남</option>
+				<option value="3">중성화</option>
+				</select>
+				</td>
+				<td><input type="text" class="pet_age"></td>
+				<td><input type="text" class="pet_file"></td>
+				<td class="removePet"></td>
+			</tr>
+		</table>
+		
+<!-- ------------------------------------------------------------------------------------------------------ -->
+				<table>
 				<tr>
 					<td style="height: 3px"></td>
 				</tr>
