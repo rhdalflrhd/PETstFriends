@@ -35,7 +35,7 @@ public class UserController {
 	@Autowired
 	private MailSender mailSender;
 	 
-	public void setMailSender(MailSender mailSender) {
+	public void setMailSender(MailSender mailSender) {    // 이메일 인증 받기 
 	    this.mailSender = mailSender;
 	}
 	
@@ -84,7 +84,7 @@ public class UserController {
 		    } catch (Exception e) {
 		        System.out.println(e);
 		    }
-		}
+		}   //이메일 인증 받기 끝 
 		
 
 

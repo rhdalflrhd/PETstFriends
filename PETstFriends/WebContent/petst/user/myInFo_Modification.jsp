@@ -132,43 +132,6 @@ $(document).ready(function(){
 		});
 	});
 	
-
-
-    
-    
-//     $("#auth_btn").click(function () {
-//     	var chk = -1;
-//         var authNum = "";
-        
-//         $.ajax({
-//         	method : 'GET',
-//         	url : "emailAuth.do",
-//             data : {
-            	
-//             	user_email : $('#user_email').val()
-            	
-//             },
-//             success : function (data) {
-//                 authNum = data;
-//                 alert("인증번호 전송완료.");
-                
-//                 chk = checkNum(authNum);
-                
-//                 if( chk > 0){
-//                     alert("인증완료");
-//                     chk = 1;
-//                     $("#lab1").html("인증완료");
-//                 }else{
-//                     alert("인증실패");
-//                     $("#lab1").html("인증실패");
-//                 }
-                
-//             }
-            
-//         });
-        
-//     });// 이메일 인증 버튼 end
-
 	
 });
 
@@ -178,7 +141,7 @@ $(function () {
    var chk = -1;
 
 
-$("#auth_btn").click(function () {
+$("#auth_btn").click(function () {   // 이메일 인증 받기 
 
     var authNum = "";
     
@@ -193,23 +156,24 @@ $("#auth_btn").click(function () {
         success : function (str) {
             authNum = str;
             alert("인증번호 전송완료.");
+//             alert(authNum);
             
-            chk = checkNum(authNum);
-            alert(chk);
+            $('#user_authNum').blur(function(){
+            	
             
-            if( chk > 0){
+            if( $('#user_authNum').val()==authNum){
                 alert("인증완료");
-                chk = 1;
+                
                 $("#lab1").html("<label>인증완료</label>");
             }else{
                 alert("인증실패");
                 $("#lab1").html("<label>인증실패</label>");
             }
             
-        }
-        
-    });
+        });
+         }
     
+});
 });
 });
 </script>
