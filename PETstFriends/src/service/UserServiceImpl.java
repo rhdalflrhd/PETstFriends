@@ -41,6 +41,15 @@ public class UserServiceImpl implements UserService {
 		else 
 		return false;
 	}
+	@Override
+	public boolean getUserPass(String user_pass) {
+		
+		if (udao.selectUserPw(user_pass)==null) {
+			return true;
+		}
+		else 
+		return false;
+	}
 
 
 
@@ -76,14 +85,10 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	@Override
-	public boolean getUserbyId(String user_id) {
-		// TODO Auto-generated method stub
-		if(udao.selectUserbyId(user_id) == null) {
-	         return true;
-		}   else
-	      return true;
-	   }
+
+
+
+
 	
 }
 

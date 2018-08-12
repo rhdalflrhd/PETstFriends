@@ -10,6 +10,11 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
+
+
+
+
+
 window.onload = function() {
 
 	var pwd1Check = document.getElementById("new_user_pass");
@@ -54,31 +59,32 @@ pwd2Check.addEventListener('blur', function(e) {
 <script type="text/javascript">
 
 $(document).ready(function(){
-// 	$('#user_pass').blur(function() {//비밀번호 디비랑 일치하는지 
-// 		if($('#user_pass').val()==''){
-// 			$('#pass').html('중복결과여부');
-// 			$('#user_pass').focus();
-// 		}else{
-// 		$.ajax({
-// 			type : 'get',
-// 			url : 'getUserPw.do',
-// 			dataType : 'json',
-// 			data : $('#user_nickname'),
-// 			success : function(data) {
-// 				if(data.result == true){
-// 					$('#pass').html('사용가능한 닉네임');
-// 				}
-// 				else{
-// 					$('#pass').html('닉네임 중복');
-// 					$('#user_pass').focus();
-// 				}
-// 			},
-// 			error : function(xhrReq, status, error) {
-// 				alert(error)
-// 			}
-// 		})
-// 		}
-// 	});	
+	
+
+	
+	$('#user_pass').blur(function() { //비밀번호 일치 검사
+		$.ajax({
+			method : 'GET',
+			url : 'passCheck.do',
+			data : {
+				user_pass : $('#user_pass').val()
+			},
+			success : function(result) {
+				if (result != true) {
+					$('#pass').html('비밀번호가 일치합니다.');
+				} else {
+					$('#pass').html('비밀번호가 일치하지않습니다.');
+					$(this).focus();
+				}
+			},
+			error : function(xhrReq, status, error) {
+				alert(error)
+				alert("값이 안온건가용?")
+			}
+		});
+	});
+
+
 
 	$('#user_nickname').blur(function() { //닉네임 중복 검사
 			$.ajax({
@@ -104,7 +110,7 @@ $(document).ready(function(){
 	
 
 	
-	$('#user_email').blur(function() { //닉네임 중복 검사
+	$('#user_email').blur(function() { //이메일 중복 검사
 		$.ajax({
 			method : 'GET',
 			url : 'emailCheck.do',
@@ -126,42 +132,118 @@ $(document).ready(function(){
 		});
 	});
 	
-	
+
+
+    
+    
+//     $("#auth_btn").click(function () {
+//     	var chk = -1;
+//         var authNum = "";
+        
+//         $.ajax({
+//         	method : 'GET',
+//         	url : "emailAuth.do",
+//             data : {
+            	
+//             	user_email : $('#user_email').val()
+            	
+//             },
+//             success : function (data) {
+//                 authNum = data;
+//                 alert("인증번호 전송완료.");
+                
+//                 chk = checkNum(authNum);
+                
+//                 if( chk > 0){
+//                     alert("인증완료");
+//                     chk = 1;
+//                     $("#lab1").html("인증완료");
+//                 }else{
+//                     alert("인증실패");
+//                     $("#lab1").html("인증실패");
+//                 }
+                
+//             }
+            
+//         });
+        
+//     });// 이메일 인증 버튼 end
+
 	
 });
 
 </script>
+<script type="text/javascript">
+$(function () {
+   var chk = -1;
+
+
+$("#auth_btn").click(function () {
+
+    var authNum = "";
+    
+    $.ajax({
+    	method : 'GET',
+    	url : "emailAuth.do",
+        data : {
+        	
+        	user_email : $('#user_email').val()
+        	
+        },
+        success : function (str) {
+            authNum = str;
+            alert("인증번호 전송완료.");
+            
+            chk = checkNum(authNum);
+            alert(chk);
+            
+            if( chk > 0){
+                alert("인증완료");
+                chk = 1;
+                $("#lab1").html("<label>인증완료</label>");
+            }else{
+                alert("인증실패");
+                $("#lab1").html("<label>인증실패</label>");
+            }
+            
+        }
+        
+    });
+    
+});
+});
+</script>
+
 </head>
 <body>
 
 
 
-<form action="userPetUpdate.do"  method = "post">
+<form action ="userPetUpdate.do">
 
-회원번호 <input type = "text"   name  = "user_no"  > <br>
-이름 <input type = "text"   name  = "user_name"   > <br>
-아이디<input type = "text"   name  = "user_id"  id = "user_id"" > <span id = "id"></span> <br>
+
+회원번호 <input type = "text"   name  = "user_no" id = "user_no"> <br>
+이름 <input type = "text"   name  = "user_name" id ="user_name"  > <br>
+아이디<input type = "text"   name  = "user_id"  id = "user_id"" > <br>
 닉네임<input type = "text"  id ="user_nickname"><span id = "nickname"></span><br>
-기본비번<input type = "password"   name  = "user_pass"   id ="user_pass" ><span id = "pass"></span><br>
+기본비번<input type = "password"     id ="user_pass" ><span id = "pass"></span><br>
 새비번<input type = "password"   name  = "new_user_pass"   id ="new_user_pass"><span id = "pwd1ok "></span><br>
 새비번확인<input type = "password"   name  = "new_user_pass_chk"   id ="new_user_pass_chk"><span id ="pwd2ok"></span><br>
 
-이메일<input type = "text"   name  = "user_email"   id ="user_email""><span id = "email"></span><br>
-전화번호<input type = "text"   name  = "user_phone"   "><br>
-프로필사진<input type = "text"   name  = "user_proPic"   "><br>
-나의점수 <input type = "text"   name  = "user_score"    ><br>
+이메일<input type = "text"   name  = "user_email"   id ="user_email""><span id = "email"></span><br><button type="button" id="auth_btn">인증하기</button><br>
+인증번호 : <input type="text" id="user_authNum" name="user_authNum" ><div id="lab1"></div><br>
 
-펫이름<input type = "text"  name   = "pet_name"   ><br>
-펫 종<INPUT TYPE = "text" name   = "pet_species"   ><br>
-펫 성별<INPUT TYPE = "text"  name   = "pet_gender"   ><br>
-펫 나이<INPUT TYPE = "text"  name   = "pet_age"  ><br>
-펫사진<INPUT TYPE = "text"  name   = "pet_file"   ><br>
+전화번호<input type = "text"   name  = "user_phone"   id ="user_phone"><br>
+프로필사진<input type = "text"   name  = "user_proPic" id = "user_proPic"><br>
+나의점수 <input type = "text"   name  = "user_score" id ="user_score"><br>
 
+펫이름<input type = "text"  name   = "pet_name"  id = "pet_name" ><br>
+펫 종<INPUT TYPE = "text" name   = "pet_species"  id="pet_species" ><br>
+펫 성별<INPUT TYPE = "text"  name   = "pet_gender"  id="pet_gender" ><br>
+펫 나이<INPUT TYPE = "text"  name   = "pet_age" id="pet_age" ><br>
+펫사진<INPUT TYPE = "text"  name   = "pet_file"  id="pet_file" ><br>
 
 <input type = "submit" value = "수정하기">
-
-
-
 
 
 

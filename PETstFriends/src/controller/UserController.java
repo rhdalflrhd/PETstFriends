@@ -14,7 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import dao.UserDao;
 import model.User;
 import service.UserService;
 import service.UserServiceImpl;
@@ -25,43 +32,71 @@ public class UserController {
 	
 	@Autowired
 	UserServiceImpl userService;
-	
-//	@RequestMapping("getUserId.do")   // 비번 일치하면 내정보수정폼으로감
-//	public String UserUpdateForm(	HttpSession session, Model model ) { 
-//		System.out.println("하이");
-//	 User u = new User();
-//		String user_pass = (String)session.getAttribute("user_pass");
-//      int user_no = (Integer)session.getAttribute("user_no");
-//      
-//      if (user_no == u.getUser_no() && user_pass.equals(u.getUser_pass())) {
-//    		model.addAttribute("params", userService.selectUserPet(user_no));
-//            return "myInFo_Modification";
-//	}
-//        else 
-//        	model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
-//    	 return  "myInFo_PWCheck";
-//	
-//	}
-	@RequestMapping("loginForm.do")
-	public String loginForm() {
-		return "user/loginForm";
+	@Autowired
+	private MailSender mailSender;
+	 
+	public void setMailSender(MailSender mailSender) {
+	    this.mailSender = mailSender;
 	}
-	@RequestMapping("login.do")
-	public String login(HttpSession session) {
-		String userid = (String)session.getAttribute("user_id");
-		String pss = (String)session.getAttribute("user_pass");
+	
 		
-//		if (userid.equals(userService.selectUser(userid)) || pss.equals(userService.selectUser(userid).getUser_pass())) {
-			if (userid != null) {
-			session.setAttribute("userid", userid);
-			return "user/myInFo_PWCheck";
-	}
-			else
-			return "user/myInFo_PWCheck";
-	}
+		@RequestMapping(value="/emailAuth.do" , produces="text/plain;charset=utf-8")
+		@ResponseBody
+		public String emailAuth(HttpServletRequest request) {
+		    ModelAndView mav = new ModelAndView();
+		        
+		    String user_email = request.getParameter("user_email");
+		    String authNum = "";
+		        
+		    System.out.println(user_email);
+		    authNum = randomNum();
+		    //가입승인에 사용될 인증키 난수 발생    
+		    sendEmail(user_email, authNum);
+		    //이메일전송
+		    String str = authNum;
+		    
+	        
+		    return str;
+		}
+		    
+		private String randomNum() {
+		    StringBuffer buffer = new StringBuffer();
+		        
+		    for( int i = 0 ; i <= 6 ; i++) {
+		        int n = (int)(Math.random()*10);
+		        buffer.append(n);
+		    }
+		        
+		    return buffer.toString();
+		}
+		 
+		public void sendEmail(String user_email , String authNum ) {
+		    //이메일 발송 메소드
+		    SimpleMailMessage mailMessage = new SimpleMailMessage();
+		    mailMessage.setSubject("회원가입 안내 .[이메일 제목]");
+		    mailMessage.setFrom("yoosohyun9933@gmail.com");
+		    mailMessage.setText("[이메일 내용]회원가입을 환영합니다. 인증번호를 확인해주세요. [ "+authNum+" ]");
+		    mailMessage.setTo(user_email);
+		    System.out.println(mailMessage);
+		    try {
+		        mailSender.send(mailMessage);
+		        
+		    } catch (Exception e) {
+		        System.out.println(e);
+		    }
+		}
+		
 
 
 	
+	@RequestMapping("userPwCheck.do")  
+	public String UserPwCheck(	HttpSession session, Model model ) { 
+		
+
+			return "user/myInFo_PWCheck";
+		
+		
+	}
 	
 	
 	
@@ -71,17 +106,18 @@ public class UserController {
 		String userid = (String)session.getAttribute("user_id");
 		String pass = (String)session.getAttribute("user_pass");
 		
-		if (pass !=null) {
+		if (userService.getUserPass(pass)==true) {
+			System.out.println(pass);
 			HashMap<String, Object> params = userService.selectUserPet(userid);
 		model.addAttribute("params", userService.selectUserPet(userid) );
 			return "user/myInFo_Modification";
 		}
 		else 
-		return "user/myInFo_Modification";
+		return "user/myInFo_PWCheck";
 		
 	}
 	
-	@RequestMapping(value="/nicknameCheck.do")
+	@RequestMapping(value="/nicknameCheck.do")    // 닉네임 중복검사 
 	@ResponseBody
 	public boolean getUserNn(HttpServletRequest req, HttpServletResponse resp) {
 		
@@ -110,11 +146,25 @@ public class UserController {
 		return result;
 		
 	}
+
+	@RequestMapping(value = "/passCheck.do")
+	@ResponseBody                                                        // 비밀번호 일치 검사 
+	public boolean getUserPw(HttpServletRequest req, HttpServletResponse resp)  {
+		resp.setContentType("text/html; charset=UTF-8");
+		String user_pass= req.getParameter("user_pass");
+//		System.out.println(user_nickname);
+		
+		boolean result = userService.getUserPass(user_pass);
+//		System.out.println(result);
+		user_pass = req.getParameter("user_pass");
+//		System.out.println(user_nickname);
+		return result;
+		
+	}
 	
 	
 	
-	
-	@RequestMapping("userPetUpdate.do")  // 내정보수정에서 수정하기 누르면 업데이트!
+	@RequestMapping("userPetUpdate.do")    // 내정보수정에서 수정하기 누르면 업데이트!
 	public String updateUserPet(@RequestParam HashMap<String, Object> params, HttpSession session, Model model) {
 
 		if(params != null) {

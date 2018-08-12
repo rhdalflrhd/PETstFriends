@@ -36,6 +36,11 @@ select * from User u , Pet p where u.user_id = p.user_id and u.user_id = #{user_
 		select user_nickname from User where user_nickname = #{user_nickname}
 	</select>
 
+
+	<select id="selectUserPw" parameterType="String" resultType="User">
+		select user_pass from User where user_pass = #{user_pass}
+	</select>
+
 	<select id="selectUserEmail" parameterType="String" resultType="User">
 select user_email from User where user_email = #{user_email}
 	</select>

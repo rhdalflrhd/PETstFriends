@@ -17,8 +17,9 @@ public interface UserService {
 	public HashMap<String, Object> infoForUpdate(int user_no);
 	public boolean getUserNn(String user_nickname);
 	public boolean getUserEmail(String user_email);
+	public boolean getUserPass(String user_pass);
 	public User selectUser(String user_id);
-	 public boolean getUserbyId(String user_id);
+	
 	
 	
 }

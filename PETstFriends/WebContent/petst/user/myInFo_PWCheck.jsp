@@ -10,22 +10,22 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-$(document).ready(function (){
 
-	
-});
 
 
 </script>
 
 </head>
 <body>
+<!-- <form name="getUserId" id="getUserId"> -->
+<form action ="getUserId.do">
 
-<form action = "getUserId.do" method = "post">
 <input type = "password"   name  = "user_pass"  id = "user_pass">
-<input type = "submit" value = "확인" id = "btn">
+<input type = "submit" value = "확인">
+
 
 </form>
+
 
 
 </body>

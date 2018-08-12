@@ -13,7 +13,7 @@ public interface UserDao {
 	
 	
 	public User selectUserbyId(String user_id);
-
+public User selectUserPw(String user_pass);
 	
 	public User selectUserNn(String user_nickname);
 public User selectUserEmail(String user_email);
