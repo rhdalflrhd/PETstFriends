@@ -9,6 +9,10 @@
 <body>
 <br>
 	<br>
-<div style="text-align:center"><a href="${url}">NaverIdLogin</a></div>
+<!-- 	네이버로그인 -->
+<a href="${url}">
+<img src="img/naverid_login_button.png" width="200" height="50" border="0" align="middle">
+</a>
+
 </body>
 </html>
