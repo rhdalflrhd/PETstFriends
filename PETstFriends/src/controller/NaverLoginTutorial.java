@@ -70,7 +70,8 @@ public class NaverLoginTutorial {
 		if(userService.getUserbyId(user_id)) {//유저 아이디가 없으면 true, 회원가입창으로 
 			return "redirect:/terms_use.do";
 		}
-		return "naverLogin/callback";
+		session.setAttribute("user_id", naverUser.getId());
+		return "redirect:/main.do";
 	}
     
     
@@ -92,5 +93,6 @@ public class NaverLoginTutorial {
 		user.setUser_proPic(naverUser.getProfileImage());
 		params.put("user", user);
 		userService.joinUser(params);
+		session.setAttribute("user_id", naverUser.getId());
 	}
 }

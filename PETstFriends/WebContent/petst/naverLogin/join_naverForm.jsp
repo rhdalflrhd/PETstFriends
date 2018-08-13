@@ -146,6 +146,7 @@ h, td, tr, input, select, FORM {
 				},
 				success : function(data) {
 					alert('성공');
+					window.location.href = "main.jsp";
 				},
 				error : function(xhrReq, status, error) {
 					alert(error)
@@ -157,6 +158,7 @@ h, td, tr, input, select, FORM {
 </head>
 <body>
 	<center>
+	<header id="header">
 		<h1>회원가입</h1>
 		<form name="joinForm" id="joinForm">
 			*는 필수 입력 칸입니다.
@@ -223,6 +225,7 @@ h, td, tr, input, select, FORM {
 			<button onclick="location.href='login.do'">취소</button>
 			<button id="joinBtn">가입하기</button>
 		</form>
+		</header>
 	</center>
 </body>
 </html>

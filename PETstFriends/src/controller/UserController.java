@@ -41,6 +41,10 @@ public class UserController {
     	return "naverLogin/terms_use"; 		
     }
 
+	@RequestMapping("/main.do") //회원 동의약관
+    public String termsUse() {
+    	return "main"; 		
+    }
 }
 
 	
