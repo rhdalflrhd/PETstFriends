@@ -70,7 +70,7 @@ public class TipBoardController {
 		System.out.println("토끼 백과사전 요청!");
 //		model.addAttribute("RabbitEncycList1", EncycService.searchEncyc("토끼목 토끼과의 포유류", 30, 2));
 		model.addAttribute("RabbitEncycList1", EncycService.searchEncyc("토끼목 토끼과의 포유류", 91, 2));
-//		model.addAttribute("RabbitEncycList2", EncycService.searchEncyc("토끼목 토끼과의 포유류", 100, 101));
+		model.addAttribute("RabbitEncycList2", EncycService.searchEncyc("토끼목 토끼과의 포유류", 100, 101));
 //		model.addAttribute("RabbitEncycList2", EncycService.searchEncyc("+토끼목 +토끼과 -향토문화전자대전 -반달가슴곰 -금강산동물상의일반적특징 -한국민족문화대백과", 100, 100));	
 //		model.addAttribute("RabbitEncycList2", EncycService.searchEncyc("토끼목의 토끼과 -한국민족문화대백과 -향토문화전자대전 -사냥의방법과도구", 100, 100));	
 //		model.addAttribute("RabbitEncycList2", EncycService.searchEncyc("토끼목의 토끼과 -사냥의방법과도구 -한국민족문화대백과 -향토문화전자대전 -토끼기르기-위키백과", 100, 1));		
