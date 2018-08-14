@@ -54,7 +54,7 @@ pwd1Check.addEventListener('blur', function(e) {
 	 else pwd1ok.innerHTML = "사용가능합니다.";
 });
 
-
+//ddd
 var pwd2Check = document.getElementById("new_user_pass_chk");
 var pwd2ok = document.getElementById("pwd2ok");
 pwd2Check.addEventListener('blur', function(e) {
