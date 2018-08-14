@@ -12,7 +12,7 @@
     <!-- favicon icon -->
     <link rel="shortcut icon" href="./Boot/images/favicon.png">
     
-	<title>강아지종정보!</title>
+	<title>강아지종정보</title>
 	   
 	    <!-- common css -->
     <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
