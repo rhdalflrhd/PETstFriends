@@ -166,8 +166,8 @@ th, td {
         <div class="portfolio"><!--begin portfolio items-->
 		<c:forEach items="${RabbitEncycList1 }" var="e" varStatus="i">
             <div class="portfolio-item" style=" width: 260px; height: 260px; border: 1px #F2F2F2 solid;">          
-            <c:if test="${empty e.encyc_thumbnail}">
-			<font color="#F2F2F2" style="font-family: Georgia;">No-image</font></c:if>
+            <c:if test="${empty e.encyc_thumbnail}"><h1>
+			<font color="#F2F2F2" style="font-family: Georgia;">No-image</font></h1></c:if>
 			<c:if test="${not empty e.encyc_thumbnail}">
 			<img src="${e.encyc_thumbnail}"></c:if>
                <h4><font color="grey" style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font></h4>
@@ -175,12 +175,31 @@ th, td {
                     <div class="portfolio-text">
 <%--                    <h4>${i.count}. ${e.encyc_title}</h4> --%>
 <%--                    <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+(window.screen.height-700/2)+',left='+(window.screen.width-700/2));">click</a>                   --%>
-                   <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no,left=800 ');">click</a>  
+<%--                    <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no,left=800 ');">click</a>   --%>
+                   <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>  
                     </div>
                 </div>
 
-            </div>
-        </c:forEach>   
+            </div>     
+        </c:forEach>
+        		<c:forEach items="${RabbitEncycList2 }" var="e" varStatus="i">
+            <div class="portfolio-item" style=" width: 260px; height: 260px; border: 1px #F2F2F2 solid;">          
+            <c:if test="${empty e.encyc_thumbnail}"><h1>
+			<font color="#F2F2F2" style="font-family: Georgia;">No-image</font></h1></c:if>
+			<c:if test="${not empty e.encyc_thumbnail}">
+			<img src="${e.encyc_thumbnail}"></c:if>
+               <h4><font color="grey" style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font></h4>
+                <div class="img-overlay">
+                    <div class="portfolio-text">
+<%--                    <h4>${i.count}. ${e.encyc_title}</h4> --%>
+<%--                    <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+(window.screen.height-700/2)+',left='+(window.screen.width-700/2));">click</a>                   --%>
+<%--                    <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no,left=800 ');">click</a>   --%>
+                   <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>  
+                    </div>
+                </div>
+
+            </div>     
+        </c:forEach>     
         </div><!--End portfolio item-->
         
         

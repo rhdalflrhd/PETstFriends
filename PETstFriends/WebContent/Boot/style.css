@@ -47,7 +47,7 @@ Table of contents
 --------------------------------------*/
 
 body {
-    background: url("./Boot/images/pattern/symphony.png");
+    background: url("images/pattern/symphony.png");
     font-family: 'Merriweather', serif;
     color: #444444;
     font-size: 14px;
@@ -164,13 +164,13 @@ h6 {
 
 .btn-subscribe {
     width: 100%;
-    background-color: #60c7eb;
+    background-color: #FFD232;
     color: #fff;
     font-weight: 700;
 }
 
 .btn-subscribe:hover {
-    background-color: #2DACD8;
+    background-color: #FFD232;
     color: #ffffff;
 }
 
@@ -251,7 +251,7 @@ h6 {
 }
 
 .main-menu li:hover > a:before {
-    background: #60c7eb;
+    background: #FFD232;
     left: 0;
     right: 0;
 }
@@ -259,7 +259,7 @@ h6 {
 .main-menu li.current-menu-item > a,
 .main-menu li.current_page_item > a,
 .main-menu li a:hover {
-    color: #60c7eb;
+    color: ##FFD232;
 }
 
 .main-menu ul ul ul li:first-child a {
@@ -274,7 +274,7 @@ h6 {
 
 .main-menu ul ul a:hover,
 .main-menu ul ul ul a:hover {
-    color: #60c7eb;
+    color: ##FFD232;
 }
 
 .main-menu ul li:hover > ul,
@@ -1406,7 +1406,7 @@ a.send-btn:hover {
     color: #888888;
     text-transform: capitalize;
     padding: 0 15px;
-    background: url(./Boot/images/menu-sapa.png) no-repeat right;
+    background: url(images/menu-sapa.png) no-repeat right;
 }
 
 .portfolio-name a:last-child {
@@ -1421,6 +1421,7 @@ a.send-btn:hover {
     padding-left: 8px;
     padding-top: 30px;
     text-align: center;
+    background-color: white; 
 /*     width: 260px; */
 /*     height: 260px; */
 }
