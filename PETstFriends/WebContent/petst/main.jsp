@@ -4,137 +4,149 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="keywords" content=" ">
-<meta name="author" content="ShapedTheme">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content=" ">
+    <meta name="author" content="ShapedTheme">
 
-<!-- favicon icon -->
-<link rel="shortcut icon" href="assets/images/favicon.png">
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="assets/images/favicon.png">
 
-<title>Main</title>
+    <title>Main</title>
 
-<!-- common css -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/animate.min.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.css">
-<link rel="stylesheet" href="assets/css/owl.theme.css">
-<link rel="stylesheet" href="assets/css/owl.transitions.css">
-<link rel="stylesheet" href="assets/css/slicknav.css">
-<!-- <link rel="stylesheet" href="style.css"> -->
-<link rel="stylesheet" href="assets/css/responsive.css">
+    <!-- common css -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.css">
+    <link rel="stylesheet" href="assets/css/owl.transitions.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
 
 
-<!-- HTML5 shim and Respond.js IE9 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
+    <!-- HTML5 shim and Respond.js IE9 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>
     <script src="assets/js/respond.js"></script>
     <![endif]-->
 
-
 </head>
-
 <body>
-<jsp:include page="header.jsp"></jsp:include>
-<!--slider section start-->
-		<div class="slider-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="home-carousel">
-							<div class="home-slider">
-								<img src="assets/images/home-slider.jpg" alt="">
+<%@ include file="/petst/header.jsp" %>
+<div class="wrapper">
 
-								<div class="home-overlay text-center">
-									<p>November 21, 2015 | Lifestyle</p>
+    <!--slider section start-->
+    <div class="slider-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="home-carousel">
+                        <div class="home-slider">
+                            <img src="assets/images/PETstFriends.jpg" alt="">
 
-									<h2>A Theme Beyond Your Imagination</h2>
-									<a href="#" class="btn read-more text-uppercase">Read More</a>
-								</div>
-							</div>
-							<div class="home-slider">
-								<img src="assets/images/home-2.jpg" alt="">
+                        </div>
+                        <div class="home-slider">
+                            <img src="assets/images/home-2.jpg" alt="">
 
-								<div class="home-overlay text-center">
-									<p>November 21, 2015 | Lifestyle</p>
+                            <div class="home-overlay text-center">
+                                <p>November 21, 2015 | Lifestyle</p>
 
-									<h2>A Theme Beyond Your Imagination</h2>
-									<a href="#" class="btn read-more text-uppercase">Read More</a>
-								</div>
-							</div>
-							<div class="home-slider">
-								<img src="assets/images/home-3.jpg" alt="">
+                                <h2>
+                                    A Theme Beyond Your Imagination
+                                </h2>
+                                <a href="#" class="btn read-more text-uppercase">Read More</a>
+                            </div>
+                        </div>
+                        <div class="home-slider">
+                            <img src="assets/images/home-3.jpg" alt="">
 
-								<div class="home-overlay text-center">
-									<p>November 21, 2015 | Lifestyle</p>
+                            <div class="home-overlay text-center">
+                                <p>November 21, 2015 | Lifestyle</p>
 
-									<h2>A Theme Beyond Your Imagination</h2>
-									<a href="#" class="btn read-more text-uppercase">Read More</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--slider section end-->
-<!--promo box start-->
-		<div class="promo-box text-uppercase text-center">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="single-promo-box">
-							<a href="about-us-1.html"> <img
-								src="assets/images/promo-box.png" alt="">
-
-								<div class="overlay">
-
-									<h3 class="promo-title">
-										<span>About Us</span>
-									</h3>
-								</div>
+                                <h2>
+                                    A Theme Beyond Your Imagination
+                                </h2>
+                                <a href="#" class="btn read-more text-uppercase">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--slider section end-->
 
 
-							</a>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="single-promo-box">
-							<a href="portfolio.html"> <img
-								src="assets/images/promo-box.png" alt="">
+    <!--promo box start-->
+    <div class="promo-box text-uppercase text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-promo-box">
+                        <a href="about-us-1.html">
+                            <img src="assets/images/promo-box.png" alt="">
 
-								<div class="overlay">
+                            <div class="overlay">
 
-									<h3 class="promo-title">
-										<span>portfolio</span>
-									</h3>
-								</div>
-
-
-							</a>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="single-promo-box">
-							<a href="portfolio.html"> <img
-								src="assets/images/promo-box.png" alt="">
-
-								<div class="overlay">
-
-									<h3 class="promo-title">
-										<span>Lifestyle</span>
-									</h3>
-								</div>
+                                <h3 class="promo-title"><span>About Us</span></h3>
+                            </div>
 
 
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--promo box end-->
-		<jsp:include page="footer.jsp"></jsp:include>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-promo-box">
+                        <a href="portfolio.html">
+                            <img src="assets/images/promo-box.png" alt="">
+
+                            <div class="overlay">
+
+                                <h3 class="promo-title"><span>portfolio</span></h3>
+                            </div>
+
+
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-promo-box">
+                        <a href="portfolio.html">
+                            <img src="assets/images/promo-box.png" alt="">
+
+                            <div class="overlay">
+
+                                <h3 class="promo-title"><span>Lifestyle</span></h3>
+                            </div>
+
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--promo box end-->
+<%@ include file="/petst/footer.jsp" %>
+  
+
+</div>
+
+<!-- js files -->
+
+<script type="text/javascript" src="assets/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/smoothscroll.js"></script>
+<script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="assets/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="assets/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="assets/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="assets/js/scripts.js"></script>
+
 </body>
 </html>

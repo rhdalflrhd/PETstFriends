@@ -142,7 +142,7 @@ h, td, tr, input, select, FORM {
 					"jsonData" : JSON.stringify(petArr),
 					"user_nickname" : $('#user_nickname').val(),
 					"user_phone" : $('#user_phone').val(),
-					"user_havePet" : $('.user_havePet').val()
+					"user_havePet" : $('.user_havePet :checked').val()
 				},
 				success : function(data) {
 					alert('성공');

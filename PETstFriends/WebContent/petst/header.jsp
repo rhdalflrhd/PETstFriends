@@ -3,30 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="keywords" content=" ">
-<meta name="author" content="ShapedTheme">
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content=" ">
+    <meta name="author" content="ShapedTheme">
 
 <!-- favicon icon -->
-
-<title>header</title>
-<!-- common css -->
-<link rel="stylesheet" type="text/css"
-	href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="assets/css/animate.min.css">
-<link rel="stylesheet" type="text/css"
-	href="assets/css/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="assets/css/owl.theme.css">
-<link rel="stylesheet" type="text/css"
-	href="assets/css/owl.transitions.css">
-<link rel="stylesheet" type="text/css" href="assets/css/slicknav.css">
-<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+   <link rel="shortcut icon" href="assets/images/favicon.png">
+<title>header</title><!-- common css -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.css">
+    <link rel="stylesheet" href="assets/css/owl.transitions.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
 
 </head>
 <body>
@@ -70,7 +66,6 @@
 			<a href="#"><img src="assets/images/PetLogo.png" style=""></a>
 		</h1>
 	</div>
-	<div id="demo2" style="background-color: white">
 
 		<div class="container">
 
@@ -79,7 +74,7 @@
 					<div class="main-menu text-uppercase">
 						<ul id="menu">
 
-							<li><a href="index.html">HOME</a></li>
+							<li><a href="index.html">첫 화면으로</a></li>
 							<li class="menu-item-has-children"><a href="#">펫프 모여라 </a></li>
 							<li class="menu-item-has-children"><a href="#">펫프 광장 <i
 									class="fa fa-angle-down"></i>
@@ -158,6 +153,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html>

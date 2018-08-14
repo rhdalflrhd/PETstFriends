@@ -1,5 +1,13 @@
 package dao;
 
-public interface PlaceReviewDao {
+import java.util.HashMap;
+import java.util.List;
 
+import model.Place;
+
+public interface PlaceReviewDao {
+	public List<Place> selectReviewAll(HashMap<String, Object> params);
+	public int insertPlaceReview(Place place);
+	public int deletePlaceReview(int place_no);
+	public int updatePlaceReview(Place place);
 }
