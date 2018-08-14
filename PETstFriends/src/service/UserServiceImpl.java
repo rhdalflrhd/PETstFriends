@@ -59,7 +59,8 @@ public class UserServiceImpl implements UserService {
 			user.setUser_pan_date(strDate);
 			user.setUser_state(0); //0=정상 1=정지
 
-			Integer.parseInt((String) params.get("user_havePet"));
+			
+			user.setUser_havePet(Integer.parseInt((String) params.get("user_havePet")));
 			
 //			user.setUser_havePet(0);
 //			System.out.println(user.getUser_name());
@@ -71,10 +72,12 @@ public class UserServiceImpl implements UserService {
 			//pet
 			if(user.getUser_havePet() == 1) {
 			Pet pet = new Pet();
+			pet.setUser_id((String) params.get("user_id"));
 			pet.setPet_name((String) params.get("pet_name"));
-			pet.setPet_species((String) params.get("pet_species"));
-			pet.setPet_gender((int) params.get("pet_gender"));
-			pet.setPet_age((int) params.get("pet_age"));
+			pet.setPet_species(Integer.parseInt((String) params.get("pet_species")));
+			pet.setPet_gender(Integer.parseInt((String) params.get("pet_gender")));
+			pet.setPet_age(Integer.parseInt((String) params.get("pet_age")));
+			pet.setPet_file((String) params.get("pet_file"));
 			uDao.insertPet(pet);
 			
 			}

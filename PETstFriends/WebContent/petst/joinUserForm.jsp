@@ -55,7 +55,6 @@ $(document).ready(function() {
 			$(this).focus();
 		}
 		else{
-
 		
 		$.ajax({
 			method : 'GET',
@@ -78,7 +77,6 @@ $(document).ready(function() {
 		}
 	});//닉넴
 	//-------------------------------------------------------------------
-
 	
 	//-----------------------------------------------------------------
 	
@@ -162,14 +160,11 @@ $(document).ready(function() {
 	});//pass
 	
 	//----------------------------------------------------------------------
-
 	//비번 일치 불일치
-
 	$(function() {
 		$('#user_pass').blur(function() {
 			$('font[name=user_pwcheck]').text('');
 		}); //#user_pass.keyup
-
 		$('#user_pass2').blur(function() {
 			if ($('#user_pass').val() != $('#user_pass2').val()) {
 				$('font[name=user_pwcheck]').text('');
@@ -181,8 +176,6 @@ $(document).ready(function() {
 		});
 	});
 	
-
-
 //-----------------------------------------------------------------------------------
 //이멜 정규식
 $('#user_email').blur(function() {
@@ -203,10 +196,8 @@ $('#user_email').blur(function() {
 	}
 	
 }); //이멜
-
 //-----------------------------------------------------------------------------------
 //프사
-
 	
 //------------------------------------------------------------------------------------
 $(function () {
@@ -249,10 +240,8 @@ $(function () {
 	//---------------------------------------------------------------------
 	
 	//회원가입 버튼
-
 	
 	$('#joinBtn').on("click",function(){
-
 		$.ajax({
 			type:"GET",
 			url:"joinUser.do",
@@ -263,14 +252,14 @@ $(function () {
 			"user_nickname":$('#user_nickname').val(),
 			"user_email":$('#user_email').val(),
 			"user_phone":$('#user_phone').val(),
-			"user_havePet":$('.user_havePet').val(),
+			"user_havePet":$('.user_havePet:checked').val(),
 			"user_contentPic":$('#user_contentPic').val()
 			},
-			datatype:"text",
+// 			datatype:"text",
 			success: function(data){
-				alert("ddd")
+				alert("dddㄴㄴㄴ좀와라,,")
 				alert("가입성공");
-				window.location.href="loginForm.do";
+// 				window.location.href="loginForm.do";
 			},
 			error:function(xhrReq, status, error){
 				alert(error);

@@ -63,7 +63,9 @@ public class UserController {
 	@RequestMapping("joinUserForm.do")
 	public String joinForm(Model model, @RequestParam(required = false) String msg) {
 	
+		System.out.println("조인유저폼.두");
 		return "joinUserForm";
+	
 	}
 
 	@RequestMapping(value = "joinUser.do", method = RequestMethod.GET)
@@ -71,6 +73,7 @@ public class UserController {
 	public void join(@RequestParam HashMap<String, Object> params, Model model) {
 
 		userService.joinUser(params);
+		System.out.println("조인유저.두");
 	
 	
 	}
