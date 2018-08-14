@@ -47,7 +47,7 @@ Table of contents
 --------------------------------------*/
 
 body {
-    background: url("assets/images/pattern/symphony.png");
+    background: url("./Boot/images/pattern/symphony.png");
     font-family: 'Merriweather', serif;
     color: #444444;
     font-size: 14px;
@@ -1406,7 +1406,7 @@ a.send-btn:hover {
     color: #888888;
     text-transform: capitalize;
     padding: 0 15px;
-    background: url(assets/images/menu-sapa.png) no-repeat right;
+    background: url(./Boot/images/menu-sapa.png) no-repeat right;
 }
 
 .portfolio-name a:last-child {
