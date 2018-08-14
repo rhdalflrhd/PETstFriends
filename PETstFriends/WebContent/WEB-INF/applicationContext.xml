@@ -42,6 +42,7 @@
 
 
 
+
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="SqlSessionFactory">
 		<property name="mapperLocations" value="classpath:dao/mapper/*.xml"></property>
 		<property name="typeAliasesPackage" value="model"></property>

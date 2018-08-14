@@ -1,9 +1,10 @@
 package service;
 
 
-import java.sql.Date;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -33,43 +34,52 @@ public class UserServiceImpl implements UserService {
 		//user
 		String user_id = (String) params.get("user_id");
 		
-		String user_pw = (String) params.get("user_pw");
-		String user_pwc = (String) params.get("user_pwc");
+		String user_pass = (String) params.get("user_pass");
 	
 		User user = new User();
 		
 			user.setUser_id(user_id);
-			user.setUser_name((String) params.get("user_name"));
+		user.setUser_name((String)params.get("user_name"));
 			user.setUser_nickname((String) params.get("user_nickname"));
 			user.setUser_email((String) params.get("user_email"));
 			user.setUser_phone((String) params.get("user_phone"));
 			user.setUser_phone((String) params.get("user_proPic"));
-			user.setUser_pass(user_pw);
-			Date date = new Date(new java.util.Date().getDate());
-			user.setUser_joinDate(date);
+			user.setUser_pass(user_pass);
+			
+			SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+			
+			user.setUser_joinDate(sim.format(new Date()));
 			user.setUser_adminCheck(0); //0=일반 1=관리자
 			user.setUser_score(0);  //회원가입하자마자 점수는 0점 
 			Calendar cal = new GregorianCalendar(Locale.KOREA);
 			cal.setTime(new java.util.Date());
 			cal.add(Calendar.DAY_OF_YEAR, -1);
-			SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+			
 			String strDate = sim.format(cal.getTime());
 			user.setUser_pan_date(strDate);
 			user.setUser_state(0); //0=정상 1=정지
 
-//			System.out.println(params.get("user_havePet"));
 			Integer.parseInt((String) params.get("user_havePet"));
 			
 //			user.setUser_havePet(0);
-			
-			uDao.insertUser(user);
+//			System.out.println(user.getUser_name());
+			try {
+				uDao.insertUser(user);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return false;
+			}finally {
+				
+			}
+
 			
 			//pet
 			if(user.getUser_havePet() == 1) {
 			Pet pet = new Pet();
 			pet.setPet_name((String) params.get("pet_name"));
 			pet.setPet_species((String) params.get("pet_species"));
-			pet.setPet_gender(pet.isPet_gender());
+			pet.setPet_gender((int) params.get("pet_gender"));
 			pet.setPet_age((int) params.get("pet_age"));
 			uDao.insertPet(pet);
 			
@@ -88,6 +98,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	
 	public User getUserFindbyId(String user_name, String user_email) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> param = new HashMap<String, Object>();
@@ -116,7 +127,7 @@ public class UserServiceImpl implements UserService {
 		if(uDao.selectUserbyId(user_id) == null)
 			return true;
 		else
-		return true;
+		return false;
 	}
 
 

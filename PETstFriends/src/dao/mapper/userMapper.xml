@@ -16,7 +16,7 @@ insert into user values(
 
 <insert id="insertPet" parameterType="pet">
 insert into pet values(
-0,#{pet_no},#{pet_name},#{pet_species},
+#{user_id},#{pet_no},#{pet_name},#{pet_species},
 #{pet_gender},#{user_age}, #{user_file}
 );
 </insert>

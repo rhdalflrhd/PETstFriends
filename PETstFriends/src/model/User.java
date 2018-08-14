@@ -11,7 +11,7 @@ public class User {
 	private String user_phone;
 	private String user_proPic;
 	private int user_score;
-	private Date user_joinDate;
+	private String user_joinDate;
 	private int user_adminCheck;
 	private int user_state;
 	private String user_pan_date;
@@ -65,10 +65,10 @@ public class User {
 	public void setUser_score(int user_score) {
 		this.user_score = user_score;
 	}
-	public Date getUser_joinDate() {
+	public String getUser_joinDate() {
 		return user_joinDate;
 	}
-	public void setUser_joinDate(Date user_joinDate) {
+	public void setUser_joinDate(String user_joinDate) {
 		this.user_joinDate = user_joinDate;
 	}
 

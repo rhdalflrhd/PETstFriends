@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import dao.UserDao;
+import model.User;
 import service.UserServiceImpl;
 
 @Controller
@@ -42,7 +44,6 @@ public class UserController {
 		resp.setContentType("text/html; charset=UTF-8");
 		String user_id = req.getParameter("user_id");
 		boolean result = userService.getUserbyId(user_id);
-		user_id = req.getParameter("user_id");
 		return result;
 	}
 	
@@ -52,9 +53,9 @@ public class UserController {
 		
 		resp.setContentType("text/html; charset=UTF-8");
 		String user_nickname = req.getParameter("user_nickname");
-		System.out.println("ddd");
+//		System.out.println("ddd");
 		boolean result1 = userService.getUserbyNn(user_nickname);
-		user_nickname = req.getParameter("user_nickname");
+		
 		return result1;
 	}
 	
@@ -64,16 +65,19 @@ public class UserController {
 	public String joinForm(Model model, @RequestParam(required = false) String msg) {
 		if (msg != null)
 			model.addAttribute("msg", msg);
-		System.out.println("tes1");
+//		System.out.println("tes1");
 		return "joinUserForm";
 	}
 
-	@RequestMapping(value = "joinUser.do", method = RequestMethod.POST)
+	@RequestMapping(value = "joinUser.do", method = RequestMethod.GET)
 	public String join(@RequestParam HashMap<String, Object> params, Model model) {
-		System.out.println("dddjo");
+
+		System.out.println("usercontroller-75");
+		System.out.println("usercontroller-76");
 		if (userService.joinUser(params)) {
 			return "redirect:loginForm.do";
 		} else {
+			System.out.println("usercontroller-79");
 			model.addAttribute("msg", "가입실패");
 			return "redirect:joinUserForm.do";
 		}
@@ -147,7 +151,7 @@ public class UserController {
 			return result;
 			
 		}
-		
+
 	
 	
 	
