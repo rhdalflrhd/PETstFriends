@@ -63,15 +63,9 @@ public class UserServiceImpl implements UserService {
 			
 //			user.setUser_havePet(0);
 //			System.out.println(user.getUser_name());
-			try {
+
 				uDao.insertUser(user);
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-				return false;
-			}finally {
-				
-			}
+		
 
 			
 			//pet
@@ -138,7 +132,7 @@ public class UserServiceImpl implements UserService {
 		if(uDao.selectUserbyNn(user_nickname) == null)
 			return true;
 		else
-		return true;
+		return false;
 		
 	}
 

@@ -251,9 +251,8 @@ $(function () {
 	//회원가입 버튼
 
 	
-	$('#joinBtn').off().bind("click",function(){
+	$('#joinBtn').on("click",function(){
 
-		alert($('.user_havePet').val())
 		$.ajax({
 			type:"GET",
 			url:"joinUser.do",
@@ -267,17 +266,16 @@ $(function () {
 			"user_havePet":$('.user_havePet').val(),
 			"user_contentPic":$('#user_contentPic').val()
 			},
-			datatype:"json",
-			success: function(result){
-				if(result.result==true){
-					alert("가입성공");
-
-				}				
+			datatype:"text",
+			success: function(data){
+				alert("ddd")
+				alert("가입성공");
+				window.location.href="loginForm.do";
 			},
-			error:function(){
+			error:function(xhrReq, status, error){
+				alert(error);
 				alert("가입실패");
 			}
-
 		})//ajax
 	})//joinbtn
 	
@@ -297,7 +295,7 @@ $(function () {
 		<h1>
 			<b><font color="gray">회원가입</font></b>
 		</h1>
-		<form action="joinUser.do" id="joinUser">
+		<form id="joinUser">
 		*는 필수 입력 칸 입니다.
 
 			<b><font color="gray">${msg }</font></b>

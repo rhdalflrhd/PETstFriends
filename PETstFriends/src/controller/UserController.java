@@ -53,7 +53,6 @@ public class UserController {
 		
 		resp.setContentType("text/html; charset=UTF-8");
 		String user_nickname = req.getParameter("user_nickname");
-//		System.out.println("ddd");
 		boolean result1 = userService.getUserbyNn(user_nickname);
 		
 		return result1;
@@ -63,25 +62,17 @@ public class UserController {
 
 	@RequestMapping("joinUserForm.do")
 	public String joinForm(Model model, @RequestParam(required = false) String msg) {
-		if (msg != null)
-			model.addAttribute("msg", msg);
-//		System.out.println("tes1");
+	
 		return "joinUserForm";
 	}
 
 	@RequestMapping(value = "joinUser.do", method = RequestMethod.GET)
-	public String join(@RequestParam HashMap<String, Object> params, Model model) {
+	@ResponseBody
+	public void join(@RequestParam HashMap<String, Object> params, Model model) {
 
-		System.out.println("usercontroller-75");
-		System.out.println("usercontroller-76");
-		if (userService.joinUser(params)) {
-			return "redirect:loginForm.do";
-		} else {
-			System.out.println("usercontroller-79");
-			model.addAttribute("msg", "가입실패");
-			return "redirect:joinUserForm.do";
-		}
-
+		userService.joinUser(params);
+	
+	
 	}
 
 	//----------------------------------------------------------------------
