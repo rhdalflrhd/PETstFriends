@@ -1,6 +1,7 @@
 package service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,16 +62,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User selectUser(String user_id) {
+	public HashMap<String, Object>selectUser(String user_id) {
 		// TODO Auto-generated method stub
 		return udao.selectOne(user_id);
 	}
 
 	@Override
-	public boolean updateUserPet(HashMap<String, Object> params) {
+	public boolean updateUser(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
 	if (params != null) {
-		udao.updateUserPet(params);
+		udao.updateUser(params);
 		return true;
 	}
 	else
@@ -83,6 +84,11 @@ public class UserServiceImpl implements UserService {
 		
 		udao.deleteUserPet(user_id);
 		
+	}
+
+	@Override
+	public HashMap<String, Object> selectPetAll(String user_id) {
+		return udao.selectPetAll(user_id);
 	}
 
 

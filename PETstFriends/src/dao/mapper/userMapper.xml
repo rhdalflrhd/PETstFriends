@@ -5,22 +5,29 @@
 
 <mapper namespace="dao.UserDao">
 	
-		<select id="selectOne" parameterType="String" resultType="User">
+		<select id="selectOne" parameterType="String" resultType="java.util.HashMap">
 select * from User where user_id = #{user_id}
 	</select>
 		
-<select id="selectUserbyId" parameterType="String" resultType="User">
-select * from user where user_id = #{user_id}
+<select id="selectPetAll" parameterType="String" resultType="java.util.HashMap">
+select * from Pet where user_id = #{user_id}
 </select>
 
 
-	<update id="updateUserPet" parameterType="java.util.HashMap" >
-	update User u INNER JOIN Pet p on u.user_id = p.user_id set  u.user_name = #{user_name}, u.user_nickname = #{user_nickname}, 
-	u.user_pass = #{user_pass} , u.user_email = #{user_email} , u.user_phone = #{user_phone}, 
-	u.user_proPic = #{user_proPic}, u.user_score = #{user_score}, p.pet_name = #{pet_name}, p.pet_species = #{pet_species},
-	p. pet_gender = #{pet_gender}, p.pet_age = #{pet_age}, p.pet_file = #{pet_file} where u.user_id = p.user_id and u.user_id = #{user_id}
+<insert id="insertPet" parameterType="java.util.HashMap">
+insert into Pet values(user_id = #{user_id} ,0,pet_name = #{pet_name},pet_species =#{pet_species},pet_gender=#{pet_gender},pet_age =#{pet_age},pet_file=#{pet_file});
+</insert>
+
+	<update id="updateUser" parameterType="java.util.HashMap" >
+update User set  user_no = #{user_no} , user_name = #{user_name},user_nickname = #{user_nickname}, user_pass = #{user_pass} , user_email = #{user_email} ,user_phone = #{user_phone}, 
+ user_proPic = #{user_proPic}, user_score = #{user_score} where user_id = #{user_id}
 	</update>
 	
+	<update id="updatePet" parameterType="java.util.HashMap" >
+update Pet set pet_name = #{pet_name}, pet_species = #{pet_species},pet_gender = #{pet_gender}, pet_age = #{pet_age},pet_file = #{pet_file} 
+where user_id = #{user_id}
+	</update>
+
 
 
 	<delete id="deleteUserPet" parameterType="String">
