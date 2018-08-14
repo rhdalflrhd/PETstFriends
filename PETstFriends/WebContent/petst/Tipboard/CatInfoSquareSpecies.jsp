@@ -55,7 +55,7 @@ h2 {
 <body>
 	<center>
 		<font color="grey" style="font-family: Georgia; font-weight: bold;">
-			<h1>고양이 종정보 페이지</h1>
+			<h1>고양이 종정보 페이지!</h1>
 			<table cellspacing="0">
 				<tr bgcolor="#7B68EE" style="color: white;">
 					<th>타이틀</th>

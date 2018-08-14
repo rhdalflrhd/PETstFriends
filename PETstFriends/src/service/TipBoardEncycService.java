@@ -46,7 +46,7 @@ public class TipBoardEncycService {
 
 			String data = "";
 //			String msg = br.readLine();
-//			while (!msg.contains("호랑이")) {
+//			while (!msg.contains("호랑이!")) {
 //				data += msg;
 //			}
 			

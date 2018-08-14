@@ -67,7 +67,7 @@ public class TipBoardController {
 	//https://terms.naver.com/search.nhn?query=%ED%86%A0%EB%81%BC%EB%AA%A9+%ED%86%A0%EB%81%BC%EA%B3%BC%EC%9D%98+%ED%8F%AC%EC%9C%A0%EB%A5%98&dicType=1&cid=40942&categoryId=32622	
 	@RequestMapping("RabbitInfoSquareSpecies.do")
 	public String RabbitInfoSquareSpecies(Model model) {
-		System.out.println("토끼 백과사전 요청");
+		System.out.println("토끼 백과사전 요청!");
 //		model.addAttribute("RabbitEncycList1", EncycService.searchEncyc("토끼목 토끼과의 포유류", 30, 2));
 		model.addAttribute("RabbitEncycList1", EncycService.searchEncyc("토끼목 토끼과의 포유류", 91, 2));
 //		model.addAttribute("RabbitEncycList2", EncycService.searchEncyc("토끼목 토끼과의 포유류", 100, 101));
