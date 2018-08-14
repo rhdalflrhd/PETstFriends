@@ -1,17 +1,12 @@
 package controller;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
+
 import service.TipBoardEncycService;
 import service.TipBoardService;
 
@@ -23,7 +18,8 @@ public class TipBoardController {
 
 	@Autowired
 	private TipBoardEncycService EncycService;
-
+	
+	public static Gson gson = new Gson();		
 	// Spring MVC 컨트롤러에서 사용할 수 있는 반환유형의 종류
 
 	// 데이터와 페이지 정보가 둘 다 있는 경우	= ModelAndView
@@ -63,24 +59,16 @@ public class TipBoardController {
 	@RequestMapping("CatInfoSquareSpecies.do")
 	public String CatInfoSquareSpecies(Model model) {
 		System.out.println("고양이 백과사전 요청");
-		model.addAttribute("CatEncycList", EncycService.searchEncyc("식육목 고양이과의 포유류",42,12));
+		model.addAttribute("CatEncycList", EncycService.searchEncyc("식육목 고양이과의 포유류",43,12));
 		//이렇게하면 흰코사향고양이와 아비시니아 두종류가 빠짐. 파싱결과에서 호랑이와 시라소니 제외하는거 알아볼것
 		return "Tipboard/CatInfoSquareSpecies";
 	}
-	
-//https://terms.naver.com/list.nhn?cid=40942&categoryId=40942	
-//https://terms.naver.com/search.nhn?query=%ED%86%A0%EB%81%BC%EB%AA%A9+%ED%86%A0%EB%81%BC%EA%B3%BC%EC%9D%98+%ED%8F%AC%EC%9C%A0%EB%A5%98&cid=40942&categoryId=40942
-//https://terms.naver.com/search.nhn?query=%ED%86%A0%EB%81%BC%EB%AA%A9+%ED%86%A0%EB%81%BC%EA%B3%BC%EC%9D%98+%ED%8F%AC%EC%9C%A0%EB%A5%98&cid=40942&categoryId=40942
-//cid=40942&categoryId=32437
-//"https://openapi.naver.com/v1/search/encyc.xml?query=%ED%86%A0%EB%81%BC%EB%AA%A9+%ED%86%A0%EB%81%BC%EA%B3%BC%EC%9D%98+%ED%8F%AC%EC%9C%A0%EB%A5%98&X-Naver-Client-Id=Xn0HAkbdZbJAtgWsnKKd&X-Naver-Client-Secret=jBHzZ9oiBP&dicType=1&cid=40942&categoryId=32622
-	
-	
-	
 	
 	//https://terms.naver.com/search.nhn?query=%ED%86%A0%EB%81%BC%EB%AA%A9+%ED%86%A0%EB%81%BC%EA%B3%BC%EC%9D%98+%ED%8F%AC%EC%9C%A0%EB%A5%98&dicType=1&cid=40942&categoryId=32622	
 	@RequestMapping("RabbitInfoSquareSpecies.do")
 	public String RabbitInfoSquareSpecies(Model model) {
 		System.out.println("토끼 백과사전 요청");
+//		model.addAttribute("RabbitEncycList1", EncycService.searchEncyc("토끼목 토끼과의 포유류", 30, 2));
 		model.addAttribute("RabbitEncycList1", EncycService.searchEncyc("토끼목 토끼과의 포유류", 91, 2));
 //		model.addAttribute("RabbitEncycList2", EncycService.searchEncyc("토끼목 토끼과의 포유류", 100, 101));
 //		model.addAttribute("RabbitEncycList2", EncycService.searchEncyc("+토끼목 +토끼과 -향토문화전자대전 -반달가슴곰 -금강산동물상의일반적특징 -한국민족문화대백과", 100, 100));	
@@ -89,49 +77,36 @@ public class TipBoardController {
 		return "Tipboard/RabbitInfoSquareSpecies";
 	}
 	
-	@RequestMapping("InfoSquareSpecies.do")
-	public String InfoSquareSpecies(Model model) {
-		System.out.println("모든종류 백과사전 요청");
-		return "Tipboard/InfoSquareSpecies";
-	}
-	
-	
-	
-	@RequestMapping(value= "Species.do", method=RequestMethod.GET)
-	public void RabbitTest(HttpServletResponse response, HttpServletRequest req) {
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");	
-		String query = req.getParameter("query");
-		System.out.println(query);
+//	@RequestMapping("InfoSquareSpecies.do")
+//	public String InfoSquareSpecies(Model model) {
+//		System.out.println("모든종류 백과사전 요청");
+//		return "Tipboard/InfoSquareSpecies";
+//	}
 		
-		int display = Integer.parseInt(req.getParameter("display"));
-		int start = Integer.parseInt(req.getParameter("start"));		
-		
-		String EncResult = EncycService.searchEncyc(query, display, start);
-		
-//		JsonParser jsonParser = new JsonParser();
-//		JsonObject jsonObject = (JsonObject) jsonParser.parse(EncResult);	
-//		String rr = (String.valueOf(jsonObject.get("lastBuildDate")));
-//		System.out.print("lastBuildDate : " + jsonObject.get("lastBuildDate"));
-	
-		Gson gson = new Gson();		
-		String EncResultGjson = gson.toJson(EncResult);		
-
-		
-		try {
-			response.getWriter().println(EncResultGjson);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println(EncResultGjson);	
-		System.out.println("제이슨 데이터 전송!!");
-		 
+//	@RequestMapping(value= "Species.do", method=RequestMethod.GET)
+//	public void RabbitTest(HttpServletResponse response, HttpServletRequest req) {
+//		System.out.println("백과사전 요청들어옴");
+//		response.setContentType("application/json");
+//		response.setCharacterEncoding("UTF-8");	
+//		String query = req.getParameter("query");
+//		System.out.println(query);
+//		
+//		int display = Integer.parseInt(req.getParameter("display"));
+//		int start = Integer.parseInt(req.getParameter("start"));		
+//		
+//		String EncResult = EncycService.searchEncyc(query, display, start);
+//		String EncResultGjson = gson.toJson(EncResult);		
+//		
+//	System.out.println(EncResult);
+//		
 //		try {
-//			response.getWriter().flush();
-//			response.getWriter().close();
+////			response.getWriter().println(EncResult);
+//			response.getWriter().println(EncResultGjson);
 //		} catch (IOException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-	}
+//		System.out.println(EncResultGjson);	
+//		System.out.println("제이슨 데이터 전송완료");
+//
+//	}
 }
