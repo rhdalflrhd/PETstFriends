@@ -30,7 +30,7 @@ select * from user where user_name=? and user_email=?
 select * from user where user_id=#{user_id} and user_name=#{user_name} and user_email=#{user_email}
 </select>
 
-<select id="selectUserbyId" parameterType="String" resultType="User">
+<select id="selectUserbyId" parameterType="java.util.HashMap" resultType="User">
 select * from user where user_id = #{user_id}
 </select>
 

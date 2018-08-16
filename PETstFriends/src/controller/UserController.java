@@ -12,6 +12,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,20 +61,23 @@ public class UserController {
 	
 	
 
-	@RequestMapping("joinUserForm.do")
-	public String joinForm(Model model, @RequestParam(required = false) String msg) {
+	@RequestMapping(value = "/joinUserForm.do")
+	public String joinForm() {
 	
 		System.out.println("조인유저폼.두");
 		return "joinUserForm";
 	
 	}
 
-	@RequestMapping(value = "joinUser.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/joinUser.do", method = RequestMethod.POST)
 	@ResponseBody
-	public void join(@RequestParam HashMap<String, Object> params, Model model) {
-
+	public String join(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
+		resp.setContentType("text/html; charset=UTF-8");
+		System.out.println("조인유저.두1");
 		userService.joinUser(params);
-		System.out.println("조인유저.두");
+		System.out.println("조인유저.두2");
+		String msg ="dd";
+		return msg;
 	
 	
 	}
@@ -145,6 +149,30 @@ public class UserController {
 			return result;
 			
 		}
+		
+		//----------------------------------------------------------
+		//로그인
+		@RequestMapping("/loginForm.do")
+		public String loginForm() {
+		
+			System.out.println("로그인폼.두");
+			return "loginForm";
+		}
+		
+		
+		@RequestMapping(value = "/login.do" ,method = RequestMethod.GET)
+		@ResponseBody
+		public boolean login(String user_id, String user_pass) {
+			System.out.println("로그인.두");
+		
+			if(userService.loginUser(user_id, user_pass)) {
+			return true;
+			}
+			else {
+				return false;
+			}
+		}
+
 
 	
 	

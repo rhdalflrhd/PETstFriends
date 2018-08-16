@@ -243,7 +243,7 @@ $(function () {
 	
 	$('#joinBtn').on("click",function(){
 		$.ajax({
-			type:"GET",
+			type:"POST",
 			url:"joinUser.do",
 			data:{
 			"user_id":$('#user_id').val(),
@@ -259,12 +259,44 @@ $(function () {
 			success: function(data){
 				alert("dddㄴㄴㄴ좀와라,,")
 				alert("가입성공");
-// 				window.location.href="loginForm.do";
+				window.location.href="loginForm.do";
+
 			},
-			error:function(xhrReq, status, error){
-				alert(error);
-				alert("가입실패");
-			}
+			 error: function(jqXHR, exception) {
+			        if (jqXHR.status === 0) {
+			            alert('Not connect.\n Verify Network.');
+			        }
+			        else if (jqXHR.status == 400) {
+			            alert('Server understood the request, but request content was invalid. [400]');
+			        }
+			        else if (jqXHR.status == 401) {
+			            alert('Unauthorized access. [401]');
+			        }
+			        else if (jqXHR.status == 403) {
+			            alert('Forbidden resource can not be accessed. [403]');
+			        }
+			        else if (jqXHR.status == 404) {
+			            alert('Requested page not found. [404]');
+			        }
+			        else if (jqXHR.status == 500) {
+			            alert('Internal server error. [500]');
+			        }
+			        else if (jqXHR.status == 503) {
+			            alert('Service unavailable. [503]');
+			        }
+			        else if (exception === 'parsererror') {
+			            alert('Requested JSON parse failed. [Failed]');
+			        }
+			        else if (exception === 'timeout') {
+			            alert('Time out error. [Timeout]');
+			        }
+			        else if (exception === 'abort') {
+			            alert('Ajax request aborted. [Aborted]');
+			        }
+			        else {
+			            alert('Uncaught Error.n' + jqXHR.responseText);
+			        }
+			    }
 		})//ajax
 	})//joinbtn
 	
@@ -284,7 +316,7 @@ $(function () {
 		<h1>
 			<b><font color="gray">회원가입</font></b>
 		</h1>
-		<form id="joinUser">
+
 		*는 필수 입력 칸 입니다.
 
 			<b><font color="gray">${msg }</font></b>
@@ -417,8 +449,6 @@ $(function () {
 				</tr>
 			</table>
 
-
-		</form>
 	</center>
 </body>
 </html>
