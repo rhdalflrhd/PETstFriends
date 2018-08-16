@@ -1,5 +1,8 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +59,15 @@ public class TipBoardController {
 		return "Tipboard/dogInfoSquareSpecies";
 	}
 
+//	@RequestMapping(value= "dogInfoSquareSpecies.do", method=RequestMethod.GET)		
+	@RequestMapping("dogTipBoardList.do")
+	public String dogTipBoardList(Model model) {
+		System.out.println("강아지 꿀 Tip정보 요청");
+		model.addAttribute("DogEncycList1", EncycService.searchEncyc("다시 쓰는 개 사전", 46, 3));	
+		return "Tipboard/dogTipBoardList";
+	}	
+	
+	
 	@RequestMapping("CatInfoSquareSpecies.do")
 	public String CatInfoSquareSpecies(Model model) {
 		System.out.println("고양이 백과사전 요청");
@@ -77,11 +89,11 @@ public class TipBoardController {
 		return "Tipboard/RabbitInfoSquareSpecies";
 	}
 	
-//	@RequestMapping("InfoSquareSpecies.do")
-//	public String InfoSquareSpecies(Model model) {
-//		System.out.println("모든종류 백과사전 요청");
-//		return "Tipboard/InfoSquareSpecies";
-//	}
+	@RequestMapping("InfoSquareSpecies.do")
+	public String InfoSquareSpecies(Model model) {
+		System.out.println("모든종류 백과사전 요청");
+		return "Tipboard/InfoSquareSpecies";
+	}
 		
 //	@RequestMapping(value= "Species.do", method=RequestMethod.GET)
 //	public void RabbitTest(HttpServletResponse response, HttpServletRequest req) {

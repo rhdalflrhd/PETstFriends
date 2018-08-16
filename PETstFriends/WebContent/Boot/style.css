@@ -41,19 +41,46 @@ Table of contents
 
 @import url(https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic);
 @import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic);
-
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css);
 /*--------------------------------------
   2. Elements
 --------------------------------------*/
 
 body {
-    background: url("images/pattern/symphony.png");
+/*     background: url("images/pattern/symphony.png"); */
+    background: url("images/test5.png");
     font-family: 'Merriweather', serif;
     color: #444444;
     font-size: 14px;
     font-weight: 400;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+  border: 3px solid #fff;
+}
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+  display: block;
+  height: 5px;
+  background: #fff;
+}
+::-webkit-scrollbar-track {
+/*   background: #FCF4DB; */
+  background: #F9F8F2;
+  -webkit-border-radius: 10px;
+  border-radius:10px;
+}
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  width: 50px;
+/*   background: rgba(0,0,0,.2); */
+  background: #E1B771;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
 }
 
 a:active,
@@ -181,6 +208,7 @@ h6 {
 
 #header {
     background-color: #ffffff;
+    
 }
 
 .main-logo {
@@ -194,6 +222,7 @@ h6 {
 --------------------------------------*/
 
 .main-menu {
+	font-family: 'NanumSquareRound',sans-serif;
     border-top: 1px solid #eeeeee;
 }
 
@@ -205,12 +234,13 @@ h6 {
 }
 
 .main-menu li {
+	font-family: 'NanumSquareRound',sans-serif;
     display: inline-block;
     position: relative;
 }
 
 .main-menu li a {
-    font-family: 'Merriweather', serif;
+    font-family: 'NanumSquareRound',sans-serif;
     font-size: 14px;
     font-weight: 700;
     line-height: 64px;
@@ -775,7 +805,7 @@ ul.pagination {
 .widget .widget-title {
     font-family: 'Merriweather', serif;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: bold;
     margin-top: 0;
     margin-bottom: 20px;
 }
@@ -872,8 +902,9 @@ a.more-about-me:hover {
 }
 
 .tagcloud a {
-    background-color: transparent;
-    color: #212121;
+/*     background-color: transparent; */
+    background-color: #b4b4b4;
+    color: #b4b4b4;
     display: inline-block;
     font-size: 12px !important;
     padding: 6px 10px;
@@ -1009,6 +1040,7 @@ a.more-about-me:hover {
     font-family: 'Merriweather', serif;
     margin-bottom: 28px;
     margin-top: 15px;
+    
 }
 
 #footer-instagram .item {
@@ -1063,7 +1095,7 @@ a.more-about-me:hover {
 }
 
 #footer .footer-widget-section {
-    background-color: #111111;
+    background-color: #E1B771;
     padding-top: 70px;
     padding-bottom: 25px;
 }
@@ -1078,7 +1110,8 @@ a.more-about-me:hover {
 
 .footer-widget .about-me-content {
     color: #fff;
-    font-size: 14px;
+    font-size: 20px;
+    font-weight: bold;
     line-height: 24px;
 }
 
@@ -1093,7 +1126,7 @@ a.more-about-me:hover {
 }
 
 .footer-widget .tagcloud a {
-    background-color: #000000;
+    background-color: #b4b4b4;
     color: #ffffff;
     border: 0;
 }
@@ -1107,6 +1140,7 @@ a.more-about-me:hover {
     margin-top: 0;
     font-family: 'Merriweather', serif;
     font-size: 18px;
+    font-weight: bold;
     letter-spacing: 1px;
     margin-bottom: 25px;
 }
@@ -1119,10 +1153,11 @@ a.more-about-me:hover {
 
 .footer-widget .thumb-latest-posts .media-body h4 a {
     color: #ffffff;
+    font-weight: bold;
 }
 
 #footer .footer-copy-right {
-    background-color: #000000;
+    background-color: #8B4513;
     color: #ffffff;
     font-size: 12px;
     padding: 21px 0;
