@@ -1,40 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-.empty{
-width: 10%;
-height: 500px;
-display: inline-block;
+.empty {
+	width: 10%;
+	height: 500px;
+	display: inline-block;
 }
-#all{
-/* position: relative; */
-width: 60%;
-height: 500px;
-display: inline-block;
+
+#all {
+	/* position: relative; */
+	width: 60%;
+	height: 500px;
+	display: inline-block;
 }
-#box{
-/* position: relative; */
- width: 100%;
-height: 500px;
+
+#box {
+	/* position: relative; */
+	width: 100%;
+	height: 500px;
 }
+
 #hospitalReview {
-display: inline-block;
-width : 20%;
-height : 500px;
-position:absolute ; 
-background-color: white;
+	display: none;
+	width: 20%;
+	height: 500px;
+	position: absolute;
+	background-color: white;
 }
+
 .map_wrap, .map_wrap * {
 	margin: 0;
 	padding: 0;
 	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
 	font-size: 12px;
 }
+
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active {
 	color: #000;
 	text-decoration: none;
@@ -209,56 +216,76 @@ background-color: white;
 	cursor: default;
 	color: #777;
 }
-input[type="text"]
-{
-    font-size:24px;
+
+input[type="text"] {
+	font-size: 24px;
 }
-#keyword{
-width: 500px; 
-height: 45px; 
-border-radius: 10px;
-border: 1px solid red;
+
+#keyword {
+	width: 500px;
+	height: 45px;
+	border-radius: 10px;
+	border: 1px solid red;
 }
+
+.reviewBoard {
+	border-style: solid;
+	border-color: red;
+}
+
 </style>
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="/petst/header.jsp" %>
-
-<div style="height: 50px;"></div>
-<div class="option" align="center">
-					<div>
-						<form onsubmit="searchPlaces(); return false;">
-							<input type="text" value="종로구" id="keyword" size="15">
-							<button id="submitBtn" type="submit" style="padding: 12px 28px; border-radius: 8px;
-							background-color: orange; color: black;">검색하기</button>
-						</form>
-					</div>
-				</div>
-				</div>
-				<div style="height: 50px;"></div>
-<div id="box">
-<div class="empty"></div>
-	<div id="all">
-		<div class="map_wrap">
-			<div id="map"
-				style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-
-			<div id="menu_wrap" class="bg_white">
-				
-				<hr>
-				<ul id="placesList"></ul>
-				<div id="pagination"></div>
-			</div>
-			</div>
-	</div>
-	<div id="hospitalReview" >나와라
-	</div>
-	<div class="empty"></div>
+	<%@ include file="/petst/header.jsp"%>
+	<div style="height: 50px;"></div>
+	<div class="option" align="center">
+		<div>
+			<form onsubmit="searchPlaces(); return false;">
+				<input type="text" value="종로구" id="keyword" size="15">
+				<button id="submitBtn" type="submit"
+					style="padding: 12px 28px; border-radius: 8px; background-color: orange; color: black;">검색하기</button>
+			</form>
 		</div>
-		<div style="height: 50px;"></div>
-		
-		
+	</div>
+	</div>
+	<div style="height: 50px;"></div>
+	<div id="box">
+		<div class="empty"></div>
+		<div id="all">
+			<div class="map_wrap">
+				<div id="map"
+					style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+
+				<div id="menu_wrap" class="bg_white">
+
+					<hr>
+					<ul id="placesList"></ul>
+					<div id="pagination"></div>
+				</div>
+			</div>
+		</div>
+		<div id="hospitalReview">
+			<span class="hospitalName"></span> <input type="hidden"
+				class="hspitalName"> <input type="hidden" id="hospitalX">
+			<input type="hidden" id="hospitalY">
+			<div id="writeReview">
+				<textarea id="writeText" rows="4" cols="35">후기를 입력해주세요.</textarea>
+				<br>
+				<button id="writeBtn">작성</button>
+			</div>
+			<div id="reviewList">
+				<div class="reviewBoard">
+					닉네임 <br> 후기글
+				</div>
+			</div>
+
+		</div>
+		<div class="empty"></div>
+	</div>
+	<div style="height: 50px;"></div>
+
+
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f1c0b41584169b831e7cbe95bc02ea06&libraries=services">
 </script>
@@ -488,27 +515,148 @@ border: 1px solid red;
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f1c0b41584169b831e7cbe95bc02ea06"></script>
 
 	<script type="text/javascript">
-$(document).ready(function() {
-	$(document).on('click', '.placeReview', function() {
-		alert('눌림')
-		
-		var place_info = $(this).val();//토크나이저로 분리하기
-		$.ajax({
-			type : 'GET',
-			url : 'reviewList.do',
-			data : {
-				"place_info" : place_info
-			},
-			success : function(data) {
+
+		$(document).ready(function() {
+			var sessionId = <%=session.getAttribute("user_id") %>;
+			$(document).on('click', '.placeReview', function() {
+				$('.hospitalName').empty();
+				$('#hospitalX').empty();
+				$('#hospitalY').empty();
+				$('#reviewList').empty();
+				$('#writeText').val('후기를 입력해주세요.');
+				var place_info = $(this).val(); //토크나이저로 분리하기
+				var placeArray = place_info.split('/');
+				$('#hospitalReview').css('display', 'inline-block');
+				$('#hospitalX').val(placeArray[0]);
+				$('#hospitalY').val(placeArray[1]);
+				$('.hospitalName').val(placeArray[2])
+				$('.hospitalName').append(placeArray[2]);
+				$.ajax({
+					type : 'GET',
+					url : 'reviewList.do',
+					data : {
+						"place_info" : place_info
+					},
+					dataType : 'json',
+					success : function(data) {
+						var placeStr = '';
+						for (var i in data) {
+							placeStr += '<div class="reviewBoard"><div><div>'+data[i].place_usernickname+'</div><br><div class="place_onereview">'
+							+ data[i].place_review +'<br></div>';
+							if(sessionId==data[i].place_userid){
+								placeStr += '<div align="right"><button class="deleteBtn" value='+data[i].place_no+'>삭제</button>'
+									+'<button class="modifyFormBtn" value="'+data[i].place_no+'/'+data[i].place_review+'">수정</button></div></div></div>';
+							}else{
+								placeStr += '</div></div>';
+							}
+						}
+						$('#reviewList').append(placeStr);
+					},
+					error : function(xhrReq, status, error) {
+						alert(error)
+					}
+				});
+			});
+	
+			$('#writeText').on('keyup', function() {
+				if ($(this).val().length > 100) { //몇자 제한으로 할지 정하기??????????????
+					$(this).val($(this).val().substring(0, 100));
+					alert('글자 수 제한이 초과되었습니다.')
+				}
+			}).on('click', function() {
+				var place_review = $('#writeText').val();
+				if (place_review == '후기를 입력해주세요.')
+					$('#writeText').val('');
+			});
+	
+			$('#writeBtn').click(function() {
+				var place_review = $('#writeText').val();
+				if (place_review == '후기를 입력해주세요.' || place_review.length < 10)
+					alert('후기를 10글자 이상 입력해주세요.');
+				else {
+					$.ajax({
+						type : 'GET',
+						url : 'writePlaceReview.do',
+						data : {
+							"place_name" : $('.hospitalName').val(),
+							"place_x" : $('#hospitalX').val(),
+							"place_y" : $('#hospitalY').val(),
+							"place_review" : place_review
+						},
+						dataType : 'json',
+						success : function(data) {
+							var placeStr='';
+							$('#writeText').val('후기를 입력해주세요.');
+							placeStr += '<div class="reviewBoard"><div>'+data.place_usernickname+'<br>'+
+							place_review +'<br></div><div align="right"><button class="deleteBtn" value='
+							+data.place_no+'>삭제</button>'
+							+'<button class="modifyFormBtn" value='
+							+data.place_no+"/"+data.place_review+'>수정</button></div></div>';
+							$('#reviewList').append(placeStr);
+						},
+						error : function(xhrReq, status, error) {
+							alert(error)
+						}
+					});
+				}
+			});
+			
+			$(document).on('click', '.deleteBtn', function(){
+				var place_no = $(this).val();
+				var thisVal =  $(this);
+				$.ajax({
+					type : 'GET',
+					url : 'deletePlaceReview.do',
+					data : {
+						"place_no" :place_no
+					},
+					success : function(data) {
+						thisVal.parent().parent().remove();
+					},
+					error : function(xhrReq, status, error) {
+						alert(error);
+					}
+				});
 				
-			},
-			error : function(xhrReq, status, error) {
-				alert(error)
-			}
+			})
+			
+			$(document).on('click', '.modifyFormBtn', function(){//수정 구현하기????????
+				
+				var thisVal = $(this);
+				
+				var place_info = $(this).val(); //토크나이저로 분리하기
+				var placeArray = place_info.split('/');
+				var place_no = placeArray[0];
+				var place_review = placeArray[1];
+				for (var i = 2; i < placeArray.length; i++) 
+					place_review += placeArray[i];
+				var modifyFormStr = '';
+// 				$(this).parent().parent().empty();
+				modifyFormStr += '<textarea class="modifyText">'+place_review+'</textarea>'
+				thisVal.parent().parent().parent().append(modifyFormStr);
+				
+			
+				
+// 				$(this).parent().parent().remove();
+				
+// 				var thisVal =  $(this);
+// 				$.ajax({
+// 					type : 'GET',
+// 					url : 'deletePlaceReview.do',
+// 					data : {
+// 						"place_no" :place_no
+// 					},
+// 					success : function(data) {
+// 						thisVal.parent().parent().remove();
+// 					},
+// 					error : function(xhrReq, status, error) {
+// 						alert(error);
+// 					}
+// 				});
+				
+			})
 		});
-	});
-});
-</script>
-<%@ include file="/petst/footer.jsp" %>
+	</script>
+	<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

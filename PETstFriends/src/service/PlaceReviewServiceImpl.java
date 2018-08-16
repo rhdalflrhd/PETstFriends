@@ -1,5 +1,7 @@
 package service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.PlaceReviewDao;
+import dao.UserDao;
 import model.Place;
 
 @Service
@@ -15,6 +18,9 @@ public class PlaceReviewServiceImpl implements PlaceReviewService{
 
 	@Autowired
 	PlaceReviewDao pDao;
+	
+	@Autowired
+	UserDao uDao;
 	
 	@Override
 	public List<Place> showPlaceReview(String place_info) {
@@ -30,9 +36,24 @@ public class PlaceReviewServiceImpl implements PlaceReviewService{
 	}
 
 	@Override
-	public int writePlaceReview(Place place) {
+	public HashMap<String, Object> writePlaceReview(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		return pDao.insertPlaceReview(place);
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+		String user_id = (String) params.get("place_userid");
+		Place place = new Place();
+		place.setPlace_date(simple.format(new Date()));
+		place.setPlace_name((String) params.get("place_name"));
+		place.setPlace_review((String) params.get("place_review"));
+		place.setPlace_userid(user_id);
+		place.setPlace_x((String) params.get("place_x"));
+		place.setPlace_y((String) params.get("place_y"));
+		String place_usernickname = uDao.selectUserId(user_id).getUser_nickname();
+		place.setPlace_usernickname(place_usernickname);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		pDao.insertPlaceReview(place);
+		result.put("place_no", place.getPlace_no());
+		result.put("place_usernickname", place_usernickname);
+		return result;
 	}
 
 	@Override

@@ -6,11 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="dao.PlaceReviewDao">
 
 <select id="selectReviewAll" parameterType="java.util.HashMap" resultType="place">
-select * from place where place_palce_name=#{place_name}
+select * from place where place_name=#{place_name}
 and place_x=#{place_x} and place_y=#{place_y}
 </select>
-<insert id="insertPlaceReview" parameterType="place">
-insert into place values (0, #{palce_name}, #{place_x}, #{place_y}, #{place_userid}, #{place_usernickname}, #{place_review}, #{place_date})
+<insert id="insertPlaceReview" parameterType="place" useGeneratedKeys="true" keyProperty="place_no">
+insert into place values (0, #{place_name}, #{place_x}, #{place_y}, #{place_userid}, #{place_usernickname}, #{place_review}, #{place_date})
 </insert>
 <delete id="deletePlaceReview" parameterType="int">
 delete from place where place_no = #{place_no}
