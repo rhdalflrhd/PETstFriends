@@ -98,10 +98,16 @@ public class UserController {
 	@RequestMapping("usermain.do")
 	public String Useramin(HttpSession session, Model model) {
 
-		return "user/main";
+		return "main";
 
 	}
 	
+	@RequestMapping("myWritesList.do")
+	public String myWrites(HttpSession session, Model model) {
+
+		return "user/myInfo_MyWrites";
+
+	}
 	
 
 	@RequestMapping("getUserId.do")
