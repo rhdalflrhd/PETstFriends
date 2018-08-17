@@ -175,7 +175,45 @@ public class UserController {
 				return false;
 			}
 		}
+		
+		//--------------------------------------------------------------
+		
+		//id/pw찾기
+		
+		//id찾기
+		@RequestMapping(value = "/idFindForm.do")
+		public String idfindForm() {	
 
+			return "idFindForm";
+		
+		}
+
+		@RequestMapping(value = "/idFind.do", method = RequestMethod.POST)
+		@ResponseBody
+		public void idfind(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
+			resp.setContentType("text/html; charset=UTF-8");
+			userService.getUserFindbyId(params);
+//			userService.joinUser(params);
+
+		}
+		
+		//pw찾기
+		@RequestMapping(value = "/pwFindForm.do")
+		public String pwfindForm() {	
+
+			return "pwFindForm";
+		
+		}
+
+		@RequestMapping(value = "/pwFind.do", method = RequestMethod.POST)
+		@ResponseBody
+		public void pwfind(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
+			resp.setContentType("text/html; charset=UTF-8");
+			userService.getUserFindbyPw(params);
+//			userService.joinUser(params);
+
+		}
+		
 
 
 	}//컨트롤러

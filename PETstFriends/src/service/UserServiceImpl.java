@@ -116,24 +116,26 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 
-	public User getUserFindbyId(String user_name, String user_email) {
+	public User getUserFindbyId(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		HashMap<String, Object> param = new HashMap<String, Object>();
-
-		param.put("user_name", user_name);
-		param.put("user_email", user_email);
-		return uDao.selectUserFindId(param);
+	
+		String user_name = (String) params.get("user_name");
+		String user_email = (String) params.get("user_email");
+		
+		
+//		param.put("user_name", user_name);
+//		param.put("user_email", user_email);
+		return uDao.selectUserFindId(params);
 	}
 
 	@Override
-	public User getUserFindbyPw(String user_id, String user_name, String user_email) {
+	public User getUserFindbyPw(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		HashMap<String, Object> param = new HashMap<String, Object>();
-		param.put("user_id", user_id);
-		param.put("user_name", user_name);
-		param.put("user_email", user_email);
-
-		return uDao.selectUserFindPw(param);
+		String user_id = (String) params.get("user_id");
+		String user_name = (String) params.get("user_name");
+		String user_email = (String) params.get("user_email");
+		
+		return uDao.selectUserFindPw(params);
 	}
 
 	@Override
@@ -163,5 +165,6 @@ public class UserServiceImpl implements UserService {
 		} else
 			return false;
 	}
+
 
 }// 서비스
