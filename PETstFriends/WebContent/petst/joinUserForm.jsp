@@ -19,7 +19,7 @@ $(document).ready(function() {
 		var userid=$('#user_id').val();
 	if($('#user_id').val() == ""){
 		$('#user_idResult').html('ID를 입력해주세요.');
-		$(this).focus();
+
 	}
 	else{
 		
@@ -36,7 +36,7 @@ $(document).ready(function() {
 					$('#user_idResult').html('사용가능한 id입니다.'); 
 				} else {
 					$('#user_idResult').html('사용 불가한 id입니다.');
-					$(this).focus();
+
 				}
 			},
 			error : function(xhrReq, status, error) {
@@ -52,7 +52,7 @@ $(document).ready(function() {
 			var usernickname=$('#user_nickname').val();
 		if($('#user_nickname').val() == ""){
 			$('#user_nicknameResult').html('닉네임을 입력해주세요.');
-			$(this).focus();
+
 		}
 		else{
 		
@@ -67,8 +67,7 @@ $(document).ready(function() {
 					$('#user_nicknameResult').html('사용가능한 닉네임입니다.');
 				} else {
 					$('#user_nicknameResult').html('사용 불가한 닉네임입니다.');
-					$(this).focus();
-				}
+			}
 			},
 			error : function(xhrReq, status, error) {
 				alert(error)
@@ -77,19 +76,18 @@ $(document).ready(function() {
 		}
 	});//닉넴
 	//-------------------------------------------------------------------
-	
-	//-----------------------------------------------------------------
+
 	
 	//핸드폰 정규식
 	$('#user_phone').blur(function() { //휴대폰 정규식
 		var phonePattern = /^\d{3}-\d{3,4}-\d{4}$/;
 		if ((phonePattern.test($('#user_phone').val()))) {
-			$('#user_phoneResult').html('ㅇㅇ');	
+			$('#user_phoneResult').html('');	
 		
 		}
 		else{
 			$('#user_phoneResult').html('ex) 010-1234-5678 형식으로 입력해주세요.');
-			$(this).focus();
+
 		}
 	
 	});// user_phone
@@ -144,17 +142,17 @@ $(document).ready(function() {
 		var userpass=$('#user_pass').val();
 	if($('#user_pass').val() == ""){
 		$('#user_passResult').html('PW를 입력해주세요.');
-		$(this).focus();
+
 	}
 	else{
 		
 		var passPt = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 		if((passPt.test($('#user_pass').val()))){
-			$('#user_passResult').html('ㅇㅇ');
+			$('#user_passResult').html('사용가능 한 PW입니다');
 		}
 		else{
-			$('#user_passResult').html('ㄴㄴ');
-			$(this).focus();
+			$('#user_passResult').html('다시입력해주세요.');
+
 		}
 	}
 	});//pass
@@ -182,16 +180,16 @@ $('#user_email').blur(function() {
 	var useremail=$('#user_email').val();
 	if($('#user_emil').val() == ""){
 		$('#user_emailResult').html('Email을 입력해주세요.');
-		$(this).focus();
+
 	}
 	else{
 	var emailPt = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	if((emailPt.test($('#user_email').val()))){
-		$('#user_emailResult').html('ㅇㅇ');
+		$('#user_emailResult').html('사용가능한 Email입니다.');
 	}
 	else{
-		$('#user_emailResult').html('ㄴㄴ');
-		$(this).focus();
+		$('#user_emailResult').html('다시 입력 해 주세요');
+
 	}
 	}
 	
@@ -240,69 +238,96 @@ $(function () {
 	//---------------------------------------------------------------------
 	
 	//회원가입 버튼
-	
-	$('#joinBtn').on("click",function(){
-		$.ajax({
-			type:"POST",
-			url:"joinUser.do",
-			data:{
-			"user_id":$('#user_id').val(),
-			"user_pass":$('#user_pass').val(),
-			"user_name":$('#user_name').val(),
-			"user_nickname":$('#user_nickname').val(),
-			"user_email":$('#user_email').val(),
-			"user_phone":$('#user_phone').val(),
-			"user_havePet":$('.user_havePet:checked').val(),
-			"user_contentPic":$('#user_contentPic').val()
-			},
-// 			datatype:"text",
-			success: function(data){
-				alert("dddㄴㄴㄴ좀와라,,")
-				alert("가입성공");
-				window.location.href="loginForm.do";
 
-			},
-			 error: function(jqXHR, exception) {
-			        if (jqXHR.status === 0) {
-			            alert('Not connect.\n Verify Network.');
-			        }
-			        else if (jqXHR.status == 400) {
-			            alert('Server understood the request, but request content was invalid. [400]');
-			        }
-			        else if (jqXHR.status == 401) {
-			            alert('Unauthorized access. [401]');
-			        }
-			        else if (jqXHR.status == 403) {
-			            alert('Forbidden resource can not be accessed. [403]');
-			        }
-			        else if (jqXHR.status == 404) {
-			            alert('Requested page not found. [404]');
-			        }
-			        else if (jqXHR.status == 500) {
-			            alert('Internal server error. [500]');
-			        }
-			        else if (jqXHR.status == 503) {
-			            alert('Service unavailable. [503]');
-			        }
-			        else if (exception === 'parsererror') {
-			            alert('Requested JSON parse failed. [Failed]');
-			        }
-			        else if (exception === 'timeout') {
-			            alert('Time out error. [Timeout]');
-			        }
-			        else if (exception === 'abort') {
-			            alert('Ajax request aborted. [Aborted]');
-			        }
-			        else {
-			            alert('Uncaught Error.n' + jqXHR.responseText);
-			        }
-			    }
-		})//ajax
-	})//joinbtn
-	
-	
-	
-	
+			$('#joinBtn').click(function() { //회원가입 //가입 조건 전체 확인
+			if ($('#user_idResult').html()=='사용가능한 id입니다.' && $('#user_nicknameResult').html()=='사용가능한 닉네임입니다.' && $('.user_havePet').is(':checked')) {
+				if ($('.user_havePet :checked').val() == 1) {
+					$('#petTable_tbody tr').each(function() {
+						if (!($('.pet_name').val() == '') && !($('.pet_species').val() == 0) && !($('.pet_gender').val() == 0))
+							joinFun();
+						else
+							alert('필수 입력조건을 확인해주세요.1');
+					})
+				}
+				else
+					joinFun();
+			}
+			else
+				alert('필수 입력조건을 확인해주세요2');
+			return false;
+		});
+		var joinFun = function() {
+			var petArr = new Array();
+			if ($('.user_havePet').val() == 1) {
+				$('#petTable_tbody tr').each(function() {
+					var cellItem = $(this).find(":input");
+					var petObj = new Object();
+					petObj.pet_name = cellItem.eq(0).val();
+					petObj.pet_species = cellItem.eq(1).val();
+					petObj.pet_gender = cellItem.eq(2).val();
+					petObj.pet_age = cellItem.eq(3).val();
+					petObj.pet_file = cellItem.eq(4).val();
+					petArr.push(petObj);
+				})
+			}
+			$.ajax({
+				type : 'post',
+				url : 'joinUser.do',
+				data : {
+					"jsonData" : JSON.stringify(petArr),
+					"user_id":$('#user_id').val(),
+					"user_pass":$('#user_pass').val(),
+					"user_name":$('#user_name').val(),
+					"user_nickname":$('#user_nickname').val(),
+					"user_email":$('#user_email').val(),
+					"user_phone":$('#user_phone').val(),
+					"user_havePet":$('.user_havePet:checked').val(),
+					"user_contentPic":$('#user_contentPic').val()
+				},
+				success : function(data) {
+					alert('성공');
+					window.location.href="loginForm.do";
+				},
+				 error: function(jqXHR, exception) {
+				        if (jqXHR.status === 0) {
+				            alert('Not connect.\n Verify Network.');
+				        }
+				        else if (jqXHR.status == 400) {
+				            alert('Server understood the request, but request content was invalid. [400]');
+				        }
+				        else if (jqXHR.status == 401) {
+				            alert('Unauthorized access. [401]');
+				        }
+				        else if (jqXHR.status == 403) {
+				            alert('Forbidden resource can not be accessed. [403]');
+				        }
+				        else if (jqXHR.status == 404) {
+				            alert('Requested page not found. [404]');
+				        }
+				        else if (jqXHR.status == 500) {
+				            alert('Internal server error. [500]');
+				         
+
+				        }
+				        else if (jqXHR.status == 503) {
+				            alert('Service unavailable. [503]');
+				        }
+				        else if (exception === 'parsererror') {
+				            alert('Requested JSON parse failed. [Failed]');
+				        }
+				        else if (exception === 'timeout') {
+				            alert('Time out error. [Timeout]');
+				        }
+				        else if (exception === 'abort') {
+				            alert('Ajax request aborted. [Aborted]');
+				        }
+				        else {
+				            alert('Uncaught Error.n' + jqXHR.responseText);
+				        }
+				 }
+			})
+		}
+
 });//ready
 	
 	

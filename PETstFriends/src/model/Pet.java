@@ -3,7 +3,7 @@ package model;
 public class Pet {
 	private String user_id;
 	private String pet_name;
-	private int pet_species;
+	private String pet_species;
 	private int pet_gender;
 	private int pet_age;
 	private String pet_file;
@@ -19,10 +19,10 @@ public class Pet {
 	public void setPet_name(String pet_name) {
 		this.pet_name = pet_name;
 	}
-	public int getPet_species() {
+	public String getPet_species() {
 		return pet_species;
 	}
-	public void setPet_species(int pet_species) {
+	public void setPet_species(String pet_species) {
 		this.pet_species = pet_species;
 	}
 	public int getPet_gender() {

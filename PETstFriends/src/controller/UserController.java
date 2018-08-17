@@ -38,6 +38,9 @@ public class UserController {
 	private String reqUri;
 	
 	
+	//----------------------------------------------------------------------------------------
+	//아이디체크
+	
 	@RequestMapping(value = "/idCheck.do")
 	@ResponseBody
 	public boolean getUserId(HttpServletRequest req, HttpServletResponse resp) {
@@ -48,6 +51,8 @@ public class UserController {
 		return result;
 	}
 	
+	//--------------------------------------------------------------------------------------------
+	//닉넴체크
 	@RequestMapping(value = "/NnCheck.do")
 	@ResponseBody
 	public boolean getUserNn(HttpServletRequest req, HttpServletResponse resp) {
@@ -59,25 +64,23 @@ public class UserController {
 		return result1;
 	}
 	
+	//---------------------------------------------------------------------------------------
 	
-
+	//회원가입
+	
 	@RequestMapping(value = "/joinUserForm.do")
-	public String joinForm() {
-	
-		System.out.println("조인유저폼.두");
+	public String joinForm() {	
+
 		return "joinUserForm";
 	
 	}
 
 	@RequestMapping(value = "/joinUser.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String join(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
+	public void join(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
 		resp.setContentType("text/html; charset=UTF-8");
-		System.out.println("조인유저.두1");
 		userService.joinUser(params);
-		System.out.println("조인유저.두2");
-		String msg ="dd";
-		return msg;
+
 	
 	
 	}
@@ -136,26 +139,27 @@ public class UserController {
 		    }
 		}   //이메일 인증 받기 끝 
 		
+		
+	    // 이메일중복확인
 		@RequestMapping(value = "/emailCheck.do")
-		@ResponseBody                                                        // 이메일중복확인
+		@ResponseBody                                                    
 		public boolean getUserEmail(HttpServletRequest req, HttpServletResponse resp)  {
 			resp.setContentType("text/html; charset=UTF-8");
 			String user_email= req.getParameter("user_email");
-//			System.out.println(user_nickname);
 			boolean result = userService.getUserbyEmail(user_email);
-//			System.out.println(result);
 			user_email = req.getParameter("user_email");
-//			System.out.println(user_nickname);
+
 			return result;
 			
 		}
 		
+		
 		//----------------------------------------------------------
 		//로그인
+		
 		@RequestMapping("/loginForm.do")
 		public String loginForm() {
-		
-			System.out.println("로그인폼.두");
+
 			return "loginForm";
 		}
 		
@@ -163,7 +167,6 @@ public class UserController {
 		@RequestMapping(value = "/login.do" ,method = RequestMethod.GET)
 		@ResponseBody
 		public boolean login(String user_id, String user_pass) {
-			System.out.println("로그인.두");
 		
 			if(userService.loginUser(user_id, user_pass)) {
 			return true;
@@ -174,14 +177,6 @@ public class UserController {
 		}
 
 
-	
-	
-	
-	
-	
-	
-	
-	
 
 	}//컨트롤러
 
