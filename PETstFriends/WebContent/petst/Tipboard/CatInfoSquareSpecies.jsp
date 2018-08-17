@@ -12,7 +12,7 @@
     <!-- favicon icon -->
     <link rel="shortcut icon" href="./Boot/images/favicon.png">
     
-	<title>고양이 종정보</title>
+	<title>고양이 종정보!</title>
 	   
 	    <!-- common css -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    

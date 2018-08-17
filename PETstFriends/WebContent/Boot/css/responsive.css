@@ -42,7 +42,8 @@
 	}
 
 	.main-menu li a {
-		font-family: 'Merriweather', serif;
+/* 		font-family: 'Merriweather', serif; */
+		font-family: 'NanumSquareRound',sans-serif;
 		font-size: 14px;
 		font-weight: 700;
 		line-height: 64px;
@@ -83,7 +84,7 @@
 	}
 
 	.main-menu li:hover > a:before {
-		background: #60c7eb;
+		background: #FFD232;
 		left: 0;
 		right: 0;
 
@@ -92,7 +93,7 @@
 	.main-menu li.current-menu-item > a,
 	.main-menu li.current_page_item > a,
 	.main-menu li a:hover {
-		color: #60c7eb;
+		color: #FFD232;
 	}
 
 	/*** DROPDOWN ***/
@@ -146,7 +147,7 @@
 
 	.main-menu ul ul a:hover,
 	.main-menu ul ul ul a:hover {
-		color: #60c7eb;
+		color: #FFD232;
 	}
 
 	.main-menu ul li:hover > ul,

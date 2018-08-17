@@ -4,4 +4,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.ITipBoardDao">
 
+    <sql id="TipBoard_title">
+        <choose>
+            <when test="TipBoard_title != null">
+                #{TipBoard_title}
+            </when>
+            <otherwise>
+                '제목없음'
+            </otherwise>
+        </choose>
+    </sql>
+    
+    <sql id="TipBoard_content">
+        <choose>
+            <when test="TipBoard_content != null">
+                #{TipBoard_content}
+            </when>
+            <otherwise>
+                '내용없음'
+            </otherwise>
+        </choose>
+    </sql>
+    
+       <sql id="TipBoard_YoutubeUrl">
+        <choose>
+            <when test="TipBoard_YoutubeUrl != null">
+                #{TipBoard_YoutubeUrl}
+            </when>
+            <otherwise>
+                '동영상없음'
+            </otherwise>
+        </choose>
+    </sql> 
+
+    <insert id="insertBoard" parameterType="TipBoard" 
+        useGeneratedKeys="true" keyProperty="TipBoard_boardno">
+insert into TipBoard values (#{TipBoard_boardname}, 0, #{TipBoard_userId}, #{TipBoard_nickname}, <include refid="TipBoard_title"/>, #{TipBoard_file}, <include refid="TipBoard_content"/>, #{TipBoard_readCount},
+curdate(), <include refid="TipBoard_YoutubeUrl"/>, #{TipBoard_contentPic}, #{TipBoard__LikeCount})
+    </insert>
+    
 </mapper>

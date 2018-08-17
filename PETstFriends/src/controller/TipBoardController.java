@@ -2,14 +2,19 @@ package controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import model.Board;
+import model.TipBoard;
 import service.TipBoardEncycService;
 import service.TipBoardService;
 
@@ -60,13 +65,26 @@ public class TipBoardController {
 	}
 
 //	@RequestMapping(value= "dogInfoSquareSpecies.do", method=RequestMethod.GET)		
-	@RequestMapping("dogTipBoardList.do")
+	@RequestMapping("dogTipBoardList.do") // 강아지 TIp정보 게시판목록
 	public String dogTipBoardList(Model model) {
 		System.out.println("강아지 꿀 Tip정보 요청");
 		model.addAttribute("DogEncycList1", EncycService.searchEncyc("다시 쓰는 개 사전", 46, 3));	
+		//8월 17일 현재까지는 naver api에서 끌고온 정보만 출력되게 해놨음.
+		//유저가 올린것도 같이 출력되게 이후에 시행할 예정
 		return "Tipboard/dogTipBoardList";
 	}	
 	
+	@RequestMapping("DogWriteTipBoardForm.do")// 강아지 TIp정보 게시판 글쓰기 폼
+	public String WriteTipBoardFormC() {
+		return "Tipboard/DogWriteTipBoardForm";
+	}
+	
+	@RequestMapping("DogWriteTipBoard.do")// 강아지 TIp정보 게시판 글쓰기실행
+	public String DogWriteTipBoardC(HttpSession session,TipBoard dtBoard, @RequestParam("TipBoard_contentPic") MultipartFile TipBoard_contentPic) {
+//		String id = (String)session.getAttribute("TipBoard_userId");
+		tipService.writeTipBoardS(dtBoard, TipBoard_contentPic);		
+		return "Tipboard/DogReadTipBoard.do?TipBoard_boardno=" + dtBoard.getTipBoard_boardno();
+	}
 	
 	@RequestMapping("CatInfoSquareSpecies.do")
 	public String CatInfoSquareSpecies(Model model) {

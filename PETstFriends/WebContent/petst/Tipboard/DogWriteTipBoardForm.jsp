@@ -12,7 +12,7 @@
     <!-- favicon icon -->
     <link rel="shortcut icon" href="./Boot/images/favicon.png">
     
-	<title>토끼종정보</title>
+	<title>강아지 꿀 TIP 글쓰기 페이지</title>
 	   
 	    <!-- common css -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
@@ -29,17 +29,7 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-  $('.ScrollCheck').click(function(event){
-
-	  var scrollTarget = $('#scrollMsg').val();
-	  var st = '#'+scrollTarget
-   event.preventDefault();
-   $('html,body').animate({scrollTop:$(st).offset().top}, 500);
-	
-	})  
-	
-	
+$(document).ready(function(){	
 	
 });
 </script>
@@ -71,6 +61,28 @@ font-family: 'NanumSquareRound',sans-serif;
 }
 .footer-widget-section{
 font-family: 'NanumSquareRound',sans-serif;
+}
+#write-btn{
+	font-family: 'NanumSquareRound',sans-serif;
+	font-weight:bold;
+ 	height:34px;  
+ 	width: 130px;  
+    background-color: #FFD232;
+/*     margin: 30px 0; */
+/*     padding: 20px; */
+    color: #fff;
+    border: 1px solid #eeeeee;
+   	border-radius: 0;
+/*     text-transform: uppercase; */
+/*     transition: all .4s; */
+    font-size: 16px;
+    line-height: 34px;
+    padding: 0;
+    margin: 0;
+     -webkit-transition: all 0.3s; 
+     -moz-transition: all 0.3s; 
+     -o-transition: all 0.3s; 
+    transition: all 0.3s; 
 }
 </style>	
 </head>
@@ -165,59 +177,82 @@ font-family: 'NanumSquareRound',sans-serif;
         </div>
     </header>
     <!--header section end-->
-    <div class="container">
-
-        <h1 class="heading-text text-center text-uppercase">
-        <font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">토끼 종 정보</font></h1>
-        <center>
-<p>
-<br>
-			<input type="text" placeholder="찾으실 종명을 검색하세요-" id="scrollMsg" name="scrollMsg" style= "background-color:white; color:#CD853F; font-family: 'NanumSquareRound',sans-serif;  font-size: 15px !important; font-weight:bold; height:50px; width: 500px; border:1; border-color:#CD853F; border-radius: 25px;">
-			<input type="button" value="검색" class="ScrollCheck" style= " background-color:#CD853F; color:white; font-family: 'NanumSquareRound',sans-serif; font-size: 15px !important; font-weight:bold; height:50px; width: 80px; border:1; border-color:#CD853F; border-radius: 25px;" >
-</p>
-</center>
-        <div class="portfolio"><!--begin portfolio items-->
-		<c:forEach items="${RabbitEncycList1 }" var="e" varStatus="i">
-            <div id="${e.encyc_title}" class="portfolio-item" style=" width: 260px; height: 260px; border: 1px #F2F2F2 solid;">          
-            <c:if test="${empty e.encyc_thumbnail}"><h1>
-			<font color="#F2F2F2" style="font-family: Georgia;">No-image</font></h1></c:if>
-			<c:if test="${not empty e.encyc_thumbnail}">
-			<img src="${e.encyc_thumbnail}"></c:if>
-               <h4><font color="grey" style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font></h4>
-                <div class="img-overlay">
-                    <div class="portfolio-text">
-                                       <h4>${e.encyc_title}</h4>
-                   <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>  
-                    </div>
+    <!--main content start-->
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <!-- end bottom comment-->
+                             <center>
+							<div class="leave-comment" style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">
+								<!--leave comment-->
+								<h1><font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">강아지 꿀 TIP정보 쓰기</font></h1>
+								<br> <br>
+								<form class="form-horizontal contact-form" role="form"
+									method="post" enctype="multipart/form-data" action="DogWriteTipBoard.do">
+									<div class="form-group">
+										<div class="col-md-3">
+											<input type="text" class="form-control" id="name" name="name"
+												placeholder="TipBoard_nickname" readonly="readonly">
+										</div>
+										<div class="col-md-6">
+											<input type="text" class="form-control" id="title"
+												name="title" placeholder="title">
+										</div>
+										<div class="col-md-3">
+											<input type="text" class="form-control" id="TipBoard_writeDatee"
+												name="TipBoard_writeDate" placeholder="날짜" readonly="readonly">
+										</div>
+									</div>
+									<br> <br>
+									<div class="form-group">
+										<div class="col-md-3">
+											<input type="file" class="form-control" id="TipBoard_file"
+												name="TipBoard_file" placeholder="첨부파일">
+										</div>
+										<div class="col-md-3">
+											<input type="file" class="form-control" id="TipBoard_contentPic"
+												name="TipBoard_contentPic" placeholder="사진파일">
+										</div>										
+										<div class="col-md-6">
+											<input type="text" class="form-control"
+												id="TipBoard_YoutubeUrl" name="TipBoard_YoutubeUrl"
+												placeholder="첨부하실 Youtube URL을 입력하세요">
+										</div>
+									</div>
+									<br> <br>
+									<div class="form-group">
+										<div class="col-md-12">
+											<input type="email" class="form-control" id="email"
+												name="email" placeholder="Email">
+										</div>
+									</div>
+									<br> <br>
+									<div class="form-group">
+										<div class="col-md-12">
+											<input type="text" class="form-control" id="subject"
+												name="subject" placeholder="Website url">
+										</div>
+									</div>
+									<br> <br>
+									<div class="form-group">
+										<div class="col-md-12">
+											<textarea class="form-control" rows="6" name="message"
+												placeholder="Write Texts"></textarea>
+										</div>
+									</div>
+<!-- 									<button type="button" class="btn send-btn">글 작성 완료 </button><br> -->
+									<input type="submit" value="글 작성" class="write-btn" id="write-btn">
+								</form>
+							</div>
+							<!--end leave comment-->
+						</center>
                 </div>
-
-            </div>     
-        </c:forEach>
-        <c:forEach items="${RabbitEncycList2 }" var="e" varStatus="i">
-            <div id="${e.encyc_title}" class="portfolio-item" style=" width: 260px; height: 260px; border: 1px #F2F2F2 solid;">          
-            <c:if test="${empty e.encyc_thumbnail}"><h1>
-			<font color="#F2F2F2" style="font-family: Georgia;">No-image</font></h1></c:if>
-			<c:if test="${not empty e.encyc_thumbnail}">
-			<img src="${e.encyc_thumbnail}"></c:if>
-               <h4><font color="grey" style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font></h4>
-                <div class="img-overlay">
-                    <div class="portfolio-text">
-                                       <h4>${e.encyc_title}</h4>
- 				<a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>  
-                    </div>
-                </div>
-            </div>     
-        </c:forEach>     
-        </div><!--End portfolio item-->
-        
-        
-        <div class="load-more text-center">
-            <a href="#"> <i class="fa fa-refresh"></i> load more</a>
-
+            </div>
         </div>
     </div>
-
-    <!--footer start-->
+    <!--main content end-->
+ <!--footer start-->
     <footer id="footer">
 
         <div class="footer-widget-section">

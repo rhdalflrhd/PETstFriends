@@ -12,7 +12,7 @@
     <!-- favicon icon -->
     <link rel="shortcut icon" href="./Boot/images/favicon.png">
     
-	<title>토끼종정보</title>
+	<title>강아지 꿀 TIP 게시판</title>
 	   
 	    <!-- common css -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
@@ -30,17 +30,16 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+
   $('.ScrollCheck').click(function(event){
 
 	  var scrollTarget = $('#scrollMsg').val();
 	  var st = '#'+scrollTarget
+
    event.preventDefault();
-   $('html,body').animate({scrollTop:$(st).offset().top}, 500);
-	
+   $('html,body').animate({scrollTop:$(st).offset().top}, 500);	
 	})  
-	
-	
-	
+    
 });
 </script>
 
@@ -118,7 +117,7 @@ font-family: 'NanumSquareRound',sans-serif;
                                                 class="fa fa-angle-right"></i></a>
                                             <ul class="sub-menu">
                                                 <li><a href="dogInfoSquareSpecies.do">강아지 종정보</a></li>
-                                                <li><a href="dogTipBoardList.do">강아지 Tip</a></li>
+                                                <li><a href="#">강아지 Tip</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children"><a href="">고양이<i
@@ -168,52 +167,44 @@ font-family: 'NanumSquareRound',sans-serif;
     <div class="container">
 
         <h1 class="heading-text text-center text-uppercase">
-        <font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">토끼 종 정보</font></h1>
+        <font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">
+        강아지 꿀 TIP 게시판
+        </font>&nbsp;<input type="button" value="글쓰기" onclick="location.href='DogWriteTipBoardForm.do'" style= " background-color:#CD853F; color:white; font-family: 'NanumSquareRound',sans-serif; font-size: 15px !important; font-weight:bold; height:40px; width: 80px; border:1; border-color:#CD853F; border-radius: 25px;" >
+        </h1>
         <center>
-<p>
-<br>
-			<input type="text" placeholder="찾으실 종명을 검색하세요-" id="scrollMsg" name="scrollMsg" style= "background-color:white; color:#CD853F; font-family: 'NanumSquareRound',sans-serif;  font-size: 15px !important; font-weight:bold; height:50px; width: 500px; border:1; border-color:#CD853F; border-radius: 25px;">
-			<input type="button" value="검색" class="ScrollCheck" style= " background-color:#CD853F; color:white; font-family: 'NanumSquareRound',sans-serif; font-size: 15px !important; font-weight:bold; height:50px; width: 80px; border:1; border-color:#CD853F; border-radius: 25px;" >
-</p>
+<!-- <p> -->
+<!-- <br> -->
+<!-- 			<input type="text" placeholder="찾으실 꿀팁정보를 검색하세요- !" id="scrollMsg" name="scrollMsg" style= "background-color:white; color:#CD853F; font-family: 'NanumSquareRound',sans-serif;  font-size: 15px !important; font-weight:bold; height:50px; width: 500px; border:1; border-color:#CD853F; border-radius: 25px;"> -->
+<!-- 			<input type="button" value="검색" class="ScrollCheck" style= " background-color:#CD853F; color:white; font-family: 'NanumSquareRound',sans-serif; font-size: 15px !important; font-weight:bold; height:50px; width: 80px; border:1; border-color:#CD853F; border-radius: 25px;" > -->
+<!-- </p> -->
 </center>
-        <div class="portfolio"><!--begin portfolio items-->
-		<c:forEach items="${RabbitEncycList1 }" var="e" varStatus="i">
+      <div class="portfolio"><!--begin portfolio items-->
+		<c:forEach items="${DogEncycList1 }" var="e" varStatus="i">
             <div id="${e.encyc_title}" class="portfolio-item" style=" width: 260px; height: 260px; border: 1px #F2F2F2 solid;">          
-            <c:if test="${empty e.encyc_thumbnail}"><h1>
-			<font color="#F2F2F2" style="font-family: Georgia;">No-image</font></h1></c:if>
+            
+            <c:if test="${empty e.encyc_thumbnail}">
+            <h1><font color="#F2F2F2" style="font-family: Georgia;">No-image</font></h1>
+            </c:if>
 			<c:if test="${not empty e.encyc_thumbnail}">
-			<img src="${e.encyc_thumbnail}"></c:if>
-               <h4><font color="grey" style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font></h4>
+			<img src="${e.encyc_thumbnail}">
+			</c:if>
+            <h4><font color="grey" style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font></h4>
                 <div class="img-overlay">
                     <div class="portfolio-text">
-                                       <h4>${e.encyc_title}</h4>
-                   <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>  
+                	<h4>${e.encyc_title}</h4>
+               		<a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>  
                     </div>
                 </div>
-
-            </div>     
-        </c:forEach>
-        <c:forEach items="${RabbitEncycList2 }" var="e" varStatus="i">
-            <div id="${e.encyc_title}" class="portfolio-item" style=" width: 260px; height: 260px; border: 1px #F2F2F2 solid;">          
-            <c:if test="${empty e.encyc_thumbnail}"><h1>
-			<font color="#F2F2F2" style="font-family: Georgia;">No-image</font></h1></c:if>
-			<c:if test="${not empty e.encyc_thumbnail}">
-			<img src="${e.encyc_thumbnail}"></c:if>
-               <h4><font color="grey" style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font></h4>
-                <div class="img-overlay">
-                    <div class="portfolio-text">
-                                       <h4>${e.encyc_title}</h4>
- 				<a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>  
-                    </div>
-                </div>
-            </div>     
-        </c:forEach>     
+            </div>
+          <div>
+          </div>  
+                                
+        </c:forEach>             
         </div><!--End portfolio item-->
         
         
         <div class="load-more text-center">
             <a href="#"> <i class="fa fa-refresh"></i> load more</a>
-
         </div>
     </div>
 
@@ -306,7 +297,7 @@ font-family: 'NanumSquareRound',sans-serif;
                             href="">WordPress</a>
                     </div>
                     <div class="col-md-6">
-                        <a href="" class="back-to-top"><font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">Back to Top</font></a>
+                        <a href="" class="back-to-top">Back to Top</a>
                     </div>
                 </div>
             </div>

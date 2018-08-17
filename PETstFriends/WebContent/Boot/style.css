@@ -94,7 +94,7 @@ a {
     -o-transition: all 0.33s;
     transition: all 0.33s;
     text-decoration: none;
-    color: #60c7eb;
+    color: #FFD232;
 }
 
 a:hover,
@@ -125,7 +125,7 @@ input[type="email"] {
 
 input[type="text"]:focus,
 input[type="email"]:focus {
-    border-color: #60c7eb;
+    border-color: #FFD232;
     outline: none;
 }
 
@@ -165,7 +165,7 @@ h6 {
 .footer-widget .about-me-social a:hover,
 .footer-instagram-title i,
 .more-link:hover {
-    color: #60c7eb;
+    color: #FFD232;
 }
 
 .table {
@@ -234,13 +234,13 @@ h6 {
 }
 
 .main-menu li {
-	font-family: 'NanumSquareRound',sans-serif;
+	font-family: 'NanumSquareRoundB',sans-serif;
     display: inline-block;
     position: relative;
 }
 
 .main-menu li a {
-    font-family: 'NanumSquareRound',sans-serif;
+    font-family: 'NanumSquareRoundB',sans-serif;
     font-size: 14px;
     font-weight: 700;
     line-height: 64px;
@@ -522,8 +522,8 @@ h6 {
 }
 
 .single-promo-box:hover .promo-title span {
-    border-color: #60c7eb;
-    color: #60c7eb;
+    border-color: #FFD232;
+    color: #FFD232;
 }
 
 .single-promo-box:hover .promo-title {
@@ -552,6 +552,7 @@ h6 {
 
 .main-content {
     margin-top: 50px;
+    font-family: 'NanumSquareRound',sans-serif;
 }
 
 
@@ -575,7 +576,7 @@ article.post {
 
 .entry-header h2.entry-title a:hover,
 .entry-header .entry-meta span a:hover {
-    color: #60c7eb;
+    color: #FFD232;
 }
 
 .entry-header .entry-meta {
@@ -605,7 +606,7 @@ article.post {
 }
 
 .more-link {
-    color: #60c7eb;
+    color: #FFD232;
     text-decoration: underline;
     font-size: 11px;
     font-weight: 700;
@@ -633,7 +634,7 @@ article.post {
     font-size: 16px;
     line-height: 34px;
     padding: 0;
-    background-color: #60c7eb;
+    background-color: #FFD232;
     margin: 0;
     position: absolute;
     -webkit-transition: all 0.3s;
@@ -729,7 +730,7 @@ article.post {
 }
 
 .social-share ul li a.s-email:hover {
-    color: #60c7eb;
+    color: #FFD232;
 }
 
 
@@ -773,7 +774,7 @@ ul.pagination {
 .pagination > li > span:hover {
     z-index: 2;
     color: #fff;
-    background-color: #60c7eb;
+    background-color: #FFD232;
     border-color: #eee;
 }
 
@@ -786,7 +787,7 @@ ul.pagination {
     z-index: 3;
     color: #fff;
     cursor: default;
-    background-color: #60c7eb;
+    background-color: #FFD232;
     border-color: #eee;
 }
 
@@ -849,7 +850,7 @@ ul.pagination {
 }
 
 .widget a:hover {
-    color: #60c7eb;
+    color: #FFD232;
 }
 
 .about-me-widget .about-me-img {
@@ -870,7 +871,7 @@ a.more-about-me {
 
 a.more-about-me:hover {
     text-decoration: none;
-    color: #60c7eb;
+    color: #FFD232;
 }
 
 .social-widget a {
@@ -885,8 +886,8 @@ a.more-about-me:hover {
 
 .social-widget a:hover {
     color: #ffffff;
-    background-color: #60c7eb;
-    border-color: #60c7eb;
+    background-color: #FFD232;
+    border-color: #FFD232;
 }
 
 .news-letter input[type="text"],
@@ -915,8 +916,8 @@ a.more-about-me:hover {
 
 .tagcloud a:hover {
     color: #ffffff;
-    border-color: #60c7eb;
-    background-color: #60c7eb;
+    border-color: #FFD232;
+    background-color: #FFD232;
 }
 
 #widget-instagram {
@@ -928,7 +929,7 @@ a.more-about-me:hover {
 }
 
 #widget-instagram .owl-controls .owl-buttons div {
-    background-color: #60c7eb;
+    background-color: #FFD232;
     border-radius: 0;
     width: 30px;
     height: 30px;
@@ -1132,7 +1133,7 @@ a.more-about-me:hover {
 }
 
 .footer-widget .tagcloud a:hover {
-    background-color: #60c7eb;
+    background-color: #FFD232;
 }
 
 .footer-widget .widget-title {
@@ -1177,8 +1178,8 @@ a.more-about-me:hover {
 --------------------------------------*/
 
 .decoration a {
-    color: #60c7eb;
-    border: 1px solid #60c7eb;
+    color: #FFD232;
+    border: 1px solid #FFD232;
     font-size: 14px;
     height: 35px;
     width: 105px;
@@ -1189,8 +1190,8 @@ a.more-about-me:hover {
 
 .decoration a:hover {
     color: #fff;
-    border: 1px solid #60c7eb;
-    background-color: #60c7eb;
+    border: 1px solid #FFD232;
+    background-color: #FFD232;
 }
 
 
@@ -1371,10 +1372,12 @@ a.more-about-me:hover {
 }
 
 .leave-comment {
+	font-family: 'NanumSquareRound',sans-serif;
     background-color: #fff;
     margin: 30px 0;
     padding: 20px;
     color: #212121;
+    border: 1px solid #eeeeee;
 }
 
 .leave-comment h4 {
@@ -1413,7 +1416,7 @@ textarea {
 }
 
 .send-btn {
-    background: #60C7EB;
+    background: #FFD232;
     color: #fff;
     text-transform: uppercase;
     transition: all .4s;
@@ -1509,7 +1512,7 @@ a.send-btn:hover {
 
 .portfolio-name a.active,
 .portfolio-name a:hover {
-    color: #60C7EB;
+    color: #FFD232;
 }
 
 .load-more {
@@ -1574,7 +1577,7 @@ aside.project-widget {
 
 .simple-btn a:hover,
 .project-cap a:hover {
-    color: #60C7EB;
+    color: #FFD232;
 }
 
 .simple-btn a i {
@@ -1772,7 +1775,7 @@ p.go-back-home a {
     border-bottom: 1px solid #eee;
     width: 180px;
     display: inline-block;
-    background: #60C7EB;
+    background: #FFD232;
     padding: 4px 0;
 }
 
@@ -1793,7 +1796,7 @@ p.go-back-home a:hover {
 }
 
 .contact-page .send-btn {
-    background-color: #60c7eb;
+    background-color: #FFD232;
     color: #fff;
     font-weight: 700;
 }
@@ -1843,12 +1846,12 @@ p.go-back-home a:hover {
         text-align: center;
     }
     .slicknav_nav a:hover {
-        color: #60CAF0;
+        color: #FFD232;
     }
     .slicknav_open > a > a,
     .slicknav_open .slicknav_arrow,
     a:hover .slicknav_arrow {
-        color: #60CAF0;
+        color: #FFD232;
     }
     .slicknav_open li {
         background: #f7f7f7
