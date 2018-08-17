@@ -12,6 +12,8 @@ public interface UserService {
 	
 
 	public boolean updateUser(HashMap<String, Object> params);
+	public boolean updatePet(HashMap<String, Object> params);
+public boolean insertPet(HashMap<String, Object> params);
 
     public void deleteUserPet(String user_id);
 	public HashMap<String, Object> selectUserPet(String user_id);

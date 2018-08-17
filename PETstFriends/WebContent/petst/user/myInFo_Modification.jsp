@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="assets/css/owl.carousel.css">
     <link rel="stylesheet" href="assets/css/owl.theme.css">
     <link rel="stylesheet" href="assets/css/slicknav.css">
-    <link rel="stylesheet" href="style.css">
+<!--     <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="assets/css/responsive.css">
     
    
@@ -157,28 +157,42 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 $(document).ready(function(){
-var list = function() {   // petlist 보여주기 ------------------------------------------------------------------------------------------------
-	$.ajax({
-		type: 'get',
-	     url : 'petList.do',
-		dataType : 'json',
-	    success : function(data) {
+// var list = function() {   // petlist 보여주기 ------------------------------------------------------------------------------------------------
+// 	$.ajax({
+// 		type: 'get',
+// 	     url : 'petList.do',
+// 		dataType : 'json',
+// 	    success : function(data) {
 
-	     for(var i in data){
+// 	     for(var i in data){
 
-	    		$('#pet_table').append('<tr><td>'+data[i].pet_name+'</td><td>'+data[i].pet_species+'</td><td>'+data[i].pet_age+'</td><td>'
-	    				+data[i].pet_file+'</td><td>'+'</td><td><button class="updatePet" style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white" value=' + data[i].user_id
-	    				+'>수정</button>'+'</td><td><button class="deletePet"  style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white" value=' + data[i].user_id
-	    				+'>삭제</button></td></tr>');
-						}
-					},
-					error : function(xhrReq, status, error) {
-						alert(error)
-						 alert("값이 안옴 ");
-					}
-				})
-			};
-			list();          // petlist 보여주기 ------------------------------------------------------------------------------------------------
+// 	    		$('#petTable').append('<tr><td><input type="text" class="pet_name" name="pet_name" value = '+data[i]pet_name+'></td>'
+// 	    				+ '<td><select class="pet_species">'
+// 	    				+ '<option value="0">종 선택</option>'
+// 	    				+ '<option value="1">개</option>'
+// 	    				+ '<option value="2">고양이</option>'
+// 	    				+ '<option value="3">토끼</option>'
+// 	    				+ '<option value="4">기타</option>'
+// 	    				+ '</select></td>'
+// 	    				+ '<td><select class="pet_gender">'
+// 	    				+ '<option value="0">성별</option>'
+// 	    				+ '<option value="1">여</option>'
+// 	    				+ '<option value="2">남</option>'
+// 	    				+ '<option value="3">중성화</option>'
+// 	    				+ '</select></td>'
+// 	    				+ '<td><input type="text" class="pet_age" value = '+data[i].pet_age+'></td>'
+// 	    				+ '<td><input type="file" class="pet_file" value ='data[i].pet_file'></td>'
+// 	    				+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
+// 	    				+ '</tr>');
+// 						}
+// 					},
+// 					error : function(xhrReq, status, error) {
+// 						alert(error)
+// 						 alert("값이 안옴 ");
+// 					}
+// 				})
+// 			};
+// 			list();          // petlist 보여주기 ------------------------------------------------------------------------------------------------
 
 
 
@@ -279,30 +293,75 @@ $(document).ready(function (){
 			method:"GET",
 			url:"updateUser.do",
 			data:{
-			user_nickname:$('#user_nickname').val(),
-			user_pass:$('#user_pass').val(),
+			user_id:$("#user_id").val(),
+		   user_nickname:$('#user_nickname').val(),
+			user_pass:$('#new_user_pass').val(),
 		     user_email:$('#user_email').val(),
 			user_phone:$('#user_phone').val(),
-			user_proPic:$('#user_proPict').val()
+			user_proPic:$('#user_proPict').val(),
+			user_havePet:$('.user_havePet').val()
 			},
-			//datatype:"text",
+			// datatype:"text",
 			success: function(data){
-				alert("ddd")
+			
 				alert("수정성공");
-				//window.location.href="loginForm.do";
+				//window.location.href="usermain.do";
 			},
-			error:function(xhrReq, status, error){
+			error : function(xhrReq, status, error){
 				alert(error);
 				alert("수정실패");
 			}
 		})//ajax
 	});
 		
-	});
+
 	
+
+$('.user_havePet').click(function() { //반려동물 있음 =>펫테이블 보이게하기
+	if ($(this).val() == 1)
+		$('#petTable').css('display', 'inline');
+});
+$('.user_havePet').click(function() { //반려동물 없음 =>펫테이블 사라지게하기
+	if ($(this).val() == 0) {
+		$('#petTable').css('display', 'none');
+	}
+});
+var clickNum = 1; //10마리까지만 입력 가능하도록 함
+$(document).on('click', '.addPet', function() { //+클릭시 종 입력 줄 한줄 생성
+	if (clickNum > 9) {
+		alert('최대 10마리까지 입력 가능합니다.')
+	} else {
+		clickNum++;
+		$('#petTable').append('<tr><td><input type="text" class="pet_name" name="pet_name"></td>'
+			+ '<td><select class="pet_species">'
+			+ '<option value="0">종 선택</option>'
+			+ '<option value="1">개</option>'
+			+ '<option value="2">고양이</option>'
+			+ '<option value="3">토끼</option>'
+			+ '<option value="4">기타</option>'
+			+ '</select></td>'
+			+ '<td><select class="pet_gender">'
+			+ '<option value="0">성별</option>'
+			+ '<option value="1">여</option>'
+			+ '<option value="2">남</option>'
+			+ '<option value="3">중성화</option>'
+			+ '</select></td>'
+			+ '<td><input type="text" class="pet_age"></td>'
+			+ '<td><input type="file" class="pet_file"></td>'
+			+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
+			+ '</tr>')
+	}
+})
+$(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
+	var thisR = $(this);
+	thisR.parent().remove();
+	if (clickNum > 1) {
+		clickNum--;
+	}
 });
 
 
+});
 </script>
 
 
@@ -404,27 +463,16 @@ $(document).ready(function (){
 
                     <article class="post">
                         <header class="entry-header text-center">
-                            <h2 class="entry-title text-uppercase">내정보수정</h2>
+                            <h3 class="entry-title text-uppercase">내정보수정</h3>
 
 
                         </header>
-
 		
      <center>
-	
-	                
-	                	<table>
-	                		<form id="userUpdate">
+              	<table>
+	            
 	                	<div class="entry-content">
-	           
-				<tr>
-					<td>회원번호</td>
-					<td><input type="text" name="user_no" id="user_no"
-						value="${params.user_no} " readonly="readonly"></td>
-				</tr>
-
-
-				<tr>
+			<tr>
 					<td>이름</td>
 					<td><input type="text" name="user_name" id="user_name"
 						value="${params.user_name} " readonly="readonly"></td>
@@ -450,7 +498,7 @@ $(document).ready(function (){
 
 				<tr>
 					<td>새비번*</td>
-					<td><input type="password" name="user_pass "
+					<td><input type="password" name="user_pass"
 						id="new_user_pass"><span id="pwd1ok "></span></td>
 				</tr>
 
@@ -479,11 +527,11 @@ $(document).ready(function (){
 						value="${params.user_phone} "><br></td>
 				</tr>
 
-				<tr>
-					<td>프로필사진</td>
-					<td><input type="text" name="user_proPic" id="user_proPic"
-						value="${params.user_proPic} "></td>
-				</tr>
+<!-- 				<tr> -->
+<!-- 					<td>프로필사진</td> -->
+<!-- 					<td><input type="text" name="user_proPic" id="user_proPic" -->
+<%-- 						value="${params.user_proPic} "></td> --%>
+<!-- 				</tr> -->
 
 
 				<tr>
@@ -492,12 +540,16 @@ $(document).ready(function (){
 						value="${params.user_score} " readonly="readonly"></td>
 				</tr>
 
-
+<tr>
+					<td>반려동물 *</td>
+					<td><input type="radio" name="user_havePet"
+						class="user_havePet" value="1">있음 <input type="radio"
+						name="user_havePet" class="user_havePet" value="0">없음</td>
+				</tr>
 				<tr>
 					<td colspan="2" align="center">
 						<button id = "updatebtn" style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">수정하기</button>
-<!-- 						<input type="submit" value="수정하기" -->
-<!-- 						style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white"> -->
+
 
 
 						<input type="button" value="탈퇴하기"
@@ -511,7 +563,7 @@ $(document).ready(function (){
 
 		
 	
-		</form>
+		
 		</table>
 		</center>
 
@@ -519,61 +571,68 @@ $(document).ready(function (){
 </div>
 		<br>
 
+<div class="mypage_hd">
+					
+						<div class="mypage_nav_wrap">
+					
+					<table><tr>
+								<td><a href="./mypage_01.sub.php">나의 정보 수정</a></td>
+						        <td><a href="./mypage_02.sub.php"> 내가작성한문의</a></td>
+								<td><a href="./mypage_04.sub.php">내가작성한게시글</a></td>
+								<td><a href="./mypage_05.sub.php">내가 좋아요 한 글</a></td>
+							<td>	<a href="./mypage_06.sub.php">내가 참여한 모임</a></td>
+								</tr></table>
+						
+							<div class="clear"></div>
+						</div>
+						<div class="clear"></div>
+					</div>
+
  <div class="col-md-5 col-sm-5" >
                     <div class="primary-sidebar">
                         <aside class="project-widget">
 <div class="project-details">
-		<form name="insertPet" method="post" id="insertPet">
+	
 			
-			<table cellspacing="0">
-				<tr bgcolor="orange">
-					<th>이름</th>
-					<th>종</th>
-					<th>성별</th>
-					<th>나이</th>
-					<th>사진</th>
-				</tr>
-				<tr id="joinEl">
-					<td style="text-align: left"><input type="text" size="8"
-						name="pet_name" id="pet_name" class="joinEl"></td>
-					<td><select id="pet_species" class="joinEl">
-							<option value="0">종 선택</option>
-							<option value="1">개</option>
-							<option value="2">고양이</option>
-							<option value="3">토끼</option>
-							<option value="4">기타</option>
-					</select></td>
-					<td><select id="pet_gender" class="joinEl">
-							<option value="0">성별</option>
-							<option value="1">여</option>
-							<option value="2">남</option>
-							<option value="3">중성화</option>
-					</select></td>
-					<td><input type="text" size="12" name="pet_age" id="pet_age"
-						class="joinEl" maxlength="11"></td>
-					<td><input type="text" size="30" name="pet_file" id="pet_file"
-						class="joinEl"></td>
-				</tr>
-				<tr>
-					<td colspan="5" align="center"><input type="button"
-						id="InserPetBtn" value="펫추가하기"
-						style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white"></td>
-				</tr>
-			</table>
-		</form>
+		
+<table id="petTable" style="display: none">
+				<thead>
+					<tr>
+						<td colspan="5" align="right" class="addPet">반려동물 추가<i
+							class="fa fa-plus-square"></i></td>
+					</tr>
+					<tr>
+						<th>이름 *</th>
+						<th>종 *</th>
+						<th>성별 *</th>
+						<th>나이</th>
+						<th>사진</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody id="petTable_tbody">
+					<tr>
+						<td><input type="text" class="pet_name" name="pet_name"></td>
 
-		<h2>나의 펫 정보</h2>
-		<table id="pet_table" cellspacing="0">
-			<tr bgcolor="orange">
-				<th>이름</th>
-				<th>종</th>
-				<th>성별</th>
-				<th>나이</th>
-				<th>사진</th>
-				<th>수정</th>
-				<th>삭제</th>
-			</tr>
-		</table>
+						<td><select class="pet_species">
+								<option value="0">종 선택</option>
+								<option value="1">개</option>
+								<option value="2">고양이</option>
+								<option value="3">토끼</option>
+								<option value="4">기타</option>
+						</select></td>
+						<td><select class="pet_gender">
+								<option value="0">성별</option>
+								<option value="1">여</option>
+								<option value="2">남</option>
+								<option value="3">중성화</option>
+						</select></td>
+						<td><input type="text" class="pet_age"></td>
+						<td><input type="file" class="pet_file"></td>
+						<td class="removePet"></td>
+					</tr>
+				</tbody>
+			</table>
   </aside>
   </div>
   </div>

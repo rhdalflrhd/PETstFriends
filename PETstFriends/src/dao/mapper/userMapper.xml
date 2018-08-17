@@ -10,20 +10,20 @@ select * from User where user_id = #{user_id}
 	</select>
 		
 <select id="selectPetAll" parameterType="String" resultType="java.util.HashMap">
-select * from Pet where user_id = #{user_id}
+select * from pet where user_id = #{user_id}
 </select>
 
 
-<insert id="insertPet" parameterType="java.util.HashMap">
+<insert id="insertPet" parameterType="Pet">
 insert into Pet values(user_id = #{user_id} ,0,pet_name = #{pet_name},pet_species =#{pet_species},pet_gender=#{pet_gender},pet_age =#{pet_age},pet_file=#{pet_file});
 </insert>
 
 	<update id="updateUser" parameterType="java.util.HashMap" >
-update User set  user_no = #{user_no} , user_name = #{user_name},user_nickname = #{user_nickname}, user_pass = #{user_pass} , user_email = #{user_email} ,user_phone = #{user_phone}, 
- user_proPic = #{user_proPic}, user_score = #{user_score} where user_id = #{user_id}
+update User set user_nickname = #{user_nickname}, user_pass = #{user_pass} , user_email = #{user_email} ,user_phone = #{user_phone}, 
+ user_havePet = #{user_havePet} where user_id = #{user_id}
 	</update>
 	
-	<update id="updatePet" parameterType="java.util.HashMap" >
+	<update id="updatePet" parameterType="Pet" >
 update Pet set pet_name = #{pet_name}, pet_species = #{pet_species},pet_gender = #{pet_gender}, pet_age = #{pet_age},pet_file = #{pet_file} 
 where user_id = #{user_id}
 	</update>
@@ -70,9 +70,7 @@ UNION
 select mr.meeting_boardno , mr.meetingReview_title , mr.meetingReview_userid, mr.writeDate from meetingReview mr , meetingLikes mtl where mr.meetingReview_userid = mtl.meetingLikes_userid and mr.meetingReview_userid = #{user_id} limit #{skip},10
 	</select>
 	
-<!-- 		<select id="selectBoardAllbyId" parameterType="String" resultType="QnABoard"> -->
-<!-- select * from QnA where  QnA_userid = #{user_id} limit #{skip},10 -->
-<!-- 	</select> -->
+
 	
 	
 

@@ -8,7 +8,10 @@ import model.User;
 
 public interface UserDao {
 	
-	public boolean updateUser(HashMap<String, Object> params);
+	public int insertPet(Pet pet);
+	public int updateUser(HashMap<String, Object>params);
+	public int updatePet(Pet pet);
+	
 	public HashMap<String, Object>  selectUserPet(String user_id);
 	public HashMap<String, Object> infoForUpdate(int user_no);
 	

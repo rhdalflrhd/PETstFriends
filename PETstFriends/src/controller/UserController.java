@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -94,19 +95,30 @@ public class UserController {
 		return "user/myInFo_PWCheck";
 
 	}
+	@RequestMapping("usermain.do")
+	public String Useramin(HttpSession session, Model model) {
+
+		return "user/main";
+
+	}
+	
+	
 
 	@RequestMapping("getUserId.do")
 	public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
 
-		if (user_pass == null) {
+		if (user_pass ==null) {
 			HashMap<String, Object> params = userService.selectUser("yoo");
 			model.addAttribute("params", userService.selectUser("yoo"));
 
 			return "user/myInFo_Modification";
 		} else
-			return "user/myInFo_PWCheck";
+			return "user/myInFo_Modification";
 
 	}
+	
+	
+	
 
 	@RequestMapping(value = "/petList.do") // 펫 리스트 보여주기
 	@ResponseBody
@@ -162,15 +174,30 @@ public class UserController {
 
 	}
 
-	@RequestMapping( value ="updateUser.do") // 내정보수정에서 수정하기 누르면 업데이트!
-	@ResponseBody 
-	public String updateUserPet(@RequestParam HashMap<String, Object> params, HttpSession session, Model mode) {
+	@RequestMapping( value = "/updateUser.do") // 내정보수정에서 수정하기 누르면 업데이트!
+@ResponseBody
+	public String updateUserPet(@RequestParam HashMap<String, Object> params ,HttpServletResponse resp , HttpServletRequest req) {
+		resp.setContentType("text/html; charset=UTF-8");
+//User user = new User();
+//user.setUser_nickname(req.getParameter("user_nickname"));
+//user.setUser_pass(req.getParameter("user_pass"));
+//user.setUser_email(req.getParameter("user_email"));
+//user.setUser_phone(req.getParameter("user_phone"));
+//int user_havePet = (Integer.parseInt(req.getParameter("user_havePet")));
+//user.setUser_havePet(user_havePet);
+//params.put("user", user);
 
 		System.out.println(params);
-	         userService.updateUser(params);
-
-		return "redirect:getUserId.do";
+		System.out.println("여기는 컨트롤로");
+	   userService.updateUser(params);
+	
+String msg = "성공성공";
+return msg;
 	}
+	
+
+	
+	
 
 	@RequestMapping("deleteUserForm.do") // 탈퇴하기 누르면 비번확인폼으로이동
 	public String userDeleteForm() {

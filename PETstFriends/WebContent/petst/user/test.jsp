@@ -4,302 +4,374 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Rubel Miah">
-
-    <!-- favicon icon -->
-    <link rel="shortcut icon" href="./assets/images/favicon.png">
-    
-	<title>토끼종정보!</title>
-	   
-	    <!-- common css -->
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.min.css">
-    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="./assets/css/owl.theme.css">
-    <link rel="stylesheet" href="./assets/css/slicknav.css">
-    <link rel="stylesheet" href="./assets/style.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
-    
+</head>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-// $('#detailClick').on('click',function(){
-// // 	alert(this.name);
-// var link =this.name;
-// var w = window.screen.width;
-// var h = window.screen.height;
-// var popupX = (window.screen.width / 2) - (700 / 2);
-// var popupY= (window.screen.height /2) - (700 / 2);
-// var popOption = "width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=yes, scrollbars=yes, status=no, top = window.screen.width/2, left =window.screen.height /2;";    //팝업창 옵션(optoin)
-// window.open(link,"new",popOption);
-// 	});	
-	
-	
-	
+
+window.onload = function() {
+
+	var pwd1Check = document.getElementById("new_user_pass");
+var pwd1ok = document.getElementById("pwd1ok ");
+pwd1Check.addEventListener('blur', function(e) {
+	var pattern1 = /[0-9]/;
+	// 숫자 
+	var pattern2 = /[a-zA-Z]/;
+	// 문자 
+	var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
+	// 특수문자
+	var blank_pattern2 = /^\s+|\s+$/g;
+
+	if (blank_pattern2.test(pwd1Check.value) == true) {
+		pwd1ok.innerHTML = "비밀번호는 공백이 불가합니다."
+		pwd1Check.focus();
+	}
+	 else if(!pattern1.test(pwd1Check.value) || !pattern2.test(pwd1Check.value) || !pattern3.test(pwd1Check.value)) {
+			pwd1ok.innerHTML = "비밀번호는 8자리 이상 문자, 숫자, 특수문자(사용가능한 특수문자: ~!@#$%^&*()_+|<>?:{})"
+			pwd1Check.focus();
+	 }
+	 else pwd1ok.innerHTML = "사용가능합니다.";
 });
+
+//ddd
+var pwd2Check = document.getElementById("new_user_pass_chk");
+var pwd2ok = document.getElementById("pwd2ok");
+pwd2Check.addEventListener('blur', function(e) {
+	if(pwd1Check.value != pwd2Check.value){
+
+		pwd2ok.innerHTML="비밀번호가 일치하지 않습니다. 다시 입력해주세요";
+		pwd2Check.focus();
+	}
+	else{
+		pwd2ok.innerHTML="비밀번호가 일치합니다.";
+	}		
+});
+	
+};
+
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+
+	$('#user_pass').blur(function() { //비밀번호 일치 검사 ----------------------------------
+		$.ajax({
+			method : 'GET',
+			url : 'passCheck.do',
+			data : {
+				user_pass : $('#user_pass').val()
+			},
+			success : function(result) {
+				if (result != true) {
+					$('#pass').html('비밀번호가 일치합니다.');
+				} else {
+					$('#pass').html('비밀번호가 일치하지않습니다.');
+					$(this).focus();
+				}
+			},
+			error : function(xhrReq, status, error) {
+				alert(error)
+				alert("값이 안온건가용?")
+			}
+		});
+	}); //  비밀번호 일치 검사 끝 ------------------------------------------------------------
+
+
+
+	$('#user_nickname').blur(function() { //닉네임 중복 검사-------------------------------------
+			$.ajax({
+				method : 'GET',
+				url : 'nicknameCheck.do',
+				data : {
+					user_nickname : $('#user_nickname').val()
+				},
+				success : function(result) {
+					if (result == true) {
+						$('#nickname').html('사용가능한 닉네임입니다.');
+					} else {
+						$('#nickname').html('사용 불가한 닉네임입니다.');
+						$(this).focus();
+					}
+				},
+				error : function(xhrReq, status, error) {
+					alert(error)
+					alert("값이 안온건가용?")
+				}
+			});
+		});//닉네임 중복 검사--------------------------------------------------------------------------
+	
+
+	
+	$('#user_email').blur(function() { //이메일 중복 검사-------------------------------------------------------
+		$.ajax({
+			method : 'GET',
+			url : 'emailCheck.do',
+			data : {
+				user_email : $('#user_email').val()
+			},
+			success : function(result) {
+				if (result == true) {
+					$('#email').html('사용 가능한 이메일 입니다.');
+				} else {
+					$('#email').html('사용 불가한 이메일입니다.');
+					$(this).focus();
+				}
+			},
+			error : function(xhrReq, status, error) {
+				alert(error)
+				alert("값이 안온건가용?")
+			}
+		});
+	});//이메일 중복 검사-------------------------------------------------------
+	
+	
+});   // 첫번째 스크립트 끝 
+</script>
+<script type="text/javascript">
+$(function () {
+	   var chk = -1;
+
+
+	$("#auth_btn").click(function () {   // 이메일 인증 받기  -------------------------------------------------------------
+
+	    var authNum = "";
+	    
+	    $.ajax({
+	    	method : 'GET',
+	    	url : "emailAuth.do",
+	        data : {
+	        	
+	        	user_email : $('#user_email').val()
+	        	
+	        },
+	        success : function (str) {
+	            authNum = str;
+	            alert("인증번호 전송완료.");
+//	             alert(authNum);
+	            
+	            $('#user_authNum').blur(function(){
+	            	
+	            
+	            if( $('#user_authNum').val()==authNum){
+	                alert("인증완료");
+	                
+	                $("#lab1").html("<label>인증완료</label>");
+	            }else{
+	                alert("인증실패");
+	                $("#lab1").html("<label>인증실패</label>");
+	            }
+	            
+	        });
+	         }
+	    
+	});
+	});  // 이메일 인증 받기 끛 -------------------------------------------------------------
+
+
+	});
+
 </script>
 
-<style type="text/css">
-table {
-	width: 100%;
-	background-color: transparent;
-}
-th, td {
-/* 	border: 1px gray solid; */
-	text-align: center;
-	padding: 8px
-}
-</style>	
-</head>
+<script type="text/javascript">
+
+$(document).ready(function (){
+	
+	$("#updatebtn").click(function (){
+		$.ajax({
+			type:"POST",
+			url:"updateUser.do",
+			data:{
+				"user_id":$('#user_id').val(),
+				"user_nickname":$('#user_nickname').val(),
+				"user_pass":$('#user_pass').val(),
+				"user_email":$('#user_email').val(),
+				"user_phone":$('#user_phone').val(),
+				"user_havePet":$('.user_havePet:checked').val(),
+			
+			},
+// 			datatype:"text",
+			success: function(data){
+			
+				alert("수정성공");
+				window.location.href="usermain.do";
+			
+			
+			},
+			error : function(xhrReq, status, error){
+				alert(error);
+				alert("수정실패");
+			}
+		})//ajax
+	});
+		
+
+	
+
+$('.user_havePet').click(function() { //반려동물 있음 =>펫테이블 보이게하기
+	if ($(this).val() == 1)
+		$('#petTable').css('display', 'inline');
+});
+$('.user_havePet').click(function() { //반려동물 없음 =>펫테이블 사라지게하기
+	if ($(this).val() == 0) {
+		$('#petTable').css('display', 'none');
+	}
+});
+var clickNum = 1; //10마리까지만 입력 가능하도록 함
+$(document).on('click', '.addPet', function() { //+클릭시 종 입력 줄 한줄 생성
+	if (clickNum > 9) {
+		alert('최대 10마리까지 입력 가능합니다.')
+	} else {
+		clickNum++;
+		$('#petTable').append('<tr><td><input type="text" class="pet_name" name="pet_name"></td>'
+			+ '<td><select class="pet_species">'
+			+ '<option value="0">종 선택</option>'
+			+ '<option value="1">개</option>'
+			+ '<option value="2">고양이</option>'
+			+ '<option value="3">토끼</option>'
+			+ '<option value="4">기타</option>'
+			+ '</select></td>'
+			+ '<td><select class="pet_gender">'
+			+ '<option value="0">성별</option>'
+			+ '<option value="1">여</option>'
+			+ '<option value="2">남</option>'
+			+ '<option value="3">중성화</option>'
+			+ '</select></td>'
+			+ '<td><input type="text" class="pet_age"></td>'
+			+ '<td><input type="file" class="pet_file"></td>'
+			+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
+			+ '</tr>')
+	}
+})
+$(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
+	var thisR = $(this);
+	thisR.parent().remove();
+	if (clickNum > 1) {
+		clickNum--;
+	}
+});
+
+
+});
+
+
+</script>
 <body>
+<header id="header">
+		<h1> 내 정보 수정</h1>
+	
+			*는 필수 입력 칸입니다.
 
-<div class="wrapper">
+			<table id="userTable" boder="" bgcolor="#cdfdee" cellspacing="1">
+				
+					<tr>
+					<td>이름</td>
+					<td><input type="text" name="user_name" id="user_name"
+						value="${params.user_name} " readonly="readonly"></td>
+				</tr>
 
-    <!--header section start-->
-    <header id="header">
-        <div class="main-logo text-center">
-            <h1><a href="#"><img src="./assets/images/petstlogo_2.PNG" alt="Ocean"></a></h1>
-        </div>
-        <div id="demo2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="main-menu text-uppercase">
-                            <ul id="menu">
-                                <li><a href="index.html">메인</a></li>
-                                <li class="menu-item-has-children"><a href="#">펫프모여라<i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">STANDARD POST</a></li>
-                                        <li><a href="#">GALLERY POST</a></li>
-                                        <li><a href="#"> VIDEO POST</a></li>
-                                        <li><a href="#">AUDIO POST</a></li>
-                                        <li><a href="#">TYPOGRAPHY</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
+				<tr>
+					<td>아이디</td>
+					<td><input type="text" name="user_id" id="user_id"
+						value=" ${params.user_id} " readonly="readonly"></td>
+				</tr>
+				
+				<tr>
+					<td>닉네임 *</td>
+					<td><input type="text" id="user_nickname" name="user_nickname" value="${params.user_nickname} ">
+						<span id="idCheck">중복결과 여부</span></td>
+				</tr>
+				<tr>
+					<td>기본비번*</td>
+					<td><input type="password" id="user_pass"><span
+						id="pass"></span></td>
+				</tr>
 
-                                    </ul>
-                                </li>
-                                 <li class="menu-item-has-children"><a href="">펫프광장 <i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">강아지 광장</a></li>
-                                        <li><a href="#">고양이 광장</a></li>
-                                        <li><a href="#">토끼 광장</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children"><a href="">펫프정보 <i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li class="menu-item-has-children"><a href="">강아지<i
-                                                class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="dogInfoSquareSpecies.do">강아지 종정보</a></li>
-                                                <li><a href="#">강아지 Tip</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="">고양이<i
-                                                class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="CatInfoSquareSpecies.do">고양이 종정보</a></li>
-                                                <li><a href="#">고양이 Tip</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="">토끼<i
-                                                class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="RabbitInfoSquareSpecies.do">토끼 종정보</a></li>
-                                                <li><a href="#">토끼 Tip</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">병원</a></li>
-                                <li><a href="#">플레이스</a></li>
-                                <li><a href="#">펫프쇼핑비교</a></li>
-                                <li class="menu-item-has-children"><a href="#">templates <i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="testimonial.html">Testimonial</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        <li><a href="about-us-1.html">About Us 1</a></li>
-                                        <li><a href="about-us-2.html">About Us 2</a></li>
-                                        <li><a href="about-me.html">About Me</a></li>
-                                        <li><a href="portfolio.html">Portfolio</a></li>
-                                        <li><a href="single-protfolio.html">Single Portfolio</a></li>
-                                        <li><a href="service.html">Service</a></li>
-                                        <li><a href="blog.html"> single Blog</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
+				<tr>
+					<td>새비번*</td>
+					<td><input type="password" name="user_pass"
+						id="new_user_pass"><span id="pwd1ok "></span></td>
+				</tr>
 
-                                    </ul>
-                                </li>
-                                <li><a href="./assets/contact.html">contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!--header section end-->
-    <div class="container">
+				<tr>
+					<td>새비번확인*</td>
+					<td><input type="password" id="new_user_pass_chk"><span
+						id="pwd2ok"></span></td>
+				</tr>
+				<tr>
+					<td>이메일*</td>
+					<td><input type="text" name="user_email" id="user_email"
+						value="${params.user_email} "> <span id="email"></span>
+						<button type="button" id="auth_btn"
+							style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">인증하기</button></td>
+				</tr>
+				<tr>
+					<td>인증번호*</td>
+					<td><input type="text" id="user_authNum">
+						<div id="lab1"></div></td>
+				</tr>
+				<tr>
+					<td>휴대폰</td>
+					<td><input type="text" id="user_phone"   value="${params.user_phone}"> <span
+						id="phoneCheck"></span></td>
+				</tr>
+					<tr>
+					<td>나의점수</td>
+					<td><input type="text" name="user_score" id="user_score"
+						value="${params.user_score} " readonly="readonly"></td>
+				</tr>
+			<tr>
+					<td>반려동물 *</td>
+					<td><input type="radio" name="user_havePet" class="user_havePet" value="1">있음 
+					<input type="radio" name="user_havePet" class="user_havePet" value="0">없음</td>
+				</tr>
+			
+	</table>
 
-        <h3 class="heading-text text-center text-uppercase">
-        <font color="grey" style="font-family: Georgia; font-weight: bold;">토끼 종 정보</font></h3>
+	<table id="petTable" style="display: none">
+				<thead>
+					<tr>
+						<td colspan="5" align="right" class="addPet">반려동물 추가<i
+							class="fa fa-plus-square"></i></td>
+					</tr>
+					<tr>
+						<th>이름 *</th>
+						<th>종 *</th>
+						<th>성별 *</th>
+						<th>나이</th>
+						<th>사진</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody id="petTable_tbody">
+					<tr>
+						<td><input type="text" class="pet_name" name="pet_name"></td>
 
-        <div class="portfolio-name text-center"><!--Portfolio menu list-->
-            <a href="#" class="active" data-filter="*">All</a>
-            <a href="#" data-filter=".brand">Branding</a>
-            <a href="#" data-filter=".print">Print</a>
-            <a href="#" data-filter=".marketing">Marketing</a>
-            <a href="#" data-filter=".development">Development</a>
-        </div>
+						<td><select class="pet_species">
+								<option value="0">종 선택</option>
+								<option value="1">개</option>
+								<option value="2">고양이</option>
+								<option value="3">토끼</option>
+								<option value="4">기타</option>
+						</select></td>
+						<td><select class="pet_gender">
+								<option value="0">성별</option>
+								<option value="1">여</option>
+								<option value="2">남</option>
+								<option value="3">중성화</option>
+						</select></td>
+						<td><input type="text" class="pet_age"></td>
+						<td><input type="file" class="pet_file"></td>
+						<td class="removePet"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<button id = "updatebtn" style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">수정하기</button>
+			<button onclick="location.href='login.do'" style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">탈퇴하기</button>
+	
 
-
-        <div class="portfolio"><!--begin portfolio items-->
-		<c:forEach items="${RabbitEncycList1 }" var="e" varStatus="i">
-            <div class="portfolio-item" style=" width: 260px; height: 260px; border: 1px #F2F2F2 solid;">          
-            <c:if test="${empty e.encyc_thumbnail}">
-			<font color="#F2F2F2" style="font-family: Georgia;">No-image</font></c:if>
-			<c:if test="${not empty e.encyc_thumbnail}">
-			<img src="${e.encyc_thumbnail}"></c:if>
-               <h4><font color="grey" style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font></h4>
-                <div class="img-overlay">
-                    <div class="portfolio-text">
-<%--                    <h4>${i.count}. ${e.encyc_title}</h4> --%>
-<%--                    <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+(window.screen.height-700/2)+',left='+(window.screen.width-700/2));">click</a>                   --%>
-                   <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no,left=800 ');">click</a>  
-                    </div>
-                </div>
-
-            </div>
-        </c:forEach>   
-        </div><!--End portfolio item-->
-        
-        
-        <div class="load-more text-center">
-            <a href="#"> <i class="fa fa-refresh"></i> load more</a>
-        </div>
-    </div>
-
-    <!--footer start-->
-    <footer id="footer">
-
-        <div class="footer-widget-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <aside class="footer-widget">
-                            <div class="about-me-img"><img src="./Boot/images/petstlogo_ft.png" alt="ocean"></div>
-                            <div class="about-me-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                                diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-                                voluptua. At vero eos et accusam et justo duo dlores et ea rebum magna text ar koto din.
-                            </div>
-                            <div class="about-me-social">
-                                <a href=""><i class="fa fa-facebook"></i></a>
-                                <a href=""><i class="fa fa-twitter"></i></a>
-                                <a href=""><i class="fa fa-google-plus"></i></a>
-                                <a href=""><i class="fa fa-instagram"></i></a>
-                                <a href=""><i class="fa fa-pinterest-p"></i></a>
-                                <a href=""><i class="fa fa-linkedin"></i></a>
-                            </div>
-                        </aside>
-                    </div>
-                    <div class="col-md-4">
-                        <aside class="footer-widget">
-                            <h3 class="widget-title text-uppercase">Recent Posts</h3>
-
-                            <div class="thumb-latest-posts">
-
-                                <div class="media">
-                                    <div class="media-body">
-                                        <h4><a href="">A Responsive WordPress Theme for you</a></h4>
-
-                                        <div class="entry-meta small">November 25, 2015</div>
-                                    </div>
-                                </div>
-
-                                <div class="media">
-                                    <div class="media-body">
-                                        <h4><a href="">A Responsive WordPress Theme for you</a></h4>
-
-                                        <div class="entry-meta small">November 25, 2015</div>
-                                    </div>
-                                </div>
-
-                                <div class="media">
-                                    <div class="media-body">
-                                        <h4><a href="">A Responsive WordPress Theme for you</a></h4>
-
-                                        <div class="entry-meta small">November 25, 2015</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </aside>
-                    </div>
-                    <div class="col-md-4">
-                        <aside class="footer-widget">
-                            <h3 class="widget-title text-uppercase">Tag Clouds</h3>
-
-                            <div class="tagcloud">
-                                <a href="">Lifestyle</a>
-                                <a href="">Food</a>
-                                <a href="">Travel</a>
-                                <a href="">Business</a>
-                                <a href="">Story</a>
-                                <a href="">Drinks</a>
-                                <a href="">DIY</a>
-                                <a href="">Tips</a>
-                                <a href="">Theme</a>
-                                <a href="">Plugin</a>
-                                <a href="">WordPres</a>
-                                <a href="">HTML</a>
-                                <a href="">Bootstrap</a>
-                            </div>
-                        </aside>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-copy-right">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        &copy; 2015 <a href="">Ocean</a>, Designed by <a href="">ShapedTheme</a> & Powered by <a
-                            href="">WordPress</a>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="" class="back-to-top">Back to Top</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!--footer end-->
-
-</div>
-
-
-<!-- js files -->
-<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./assets/js/smoothscroll.js"></script>
-<script type="text/javascript" src="./assets/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="./assets/js/imagesloaded.pkgd.js"></script>
-<script type="text/javascript" src="./assets/js/isotope.2.2.2min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.stickit.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.slicknav.js"></script>
-<script type="text/javascript" src="./assets/js/scripts.js"></script>
-
-
+		</header>
+	</center>
 </body>
 </html>
