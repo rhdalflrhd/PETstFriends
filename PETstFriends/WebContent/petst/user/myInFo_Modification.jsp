@@ -4,23 +4,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
- <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Rubel Miah">
     <!-- favicon icon -->
-    <link rel="shortcut icon" href="assets/images/favicon.png">
+    <link rel="shortcut icon" href="./assets/images/favicon.png">
 
 <title>내정보수정</title>
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.css">
-    <link rel="stylesheet" href="assets/css/slicknav.css">
-<!--     <link rel="stylesheet" href="style.css"> -->
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/animate.min.css">
+    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="./assets/css/owl.theme.css">
+    <link rel="stylesheet" href="./assets/css/slicknav.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
     
    
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -197,45 +197,45 @@ $(document).ready(function(){
 
 
 
-//	 		$('#inserPet').click(function(){    // 펫 추가하기 
-//	 			if($('#pet_name').val()=='' || $('#pet_species').val()=='' || $('#pet_gender').val()==''
-//	 				||$('#pet_age').val()=='' || $('#pet_file').val()==''){
-//	 				alert('빈칸없이 적어주세요.');
-//	 			}
-//	 			else if($('#isDupli').html()=='사용가능'){
-//	 			$.ajax({
-//	 				method : 'POST',
-//	 				url : 'insertPet.do',
-//	 				data : 
-//	 				{pet_name: $('#pet_name').val(), 
-//	 				pet_species: $('#pet_species').val(), 
-//	 				pet_gender: $('#pet_gender').val(),	
-//	 				pet_age: $('#pet_age').val(),	
-//	 				pet_file: $('#pet_file').val()},
-//	 				dataType : 'json',
-//	 				success : function(data) {
-//	 					if(data.result==true){
-//	 						$('#pet_table > tbody:last').append(('<tr><td>'+data[i].pet_name+'</td><td>'+data[i].pet_species+'</td><td>'+data[i].pet_age+'</td><td>'
-//	 			+data[i].pet_file+'</td><td>'+'</td><td><button class="updatePet" style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white" value=' + data[i].user_id
-//	 			+'>수정</button>'+'</td><td><button class="deletePet"  style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white" value=' + data[i].user_id
-//	 			+'>삭제</button></td></tr>');
-//	 						$('.joinEl').val(''); 
-//	 					}
-//	 					else{
-//	 						alert(' 실패');
+	 		$('#inserPetBtn').click(function(){    // 펫 추가하기 
+	 			if($('#pet_name').val()=='' || $('#pet_species').val()=='' || $('#pet_gender').val()==''
+	 				||$('#pet_age').val()=='' || $('#pet_file').val()==''){
+	 				alert('빈칸없이 적어주세요.');
+	 			}
+	 			else if($('#isDupli').html()=='사용가능'){
+	 			$.ajax({
+	 				method : 'POST',
+	 				url : 'insertPet.do',
+	 				data : 
+	 				{pet_name: $('#pet_name').val(), 
+	 				pet_species: $('#pet_species').val(), 
+	 				pet_gender: $('#pet_gender').val(),	
+	 				pet_age: $('#pet_age').val(),	
+	 				pet_file: $('#pet_file').val()},
+	 				dataType : 'json',
+	 				success : function(data) {
+	 					if(data.result==true){
+	 						$('#pet_table > tbody:last').append(('<tr><td>'+data[i].pet_name+'</td><td>'+data[i].pet_species+'</td><td>'+data[i].pet_age+'</td><td>'
+	 			+data[i].pet_file+'</td><td>'+'</td><td><button class="updatePet" style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white" value=' + data[i].user_id
+	 			+'>수정</button>'+'</td><td><button class="deletePet"  style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white" value=' + data[i].user_id
+	 			+'>삭제</button></td></tr>');
+	 						$('.joinEl').val(''); 
+	 					}
+	 					else{
+	 						alert(' 실패');
 							
-//	 					}
-//	 				},
-//	 				error : function(xhrReq, status, error) {
-//	 					alert(error)
-//	 				}
-//	 			})
-//	 			}
-//	 			else{
-//	 				alert('실패');
-//	 				$('.joinEl').val(''); 
-//	 			}
-//	 		}); // 펫 추가 끝 
+	 					}
+	 				},
+	 				error : function(xhrReq, status, error) {
+	 					alert(error)
+	 				}
+	 			})
+	 			}
+	 			else{
+	 				alert('실패');
+	 				$('.joinEl').val(''); 
+	 			}
+	 		}); // 펫 추가 끝 
 			
 			
 			
@@ -513,7 +513,7 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 					<td><input type="text" name="user_email" id="user_email"
 						value="${params.user_email} "> <span id="email"></span>
 						<button type="button" id="auth_btn"
-							style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">인증하기</button></td>
+							style="width: 80px; height: 28px; background-color: #FFD232; border: 1 solid white">인증하기</button></td>
 				</tr>
 				<tr>
 					<td>인증번호*</td>
@@ -548,14 +548,13 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<button id = "updatebtn" style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">수정하기</button>
+						<button id = "updatebtn" style="width: 80px; height: 28px; background-color: #FFD232; border: 1 solid white">수정하기</button>
 
 
 
 						<input type="button" value="탈퇴하기"
 						onclick="location.href='deleteUserForm.do'"
-						style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">
-
+						style="width: 80px; height: 28px; background-color: #FFD232; border: 1 solid white">
 
 					</td>
 <h5>*는 필수 입력 칸입니다.</h5>
@@ -630,8 +629,11 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 						<td><input type="text" class="pet_age"></td>
 						<td><input type="file" class="pet_file"></td>
 						<td class="removePet"></td>
+				<button id ="insertPetBtn" style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">확인</button>
+				
 					</tr>
 				</tbody>
+					
 			</table>
   </aside>
   </div>
@@ -645,7 +647,7 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
                 <div class="row">
                     <div class="col-md-4">
                         <aside class="footer-widget">
-                            <div class="about-me-img"><img src="./assets/images/footer-logo.png" alt="ocean"></div>
+                            <div class="about-me-img"><img src="./assets/images/UUU.png" alt="ocean"></div>
                             <div class="about-me-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                                 diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
                                 voluptua. At vero eos et accusam et justo duo dlores et ea rebum magna text ar koto din.

@@ -190,7 +190,7 @@ $(document).ready(function (){
 				"user_havePet":$('.user_havePet:checked').val(),
 			
 			},
-// 			datatype:"text",
+			datatype:"text",
 			success: function(data){
 			
 				alert("수정성공");

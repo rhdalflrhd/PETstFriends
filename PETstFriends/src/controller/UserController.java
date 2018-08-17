@@ -191,10 +191,10 @@ public class UserController {
 		System.out.println("여기는 컨트롤로");
 	   userService.updateUser(params);
 	
-String msg = "성공성공";
+String msg = "";
 return msg;
 	}
-	
+
 
 	
 	
