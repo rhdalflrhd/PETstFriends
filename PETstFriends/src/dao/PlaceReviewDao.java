@@ -10,4 +10,5 @@ public interface PlaceReviewDao {
 	public int insertPlaceReview(Place place);
 	public int deletePlaceReview(int place_no);
 	public int updatePlaceReview(Place place);
+	public Place selectReviewOne(int place_no);
 }

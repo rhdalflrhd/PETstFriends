@@ -49,6 +49,8 @@ public class PlaceReviewController {
 	public void writePlaceReview(@RequestParam HashMap<String, Object> params, HttpSession session, HttpServletResponse resp) {
 		String place_userid = (String) session.getAttribute("user_id");
 		params.put("place_userid", place_userid);
+		String place_review = (String) params.get("place_review");
+		params.put("place_review", place_review);
 		HashMap<String, Object> result = pService.writePlaceReview(params);
 		String place_usernickname = (String) result.get("place_usernickname");
 		int place_no = (int) result.get("place_no");
@@ -74,15 +76,33 @@ public class PlaceReviewController {
 	}
 	
 	@RequestMapping(value="/modifyPlaceReview.do")
-	public void modifyPlaceReview(@RequestParam Place place) {
-		
-		pService.modifyPlaceReview(place);
+	@ResponseBody
+	public void modifyPlaceReview(@RequestParam HashMap<String, Object> params, HttpServletResponse resp) {
+		Place place = pService.modifyPlaceReview(params);
+		resp.setCharacterEncoding("UTF-8");
+		String resultStr = "{\"place_usernickname\" : "+ place.getPlace_usernickname()+
+				",\"place_no\" : "+ place.getPlace_no() +  
+				",\"place_userid\" : "+place.getPlace_userid()+
+				"}";
+		JsonParser parser = new JsonParser();
+		Object obj = parser.parse(resultStr);
+		JsonObject jsonObj = (JsonObject) obj;
+		try {
+			resp.getWriter().println(jsonObj);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//성공실패 return 하기
 	}
 	
 	@RequestMapping(value="/checkHospital.do")
 	public String checkHosptial() {//메인에 넣기 앞으로는??????????
 		return "place/checkHospital";
+	}
+	@RequestMapping(value="/checkPlace.do")
+	public String checkPlace() {//메인에 넣기 앞으로는??????????
+		return "place/checkPlace";
 	}
 	@RequestMapping(value="/header.do")
 	public String he() {//메인에 넣기 앞으로는

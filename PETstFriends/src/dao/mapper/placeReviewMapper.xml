@@ -15,8 +15,10 @@ insert into place values (0, #{place_name}, #{place_x}, #{place_y}, #{place_user
 <delete id="deletePlaceReview" parameterType="int">
 delete from place where place_no = #{place_no}
 </delete>
-<update id="updatetPlaceReview" parameterType="place">
+<update id="updatePlaceReview" parameterType="place">
 update place set place_review=#{place_review} where place_no=#{place_no}
  </update>
-
+ <select id="selectReviewOne" parameterType="int" resultType="place">
+select * from place where place_no = #{place_no}
+</select>
 </mapper>

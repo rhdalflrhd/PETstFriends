@@ -32,6 +32,7 @@ public class PlaceReviewServiceImpl implements PlaceReviewService{
 		params.put("place_y", st.nextToken());
 		params.put("place_name", st.nextToken());
 		//dao추가하기????????
+		
 		return pDao.selectReviewAll(params);
 	}
 
@@ -63,9 +64,14 @@ public class PlaceReviewServiceImpl implements PlaceReviewService{
 	}
 
 	@Override
-	public int modifyPlaceReview(Place place) {
+	public Place modifyPlaceReview(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		return pDao.updatePlaceReview(place);
+		Place place = new Place();
+		int place_no = Integer.parseInt((String) params.get("place_no"));
+		place.setPlace_no(place_no);
+		place.setPlace_review((String) params.get("place_review"));
+		pDao.updatePlaceReview(place);
+		return pDao.selectReviewOne(place_no);
 	}
 
 }

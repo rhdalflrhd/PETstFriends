@@ -351,8 +351,7 @@ background-color: white;
 		
 		//키워드 검색을 요청하는 함수입니다
 		function searchPlaces() {
-			var keyword = document.getElementById('keyword').value + '동물병원';
-	
+			var keyword = document.getElementById('keyword').value;
 			if (!keyword.replace(/^\s+|\s+$/g, '')) {
 				alert('키워드를 입력해주세요!');
 				return false;
@@ -365,7 +364,6 @@ background-color: white;
 		//장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 		function placesSearchCB(data, status, pagination) {
 			if (status === daum.maps.services.Status.OK) {
-	
 				// 정상적으로 검색이 완료됐으면
 				// 검색 목록과 마커를 표출합니다
 				displayPlaces(data);
@@ -393,7 +391,7 @@ background-color: white;
 				fragment = document.createDocumentFragment(),
 				bounds = new daum.maps.LatLngBounds(),
 				listStr = '';
-			// alert(places[0].place_name);//이름, x, y저장??????????
+			
 			// 검색 결과 목록에 추가된 항목들을 제거합니다
 			removeAllChildNods(listEl);
 	
