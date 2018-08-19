@@ -190,11 +190,11 @@ $(document).ready(function (){
 				"user_havePet":$('.user_havePet:checked').val(),
 			
 			},
-			datatype:"text",
+		//	datatype:"text",
 			success: function(data){
 			
 				alert("수정성공");
-				window.location.href="usermain.do";
+				//window.location.href="usermain.do";
 			
 			
 			},
@@ -208,48 +208,48 @@ $(document).ready(function (){
 
 	
 
-$('.user_havePet').click(function() { //반려동물 있음 =>펫테이블 보이게하기
-	if ($(this).val() == 1)
-		$('#petTable').css('display', 'inline');
-});
-$('.user_havePet').click(function() { //반려동물 없음 =>펫테이블 사라지게하기
-	if ($(this).val() == 0) {
-		$('#petTable').css('display', 'none');
-	}
-});
-var clickNum = 1; //10마리까지만 입력 가능하도록 함
-$(document).on('click', '.addPet', function() { //+클릭시 종 입력 줄 한줄 생성
-	if (clickNum > 9) {
-		alert('최대 10마리까지 입력 가능합니다.')
-	} else {
-		clickNum++;
-		$('#petTable').append('<tr><td><input type="text" class="pet_name" name="pet_name"></td>'
-			+ '<td><select class="pet_species">'
-			+ '<option value="0">종 선택</option>'
-			+ '<option value="1">개</option>'
-			+ '<option value="2">고양이</option>'
-			+ '<option value="3">토끼</option>'
-			+ '<option value="4">기타</option>'
-			+ '</select></td>'
-			+ '<td><select class="pet_gender">'
-			+ '<option value="0">성별</option>'
-			+ '<option value="1">여</option>'
-			+ '<option value="2">남</option>'
-			+ '<option value="3">중성화</option>'
-			+ '</select></td>'
-			+ '<td><input type="text" class="pet_age"></td>'
-			+ '<td><input type="file" class="pet_file"></td>'
-			+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
-			+ '</tr>')
-	}
-})
-$(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
-	var thisR = $(this);
-	thisR.parent().remove();
-	if (clickNum > 1) {
-		clickNum--;
-	}
-});
+// $('.user_havePet').click(function() { //반려동물 있음 =>펫테이블 보이게하기
+// 	if ($(this).val() == 1)
+// 		$('#petTable').css('display', 'inline');
+// });
+// $('.user_havePet').click(function() { //반려동물 없음 =>펫테이블 사라지게하기
+// 	if ($(this).val() == 0) {
+// 		$('#petTable').css('display', 'none');
+// 	}
+// });
+// var clickNum = 1; //10마리까지만 입력 가능하도록 함
+// $(document).on('click', '.addPet', function() { //+클릭시 종 입력 줄 한줄 생성
+// 	if (clickNum > 9) {
+// 		alert('최대 10마리까지 입력 가능합니다.')
+// 	} else {
+// 		clickNum++;
+// 		$('#petTable').append('<tr><td><input type="text" class="pet_name" name="pet_name"></td>'
+// 			+ '<td><select class="pet_species">'
+// 			+ '<option value="0">종 선택</option>'
+// 			+ '<option value="1">개</option>'
+// 			+ '<option value="2">고양이</option>'
+// 			+ '<option value="3">토끼</option>'
+// 			+ '<option value="4">기타</option>'
+// 			+ '</select></td>'
+// 			+ '<td><select class="pet_gender">'
+// 			+ '<option value="0">성별</option>'
+// 			+ '<option value="1">여</option>'
+// 			+ '<option value="2">남</option>'
+// 			+ '<option value="3">중성화</option>'
+// 			+ '</select></td>'
+// 			+ '<td><input type="text" class="pet_age"></td>'
+// 			+ '<td><input type="file" class="pet_file"></td>'
+// 			+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
+// 			+ '</tr>')
+// 	}
+// })
+// $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
+// 	var thisR = $(this);
+// 	thisR.parent().remove();
+// 	if (clickNum > 1) {
+// 		clickNum--;
+// 	}
+// });
 
 
 });
@@ -328,44 +328,7 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 			
 	</table>
 
-	<table id="petTable" style="display: none">
-				<thead>
-					<tr>
-						<td colspan="5" align="right" class="addPet">반려동물 추가<i
-							class="fa fa-plus-square"></i></td>
-					</tr>
-					<tr>
-						<th>이름 *</th>
-						<th>종 *</th>
-						<th>성별 *</th>
-						<th>나이</th>
-						<th>사진</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody id="petTable_tbody">
-					<tr>
-						<td><input type="text" class="pet_name" name="pet_name"></td>
-
-						<td><select class="pet_species">
-								<option value="0">종 선택</option>
-								<option value="1">개</option>
-								<option value="2">고양이</option>
-								<option value="3">토끼</option>
-								<option value="4">기타</option>
-						</select></td>
-						<td><select class="pet_gender">
-								<option value="0">성별</option>
-								<option value="1">여</option>
-								<option value="2">남</option>
-								<option value="3">중성화</option>
-						</select></td>
-						<td><input type="text" class="pet_age"></td>
-						<td><input type="file" class="pet_file"></td>
-						<td class="removePet"></td>
-					</tr>
-				</tbody>
-			</table>
+	
 			<br>
 			<button id = "updatebtn" style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">수정하기</button>
 			<button onclick="location.href='login.do'" style="width: 80px; height: 28px; background-color: #FFD000; border: 1 solid white">탈퇴하기</button>

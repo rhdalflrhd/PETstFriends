@@ -60,9 +60,10 @@
 												비밀번호
 												</span>
 						<div class="in">
-							<form id="withdrawForm" name="withdrawForm">
+<!-- 							<form id="withdrawForm" name="withdrawForm"> -->
+<form action = "deleteUser.do">
 														<input type="password" name="pwd" desc="비밀번호" required minLen="8" maxLen="20" class="input-text" title="현재 비밀번호를 입력해주세요." />
-														<input onclick="withdrawConfirm()" type="button" class="btn4 type1" value="확인">
+														<input  type="submit" class="btn4 type1" value="확인">
 							<button ><a href = "usermain.do"></a>취소</button>
 							</form>
 						</div>

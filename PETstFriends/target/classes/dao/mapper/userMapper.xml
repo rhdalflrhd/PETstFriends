@@ -20,7 +20,7 @@ insert into Pet values(user_id = #{user_id} ,0,pet_name = #{pet_name},pet_specie
 
 	<update id="updateUser" parameterType="java.util.HashMap" >
 update User set user_nickname = #{user_nickname}, user_pass = #{user_pass} , user_email = #{user_email} ,user_phone = #{user_phone}, 
- user_havePet = #{user_havePet} where user_id = #{user_id}
+   user_havePet = #{user_havePet} where user_id = #{user_id}
 	</update>
 	
 	<update id="updatePet" parameterType="Pet" >
@@ -29,6 +29,10 @@ where user_id = #{user_id}
 	</update>
 
 
+	<delete id="deleteUser" parameterType="String">
+delete from User where user_id = #{user_id}
+	
+	</delete>
 
 	<delete id="deleteUserPet" parameterType="String">
 delete u , p from User u INNER JOIN Pet p where u.user_id = p.user_id and u.user_id = #{user_id}
@@ -70,7 +74,15 @@ UNION
 select mr.meeting_boardno , mr.meetingReview_title , mr.meetingReview_userid, mr.writeDate from meetingReview mr , meetingLikes mtl where mr.meetingReview_userid = mtl.meetingLikes_userid and mr.meetingReview_userid = #{user_id} limit #{skip},10
 	</select>
 	
-
+<select id="getWriteCount" parameterType="String" resultType="User">
+select count(*) from (
+select FreeBoard_boardno from FreeBoard where FreeBoard_userid = #{userid}
+UNION ALL
+select TipBoard_boardno from TipBoard where TipBoard_userid = #{userid}
+UNION ALL
+select meeting_boardno from  MeetingBoard where MeetingBoard_userid = #{userid}
+) cnt;
+	</select>
 	
 	
 

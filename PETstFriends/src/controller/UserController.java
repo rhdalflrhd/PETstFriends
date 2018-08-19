@@ -117,9 +117,9 @@ public class UserController {
 			HashMap<String, Object> params = userService.selectUser("yoo");
 			model.addAttribute("params", userService.selectUser("yoo"));
 
-			return "user/myInFo_Modification";
+			return "user/test";
 		} else
-			return "user/myInFo_Modification";
+			return "user/test";
 
 	}
 	
@@ -184,19 +184,14 @@ public class UserController {
 @ResponseBody
 	public String updateUserPet(@RequestParam HashMap<String, Object> params ,HttpServletResponse resp , HttpServletRequest req) {
 		resp.setContentType("text/html; charset=UTF-8");
-//User user = new User();
-//user.setUser_nickname(req.getParameter("user_nickname"));
-//user.setUser_pass(req.getParameter("user_pass"));
-//user.setUser_email(req.getParameter("user_email"));
-//user.setUser_phone(req.getParameter("user_phone"));
-//int user_havePet = (Integer.parseInt(req.getParameter("user_havePet")));
-//user.setUser_havePet(user_havePet);
-//params.put("user", user);
+
+
+
 
 		System.out.println(params);
 		System.out.println("여기는 컨트롤로");
-	   userService.updateUser(params);
-	
+		userService.updateUser(params);
+
 String msg = "";
 return msg;
 	}
@@ -214,18 +209,11 @@ return msg;
 	@RequestMapping("deleteUser.do") // 탈퇴- 비번일치할때 메인으로 보내기
 	public String deleteUserPet(HttpSession session, String user_id) {
 
-		// String pass = (String)session.getAttribute("user_pass");
-
-		// if(pass.equals(user_pass)) {
-		userService.deleteUserPet(user_id);
+	
+		userService.deleteUser("yoo");
 
 		return "user/main";
 
-		// }else {
-		// return "user/main";
-		//
-		//
-		// }}
 
 	}
 

@@ -197,45 +197,45 @@ $(document).ready(function(){
 
 
 
-	 		$('#inserPetBtn').click(function(){    // 펫 추가하기 
-	 			if($('#pet_name').val()=='' || $('#pet_species').val()=='' || $('#pet_gender').val()==''
-	 				||$('#pet_age').val()=='' || $('#pet_file').val()==''){
-	 				alert('빈칸없이 적어주세요.');
-	 			}
-	 			else if($('#isDupli').html()=='사용가능'){
-	 			$.ajax({
-	 				method : 'POST',
-	 				url : 'insertPet.do',
-	 				data : 
-	 				{pet_name: $('#pet_name').val(), 
-	 				pet_species: $('#pet_species').val(), 
-	 				pet_gender: $('#pet_gender').val(),	
-	 				pet_age: $('#pet_age').val(),	
-	 				pet_file: $('#pet_file').val()},
-	 				dataType : 'json',
-	 				success : function(data) {
-	 					if(data.result==true){
-	 						$('#pet_table > tbody:last').append(('<tr><td>'+data[i].pet_name+'</td><td>'+data[i].pet_species+'</td><td>'+data[i].pet_age+'</td><td>'
-	 			+data[i].pet_file+'</td><td>'+'</td><td><button class="updatePet" style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white" value=' + data[i].user_id
-	 			+'>수정</button>'+'</td><td><button class="deletePet"  style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white" value=' + data[i].user_id
-	 			+'>삭제</button></td></tr>');
-	 						$('.joinEl').val(''); 
-	 					}
-	 					else{
-	 						alert(' 실패');
+// 	 		$('#inserPetBtn').click(function(){    // 펫 추가하기 
+// 	 			if($('#pet_name').val()=='' || $('#pet_species').val()=='' || $('#pet_gender').val()==''
+// 	 				||$('#pet_age').val()=='' || $('#pet_file').val()==''){
+// 	 				alert('빈칸없이 적어주세요.');
+// 	 			}
+// 	 			else if($('#isDupli').html()=='사용가능'){
+// 	 			$.ajax({
+// 	 				method : 'POST',
+// 	 				url : 'insertPet.do',
+// 	 				data : 
+// 	 				{pet_name: $('#pet_name').val(), 
+// 	 				pet_species: $('#pet_species').val(), 
+// 	 				pet_gender: $('#pet_gender').val(),	
+// 	 				pet_age: $('#pet_age').val(),	
+// 	 				pet_file: $('#pet_file').val()},
+// 	 				dataType : 'json',
+// 	 				success : function(data) {
+// 	 					if(data.result==true){
+// 	 						$('#pet_table > tbody:last').append(('<tr><td>'+data[i].pet_name+'</td><td>'+data[i].pet_species+'</td><td>'+data[i].pet_age+'</td><td>'
+// 	 			+data[i].pet_file+'</td><td>'+'</td><td><button class="updatePet" style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white" value=' + data[i].user_id
+// 	 			+'>수정</button>'+'</td><td><button class="deletePet"  style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white" value=' + data[i].user_id
+// 	 			+'>삭제</button></td></tr>');
+// 	 						$('.joinEl').val(''); 
+// 	 					}
+// 	 					else{
+// 	 						alert(' 실패');
 							
-	 					}
-	 				},
-	 				error : function(xhrReq, status, error) {
-	 					alert(error)
-	 				}
-	 			})
-	 			}
-	 			else{
-	 				alert('실패');
-	 				$('.joinEl').val(''); 
-	 			}
-	 		}); // 펫 추가 끝 
+// 	 					}
+// 	 				},
+// 	 				error : function(xhrReq, status, error) {
+// 	 					alert(error)
+// 	 				}
+// 	 			})
+// 	 			}
+// 	 			else{
+// 	 				alert('실패');
+// 	 				$('.joinEl').val(''); 
+// 	 			}
+// 	 		}); // 펫 추가 끝 
 			
 			
 			
@@ -293,13 +293,13 @@ $(document).ready(function (){
 			method:"GET",
 			url:"updateUser.do",
 			data:{
-			user_id:$("#user_id").val(),
-		   user_nickname:$('#user_nickname').val(),
-			user_pass:$('#new_user_pass').val(),
-		     user_email:$('#user_email').val(),
-			user_phone:$('#user_phone').val(),
-			user_proPic:$('#user_proPict').val(),
-			user_havePet:$('.user_havePet').val()
+			"user_id":$("#user_id").val(),
+		   "user_nickname":$('#user_nickname').val(),
+			"user_pass":$('#new_user_pass').val(),
+		     "user_email":$('#user_email').val(),
+			"user_phone":$('#user_phone').val(),
+			"user_proPic":$('#user_proPict').val(),
+			"user_havePet":$('.user_havePet').val()
 			},
 			// datatype:"text",
 			success: function(data){

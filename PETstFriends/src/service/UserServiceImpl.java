@@ -68,9 +68,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updateUser(HashMap<String, Object> params) {
+	public int updateUser(HashMap<String, Object> params) {
 		String user_id = (String) params.get("user_id");
-
+System.out.println(user_id);
 //       User user = new User();
 //     user.setUser_no(user.getUser_no());
 //     user.setUser_name(user.getUser_name());
@@ -88,13 +88,18 @@ public class UserServiceImpl implements UserService {
 //		 user.setUser_pan_date(user.getUser_pan_date());
 //		user.setUser_havePet(Integer.parseInt((String) params.get("user_havePet")));
 
+		System.out.println(params);
+		
 	
 	System.out.println(params);
 	System.out.println(udao.updateUser(params));	
 	System.out.println("dao에 값 들어있나 확인용 이 메세지 위에가 dao값");
 	
+	
 	udao.updateUser(params);
-	return true;
+
+return 1;
+	
 
 	}
 
@@ -142,6 +147,19 @@ public class UserServiceImpl implements UserService {
 
 		}
 		return true;
+	}
+
+	@Override
+	public void deleteUser(String user_id) {
+		udao.deleteUserPet("yoo");
+		
+		
+	}
+
+	@Override
+	public HashMap<String, Object> myWrites(String user_id) {
+		
+		return udao.selectmyWrite(user_id);
 	}
 
 
