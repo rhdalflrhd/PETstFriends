@@ -14,9 +14,7 @@ public void deletePet (String pet_name);
 	public  int updateUser(HashMap<String, Object> params);
 	public boolean updatePet(HashMap<String, Object> params);
 public boolean insertPet(HashMap<String, Object> params);
-
- 
-    public void deleteUser(String user_id);
+  public void deleteUser(String user_id);
 	
     public HashMap<String, Object> selectUserPet(String user_id);
 	public HashMap<String, Object> infoForUpdate(int user_no);

@@ -32,8 +32,42 @@
 }
 
 </style>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#deleteBtn").click(function {
+		
+		$.ajax({
+			method : 'post',
+			url : 'deleteUser.do',
+			data : {
+				
+			user_pass : $("#user_pass").val()
+			  
+			},
+			success : function(result) {
+			if (result !=true){
+			alert("탈퇴가 완료되었습니다.");
+			window.location.href="usermain.do";
+			}
+			else 
+				alert("비밀번호를 다시 입력해주세요.")
+			},
+			error : function(xhrReq, status, error) {
+				alert(error)
+			}
+		});
+		
+	
+	
+	});
+	
 
+	
+});
 
 </script>
 
@@ -54,18 +88,19 @@
 												회원님의 안전한 정보보호를 위해 비밀번호를 입력해주시기 바랍니다.
 											</p>
 				</div>
-				<div class="article">
-					<div class="row-group">
-						<span class="label">
-												비밀번호
-												</span>
+			
+				
+					
 						<div class="in">
-<!-- 							<form id="withdrawForm" name="withdrawForm"> -->
-<form action = "deleteUser.do">
-														<input type="password" name="pwd" desc="비밀번호" required minLen="8" maxLen="20" class="input-text" title="현재 비밀번호를 입력해주세요." />
-														<input  type="submit" class="btn4 type1" value="확인">
-							<button ><a href = "usermain.do"></a>취소</button>
-							</form>
+<!-- <!-- 						 -->
+
+	비밀번호:	<input type="password" id = "user_pass" name="user_pass" />
+		<button id = "deleteBtn" style="width: 50px; height: 28px; background-color: #FFD232; border: 1 solid white">확인</button>
+							
+<input type="button" value="취소"onclick="location.href='usermain.do'" style="width: 50px; height: 28px; background-color: #FFD232; border: 1 solid white">
+							
+							
+							
 						</div>
 					</div>
 				</div>

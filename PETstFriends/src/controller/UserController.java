@@ -103,7 +103,7 @@ public class UserController {
 	@RequestMapping("usermain.do")
 	public String Useramin(HttpSession session, Model model) {
 
-		return "main";
+		return "user/main";
 
 	}
 
@@ -228,12 +228,16 @@ public class UserController {
 		return "user/myInFo_MembershipDelete";
 	}
 
-	@RequestMapping("deleteUser.do") // 탈퇴- 비번일치할때 메인으로 보내기
-	public String deleteUserPet(HttpSession session, String user_id) {
 
-		userService.deleteUser("yoo");
-
-		return "user/main";
+	
+	@RequestMapping(value = "/deleteUser.do")
+	@ResponseBody // 비밀번호 일치 검사
+	public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp) {
+		resp.setContentType("text/html; charset=UTF-8");
+		String user_pass = req.getParameter("user_pass");
+		boolean result = userService.getUserPass(user_pass);
+		user_pass = req.getParameter("user_pass");
+		return result;
 
 	}
 

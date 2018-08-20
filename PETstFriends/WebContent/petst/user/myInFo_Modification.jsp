@@ -354,12 +354,12 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 		method : 'post',
 		url : 'deletePet.do',
 		data : {
-		
-		  "pet_name" : $("#pet_name").val()
+			
+		  "pet_name" : $('#pet_name').val()
 		  
 		},
 		success : function(data) {
-		alert($("#pet_name").val());
+		alert($('#pet_name').val());
 			alert('삭제성공');
 	
 		},
