@@ -22,12 +22,12 @@ insert into pet values(
 </insert>
 
 <!-- string이 맞나 -->
-<select id="selectUserFindId" parameterType="java.util.HashMap">
-select * from user where user_name=? and user_email=? 
+<select id="selectUserFindId" parameterType="java.util.HashMap" resultType="User">
+select user_id from user where user_name=#{user_name} and user_email=#{user_email}
 </select>
 
 <select id="selectUserFindPw" parameterType="java.util.HashMap" resultType="User">
-select * from user where user_id=#{user_id} and user_name=#{user_name} and user_email=#{user_email}
+select user_pass from user where user_id=#{user_id} and user_name=#{user_name} and user_email=#{user_email}
 </select>
 
 <select id="selectUserbyId" parameterType="java.util.HashMap" resultType="User">

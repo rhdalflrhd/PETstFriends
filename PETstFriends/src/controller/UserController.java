@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
 import dao.UserDao;
 import model.User;
 import service.UserServiceImpl;
@@ -30,6 +29,9 @@ public class UserController {
 
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	@Autowired
 	private MailSender mailSender;
@@ -178,36 +180,70 @@ public class UserController {
 		
 		//--------------------------------------------------------------
 		
-		//id/pw찾기
+		//id찾기
 		
 		//id찾기
-		@RequestMapping(value = "/idFindForm.do")
-		public String idfindForm() {	
+		@RequestMapping(value = "/FindUserIdForm.do")
+		public String FindUserIdForm() {	
 
-			return "idFindForm";
+			return "FindUserIdForm";
 		
 		}
 
-		@RequestMapping(value = "/idFind.do", method = RequestMethod.POST)
+		@RequestMapping(value = "/FindUserId.do", method = RequestMethod.POST)
 		@ResponseBody
-		public void idfind(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
-			resp.setContentType("text/html; charset=UTF-8");
+		public void FindUserId(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
 			userService.getUserFindbyId(params);
-//			userService.joinUser(params);
-
 		}
 		
+		
+		@RequestMapping(value = "/FindUserIdConfirmForm.do")
+		
+		public void FindUserIdConfirmForm(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {	
+			
+			resp.setCharacterEncoding("UTF-8");
+			PrintWriter out;
+			try {
+				out = resp.getWriter();
+				if(userDao.selectUserFindId(params)==true) {
+					User user = User(userService.getUserFindbyId(params));
+					String user_id = String.valueOf(userDao.selectUserFindId(params));
+					out.write("({'result':'입력하신 정보와 일치하는 아이디는'+user_id+'입니다.'})");
+				}
+				else {
+					out.write("({'result':'입력하신 정보로 찾을 수 없습니다.'})");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+//			userService.getUserFindbyId(params);
+	
+			
+			
+		}
+		
+		
+//----------------------------------------------------------
+		
+		
+		private User User(boolean userFindbyId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 		//pw찾기
-		@RequestMapping(value = "/pwFindForm.do")
-		public String pwfindForm() {	
+		@RequestMapping(value = "/FindUserPwForm.do")
+		public String FindUserPwForm() {	
 
-			return "pwFindForm";
+			return "FindUserPwForm";
 		
 		}
 
-		@RequestMapping(value = "/pwFind.do", method = RequestMethod.POST)
+		@RequestMapping(value = "/FindUserPw.do", method = RequestMethod.POST)
 		@ResponseBody
-		public void pwfind(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
+		public void FindUserPw(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
 			resp.setContentType("text/html; charset=UTF-8");
 			userService.getUserFindbyPw(params);
 //			userService.joinUser(params);

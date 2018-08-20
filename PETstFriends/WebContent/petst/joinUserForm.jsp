@@ -393,6 +393,7 @@ $(function () {
 							<button type="button" id="auth_btn2">확인</button>
 							 <span id = "lab1"></span>
 						</td>
+						</tr>
 						
 				<tr>
 					<td>프사</td>

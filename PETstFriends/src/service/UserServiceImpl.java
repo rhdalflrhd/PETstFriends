@@ -116,15 +116,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 
-	public User getUserFindbyId(HashMap<String, Object> params) {
+	public boolean getUserFindbyId(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
 	
 		String user_name = (String) params.get("user_name");
 		String user_email = (String) params.get("user_email");
 		
-		
-//		param.put("user_name", user_name);
-//		param.put("user_email", user_email);
 		return uDao.selectUserFindId(params);
 	}
 

@@ -13,7 +13,7 @@ public interface UserService {
 	public boolean getUserbyNn(String user_nickname);
 	public boolean getUserbyEmail(String user_email);
 
-	public User getUserFindbyId(HashMap<String, Object> params);
+	public boolean getUserFindbyId(HashMap<String, Object> params);
 	public User getUserFindbyPw(HashMap<String, Object> params);
 	
 	
