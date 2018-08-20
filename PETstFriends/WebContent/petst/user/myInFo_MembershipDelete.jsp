@@ -38,7 +38,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$("#deleteBtn").click(function {
+	$("#deleteBtn").click(function(){
 		
 		$.ajax({
 			method : 'post',
@@ -46,10 +46,12 @@ $(document).ready(function(){
 			data : {
 				
 			user_pass : $("#user_pass").val()
-			  
+			
 			},
 			success : function(result) {
-			if (result !=true){
+			
+				alert( $("#user_pass").val());
+				if (result !=true){
 			alert("탈퇴가 완료되었습니다.");
 			window.location.href="usermain.do";
 			}

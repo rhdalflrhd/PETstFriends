@@ -165,7 +165,7 @@ return 1;
 
 	@Override
 	public void deleteUser(String user_id) {
-		udao.deleteUserPet("yoo");
+		udao.deleteUser(user_id);
 		
 		
 	}

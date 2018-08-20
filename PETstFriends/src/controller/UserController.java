@@ -232,11 +232,15 @@ public class UserController {
 	
 	@RequestMapping(value = "/deleteUser.do")
 	@ResponseBody // 비밀번호 일치 검사
-	public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp) {
+	public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		resp.setContentType("text/html; charset=UTF-8");
 		String user_pass = req.getParameter("user_pass");
+//		String user_id= (String) session.getAttribute("user_id");
+//	if (user_id.equals("yoo")) {
+	
 		boolean result = userService.getUserPass(user_pass);
 		user_pass = req.getParameter("user_pass");
+		
 		return result;
 
 	}

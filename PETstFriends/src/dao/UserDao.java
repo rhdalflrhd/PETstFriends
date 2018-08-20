@@ -7,7 +7,8 @@ import model.Pet;
 import model.User;
 
 public interface UserDao {
-
+public void deleteUser(String user_id);
+	
 	public void deletePet(String pet_name);
 	
 	public int insertPet(Pet pet);
@@ -28,7 +29,7 @@ public interface UserDao {
 
 	public User selectUserEmail(String user_email);
 
-	public void deleteUserPet(String user_id);
+	
 
 	public HashMap<String, Object> selectOne(String user_id);
 
