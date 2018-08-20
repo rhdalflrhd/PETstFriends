@@ -6,6 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import dao.UserDao;
 import model.MeetingBoard;
 import model.Pet;
@@ -70,32 +75,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int updateUser(HashMap<String, Object> params) {
 		String user_id = (String) params.get("user_id");
-System.out.println(user_id);
-//       User user = new User();
-//     user.setUser_no(user.getUser_no());
-//     user.setUser_name(user.getUser_name());
-//     user.setUser_id(user_id);
-//    
-//		user.setUser_nickname((String) params.get("user_nickname"));
-//		user.setUser_pass((	String)params.get("user_pass"));
-//		user.setUser_email((String) params.get("user_email"));
-//		user.setUser_phone((String) params.get("user_phone"));
-//		 user.setUser_proPic(user.getUser_proPic());
-//		 user.setUser_score(user.getUser_score());
-//		 user.setUser_joinDate(user.getUser_joinDate());
-//		 user.setUser_adminCheck(user.getUser_adminCheck());
-//		 user.setUser_state(user.getUser_state());
-//		 user.setUser_pan_date(user.getUser_pan_date());
-//		user.setUser_havePet(Integer.parseInt((String) params.get("user_havePet")));
 
-		System.out.println(params);
-		
-	
-	System.out.println(params);
-	System.out.println(udao.updateUser(params));	
-	System.out.println("dao에 값 들어있나 확인용 이 메세지 위에가 dao값");
-	
-	
+System.out.println(params);
+		int a = Integer.parseInt((String)params.get("user_havePet"));
+		params.put("user_havePet", a);
+
 	udao.updateUser(params);
 
 return 1;
@@ -103,49 +87,79 @@ return 1;
 
 	}
 
-	@Override
-	public void deleteUserPet(String user_id) {
-	
-		
-		udao.deleteUserPet(user_id);
-		
-	}
 
 	@Override
-	public HashMap<String, Object> selectPetAll(String user_id) {
+	public List<Pet> selectPetAll(String user_id) {
 		return udao.selectPetAll(user_id);
 	}
 
 	@Override
 	public boolean updatePet(HashMap<String, Object> params) {
 	  
-		String user_id = (String) params.get("user_id");
+		String jsonStr = (String) params.get("jsonData");
+
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(jsonStr);
+		System.out.println(element);
+		JsonArray jArray = element.getAsJsonArray();
+		JsonObject jOb = new JsonObject();
+		User user = new User();
 		Pet pet = new Pet();
-	     
-	  pet.setUser_id((String) params.get("user_id"));
-	  pet.setPet_name((String)params.get("pet_name"));
-	  pet.setPet_species(Integer.parseInt((String) params.get("pet_species")));
-	  pet.setPet_age(Integer.parseInt((String) params.get("pet_age")));
-	  pet.setPet_file((String) params.get("pet_file"));
-			udao.updatePet(pet);
+		user = (User) params.get("user");
+		for (int i = 0; i < jArray.size(); i++) {
+			
+			jOb = jArray.get(i).getAsJsonObject();
+			if (!(jOb.get("pet_name").getAsString().equals(""))) {
+				System.out.println(jOb.get("pet_name").getAsString());
+				String a = jOb.get("pet_name").getAsString();
+			
+				pet.setUser_id((String)(params.get("user_id")));
+			pet.setPet_name(jOb.get("pet_name").getAsString());
+				pet.setPet_gender(jOb.get("pet_gender").getAsInt());
+				pet.setPet_species(jOb.get("pet_species").getAsInt());
+				pet.setPet_age(jOb.get("pet_age").getAsInt());
+				pet.setPet_file(jOb.get("pet_file").getAsString());
+			//펫 테이블에 insertSerive부르기
+				udao.updatePet(pet);
+			}
+			
+			}
+		return true;
+	
 		
-		return false;
+		
 	}
 
 	@Override
 	public boolean insertPet(HashMap<String, Object> params) {
-		String user_id = (String) params.get("user_id");
-		if (params.get("user_havePet").equals("1")) {
-			Pet pet = new Pet();
-			pet.setUser_id((String) params.get("user_id"));
-			pet.setPet_name((String) params.get("pet_name"));
-			pet.setPet_species(Integer.parseInt((String) params.get("pet_species")));
-			pet.setPet_gender(Integer.parseInt((String) params.get("pet_gender")));
-			pet.setPet_age(Integer.parseInt((String) params.get("pet_age")));
-			pet.setPet_file((String) params.get("pet_file"));
-			udao.insertPet(pet);
-
-		}
+		String jsonStr = (String) params.get("jsonData");
+	
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(jsonStr);
+	
+		JsonArray jArray = element.getAsJsonArray();
+		JsonObject jOb = new JsonObject();
+		User user = new User();
+		Pet pet = new Pet();
+		user = (User) params.get("user");
+		for (int i = 0; i < jArray.size(); i++) {
+			
+			jOb = jArray.get(i).getAsJsonObject();
+			if (!(jOb.get("pet_name").getAsString().equals(""))) {
+				System.out.println(jOb.get("pet_name").getAsString());
+				String a = jOb.get("pet_name").getAsString();
+			
+				pet.setUser_id((String)(params.get("user_id")));
+			pet.setPet_name(jOb.get("pet_name").getAsString());
+				pet.setPet_gender(jOb.get("pet_gender").getAsInt());
+				pet.setPet_species(jOb.get("pet_species").getAsInt());
+				pet.setPet_age(jOb.get("pet_age").getAsInt());
+				pet.setPet_file(jOb.get("pet_file").getAsString());
+			//펫 테이블에 insertSerive부르기
+				udao.insertPet(pet);
+			}
+			
+			}
 		return true;
 	}
 
@@ -161,6 +175,14 @@ return 1;
 		
 		return udao.selectmyWrite(user_id);
 	}
+
+	@Override
+	public void deletePet(String pet_name) {
+		System.out.println(pet_name);
+		udao.deletePet(pet_name);
+		
+	}
+
 
 
 

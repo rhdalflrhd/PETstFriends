@@ -9,21 +9,22 @@
 select * from User where user_id = #{user_id}
 	</select>
 		
-<select id="selectPetAll" parameterType="String" resultType="java.util.HashMap">
+<select id="selectPetAll" parameterType="String" resultType="pet">
 select * from pet where user_id = #{user_id}
 </select>
 
 
-<insert id="insertPet" parameterType="Pet">
-insert into Pet values(user_id = #{user_id} ,0,pet_name = #{pet_name},pet_species =#{pet_species},pet_gender=#{pet_gender},pet_age =#{pet_age},pet_file=#{pet_file});
+<insert id="insertPet" parameterType="pet">
+insert into Pet values( #{user_id} ,0,#{pet_name},#{pet_species},#{pet_gender},#{pet_age},#{pet_file});
 </insert>
 
 	<update id="updateUser" parameterType="java.util.HashMap" >
-update User set user_nickname = #{user_nickname}, user_pass = #{user_pass} , user_email = #{user_email} ,user_phone = #{user_phone}, 
+	update User set user_nickname = #{user_nickname}, user_pass = #{user_pass} , user_email = #{user_email} ,user_phone = #{user_phone}, 
    user_havePet = #{user_havePet} where user_id = #{user_id}
+
 	</update>
 	
-	<update id="updatePet" parameterType="Pet" >
+	<update id="updatePet" parameterType="pet" >
 update Pet set pet_name = #{pet_name}, pet_species = #{pet_species},pet_gender = #{pet_gender}, pet_age = #{pet_age},pet_file = #{pet_file} 
 where user_id = #{user_id}
 	</update>
@@ -34,8 +35,8 @@ delete from User where user_id = #{user_id}
 	
 	</delete>
 
-	<delete id="deleteUserPet" parameterType="String">
-delete u , p from User u INNER JOIN Pet p where u.user_id = p.user_id and u.user_id = #{user_id}
+	<delete id="deletePet" parameterType="String">
+delete from  Pet  where pet_name = #{pet_name}
 	
 	</delete>
 

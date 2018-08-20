@@ -8,6 +8,8 @@ import model.User;
 
 public interface UserDao {
 
+	public void deletePet(String pet_name);
+	
 	public int insertPet(Pet pet);
 
 	public int updateUser(HashMap<String, Object> params);
@@ -30,7 +32,7 @@ public interface UserDao {
 
 	public HashMap<String, Object> selectOne(String user_id);
 
-	public HashMap<String, Object> selectPetAll(String user_id);
+	public  List<Pet> selectPetAll(String user_id);
 	
 	public HashMap<String, Object> selectmyWrite(String user_id);
 	

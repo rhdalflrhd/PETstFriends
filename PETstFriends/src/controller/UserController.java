@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -95,49 +99,51 @@ public class UserController {
 		return "user/myInFo_PWCheck";
 
 	}
+
 	@RequestMapping("usermain.do")
 	public String Useramin(HttpSession session, Model model) {
 
 		return "main";
 
 	}
-	
+
 	@RequestMapping("myWritesList.do")
 	public String myWrites(HttpSession session, Model model) {
 
 		return "user/myInfo_MyWrites";
 
 	}
-	
 
 	@RequestMapping("getUserId.do")
 	public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
 
-		if (user_pass ==null) {
+		if (user_pass == null) {
 			HashMap<String, Object> params = userService.selectUser("yoo");
 			model.addAttribute("params", userService.selectUser("yoo"));
 
-			return "user/test";
+			return "user/myInFo_Modification";
 		} else
-			return "user/test";
+			return "user/myInFo_Modification";
 
 	}
-	
-	
-	
 
 	@RequestMapping(value = "/petList.do") // 펫 리스트 보여주기
 	@ResponseBody
-	public void petList(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void petList(HttpServletRequest req, HttpServletResponse resp) {
 		System.out.println("da");
 		resp.setContentType("text/html; charset=UTF-8");
-		HashMap<String, Object> arr = userService.selectPetAll("yoo");
+		List<Pet> arr = userService.selectPetAll("yoo");
 		Gson gson = new Gson();
-		System.out.println(arr);
 
+		System.out.println(userService.selectPetAll("yoo"));
 		String result = gson.toJson(userService.selectPetAll("yoo"));
 		System.out.println(result);
-		resp.getWriter().println(result);
+		try {
+			resp.getWriter().println(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@RequestMapping(value = "/nicknameCheck.do") // 닉네임 중복검사
@@ -180,25 +186,41 @@ public class UserController {
 
 	}
 
-	@RequestMapping( value = "/updateUser.do") // 내정보수정에서 수정하기 누르면 업데이트!
-@ResponseBody
-	public String updateUserPet(@RequestParam HashMap<String, Object> params ,HttpServletResponse resp , HttpServletRequest req) {
+	@RequestMapping(value = "/updateUser.do") // 내정보수정에서 수정하기 누르면 업데이트!
+	@ResponseBody
+	public String updateUser(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
+			HttpServletRequest req, HttpSession session) {
 		resp.setContentType("text/html; charset=UTF-8");
+		// String user_id = (String) session.getAttribute("user_id");
+		String user_id = "yoo";
+		params.put("user_id", user_id);
 
-
-
-
-		System.out.println(params);
-		System.out.println("여기는 컨트롤로");
 		userService.updateUser(params);
 
-String msg = "";
-return msg;
+		String msg = "";
+		return msg;
 	}
 
+	@RequestMapping(value = "/insertPet.do") // 내정보수정에서 수정하기 누르면 업데이트!
+	@ResponseBody
+	public String updatePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
+			HttpServletRequest req, HttpSession session) {
+		resp.setContentType("text/html; charset=UTF-8");
+		// String user_id = (String) session.getAttribute("user_id");
+		String user_id = "yoo";
+		params.put("user_id", user_id);
 
-	
-	
+		String pet_no = req.getParameter("pet_no");
+		System.out.println(pet_no);
+
+		if (pet_no.equals("0")) {
+			userService.insertPet(params);
+
+		} else
+			userService.updatePet(params);
+		String msg = "";
+		return msg;
+	}
 
 	@RequestMapping("deleteUserForm.do") // 탈퇴하기 누르면 비번확인폼으로이동
 	public String userDeleteForm() {
@@ -209,11 +231,26 @@ return msg;
 	@RequestMapping("deleteUser.do") // 탈퇴- 비번일치할때 메인으로 보내기
 	public String deleteUserPet(HttpSession session, String user_id) {
 
-	
 		userService.deleteUser("yoo");
 
 		return "user/main";
 
+	}
+
+	@RequestMapping(value = "/deletePet.do") // 마이페이지에서 펫 삭제하기 
+	@ResponseBody
+	public String deletePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp, HttpServletRequest req, HttpSession session) {
+
+		resp.setContentType("text/html; charset=UTF-8");
+		// String user_id = (String) session.getAttribute("user_id");
+		String pet_name = req.getParameter("pet_name");
+        System.out.println(pet_name);
+		
+       
+        userService.deletePet(pet_name);
+    
+		String msg = "";
+		return msg;
 
 	}
 
