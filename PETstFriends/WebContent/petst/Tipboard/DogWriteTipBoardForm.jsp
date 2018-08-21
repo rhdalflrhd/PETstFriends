@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,53 +37,121 @@ $(document).ready(function(){
 
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+
+@import
+	url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css')
+	;
+
 table {
 	width: 100%;
 	background-color: transparent;
 }
+
 th, td {
-/* 	border: 1px gray solid; */
+	/* 	border: 1px gray solid; */
 	text-align: center;
 	padding: 8px
 }
 
-ul,li{
-font-family: 'NanumSquareRound',sans-serif;
+ul, li {
+	font-family: 'NanumSquareRound', sans-serif;
 }
-input::-ms-input-placeholder { color: #CD853F; }
-input::-webkit-input-placeholder { color: #CD853F; } 
-input::-moz-placeholder { color: #CD853F; }
-.wrapper{
-font-family: 'NanumSquareRound',sans-serif;
+
+input::-ms-input-placeholder {
+	color: #CD853F;
 }
-#footer{
-font-family: 'NanumSquareRound',sans-serif;
+
+input::-webkit-input-placeholder {
+	color: #CD853F;
 }
-.footer-widget-section{
-font-family: 'NanumSquareRound',sans-serif;
+
+input::-moz-placeholder {
+	color: #CD853F;
 }
-#write-btn{
-	font-family: 'NanumSquareRound',sans-serif;
-	font-weight:bold;
- 	height:34px;  
- 	width: 130px;  
-    background-color: #FFD232;
-/*     margin: 30px 0; */
-/*     padding: 20px; */
-    color: #fff;
-    border: 1px solid #eeeeee;
-   	border-radius: 0;
-/*     text-transform: uppercase; */
-/*     transition: all .4s; */
-    font-size: 16px;
-    line-height: 34px;
-    padding: 0;
-    margin: 0;
-     -webkit-transition: all 0.3s; 
-     -moz-transition: all 0.3s; 
-     -o-transition: all 0.3s; 
-    transition: all 0.3s; 
+
+.wrapper {
+	font-family: 'NanumSquareRound', sans-serif;
+}
+
+#footer {
+	font-family: 'NanumSquareRound', sans-serif;
+}
+
+.footer-widget-section {
+	font-family: 'NanumSquareRound', sans-serif;
+}
+
+#write-btn {
+	font-family: 'NanumSquareRound', sans-serif;
+	font-weight: bold;
+	height: 34px;
+	width: 130px;
+	background-color: #FFD232;
+	/*     margin: 30px 0; */
+	/*     padding: 20px; */
+	color: #fff;
+	border: 1px solid #eeeeee;
+	border-radius: 0;
+	/*     text-transform: uppercase; */
+	/*     transition: all .4s; */
+	font-size: 16px;
+	line-height: 34px;
+	padding: 0;
+	margin: 0;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+/* label { */
+/* /*  	display: inline-block;  */
+* /
+	/* /*  	padding: .5em .75em;  */ * /
+	/* 	color: #999; */
+	/* 	font-size: inherit; */
+	/* /*  	line-height: normal;  */ * /
+	/* 	vertical-align: middle; */
+	/* 	background-color: #fdfdfd; */
+	/* 	cursor: pointer; */
+	/* 	border: 1px solid #ebebeb; */
+	/* 	border-bottom-color: #e2e2e2; */
+	/* 	border-radius: .25em; */
+	/* } */
+	/* #tipBoard_contentPic { /* 파일 필드 숨기기 */ * /
+	/* 	position: absolute; */
+	/* 	width: 1px; */
+	/* 	height: 1px; */
+	/* 	padding: 0; */
+	/* 	margin: -1px; */
+	/* 	overflow: hidden; */
+	/* 	clip: rect(0, 0, 0, 0); */
+	/* 	border: 0; */
+	/* } */ 
+
+#filebox label {
+	display: inline-block;
+/* 	padding: .5em .75em; */
+	color: #999;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+}
+
+#filebox input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
 }
 </style>	
 </head>
@@ -188,60 +257,47 @@ font-family: 'NanumSquareRound',sans-serif;
 								<!--leave comment-->
 								<h1><font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">강아지 꿀 TIP정보 쓰기</font></h1>
 								<br> <br>
-								<form class="form-horizontal contact-form" role="form"
-									method="post" enctype="multipart/form-data" action="DogWriteTipBoard.do">
+								<form action="DogWriteTipBoard.do" enctype="multipart/form-data" method="post" class="form-horizontal contact-form"  >
 									<div class="form-group">
 										<div class="col-md-3">
-											<input type="text" class="form-control" id="name" name="name"
-												placeholder="TipBoard_nickname" readonly="readonly">
+										
+											<input type="text" class="form-control" id="tipBoard_nickname" name="tipBoard_nickname"
+												placeholder="${nickName}" readonly="readonly">
 										</div>
 										<div class="col-md-6">
-											<input type="text" class="form-control" id="title"
-												name="title" placeholder="title">
+											<input type="text" class="form-control" id="tipBoard_title"
+												name="tipBoard_title" placeholder="title">
 										</div>
 										<div class="col-md-3">
-											<input type="text" class="form-control" id="TipBoard_writeDatee"
-												name="TipBoard_writeDate" placeholder="날짜" readonly="readonly">
+												<jsp:useBean id="toDay" class="java.util.Date" />
+												<input type="text" class="form-control" id="tipBoard_writeDate" 
+												name="tipBoard_writeDate" value="<fmt:formatDate value="${toDay}" pattern="yyyy년 MM월 dd일" />"
+												 readonly="readonly">
 										</div>
 									</div>
 									<br> <br>
 									<div class="form-group">
 										<div class="col-md-3">
-											<input type="file" class="form-control" id="TipBoard_file"
-												name="TipBoard_file" placeholder="첨부파일">
+											<input type="file" class="form-control" id="tipBoard_file"
+												name="tipBoard_file" placeholder="첨부파일">
 										</div>
-										<div class="col-md-3">
-											<input type="file" class="form-control" id="TipBoard_contentPic"
-												name="TipBoard_contentPic" placeholder="사진파일">
+										<div class="col-md-3" >
+											<input type="file" class="form-control" id="tipBoard_contentPic"
+												name="tipBoard_contentPic" placeholder="사진파일">
 										</div>										
 										<div class="col-md-6">
 											<input type="text" class="form-control"
-												id="TipBoard_YoutubeUrl" name="TipBoard_YoutubeUrl"
+												id="tipBoard_YoutubeUrl" name="tipBoard_YoutubeUrl"
 												placeholder="첨부하실 Youtube URL을 입력하세요">
-										</div>
+										</div>							
 									</div>
 									<br> <br>
 									<div class="form-group">
 										<div class="col-md-12">
-											<input type="email" class="form-control" id="email"
-												name="email" placeholder="Email">
-										</div>
-									</div>
-									<br> <br>
-									<div class="form-group">
-										<div class="col-md-12">
-											<input type="text" class="form-control" id="subject"
-												name="subject" placeholder="Website url">
-										</div>
-									</div>
-									<br> <br>
-									<div class="form-group">
-										<div class="col-md-12">
-											<textarea class="form-control" rows="6" name="message"
+											<textarea class="form-control" rows="15" id="tipBoard_content" name="tipBoard_content"
 												placeholder="Write Texts"></textarea>
 										</div>
-									</div>
-<!-- 									<button type="button" class="btn send-btn">글 작성 완료 </button><br> -->
+									</div><!--<button type="button" class="btn send-btn">글 작성 완료 </button><br> -->
 									<input type="submit" value="글 작성" class="write-btn" id="write-btn">
 								</form>
 							</div>

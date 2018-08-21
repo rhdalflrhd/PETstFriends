@@ -92,9 +92,9 @@
 		<property name="mapperInterface" value="dao.PlaceReviewDao"></property>
 	</bean>
 	
-	<bean id="TipBoardDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="dao.ITipBoardDao"></property>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="TipBoardDao" >
 		<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		<property name="mapperInterface" value="dao.ITipBoardDao"></property>
 	</bean>
 	
 	    <bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="FreeBoardDao">

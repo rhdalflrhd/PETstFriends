@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,17 +47,45 @@ $(document).ready(function(){
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+
+article {
+	-webkit-flex: 3;
+	-ms-flex: 3;
+	flex: 3;
+	background-color: #white;
+	padding: 20px 10px;
+}
+
 table {
 	width: 100%;
 	background-color: transparent;
 }
+th {
+	background-color: #CD853F;
+	border: none;
+	color: white;
+}
 th, td {
 /* 	border: 1px gray solid; */
 	text-align: center;
-	padding: 8px
+	padding: 8px;
+	border-bottom: 1px solid #ddd;
 }
 
-ul,li{
+tr:hover {
+	background-color: #f5f5f5;
+}
+
+tr a:hover {
+	color: #FF5050;
+}
+
+.button {
+	float: right;
+	padding: 10px;
+}
+
+h4,ul,li{
 font-family: 'NanumSquareRound',sans-serif;
 }
 input::-ms-input-placeholder { color: #CD853F; }
@@ -71,6 +100,20 @@ font-family: 'NanumSquareRound',sans-serif;
 .footer-widget-section{
 font-family: 'NanumSquareRound',sans-serif;
 }
+
+.portfolio{
+
+font-family: 'NanumSquareRound',sans-serif; font-weight: bold;"
+
+}
+tr a:hover {
+	color: #FF5050;
+}
+
+.tipUserBoard {
+	width: 1200px;
+}
+
 </style>	
 </head>
 <body>
@@ -117,7 +160,7 @@ font-family: 'NanumSquareRound',sans-serif;
                                                 class="fa fa-angle-right"></i></a>
                                             <ul class="sub-menu">
                                                 <li><a href="dogInfoSquareSpecies.do">강아지 종정보</a></li>
-                                                <li><a href="#">강아지 Tip</a></li>
+                                                <li><a href="dogTipBoardList.do">강아지 Tip</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children"><a href="">고양이<i
@@ -171,39 +214,187 @@ font-family: 'NanumSquareRound',sans-serif;
         강아지 꿀 TIP 게시판
         </font>&nbsp;<input type="button" value="글쓰기" onclick="location.href='DogWriteTipBoardForm.do'" style= " background-color:#CD853F; color:white; font-family: 'NanumSquareRound',sans-serif; font-size: 15px !important; font-weight:bold; height:40px; width: 80px; border:1; border-color:#CD853F; border-radius: 25px;" >
         </h1>
-        <center>
-<!-- <p> -->
-<!-- <br> -->
-<!-- 			<input type="text" placeholder="찾으실 꿀팁정보를 검색하세요- !" id="scrollMsg" name="scrollMsg" style= "background-color:white; color:#CD853F; font-family: 'NanumSquareRound',sans-serif;  font-size: 15px !important; font-weight:bold; height:50px; width: 500px; border:1; border-color:#CD853F; border-radius: 25px;"> -->
-<!-- 			<input type="button" value="검색" class="ScrollCheck" style= " background-color:#CD853F; color:white; font-family: 'NanumSquareRound',sans-serif; font-size: 15px !important; font-weight:bold; height:50px; width: 80px; border:1; border-color:#CD853F; border-radius: 25px;" > -->
-<!-- </p> -->
-</center>
-      <div class="portfolio"><!--begin portfolio items-->
-		<c:forEach items="${DogEncycList1 }" var="e" varStatus="i">
-            <div id="${e.encyc_title}" class="portfolio-item" style=" width: 260px; height: 260px; border: 1px #F2F2F2 solid;">          
-            
-            <c:if test="${empty e.encyc_thumbnail}">
-            <h1><font color="#F2F2F2" style="font-family: Georgia;">No-image</font></h1>
-            </c:if>
-			<c:if test="${not empty e.encyc_thumbnail}">
-			<img src="${e.encyc_thumbnail}">
-			</c:if>
-            <h4><font color="grey" style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font></h4>
-                <div class="img-overlay">
-                    <div class="portfolio-text">
-                	<h4>${e.encyc_title}</h4>
-               		<a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>  
-                    </div>
-                </div>
-            </div>
-          <div>
-          </div>  
-                                
-        </c:forEach>             
-        </div><!--End portfolio item-->
         
-        
-        <div class="load-more text-center">
+<article>
+        <!-- ======================================================사용자 입력 Tip게시글 시작===================================================-->				
+						<div class="tipUserBoard" style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;" >
+														<br><br>
+							
+							<p style="float: left;">
+							 <font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">
+								총 게시물 : ${dogTipBoardCount }개
+     						   </font>							
+							</p>
+						</div>								<br><br>
+						<div class="search" align="center">
+								<form action="dogTipBoardList.do" method="get">
+									<label>기간</label>&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="date" name="startDate" min="2018-06-01" style="background-color:white; color:#CD853F; border:1; width: 150px;height:30px; border-color:#CD853F; border-radius:5px;">
+									<label> ~ </label>
+									<input type="date" name="endDate" max="2018-12-31" style="background-color:white; color:#CD853F; border:1; width: 150px; height:30px; border-color:#CD853F; border-radius:5px;">
+									<select name="type"	style=" border:2; height:30px; border-color:#CD853F; border-radius:5px; width: 90px; padding: 5px;">
+										<option value="0">선택</option>
+										<option value="1">제목</option>
+										<option value="2">내용</option>
+										<option value="3">제목+내용</option>
+										<option value="4">작성자</option>
+									</select> 
+									<input type="text" placeholder="검색하세요-"  name="keyword" style="background-color:white; color:#CD853F; font-family: 'NanumSquareRound',sans-serif; padding: 4px; width: 400px; border:1; border-color:#CD853F; border-radius: 5px;" >
+									<input style="background-color: #CD853F; border: none; padding: 5px 10px;
+									 border-radius: 5px; color: white; cursor: pointer;" type="submit" value="검색">									
+								</form>
+						</div>
+							<br>
+						<div class="portfolio">	
+<!-- ================================================================================================================================================ -->
+							
+<!-- 							<table style="width: 100%"> -->
+<!-- 								<tr> -->
+<!-- 									<th>글번호</th> -->
+<!-- 									<th>제 목</th> -->
+<!-- 									<th>작성일</th> -->
+<!-- 									<th>조회수</th> -->
+<!-- 									<th>작성자</th> -->
+<!-- 								</tr> -->
+
+<%-- 								<c:forEach items="${dogTipBoardList }" var="tipboard"> --%>
+<!-- 									<tr> -->
+<%-- 										<td>${tipboard.tipBoard_boardno }</td> --%>
+<%-- 										<td ><a href="view.do?num=${tipboard.tipBoard_boardno }&page=${current } --%>
+<%-- 								&type=${type }&keyword=${keyword}&startDate=${startdate}&endDate=${enddate}">${tipboard.tipBoard_title }</a></td> --%>
+<%-- 										<td><fmt:formatDate value="${tipboard.tipBoard_writeDate}" pattern="yyyy-MM-dd" /></td> --%>
+<%-- 										<td>${tipboard.tipBoard_readCount }</td> --%>
+<%-- 										<td>${tipboard.tipBoard_nickname }</td> --%>
+<!-- 									</tr> -->
+<%-- 								</c:forEach> --%>
+<!-- 							</table> -->
+							
+				<c:forEach items="${dogTipBoardList }" var="tipboard" varStatus="i">
+					<div id="${tipboard.tipBoard_boardno}" class="portfolio-item"
+						style="width: 330px; height: 400px; border: 1px #F2F2F2 solid;">
+
+						<c:if test="${empty tipboard.tipBoard_file}">
+							<img src="./Boot/images/tipBoardNonImageCondition.png" alt="ocean">
+						</c:if>
+<%-- 						<c:if test="${not empty tipboard.tipBoard_file}"> --%>
+<%-- 									<img src="download.do?boardname=7&boardno=${tipboard.tipBoard_boardno}"><br></a> --%>
+<%-- 						</c:if> 
+
+C:/BitCamp/PetstFriends/bgForMember2.jpg
+--%>
+						<c:if test="${not empty tipboard.tipBoard_file}">
+									<img src="download.do?boardname=7&boardno=${tipboard.tipBoard_boardno}"><br></a>
+						</c:if>
+<!-- 						<img src="C:\BitCamp\PetstFriends.png" alt="ocean">   C:\BitCamp\PetstFriends -->
+						<div class="form-group">
+							<div class="col-md-2">
+								<h6>
+							<font style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+										제목</font>
+								</h6>
+							</div>
+							<div class="col-md-7" style="text-align: left;">
+								<h5>
+									<font
+										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+										${tipboard.tipBoard_title} </font>
+								</h5>
+							</div>
+							<div class="col-md-3" style="text-align: left;">
+								<h6>
+									<font
+										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+										조회수 ${tipboard.tipBoard_readCount} </font>
+								</h6>
+							</div>
+						</div>					
+						<div class="img-overlay">
+							<div class="portfolio-text">
+								<h4>${tipboard.tipBoard_title}</h4>
+								<a href="#"	onclick="">click</a> <!-- 해당게시글로 넘어가게 view.jsp만들고 난후 수정할것 -->
+							</div>
+						</div>
+					
+					
+					</div>
+				</c:forEach>
+				</div>									
+<!-- ================================================================================================================================================ -->
+							
+				<div class="numbers">
+								<c:if test="${start != 1 }">
+									<a href="dogTipBoardList.do?page=1&type=${type }&keyword=${keyword}&startDate=${startdate}
+									&endDate=${enddate}">[처음]</a>
+									<a href="dogTipBoardList.do?page=${start-1 }&type=${type }&keyword=${keyword}
+									&startDate=${startdate}&endDate=${enddate}">[이전]</a>
+								</c:if>
+								<c:forEach begin="${start }" end="${end }" var="i">
+									<c:choose>
+										<c:when test="${i == current }">
+										[${i }]
+									</c:when>
+										<c:otherwise>
+											<a href="dogTipBoardList.do?page=${i }&type=${type }&keyword=${keyword}
+											&startDate=${startdate}&endDate=${enddate}">[${i }]</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${end!=last }">
+									<a href="dogTipBoardList.do?page=${end+1 }&type=${type }&keyword=${keyword}
+									&startDate=${startdate}&endDate=${enddate}">[다음]</a>
+									<a href="dogTipBoardList.do?page=${last }&type=${type }&keyword=${keyword}
+									&startDate=${startdate}&endDate=${enddate}">[끝]</a>
+								</c:if>
+				</div>
+							<br>
+							<br>
+				<div class="button">
+								<input type="button" style="background-color: orange;" value="글쓰기"	 onclick="location.href='DogWriteTipBoardForm.do'">
+				</div>
+						</article>
+										
+	<br><br>			
+
+			
+     
+			
+			<div class="portfolio">
+				<!--begin portfolio items-->
+			<!-- ======================================================네이버 API결과 시작===================================================-->
+				<c:forEach items="${DogEncycList1 }" var="e" varStatus="i">
+					<div id="${e.encyc_title}" class="portfolio-item"
+						style="width: 260px; height: 260px; border: 1px #F2F2F2 solid;">
+
+						<c:if test="${empty e.encyc_thumbnail}">
+							<h1>
+								<font color="#F2F2F2" style="font-family: Georgia;">No-image</font>
+							</h1>
+						</c:if>
+						<c:if test="${not empty e.encyc_thumbnail}">
+							<img src="${e.encyc_thumbnail}">
+						</c:if>
+						<h5 align="left">
+<!-- 							<font color="#8B5927" -->
+<%-- 								style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font> --%>
+					<font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#8B5927;">
+						제목: ${e.encyc_title}
+     				</font>									
+						</h5>
+						<div class="img-overlay">
+							<div class="portfolio-text">
+								<h4>${e.encyc_title}</h4>
+								<a href="#"
+									onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>
+							</div>
+						</div>
+					</div>
+				</c:forEach>	
+
+			</div>
+			<!--End portfolio item-->
+
+
+			<div class="load-more text-center">
             <a href="#"> <i class="fa fa-refresh"></i> load more</a>
         </div>
     </div>
