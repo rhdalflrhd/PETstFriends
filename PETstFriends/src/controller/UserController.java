@@ -79,8 +79,8 @@ public class UserController {
 		return buffer.toString();
 	}
 
-	public void sendEmail(String user_email, String authNum) {
-		// 이메일 발송 메소드
+	public void sendEmail(String user_email, String authNum) {// 이메일 발송 메소드
+		
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setSubject("회원가입 안내 .[이메일 제목]");
 		mailMessage.setFrom("yoosohyun9933@gmail.com");
@@ -95,25 +95,198 @@ public class UserController {
 		}
 	} // 이메일 인증 받기 끝
 
-	@RequestMapping("userPwCheck.do")
+	@RequestMapping("userPwCheck.do")              // 나의 정보 수정 클릭하면 비번체크하는 폼으로 보내주기
 	public String UserPwCheck(HttpSession session, Model model) {
 
 		return "user/myInFo_PWCheck";
 
 	}
 
-	@RequestMapping("usermain.do")
+	@RequestMapping("usermain.do")            // 메인 
 	public String Useramin(HttpSession session, Model model) {
 
 		return "user/main";
 
 	}
 
-	@RequestMapping(value = "myWritesList.do", method=RequestMethod.GET)
-	public ModelAndView myWrites(Model model,@RequestParam(defaultValue = "1") int page,
+	
+	@RequestMapping("getUserId.do")                                            // 비번 맞는지 확인하고 맞으면 수정페이지로 고~ 아니면 다시 비번확인하는 페이지
+	public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
+		// String user_id = (String)session.getAttribute("user_id");
+		// if (user_pass.equals(userService.getUserPass(user_pass))) {
+		// HashMap<String, Object> params = userService.selectUser user_id);
+		// model.addAttribute("params", userService.selectUser (user_id));
+		// }
+		System.out.println("처음에 여기옴");
+		System.out.println(userService.selectUser("sohyun"));
+		if (user_pass == null) {
+			HashMap<String, Object> params = userService.selectUser("sohyun");
+			model.addAttribute("params", userService.selectUser("sohyun"));
+
+			return "user/myInFo_Modification";
+		} else
+			return "user/myInFo_Modification";
+
+	}
+
+	@RequestMapping(value = "/petList.do")                      // 펫 리스트 보여주기
+	@ResponseBody
+	public void petList(HttpServletRequest req, HttpServletResponse resp) {
+
+		resp.setContentType("text/html; charset=UTF-8");
+		List<Pet> arr = userService.selectPetAll("sohyun");
+
+		Gson gson = new Gson();
+
+		try {
+			if (arr.size() == 0) {
+				String result = gson.toJson("0");
+				resp.getWriter().println(result);
+			} else {
+				String result = gson.toJson(userService.selectPetAll("sohyun"));
+				resp.getWriter().println(result);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/nicknameCheck.do") // 닉네임 중복검사
+	@ResponseBody
+	public boolean getUserNn(HttpServletRequest req, HttpServletResponse resp) {
+
+		resp.setContentType("text/html; charset=UTF-8");
+		String user_nickname = req.getParameter("user_nickname");
+
+		boolean result = userService.getUserNn(user_nickname);
+
+		user_nickname = req.getParameter("user_nickname");
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/emailCheck.do") // 이메일중복확인
+	@ResponseBody
+	public boolean getUserEmail(HttpServletRequest req, HttpServletResponse resp) {
+		resp.setContentType("text/html; charset=UTF-8");
+		String user_email = req.getParameter("user_email");
+
+		boolean result = userService.getUserEmail(user_email);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/passCheck.do") // 비밀번호 일치 검사
+	@ResponseBody
+	public boolean getUserPw(HttpServletRequest req, HttpServletResponse resp) {
+		resp.setContentType("text/html; charset=UTF-8");
+		String user_pass = req.getParameter("user_pass");
+		boolean result = userService.getUserPass(user_pass);
+		user_pass = req.getParameter("user_pass");
+		return result;
+
+	}
+
+	@RequestMapping(value = "/updateUser.do") // 내정보수정에서 수정하기 누르면 유저 업데이트!
+	@ResponseBody
+	public String updateUser(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
+			HttpServletRequest req, HttpSession session) {
+		System.out.println("updateUser.do로들어옴");
+		resp.setContentType("text/html; charset=UTF-8");
+		System.out.println(req.getParameter("user_havePet"));
+		String user_id = "sohyun";
+		params.put("user_id", user_id);
+		userService.updateUser(params);
+
+		String msg = "";
+		return msg;
+	}
+
+	@RequestMapping(value = "/insertPet.do") // 내정보수정에서 수정하기 누르면 펫 추가/수정
+	@ResponseBody
+	public String updatePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
+			HttpServletRequest req, HttpSession session) {
+		System.out.println("insertPet.do로 들어옴");
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.setContentType("application/json");
+		String user_id = "sohyun";
+		params.put("user_id", user_id);
+		String jsonStr = (String) params.get("jsonData");
+
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(jsonStr);
+		JsonArray jArray = element.getAsJsonArray();
+		JsonObject jOb = new JsonObject();
+
+		for (int i = 0; i < jArray.size(); i++) {
+			int petno[] = new int[jArray.size()];
+
+			jOb = jArray.get(i).getAsJsonObject();
+
+			petno[i] = jOb.get("pet_no").getAsInt();
+			System.out.println(petno[i]);
+
+			if (petno[i] == 0) {
+				userService.insertPet(params);
+			}
+
+			else {
+				userService.updatePet(params);
+			}
+
+		}
+		String msg = "";
+		return msg;
+	}
+
+	@RequestMapping("deleteUserForm.do") // 탈퇴하기 누르면 비번확인폼으로이동
+	public String userDeleteForm() {
+
+		return "user/myInFo_MembershipDelete";
+	}
+
+	@RequestMapping(value = "/deleteUser.do")// 탈퇴전비밀번호 일치 검사
+	@ResponseBody 
+	public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		resp.setContentType("text/html; charset=UTF-8");
+		String user_pass = req.getParameter("user_pass");
+		String user_id = req.getParameter("user_id");
+		String user_idch = (String) session.getAttribute("user_id");
+
+		if (user_id.equals(user_idch)) {
+			userService.deleteUser(user_idch, user_pass);
+		}
+		boolean result = userService.getUserPass(user_pass);
+		user_pass = req.getParameter("user_pass");
+		return result;
+
+	}
+
+	@RequestMapping(value = "/deletePet.do") // 마이페이지에서 펫 삭제하기
+	@ResponseBody
+	public String deletePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
+			HttpServletRequest req, HttpSession session) {
+
+		resp.setContentType("text/html; charset=UTF-8");
+		int pet_no = Integer.parseInt(req.getParameter("pet_no"));
+		System.out.println(pet_no);
+
+		userService.deletePet(pet_no);
+
+		String msg = "";
+		return msg;
+
+	}
+	
+	
+	@RequestMapping(value = "myWritesList.do", method = RequestMethod.GET)
+	public ModelAndView myWrites(Model model, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-		
+
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("type", type);
@@ -145,182 +318,9 @@ public class UserController {
 
 	}
 
-	@RequestMapping("getUserId.do")
-	public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
-//  String user_id = (String)session.getAttribute("user_id");
-//		if (user_pass.equals(userService.getUserPass(user_pass))) {
-//			HashMap<String, Object> params = userService.selectUser user_id);
-//			model.addAttribute("params", userService.selectUser (user_id));
-//		}
-		System.out.println("처음에 여기옴");
-		System.out.println(userService.selectUser("sohyun"));
-         if (user_pass == null) {
-			HashMap<String, Object> params = userService.selectUser("sohyun");
-			model.addAttribute("params", userService.selectUser("sohyun"));
-
-			return "user/myInFo_Modification";
-		} else
-			return "user/myInFo_Modification";
-
-	}
-
-	@RequestMapping(value = "/petList.do") // 펫 리스트 보여주기
-	@ResponseBody
-	public void petList(HttpServletRequest req, HttpServletResponse resp) {
 	
-		resp.setContentType("text/html; charset=UTF-8");
-		List<Pet> arr = userService.selectPetAll("sohyun");
-		
-		Gson gson = new Gson();
-       
-		
-		try {
-			if (arr.size() == 0) {
-				String result = gson.toJson("0");
-				resp.getWriter().println(result);
-			}
-			else {
-				String result = gson.toJson(userService.selectPetAll("sohyun"));
-			resp.getWriter().println(result);
-			}
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@RequestMapping(value = "/nicknameCheck.do") // 닉네임 중복검사
-	@ResponseBody
-	public boolean getUserNn(HttpServletRequest req, HttpServletResponse resp) {
-
-		resp.setContentType("text/html; charset=UTF-8");
-		String user_nickname = req.getParameter("user_nickname");
-		// System.out.println(user_nickname);
-		boolean result = userService.getUserNn(user_nickname);
-		// System.out.println(result);
-		user_nickname = req.getParameter("user_nickname");
-		// System.out.println(user_nickname);
-		return result;
-
-	}
-
-	@RequestMapping(value = "/emailCheck.do")
-	@ResponseBody // 이메일중복확인
-	public boolean getUserEmail(HttpServletRequest req, HttpServletResponse resp) {
-		resp.setContentType("text/html; charset=UTF-8");
-		String user_email = req.getParameter("user_email");
-		// System.out.println(user_nickname);
-		boolean result = userService.getUserEmail(user_email);
-		// System.out.println(result);
-		user_email = req.getParameter("user_email");
-		// System.out.println(user_nickname);
-		return result;
-
-	}
-
-	@RequestMapping(value = "/passCheck.do")
-	@ResponseBody // 비밀번호 일치 검사
-	public boolean getUserPw(HttpServletRequest req, HttpServletResponse resp) {
-		resp.setContentType("text/html; charset=UTF-8");
-		String user_pass = req.getParameter("user_pass");
-		boolean result = userService.getUserPass(user_pass);
-		user_pass = req.getParameter("user_pass");
-		return result;
-
-	}
-
-	@RequestMapping(value = "/updateUser.do") // 내정보수정에서 수정하기 누르면 업데이트!
-	@ResponseBody
-	public String updateUser(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
-			HttpServletRequest req, HttpSession session) {
-		System.out.println("updateUser.do로들어옴");
-		resp.setContentType("text/html; charset=UTF-8");
-		System.out.println(req.getParameter("user_havePet"));
-		String user_id = "sohyun";
-		params.put("user_id", user_id);
-		userService.updateUser(params);
-
-		String msg = "";
-		return msg;
-	}
-
-
-	@RequestMapping(value = "/insertPet.do") // 내정보수정에서 수정하기 누르면 업데이트!
-	@ResponseBody
-	public String updatePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,HttpServletRequest req, HttpSession session) {
-		System.out.println("insertPet.do로 들어옴");
-		resp.setContentType("text/html; charset=UTF-8");
-		resp.setContentType("application/json");
-		String user_id = "sohyun";
-		params.put("user_id", user_id);
-        String jsonStr = (String) params.get("jsonData");
-      
-		JsonParser parser = new JsonParser();
-		JsonElement element = parser.parse(jsonStr);
-	    JsonArray jArray = element.getAsJsonArray();
-		JsonObject jOb = new JsonObject();
-
 	
-		for (int i = 0; i < jArray.size(); i++) {
-		  		int petno[]=new int[jArray.size()];
-		  		
-		    jOb = jArray.get(i).getAsJsonObject();   
 	
-		    petno[i] =  jOb.get("pet_no").getAsInt();
-		System.out.println(petno[i]);
-
-		if (petno[i] == 0) {
-			userService.insertPet(params);
-		}
-		
-		else {
-			userService.updatePet(params);
-		}
-		//넘어온 jsonData(=보유펫정보들) 
-
-	}
-		String msg = "";
-		return msg;
-	}
-	@RequestMapping("deleteUserForm.do") // 탈퇴하기 누르면 비번확인폼으로이동
-	public String userDeleteForm() {
-
-		return "user/myInFo_MembershipDelete";
-	}
-
-
 	
-	@RequestMapping(value = "/deleteUser.do")
-	@ResponseBody // 비밀번호 일치 검사
-	public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
-		resp.setContentType("text/html; charset=UTF-8");
-		String user_pass = req.getParameter("user_pass");
-		String user_id = req.getParameter("user_id");
-		String user_idch = (String)session.getAttribute("user_id");
-	
-	if (user_id.equals(user_idch)) {
-	 	userService.deleteUser(user_idch,user_pass);
-	}
-	boolean result = userService.getUserPass(user_pass);
-user_pass = req.getParameter("user_pass");
-	return result;
-
-	}
-
-	@RequestMapping(value = "/deletePet.do") // 마이페이지에서 펫 삭제하기 
-	@ResponseBody
-	public String deletePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp, HttpServletRequest req, HttpSession session) {
-
-		resp.setContentType("text/html; charset=UTF-8");
-		int pet_no= Integer.parseInt(req.getParameter("pet_no"));	
-        System.out.println(pet_no);
-		
-       
-        userService.deletePet(pet_no);
-    
-		String msg = "";
-		return msg;
-
-	}
 
 }

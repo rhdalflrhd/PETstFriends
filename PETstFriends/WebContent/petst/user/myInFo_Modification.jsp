@@ -27,50 +27,47 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 
-	
-<script type="text/javascript">
-window.onload = function() {
-	var pwd1Check = document.getElementById("new_user_pass");
-var pwd1ok = document.getElementById("pwd1ok ");
-pwd1Check.addEventListener('blur', function(e) {
-	var pattern1 = /[0-9]/;
-	// 숫자 
-	var pattern2 = /[a-zA-Z]/;
-	// 문자 
-	var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
-	// 특수문자
-	var blank_pattern2 = /^\s+|\s+$/g;
-	if (blank_pattern2.test(pwd1Check.value) == true) {
-		pwd1ok.innerHTML = "비밀번호는 공백이 불가합니다."
-		pwd1Check.focus();
-	}
-	 else if(!pattern1.test(pwd1Check.value) || !pattern2.test(pwd1Check.value) || !pattern3.test(pwd1Check.value)) {
-			pwd1ok.innerHTML = "비밀번호는 8자리 이상 문자, 숫자, 특수문자(사용가능한 특수문자: ~!@#$%^&*()_+|<>?:{})"
-			pwd1Check.focus();
-	 }
-	 else pwd1ok.innerHTML = "사용가능합니다.";
-});
-//ddd
-var pwd2Check = document.getElementById("new_user_pass_chk");
-var pwd2ok = document.getElementById("pwd2ok");
-pwd2Check.addEventListener('blur', function(e) {
-	if(pwd1Check.value != pwd2Check.value){
-		pwd2ok.innerHTML="비밀번호가 일치하지 않습니다. 다시 입력해주세요";
-		pwd2Check.focus();
-	}
-	else{
-		pwd2ok.innerHTML="비밀번호가 일치합니다.";
-	}		
-});
-	
-};
-</script>
-
 
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$('#user_pass').blur(function() { //비밀번호 일치 검사 ----------------------------------
+	
+	$('#new_user_pass').blur(function() {      // 새 비밀번호 유효검사 -----------------------------------------------------------
+		var userpass=$('#new_user_pass').val();
+	if($('#new_user_pass').val() == ""){
+		$('#pwd1ok').html('PW를 입력해주세요.');
+	}
+	else{
+		
+		var passPt = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+		if((passPt.test($('#new_user_pass').val()))){
+			$('#pwd1ok').html('사용가능 한 PW입니다');
+		}
+		else{
+			$('#pwd1ok').html('비밀번호는 8자리 이상 문자, 숫자, 특수문자(사용가능한 특수문자: ~!@#$%^&*()_+|<>?:{}');
+		}
+	}
+	});
+	
+	$(function() {
+		$('#new_user_pass').blur(function() {
+			$('font[name=user_pwcheck]').text('');
+		}); //#user_pass.keyup
+		$('#new_user_pass_chk').blur(function() {
+			if ($('#new_user_pass').val() != $('#new_user_pass_chk').val()) {
+				$('font[name=user_pwcheck]').text('');
+				$('font[name=user_pwcheck]').html("PW불일치");
+			} else {
+				$('font[name=user_pwcheck]').text('');
+				$('font[name=user_pwcheck]').html("PW일치");
+			}
+		});
+	});
+	
+	//------------------------------------------------------- 새 비번 ------------------------------------------
+	
+	
+	$('#user_pass').blur(function() { //기존 비밀번호 일치 검사 ----------------------------------
 		$.ajax({
 			method : 'GET',
 			url : 'passCheck.do',
@@ -486,13 +483,14 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 				<tr>
 					<td>새비번*</td>
 					<td><input type="password" name="user_pass"
-						id="new_user_pass"><span id="pwd1ok "></span></td>
+						id="new_user_pass"><span id="pwd1ok"></span></td>
 				</tr>
 
 				<tr>
 					<td>새비번확인*</td>
 					<td><input type="password" id="new_user_pass_chk"><span
-						id="pwd2ok"></span></td>
+						id="pwd2ok"></span>
+						<font name ="user_pwcheck" size ="2'" color = "red"></font></td>
 				</tr>
 
 				<tr>

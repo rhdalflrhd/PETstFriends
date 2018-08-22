@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="./assets/css/slicknav.css">
     <link rel="stylesheet" href="./assets/style.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
+    
 
 </head>
 <!-- <style> -->
@@ -64,14 +65,14 @@
 
 <c:forEach items="${boardList }" var="board">
 				<tr>
-					<td align="center">${board.num }</td>
+					<td align="center">${params.no }</td>
 								<td>
-		<c:if test="${empty board.title}"><a href="view.do?num=${board.num }">제목없음</a></c:if>
-		<c:if test="${not empty board.title}"><a href="view.do?num=${board.num }">${board.title }</a></c:if>	
+		<c:if test="${empty params.title}"><a href="view.do?num=${board.num }">제목없음</a></c:if>
+		<c:if test="${not empty params.title}"><a href="view.do?num=${board.num }">${board.title }</a></c:if>	
 					</td>
 				
 					<td align="center">
-					<fmt:formatDate value="${board.writedate }"
+					<fmt:formatDate value="${params.writedate }"
 							pattern="yyyy-MM-dd" /></td>
 							
 					<td align="center">${board.readCount }</td>
