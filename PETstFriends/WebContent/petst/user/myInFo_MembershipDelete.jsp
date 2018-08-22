@@ -45,11 +45,12 @@ $(document).ready(function(){
 			url : 'deleteUser.do',
 			data : {
 				
+				user_id : $("#user_id").val(),
 			user_pass : $("#user_pass").val()
 			
 			},
 			success : function(result) {
-			
+			alert($("#user_id").val());
 				alert( $("#user_pass").val());
 				if (result !=true){
 			alert("탈퇴가 완료되었습니다.");

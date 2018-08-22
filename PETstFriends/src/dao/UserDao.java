@@ -7,9 +7,9 @@ import model.Pet;
 import model.User;
 
 public interface UserDao {
-public void deleteUser(String user_id);
+public void deleteUser(String user_id, String user_pass);
 	
-	public void deletePet(String pet_name);
+	public void deletePet(int pet_no);
 	
 	public int insertPet(Pet pet);
 
@@ -37,8 +37,10 @@ public void deleteUser(String user_id);
 	
 	public HashMap<String, Object> selectmyWrite(String user_id);
 	
-	public int getWriteCount(String user_id);
+	public int getWriteCount(HashMap<String, Object> params);
 	
-	
+	public int getLikesCount(HashMap<String, Object> params);
+	public int getMymeetingCount(HashMap<String, Object> params);
+	public int getMyQnACount(HashMap<String, Object> params);
 	
 }

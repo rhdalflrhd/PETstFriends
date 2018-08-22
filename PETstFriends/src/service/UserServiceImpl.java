@@ -21,8 +21,9 @@ import model.User;
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
-	UserDao udao;
+	private UserDao udao;
 
+	
 
 	public HashMap<String, Object> selectUserPet(String user_id) {
 	
@@ -76,13 +77,13 @@ public class UserServiceImpl implements UserService {
 	public int updateUser(HashMap<String, Object> params) {
 		String user_id = (String) params.get("user_id");
 
-System.out.println(params);
-		int a = Integer.parseInt((String)params.get("user_havePet"));
-		params.put("user_havePet", a);
+     
+//		int a = Integer.parseInt((String)params.get("user_havePet"));
+//		params.put("user_havePet", a);
 
-	udao.updateUser(params);
+	    
 
-return 1;
+        return udao.updateUser(params);
 	
 
 	}
@@ -90,7 +91,9 @@ return 1;
 
 	@Override
 	public List<Pet> selectPetAll(String user_id) {
+
 		return udao.selectPetAll(user_id);
+		
 	}
 
 	@Override
@@ -100,7 +103,7 @@ return 1;
 
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(jsonStr);
-		System.out.println(element);
+	
 		JsonArray jArray = element.getAsJsonArray();
 		JsonObject jOb = new JsonObject();
 		User user = new User();
@@ -109,17 +112,15 @@ return 1;
 		for (int i = 0; i < jArray.size(); i++) {
 			
 			jOb = jArray.get(i).getAsJsonObject();
-			if (!(jOb.get("pet_name").getAsString().equals(""))) {
-				System.out.println(jOb.get("pet_name").getAsString());
-				String a = jOb.get("pet_name").getAsString();
-			
-				pet.setUser_id((String)(params.get("user_id")));
-			pet.setPet_name(jOb.get("pet_name").getAsString());
-				pet.setPet_gender(jOb.get("pet_gender").getAsInt());
+			if (jOb.get("pet_no").getAsInt() !=0 ) {
+			    pet.setPet_no(jOb.get("pet_no").getAsInt());
+			    pet.setPet_name(jOb.get("pet_name").getAsString());
+			    pet.setUser_id((String)(params.get("user_id")));
+		        pet.setPet_gender(jOb.get("pet_gender").getAsInt());
 				pet.setPet_species(jOb.get("pet_species").getAsInt());
 				pet.setPet_age(jOb.get("pet_age").getAsInt());
 				pet.setPet_file(jOb.get("pet_file").getAsString());
-			//펫 테이블에 insertSerive부르기
+		
 				udao.updatePet(pet);
 			}
 			
@@ -133,7 +134,7 @@ return 1;
 	@Override
 	public boolean insertPet(HashMap<String, Object> params) {
 		String jsonStr = (String) params.get("jsonData");
-	
+
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(jsonStr);
 	
@@ -144,45 +145,95 @@ return 1;
 		user = (User) params.get("user");
 		for (int i = 0; i < jArray.size(); i++) {
 			
-			jOb = jArray.get(i).getAsJsonObject();
-			if (!(jOb.get("pet_name").getAsString().equals(""))) {
-				System.out.println(jOb.get("pet_name").getAsString());
-				String a = jOb.get("pet_name").getAsString();
+			jOb = jArray.get(i).getAsJsonObject();   
 			
-				pet.setUser_id((String)(params.get("user_id")));
-			pet.setPet_name(jOb.get("pet_name").getAsString());
+			if ( jOb.get("pet_no").getAsInt() ==0) {
+				
+			 pet.setUser_id((String)(params.get("user_id")));
+			
+			 pet.setPet_name(jOb.get("pet_name").getAsString());
 				pet.setPet_gender(jOb.get("pet_gender").getAsInt());
 				pet.setPet_species(jOb.get("pet_species").getAsInt());
 				pet.setPet_age(jOb.get("pet_age").getAsInt());
 				pet.setPet_file(jOb.get("pet_file").getAsString());
-			//펫 테이블에 insertSerive부르기
+			
 				udao.insertPet(pet);
-			}
 			
 			}
+			
+		}			
 		return true;
 	}
 
 	@Override
-	public void deleteUser(String user_id) {
-		udao.deleteUser(user_id);
-		
-		
+	public boolean deleteUser(String user_id, String user_pass) {
+	
+  String user_passch = (String) udao.selectOne(user_id).get("user_pass");
+
+  
+  if (user_pass.equals(user_passch)) {
+		udao.deleteUser(user_id,user_pass);
+		return true;
+  }
+  else 
+	  return false;
 	}
 
 	@Override
 	public HashMap<String, Object> myWrites(String user_id) {
 		
-		return udao.selectmyWrite(user_id);
+		return udao.selectmyWrite("yoo");
 	}
 
 	@Override
-	public void deletePet(String pet_name) {
-		System.out.println(pet_name);
-		udao.deletePet(pet_name);
+	public void deletePet(int pet_no) {
+		System.out.println(pet_no);
+		udao.deletePet(pet_no);
 		
 	}
 
+
+	@Override
+	public int getStartPageS(int page) {
+		// TODO Auto-generated method stub
+		return (page- 1) / 10 * 10 + 1;
+	}
+
+	@Override
+	public int getEndPageS(int page) {
+		// TODO Auto-generated method stub
+		return ((page-1) / 10 + 1) * 10;
+	}
+
+	@Override
+	public int getMyWriteLastPage(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		return (udao.getWriteCount(params) - 1 ) / 10 + 1;
+	}
+
+	@Override
+	public int getSkipS(int page) {
+		// TODO Auto-generated method stub
+		return (page - 1) * 10;
+	}
+
+	@Override
+	public int getMyInquiryLastPage(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		return (udao.getMyQnACount(params) - 1 ) / 10 + 1;
+	}
+
+	@Override
+	public int getMyMeetingLastPage(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		return (udao.getMymeetingCount(params) - 1 ) / 10 + 1;
+	}
+
+	@Override
+	public int getMyLikesLastPage(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		return (udao.getLikesCount(params) - 1 ) / 10 + 1;
+	}
 
 
 

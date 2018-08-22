@@ -86,8 +86,7 @@ $(document).ready(function(){
 				}
 			},
 			error : function(xhrReq, status, error) {
-				alert(error)
-				alert("값이 안온건가용?")
+			alert("비밀번호를 입력해주세요.")
 			}
 		});
 	}); //  비밀번호 일치 검사 끝 ------------------------------------------------------------
@@ -107,8 +106,8 @@ $(document).ready(function(){
 					}
 				},
 				error : function(xhrReq, status, error) {
-					alert(error)
-					alert("값이 안온건가용?")
+					
+					alert("닉네임을 입력해주세요.")
 				}
 			});
 		});//닉네임 중복 검사--------------------------------------------------------------------------
@@ -131,7 +130,7 @@ $(document).ready(function(){
 			},
 			error : function(xhrReq, status, error) {
 				alert(error)
-				alert("값이 안온건가용?")
+				alert("이메일을 입력해주세요")
 			}
 		});
 	});//이메일 중복 검사-------------------------------------------------------
@@ -154,11 +153,18 @@ $(document).ready(function(){
 	     url : 'petList.do',
 		dataType : 'json',
 	    success : function(data) {
-	    	
-	   
-	    	for(var i in data){
+	  alert(data);
+	    	if (data == 0){
+	    	$('#petTable').css('display', 'none');	
+	    
+	    	}
+	    	else {
 	    		$('#petTable').css('display', 'inline');
-	    		$('#petTable').append('<tr><td><input type="text"  id = "pet_name" class="pet_name" name="pet_name" value = '+data[i].pet_name+'></td>'
+	    		$("#petTable_tbody").empty();	// 이게 있으면,,, 펫 첫줄이 삭제가 안됨 ^_ㅜ 
+    	      
+	    		for(var i in data){
+    	    	 
+	    		$('#petTable').append('<tr><td><input type="text"  id = "pet_name" class="pet_name" name="pet_name" value = '+data[i].pet_name+'  readonly="readonly"></td>'
 	    				+ '<td><select class="pet_species" >'
 	    				+ '<option value="0">종 선택</option>'
 	    				+ '<option value="1">개</option>'
@@ -174,15 +180,16 @@ $(document).ready(function(){
 	    				+ '</select></td>'
 	    				
 
-	    			+ '<td><input type="text" class="pet_age" value = '+data[i].pet_age+'><input type = "hidden" value = '+data[i].pet_no+'>'
+	    			+ '<td><input type="text" class="pet_age" value = '+data[i].pet_age+'><input type = "hidden" class = "pet_no" value = '+data[i].pet_no+'>'
 	    			+'</td>'
 	    			+ '<td><input type="file" class="pet_file" value ='+data[i].pet_file+'></td>'
+	    			+'<td><button class = "deletePet" style="width: 80px; height: 28px; background-color: #FFD232; border: 1 solid white">삭제</button></td>'
 	    			+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
 	    			+ '</tr>');
-						}
+	    	}	}
 					},
 					error : function(xhrReq, status, error) {
-						alert(error)
+					
 						 alert("값이 안옴 ");
 					}
 				})
@@ -191,7 +198,28 @@ $(document).ready(function(){
 			
 			// petlist 보여주기 ------------------------------------------------------------------------------------------------
 
+			$(document).on('click', '.deletePet', function() { //-클릭시 펫 삭제   
+				
+			  var thisbtn = $(this);	
+			
+				$.ajax({
+					method : 'post',
+					url : 'deletePet.do',
+					data : {
+					
+					  pet_no : $('.pet_no').val()
+				  
+					},
+					success : function(data) {
+					thisbtn.parent().parent().remove();
+						alert('삭제성공');
 
+					},
+					error : function(xhrReq, status, error) {
+						alert(error)
+					}
+				});
+			});
 			
 			
 			
@@ -239,71 +267,109 @@ $("#auth_btn").click(function () {   // 이메일 인증 받기  ---------------
 <script type="text/javascript">
 $(document).ready(function (){
 	
+	
+
 	$("#updatebtn").click(function (){
 		
-insertPet();
+// 		if (!($('#user_nickname').val())=='' && !($('#user_authNum').val())==''&&!($('#user_email').val())==''&&
+// 				!($('#user_pass').val())==''&&!($("#new_user_pass").val())==''&&!($("#new_user_pass_chk").val())==''
+// 				&&!($("#user_email").val())=='') {
+				
+			    $.ajax({
+				method:"GET",
+				url:"updateUser.do",
+				data:{
+				"user_id":$("#user_id").val(),
+			    "user_nickname":$('#user_nickname').val(),
+				"user_pass":$('#new_user_pass').val(),
+			     "user_email":$('#user_email').val(),
+				"user_phone":$('#user_phone').val(),
+				"user_proPic":$('#user_proPict').val(),
+				"user_havePet" : $('.user_havePet:checked').val()
+				},
+				// datatype:"text",
+				success: function(data){
+					alert($('.user_havePet').val());
+					alert("수정성공");
+					//window.location.href="usermain.do";
+				},
+				error : function(xhrReq, status, error){
+					alert(error);
+					alert("수정실패");
+				}
+			})//ajax
 		
-		$.ajax({
-			method:"GET",
-			url:"updateUser.do",
-			data:{
-			"user_id":$("#user_id").val(),
-		   "user_nickname":$('#user_nickname').val(),
-			"user_pass":$('#new_user_pass').val(),
-		     "user_email":$('#user_email').val(),
-			"user_phone":$('#user_phone').val(),
-			"user_proPic":$('#user_proPict').val(),
-			"user_havePet":$('.user_havePet').val()
-			},
-			// datatype:"text",
-			success: function(data){
-			
-				alert("수정성공");
-				//window.location.href="usermain.do";
-			},
-			error : function(xhrReq, status, error){
-				alert(error);
-				alert("수정실패");
-			}
-		})//ajax
-	});
 		
-	var insertPet  = function (){
+	
+// 		}
+// 		else {
+// 			alert("user 필수항목을 입력해주세요.")
+// 		}
+			insertPet();
+
+		if ($('.user_havePet :checked').val() == 1) {
 		
-		var petArr = new Array();
-		if ($('.user_havePet').val() == 1) {
 			$('#petTable_tbody tr').each(function() {
-				var cellItem = $(this).find(":input");
-				var petObj = new Object();
+				if (!($('.pet_name').val() == '') && !($('.pet_species').val() == 0) && !($('.pet_gender').val() == 0)){
+				var insertPet  = function (){
+					
+					var petArr = new Array();
+					if ($('.user_havePet').val() == 1) {
+						$('#petTable_tbody tr').each(function() {
+							
+							var cellItem = $(this).find(":input");
+							var petObj = new Object();
+							
+							petObj.pet_name = cellItem.eq(0).val();
+							petObj.pet_species = cellItem.eq(1).val();
+							petObj.pet_gender = cellItem.eq(2).val();
+							petObj.pet_age = cellItem.eq(3).val();
+							petObj.pet_no= cellItem.eq(4).val();
+							petObj.pet_file = cellItem.eq(5).val();
+							petArr.push(petObj);
+						
+					
+						})
+					
+
+					}
 				
-				petObj.pet_name = cellItem.eq(0).val();
-				petObj.pet_species = cellItem.eq(1).val();
-				petObj.pet_gender = cellItem.eq(2).val();
-				petObj.pet_age = cellItem.eq(3).val();
-				petObj.pet_no= cellItem.eq(4).val();
-				petObj.pet_file = cellItem.eq(5).val();
 				
-			})
-		}
-		$.ajax({
-			type : 'post',
-			url : 'insertPet.do',
-			data : {
-				"jsonData" : JSON.stringify(petArr),
-			  "user_id" : $("#user_id").val(),
-			  "pet_no" : $("#pet_no").val()
-			  
-			},
-			success : function(data) {
-				alert('성공');
-		
-			},
-			error : function(xhrReq, status, error) {
-				alert(error)
-			}
+					$.ajax({
+						type : 'post',
+						url : 'insertPet.do',
+						data : {
+							"jsonData" : JSON.stringify(petArr),
+						  "user_id" : $("#user_id").val()
+
+						},
+						success : function(data) {
+						
+							alert('펫추가성공');
+					
+						},
+						error : function(xhrReq, status, error) {
+							alert(error)
+						}
+					}) // ajax끝
+				};
+				
+				}
+				
+				
+// 				else 
+// 					alert("pet 필수항목을 입력해주세요.")
 		})
-	};
 		
+		
+		
+		
+			
+	}
+	
+	
+	});
+	
 
 	
 $('.user_havePet').click(function() { //반려동물 있음 =>펫테이블 보이게하기
@@ -321,7 +387,7 @@ $(document).on('click', '.addPet', function() { //+클릭시 종 입력 줄 한�
 		alert('최대 10마리까지 입력 가능합니다.')
 	} else {
 		clickNum++;
-		$('#petTable').append('<tr><td><input type="text" class="pet_name" name="pet_name" ></td>'
+		$('#petTable').append('<tr><td><input type="text" class="pet_name" name="pet_name"></td>'
 			+ '<td><select class="pet_species">'
 			+ '<option value="0">종 선택</option>'
 			+ '<option value="1">개</option>'
@@ -335,7 +401,7 @@ $(document).on('click', '.addPet', function() { //+클릭시 종 입력 줄 한�
 			+ '<option value="2">남</option>'
 			+ '<option value="3">중성화</option>'
 			+ '</select></td>'
-			+ '<td><input type="text" class="pet_age"><input type = "hidden" value = 0></td>' 
+			+ '<td><input type="text" class="pet_age"><input type="hidden" class="pet_no"  value ="0"></td>' 
 			+ '<td><input type="file" class="pet_file"></td>'
 			+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
 			+ '</tr>')
@@ -344,40 +410,27 @@ $(document).on('click', '.addPet', function() { //+클릭시 종 입력 줄 한�
 
 $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 
-   var thisR = $(this);
-	thisR.parent().remove();
-	if (clickNum > 1) {
-		clickNum--;
-	}
-
-	$.ajax({
-		method : 'post',
-		url : 'deletePet.do',
-		data : {
-			
-		  "pet_name" : $('#pet_name').val()
-		  
-		},
-		success : function(data) {
-		alert($('#pet_name').val());
-			alert('삭제성공');
-	
-		},
-		error : function(xhrReq, status, error) {
-			alert(error)
+		var thisR = $(this);
+		thisR.parent().remove();
+		if (clickNum > 1) {
+			clickNum--;
 		}
-	});
-	
-	
+		
+});
 
-	
+
+
+
+
+
+
+
 	
 });
 
 
 
 
-});
 </script>
 
 
@@ -476,9 +529,8 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 
 <tr>
 					<td>반려동물 *</td>
-					<td><input type="radio" name="user_havePet"
-						class="user_havePet" value="1">있음 <input type="radio"
-						name="user_havePet" class="user_havePet" value="0">없음</td>
+					<td><input type="radio" name="user_havePet" class="user_havePet" value="1">있음 
+					<input type="radio" name="user_havePet" class="user_havePet" value="0">없음</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
@@ -534,7 +586,7 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 						<td colspan="5" align="right" class="addPet">반려동물 추가<i
 							class="fa fa-plus-square"></i></td>
 					</tr>
-					<tr id = "">
+					<tr id = "pet_exist">
 						<th>이름 *</th>
 						<th>종 *</th>
 						<th>성별 *</th>
@@ -560,9 +612,9 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 								<option value="2">남</option>
 								<option value="3">중성화</option>
 						</select></td>
-						<td><input type="text" class="pet_age"></td>
+						<td><input type="text" class="pet_age"><input type="hidden" class="pet_no"  value ="0"></td>
 						<td><input type="file" class="pet_file"></td>
-						<td class="removePet"></td>
+						<td class="removePet"><i class="fa fa-minus-square"></i></td>
 				
 				
 					</tr>

@@ -34,6 +34,10 @@
 <!-- /* } */ -->
 
 <!-- </style> -->
+   
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 
@@ -51,7 +55,7 @@
 <div>
 
 	<tr>
-				<th width="100px" align="center">글 번호</th>
+				
 				<th width="700px" align="center">제 목</th>
 				<th width="200px" align="center">작성일</th>
 				<th width="100px" align="center">조회수</th>
@@ -76,7 +80,7 @@
 			</c:forEach>
 			
 			<tr>
-				<td width="1250px" colspan="5" bgcolor="violet"></td>
+				<td width="1250px" colspan="5" bgcolor="orange"></td>
 			</tr>
 			
 			<tr>

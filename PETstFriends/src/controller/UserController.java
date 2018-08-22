@@ -1,6 +1,8 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -107,19 +109,54 @@ public class UserController {
 
 	}
 
-	@RequestMapping("myWritesList.do")
-	public String myWrites(HttpSession session, Model model) {
+	@RequestMapping(value = "myWritesList.do", method=RequestMethod.GET)
+	public ModelAndView myWrites(Model model,@RequestParam(defaultValue = "1") int page,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
+			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+		
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		params.put("keyword", keyword);
+		params.put("page", page);
+		if (startDate != null && endDate != null
+				&& !(startDate.equals("") || startDate.equals("0") || startDate.equals("null"))
+				&& !(endDate.equals("") || endDate.equals("null") || endDate.equals("0"))) {
+			params.put("startDate", startDate);
+			params.put("endDate", endDate);
+		}
+		if (type == 1) {
+			params.put("title", keyword);
+		} else if (type == 2) {
+			params.put("content", keyword);
+		} else if (type == 3) {
+			params.put("title", keyword);
+			params.put("content", keyword);
+		} else if (type == 4) {
+			params.put("name", keyword);
+		}
 
-		return "user/myInfo_MyWrites";
+		HashMap<String, Object> result = userService.myWrites("yoo");
+
+		mav.addAllObjects(result);
+		mav.addAllObjects(params);
+		mav.setViewName("user/myInfo_MyWrites");
+		return mav;
 
 	}
 
 	@RequestMapping("getUserId.do")
 	public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
-
-		if (user_pass == null) {
-			HashMap<String, Object> params = userService.selectUser("yoo");
-			model.addAttribute("params", userService.selectUser("yoo"));
+//  String user_id = (String)session.getAttribute("user_id");
+//		if (user_pass.equals(userService.getUserPass(user_pass))) {
+//			HashMap<String, Object> params = userService.selectUser user_id);
+//			model.addAttribute("params", userService.selectUser (user_id));
+//		}
+		System.out.println("처음에 여기옴");
+		System.out.println(userService.selectUser("sohyun"));
+         if (user_pass == null) {
+			HashMap<String, Object> params = userService.selectUser("sohyun");
+			model.addAttribute("params", userService.selectUser("sohyun"));
 
 			return "user/myInFo_Modification";
 		} else
@@ -130,17 +167,23 @@ public class UserController {
 	@RequestMapping(value = "/petList.do") // 펫 리스트 보여주기
 	@ResponseBody
 	public void petList(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("da");
+	
 		resp.setContentType("text/html; charset=UTF-8");
-		List<Pet> arr = userService.selectPetAll("yoo");
+		List<Pet> arr = userService.selectPetAll("sohyun");
+		
 		Gson gson = new Gson();
-
-		System.out.println(userService.selectPetAll("yoo"));
-		String result = gson.toJson(userService.selectPetAll("yoo"));
-		System.out.println(result);
+       
+		
 		try {
+			if (arr.size() == 0) {
+				String result = gson.toJson("0");
+				resp.getWriter().println(result);
+			}
+			else {
+				String result = gson.toJson(userService.selectPetAll("sohyun"));
 			resp.getWriter().println(result);
-		} catch (IOException e) {
+			}
+			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -190,38 +233,55 @@ public class UserController {
 	@ResponseBody
 	public String updateUser(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
 			HttpServletRequest req, HttpSession session) {
+		System.out.println("updateUser.do로들어옴");
 		resp.setContentType("text/html; charset=UTF-8");
-		// String user_id = (String) session.getAttribute("user_id");
-		String user_id = "yoo";
+		System.out.println(req.getParameter("user_havePet"));
+		String user_id = "sohyun";
 		params.put("user_id", user_id);
-
 		userService.updateUser(params);
 
 		String msg = "";
 		return msg;
 	}
 
+
 	@RequestMapping(value = "/insertPet.do") // 내정보수정에서 수정하기 누르면 업데이트!
 	@ResponseBody
-	public String updatePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
-			HttpServletRequest req, HttpSession session) {
+	public String updatePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,HttpServletRequest req, HttpSession session) {
+		System.out.println("insertPet.do로 들어옴");
 		resp.setContentType("text/html; charset=UTF-8");
-		// String user_id = (String) session.getAttribute("user_id");
-		String user_id = "yoo";
+		resp.setContentType("application/json");
+		String user_id = "sohyun";
 		params.put("user_id", user_id);
+        String jsonStr = (String) params.get("jsonData");
+      
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(jsonStr);
+	    JsonArray jArray = element.getAsJsonArray();
+		JsonObject jOb = new JsonObject();
 
-		String pet_no = req.getParameter("pet_no");
-		System.out.println(pet_no);
+	
+		for (int i = 0; i < jArray.size(); i++) {
+		  		int petno[]=new int[jArray.size()];
+		  		
+		    jOb = jArray.get(i).getAsJsonObject();   
+	
+		    petno[i] =  jOb.get("pet_no").getAsInt();
+		System.out.println(petno[i]);
 
-		if (pet_no.equals("0")) {
+		if (petno[i] == 0) {
 			userService.insertPet(params);
-
-		} else
+		}
+		
+		else {
 			userService.updatePet(params);
+		}
+		//넘어온 jsonData(=보유펫정보들) 
+
+	}
 		String msg = "";
 		return msg;
 	}
-
 	@RequestMapping("deleteUserForm.do") // 탈퇴하기 누르면 비번확인폼으로이동
 	public String userDeleteForm() {
 
@@ -235,13 +295,15 @@ public class UserController {
 	public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		resp.setContentType("text/html; charset=UTF-8");
 		String user_pass = req.getParameter("user_pass");
-//		String user_id= (String) session.getAttribute("user_id");
-//	if (user_id.equals("yoo")) {
+		String user_id = req.getParameter("user_id");
+		String user_idch = (String)session.getAttribute("user_id");
 	
-		boolean result = userService.getUserPass(user_pass);
-		user_pass = req.getParameter("user_pass");
-		
-		return result;
+	if (user_id.equals(user_idch)) {
+	 	userService.deleteUser(user_idch,user_pass);
+	}
+	boolean result = userService.getUserPass(user_pass);
+user_pass = req.getParameter("user_pass");
+	return result;
 
 	}
 
@@ -250,12 +312,11 @@ public class UserController {
 	public String deletePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp, HttpServletRequest req, HttpSession session) {
 
 		resp.setContentType("text/html; charset=UTF-8");
-		// String user_id = (String) session.getAttribute("user_id");
-		String pet_name = req.getParameter("pet_name");
-        System.out.println(pet_name);
+		int pet_no= Integer.parseInt(req.getParameter("pet_no"));	
+        System.out.println(pet_no);
 		
        
-        userService.deletePet(pet_name);
+        userService.deletePet(pet_no);
     
 		String msg = "";
 		return msg;
