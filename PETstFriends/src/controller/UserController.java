@@ -190,20 +190,20 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/updateUser.do") // 내정보수정에서 수정하기 누르면 유저 업데이트!
-	@ResponseBody
-	public String updateUser(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
-			HttpServletRequest req, HttpSession session) {
-		System.out.println("updateUser.do로들어옴");
-		resp.setContentType("text/html; charset=UTF-8");
-		System.out.println(req.getParameter("user_havePet"));
-		String user_id = "sohyun";
-		params.put("user_id", user_id);
-		userService.updateUser(params);
-
-		String msg = "";
-		return msg;
-	}
+//	@RequestMapping(value = "/updateUser.do") // 내정보수정에서 수정하기 누르면 유저 업데이트!
+//	@ResponseBody
+//	public String updateUser(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
+//			HttpServletRequest req, HttpSession session) {
+//		System.out.println("updateUser.do로들어옴");
+//		resp.setContentType("text/html; charset=UTF-8");
+//		System.out.println(req.getParameter("user_havePet"));
+//		String user_id = "sohyun";
+//		params.put("user_id", user_id);
+//		userService.updateUser(params);
+//
+//		String msg = "";
+//		return msg;
+//	}
 
 	@RequestMapping(value = "/insertPet.do") // 내정보수정에서 수정하기 누르면 펫 추가/수정
 	@ResponseBody
@@ -215,7 +215,7 @@ public class UserController {
 		String user_id = "sohyun";
 		params.put("user_id", user_id);
 		String jsonStr = (String) params.get("jsonData");
-
+userService.updateUser(params);
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(jsonStr);
 		JsonArray jArray = element.getAsJsonArray();

@@ -268,46 +268,46 @@ $(document).ready(function (){
 
 	$("#updatebtn").click(function (){
 		
-// 		if (!($('#user_nickname').val())=='' && !($('#user_authNum').val())==''&&!($('#user_email').val())==''&&
-// 				!($('#user_pass').val())==''&&!($("#new_user_pass").val())==''&&!($("#new_user_pass_chk").val())==''
-// 				&&!($("#user_email").val())=='') {
-				
-			    $.ajax({
-				method:"GET",
-				url:"updateUser.do",
-				data:{
-				"user_id":$("#user_id").val(),
-			    "user_nickname":$('#user_nickname').val(),
-				"user_pass":$('#new_user_pass').val(),
-			     "user_email":$('#user_email').val(),
-				"user_phone":$('#user_phone').val(),
-				"user_proPic":$('#user_proPict').val(),
-				"user_havePet" : $('.user_havePet:checked').val()
-				},
-				// datatype:"text",
-				success: function(data){
-					alert($('.user_havePet').val());
-					alert("수정성공");
-					//window.location.href="usermain.do";
-				},
-				error : function(xhrReq, status, error){
-					alert(error);
-					alert("수정실패");
-				}
-			})//ajax
-		
 		
 	
-// 		}
-// 		else {
-// 			alert("user 필수항목을 입력해주세요.")
-// 		}
+		
+		// 유저 null값 확인
+		if (!($('#user_nickname').val())=='' && !($('#user_authNum').val())==''&&!($('#user_email').val())==''&&
+				!($('#user_pass').val())==''&&!($("#new_user_pass").val())==''&&!($("#new_user_pass_chk").val())==''
+				&&!($("#user_email").val())=='') {
+		
+			
+			
+// 			    $.ajax({
+// 				method:"GET",
+// 				url:"updateUser.do",
+// 				data:{
+				
+// 				},
+// 				// datatype:"text",
+// 				success: function(data){
+// 					alert($('.user_havePet').val());
+// 					alert("수정성공");
+// 					//window.location.href="usermain.do";
+// 				},
+// 				error : function(xhrReq, status, error){
+// 					alert(error);
+// 					alert("수정실패");
+// 				}
+// 			})//ajax
+		
 			insertPet();
+	
+		}//유저 null값 확인 if 의 문의 끝 
+		else {
+			alert("user 필수항목을 입력해주세요.")
+		}
+		
 
 		if ($('.user_havePet :checked').val() == 1) {
-		
+			
 			$('#petTable_tbody tr').each(function() {
-				if (!($('.pet_name').val() == '') && !($('.pet_species').val() == 0) && !($('.pet_gender').val() == 0)){
+			
 				var insertPet  = function (){
 					
 					var petArr = new Array();
@@ -326,10 +326,10 @@ $(document).ready(function (){
 							petArr.push(petObj);
 						
 					
-						})
+						})//$('#petTable_tbody tr').each(function()의 끝 
 					
 
-					}
+					}//if ($('.user_havePet').val() == 1)의 끝 
 				
 				
 					$.ajax({
@@ -337,35 +337,41 @@ $(document).ready(function (){
 						url : 'insertPet.do',
 						data : {
 							"jsonData" : JSON.stringify(petArr),
-						  "user_id" : $("#user_id").val()
+						  
+						  "user_id":$("#user_id").val(),
+			    "user_nickname":$('#user_nickname').val(),
+				"user_pass":$('#new_user_pass').val(),
+			     "user_email":$('#user_email').val(),
+				"user_phone":$('#user_phone').val(),
+				"user_proPic":$('#user_proPict').val(),
+				"user_havePet" : $('.user_havePet:checked').val()
 
 						},
 						success : function(data) {
 						
-							alert('펫추가성공');
+							alert('성공');
 					
 						},
 						error : function(xhrReq, status, error) {
 							alert(error)
 						}
 					}) // ajax끝
-				};
+				};//var insertPet  = function ()의 끝 
 				
-				}
+			
 				
 				
-// 				else 
-// 					alert("pet 필수항목을 입력해주세요.")
-		})
-		
+
+		})//$('#petTable_tbody tr').each(function() 의 끝 
+		}//if ($('.user_havePet :checked').val() == 1) 의 끝 
 		
 		
 		
 			
-	}
+	});// updatebtn 끝
 	
 	
-	});
+
 	
 
 	
