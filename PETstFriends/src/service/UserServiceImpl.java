@@ -116,9 +116,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 
-	public boolean getUserFindbyId(HashMap<String, Object> params) {
+	public String getUserFindbyId(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
 	
+		
 		String user_name = (String) params.get("user_name");
 		String user_email = (String) params.get("user_email");
 		
@@ -126,13 +127,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserFindbyPw(HashMap<String, Object> params) {
+	public boolean getUserFindbyPw(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		String user_id = (String) params.get("user_id");
-		String user_name = (String) params.get("user_name");
-		String user_email = (String) params.get("user_email");
-		
-		return uDao.selectUserFindPw(params);
+		if(  uDao.selectUserFindPw(params) == null)
+		return false;
+		else
+			return true;
+				
 	}
 
 	@Override
@@ -161,6 +162,21 @@ public class UserServiceImpl implements UserService {
 			return true;
 		} else
 			return false;
+	}
+
+	@Override
+	public boolean getUserbyName(String user_name) {
+		if (uDao.selectUserbyName(user_name) == null) {
+			return true;
+		} else
+			return false;
+	}
+
+	@Override
+	public int updateUser_pass(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+	
+		return uDao.updateUser_pass(params );
 	}
 
 

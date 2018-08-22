@@ -22,16 +22,16 @@ insert into pet values(
 </insert>
 
 <!-- string이 맞나 -->
-<select id="selectUserFindId" parameterType="java.util.HashMap" resultType="User">
+<select id="selectUserFindId" parameterType="java.util.HashMap" resultType="String">
 select user_id from user where user_name=#{user_name} and user_email=#{user_email}
 </select>
 
 <select id="selectUserFindPw" parameterType="java.util.HashMap" resultType="User">
-select user_pass from user where user_id=#{user_id} and user_name=#{user_name} and user_email=#{user_email}
+select *  from user where user_id=#{user_id} and user_name=#{user_name} and user_email=#{user_email}
 </select>
 
-<select id="selectUserbyId" parameterType="java.util.HashMap" resultType="User">
-select * from user where user_id = #{user_id}
+<select id="selectUserbyId" parameterType="String" resultType="User">
+select * from user  where user_id = #{user_id}
 </select>
 
 
@@ -39,9 +39,17 @@ select * from user where user_id = #{user_id}
 select * from User where user_nickname = #{user_nickname};
 </select>
 
-	<select id="selectUserEmail" parameterType="String" resultType="User">
-select user_email from User where user_email = #{user_email}
+	<select id="selectUserbyEmail" parameterType="String" resultType="User">
+select * from User where user_email = #{user_email}
 	</select>
+		<select id="selectUserbyName" parameterType="String" resultType="User">
+select * from User where user_name = #{user_name}
+	</select>
+	
+	<update id="updateUser_pass" parameterType="java.util.HashMap">
+	update User set user_pass=#{user_pass} where user_id=#{user_id}
+	
+	</update>
 
 
 

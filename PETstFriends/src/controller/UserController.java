@@ -13,6 +13,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -62,6 +63,20 @@ public class UserController {
 		resp.setContentType("text/html; charset=UTF-8");
 		String user_nickname = req.getParameter("user_nickname");
 		boolean result1 = userService.getUserbyNn(user_nickname);
+		
+		return result1;
+	}
+	
+	//---------------------------------------------------------------------------------------
+	
+	//이름체크
+	@RequestMapping(value = "/NameCheck.do")
+	@ResponseBody
+	public boolean getUserName(HttpServletRequest req, HttpServletResponse resp) {
+		
+		resp.setContentType("text/html; charset=UTF-8");
+		String user_name = req.getParameter("user_name");
+		boolean result1 = userService.getUserbyName(user_name);
 		
 		return result1;
 	}
@@ -193,46 +208,38 @@ public class UserController {
 		@RequestMapping(value = "/FindUserId.do", method = RequestMethod.POST)
 		@ResponseBody
 		public void FindUserId(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
-			userService.getUserFindbyId(params);
+			String user_id = userService.getUserFindbyId(params);
+			 try {
+				resp.getWriter().println(user_id);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
 		@RequestMapping(value = "/FindUserIdConfirmForm.do")
 		
-		public void FindUserIdConfirmForm(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {	
+		public void FindUserIdConfirmForm(@RequestParam String user_id, Model model) {	
+			System.out.println(user_id);
+
 			
-			resp.setCharacterEncoding("UTF-8");
-			PrintWriter out;
-			try {
-				out = resp.getWriter();
-				if(userDao.selectUserFindId(params)==true) {
-					User user = User(userService.getUserFindbyId(params));
-					String user_id = String.valueOf(userDao.selectUserFindId(params));
-					out.write("({'result':'입력하신 정보와 일치하는 아이디는'+user_id+'입니다.'})");
-				}
-				else {
-					out.write("({'result':'입력하신 정보로 찾을 수 없습니다.'})");
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
-//			userService.getUserFindbyId(params);
-	
+			User user = userDao.selectUserbyId(user_id);
+
+			System.out.println(user.getUser_name());
+			System.out.println(user.getUser_joinDate());
 			
+			model.addAttribute("user_id", user_id);
+			model.addAttribute("user_name", user.getUser_name());
+			model.addAttribute("user_joinDate", user.getUser_joinDate());
+				
 			
 		}
 		
 		
 //----------------------------------------------------------
 		
-		
-		private User User(boolean userFindbyId) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
 		//pw찾기
 		@RequestMapping(value = "/FindUserPwForm.do")
 		public String FindUserPwForm() {	
@@ -243,13 +250,50 @@ public class UserController {
 
 		@RequestMapping(value = "/FindUserPw.do", method = RequestMethod.POST)
 		@ResponseBody
-		public void FindUserPw(@RequestParam HashMap<String, Object> params,HttpServletResponse resp) {
-			resp.setContentType("text/html; charset=UTF-8");
-			userService.getUserFindbyPw(params);
-//			userService.joinUser(params);
+		public boolean FindUserPw(@RequestParam HashMap<String, Object> params,HttpServletRequest req, HttpServletResponse resp) {
+
+			return  userService.getUserFindbyPw(params);
+			
+
 
 		}
+		@RequestMapping(value = "/ChangeUserPwForm.do")
+		public String ChangeUserPwForm(HttpServletRequest req, HttpServletResponse resp,  Model model) {	
+////hkkkk
+			System.out.println("확인용");
+			System.out.println(req.getParameter("user_id"));
+			String  user_id= req.getParameter("user_id");
+			req.setAttribute("user_id", user_id);
+//			model.addAttribute("user_id",user_id);
+			return "ChangeUserPwForm";
 		
+		}
+
+		
+		@RequestMapping(value = "/ChangeUserPw.do", method = RequestMethod.POST)
+		@ResponseBody
+		public void ChangeUserPw(@RequestParam HashMap<String, Object> params,HttpServletResponse resp,HttpServletRequest req,HttpSession session) {
+			
+			resp.setContentType("text/html; charset=UTF-8");
+
+			System.out.println(req.getParameter("user_id"));
+//			req.getParameter("user_id");
+			
+			//-------------------------------------------------------------------------
+//		String user_id = "dd";
+//			params.put("user_id", user_id); 이렇게 하면 수정 됨
+			//--------------------------------------------------------------------------
+			String user_id =req.getParameter("user_id");
+			params.put("user_id", user_id); 
+			//이렇게 하면 수정 안됨.. 얼럿창 성공 뜨는데 디비에 저장안됨
+			//---------------------------------------------------------------------------
+			System.out.println(user_id);
+
+			params.put("user_id",user_id);
+			userService.updateUser_pass(params);
+			
+		}
+
 
 
 	}//컨트롤러

@@ -230,7 +230,7 @@ $(document).ready(function() {
 			<tr>
 				<td colspan="2" align="center">
 		
-		<button onclick="location.href='idFindForm.do'"
+		<button onclick="location.href='FindUserIdForm.do'"
 						style="width: 90px; height: 28px; background-color: #FFE6E6; border: 1 solid white">ID/PW찾기</button>
 		
 		

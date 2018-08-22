@@ -12,9 +12,11 @@ public interface UserService {
 	public boolean getUserbyId(String user_id);
 	public boolean getUserbyNn(String user_nickname);
 	public boolean getUserbyEmail(String user_email);
+	public boolean getUserbyName(String user_name);
+	public int updateUser_pass(HashMap<String, Object> params);
 
-	public boolean getUserFindbyId(HashMap<String, Object> params);
-	public User getUserFindbyPw(HashMap<String, Object> params);
+	public String getUserFindbyId(HashMap<String, Object> params);
+	public boolean getUserFindbyPw(HashMap<String, Object> params);
 	
 	
 	

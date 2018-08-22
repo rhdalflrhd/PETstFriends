@@ -22,8 +22,10 @@
 			<b><font color="gray">ID확인</font></b>
 		</h1>
 
-		<h2>~~회원님</h2>
-		${user_name }
+		<h2>${user_name }회원님</h2>
+		아이디: ${user_id } (가입일 : ${user_joinDate })
+		
+		
 		
 		
 		
@@ -36,7 +38,7 @@
 				<td colspan="2" align="center">
 					<button onclick="location.href='loginForm.do'"
 						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">로그인하기</button>
-					<button id=pwFindBtn onclick="location.href='pwFindForm.do'"
+					<button id=pwFindBtn onclick="location.href='FindUserPwForm.do'"
 						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">비밀번호찾기</button>
 				</td>
 			</tr>

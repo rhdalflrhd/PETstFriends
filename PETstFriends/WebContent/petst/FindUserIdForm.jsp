@@ -31,9 +31,10 @@
 // 				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 				// 		        dataType : "json",
 				success : function(postData) {
-					
-					window.location.href="FindUserIdConfirmForm.do";
-
+					if(postData == null)
+						alert("없는아이디임")
+					else
+					window.location.href="FindUserIdConfirmForm.do?user_id="+postData;
 
 				},
 				error : function(jqXHR, exception) {
@@ -127,7 +128,7 @@
 				<td colspan="2" align="center">
 					<button id=idFindBtn
 						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">아이디찾기</button>
-					<button id=pwFindBtn onclick="location.href='pwFindForm.do'"
+					<button id=pwFindBtn onclick="location.href='FindUserPwForm.do'"
 						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">비밀번호찾기</button>
 				</td>
 			</tr>
