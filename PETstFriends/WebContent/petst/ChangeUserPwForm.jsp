@@ -1,42 +1,59 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet" />
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Rubel Miah">
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="./assets/images/favicon.png">
+
+<title>ë¡œê·¸ì¸</title>
+
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/animate.min.css">
+    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="./assets/css/owl.theme.css">
+    <link rel="stylesheet" href="./assets/css/slicknav.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
+    
+   
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
+
+	
 <script type="text/javascript">
 
 	$(document).ready(function() {
 
 		
-		//ºñ¹øÁ¤±Ô½Ä--------------------------------------------------------------------------
+		//ë¹„ë²ˆì •ê·œì‹--------------------------------------------------------------------------
 		$('#user_pass').blur(function() {
 			var userpass=$('#user_pass').val();
 		if($('#user_pass').val() == ""){
-			$('#user_passResult').html('PW¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			$('#user_passResult').html('PWë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');
 
 		}
 		else{
 			
 			var passPt = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 			if((passPt.test($('#user_pass').val()))){
-				$('#user_passResult').html('»ç¿ë°¡´É ÇÑ PWÀÔ´Ï´Ù');
+				$('#user_passResult').html('ì‚¬ìš©ê°€ëŠ¥ í•œ PWì…ë‹ˆë‹¤');
 			}
 			else{
-				$('#user_passResult').html('´Ù½ÃÀÔ·ÂÇØÁÖ¼¼¿ä.');
+				$('#user_passResult').html('ë‹¤ì‹œì…ë ¥í•´ì£¼ì„¸ìš”.');
 
 			}
 		}
 		});//pass
 // 		--------------------------------------------------------------------------------------
-		//ºñ¹ø ÀÏÄ¡ ºÒÀÏÄ¡
+		//ë¹„ë²ˆ ì¼ì¹˜ ë¶ˆì¼ì¹˜
 		$(function() {
 			$('#user_pass').blur(function() {
 				$('font[name=user_pwcheck]').text('');
@@ -44,10 +61,10 @@
 			$('#user_pass2').blur(function() {
 				if ($('#user_pass').val() != $('#user_pass2').val()) {
 					$('font[name=user_pwcheck]').text('');
-					$('font[name=user_pwcheck]').html("PWºÒÀÏÄ¡");
+					$('font[name=user_pwcheck]').html("PWë¶ˆì¼ì¹˜");
 				} else {
 					$('font[name=user_pwcheck]').text('');
-					$('font[name=user_pwcheck]').html("PWÀÏÄ¡");
+					$('font[name=user_pwcheck]').html("PWì¼ì¹˜");
 				}
 			});
 		});
@@ -62,7 +79,7 @@
 					"user_pass":$('#user_pass').val()
 				},
 				success : function(data) {
-					alert('¼öÁ¤¼º°ø');
+					alert('ìˆ˜ì •ì„±ê³µ');
 					window.location.href="loginForm.do";
 				},
 				 error: function(jqXHR, exception) {
@@ -111,30 +128,33 @@
 
 
 
-	}); //·¹µğ
+	}); //ë ˆë””
 </script>
 </head>
 <body>
+<!--        <header id="header"> -->
+         <%@ include file="/petst/header.jsp" %>
+    <!--header section end-->
 <center>
 <%-- ${msg  } --%>
 		<h1>
-			<b><font color="gray">PWÃ£±â</font></b>
+			<b><font color="gray">PWì°¾ê¸°</font></b>
 		</h1>
 
-		<h2>»õ·Î¿î ºñ¹Ğ¹øÈ£·Î º¯°æÇÏ¼¼¿ä!</h2>
-		- ºñ¹Ğ¹øÈ£´Â 8~20ÀÚÀÇ ¿µ¹®¼Ò¹®ÀÚ, ¼ıÀÚ, Æ¯¼ö¹®ÀÚ¸¦ Á¶ÇÕÇÏ¿© »ç¿ë ÇÒ ¼ö ÀÖ½À´Ï´Ù. <br>
-		- Æ¯¼ö¹®ÀÚ¸¦ Ãß°¡ÇÏ¿© ºñ¹Ğ¹øÈ£¸¦ »ç¿ëÇÏ½Ã¸é ºñ¹Ğ¹øÈ£ÀÇ ¾ÈÀüµµ°¡ ³ô¾ÆÁ®¿ä. <br>
+		<h2>ìƒˆë¡œìš´ ë¹„ë°€ë²ˆí˜¸ë¡œ ë³€ê²½í•˜ì„¸ìš”!</h2>
+		- ë¹„ë°€ë²ˆí˜¸ëŠ” 8~20ìì˜ ì˜ë¬¸ì†Œë¬¸ì, ìˆ«ì, íŠ¹ìˆ˜ë¬¸ìë¥¼ ì¡°í•©í•˜ì—¬ ì‚¬ìš© í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. <br>
+		- íŠ¹ìˆ˜ë¬¸ìë¥¼ ì¶”ê°€í•˜ì—¬ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì‚¬ìš©í•˜ì‹œë©´ ë¹„ë°€ë²ˆí˜¸ì˜ ì•ˆì „ë„ê°€ ë†’ì•„ì ¸ìš”. <br>
 
 <!-- 			--------------------------------------------------------------- -->
 <br>
 <table>
 					<tr>
-					<td>»õ ºñ¹Ğ¹øÈ£</td>
+					<td>ìƒˆ ë¹„ë°€ë²ˆí˜¸</td>
 					<td><input type="password" id="user_pass" name="user_pass"> <span
 						id='user_passResult'></span></td>
 				</tr>
 				<tr>
-					<td>ºñ¹Ğ¹øÈ£ È®ÀÎ</td>
+					<td>ë¹„ë°€ë²ˆí˜¸ í™•ì¸</td>
 					<td><input type="password" id="user_pass2" name="user_pass2">
 					<span
 						id='user_passResult2'></span>
@@ -145,6 +165,7 @@
 
 				</tr>
 			</table>
+<!-- 			ì•„ì´ë”” ê°–ê³ ìˆì„ë ¤ê³   -->
 			<input type="hidden" id='userIDCheck' value="${user_id }" >
 
 <!-- 			--------------------------------------------------------------- -->
@@ -156,11 +177,28 @@
 				<td colspan="4" align="center">
 
 					<button id="change" 
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">È®ÀÎ</button>
+						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">í™•ì¸</button>
 				</td>
 			</tr>
 		
 </table>
 </center>
+<!-- <footer> -->
+   <%@ include file="/petst/footer.jsp" %>
+    <!--footer end-->
+
+</div>
+		
+	<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./assets/js/smoothscroll.js"></script>
+<script type="text/javascript" src="./assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./assets/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="./assets/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="./assets/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./assets/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="./assets/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="./assets/js/scripts.js"></script>
 </body>
 </html>

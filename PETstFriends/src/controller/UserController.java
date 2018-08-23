@@ -181,7 +181,7 @@ public class UserController {
 		}
 		
 		
-		@RequestMapping(value = "/login.do" ,method = RequestMethod.GET)
+		@RequestMapping(value = "/login.do" ,method = RequestMethod.POST)
 		@ResponseBody
 		public boolean login(String user_id, String user_pass) {
 		

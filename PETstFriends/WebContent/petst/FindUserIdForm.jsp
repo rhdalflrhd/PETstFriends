@@ -1,16 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet" />
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Rubel Miah">
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="./assets/images/favicon.png">
+
+<title>IDì°¾ê¸°</title>
+
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/animate.min.css">
+    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="./assets/css/owl.theme.css">
+    <link rel="stylesheet" href="./assets/css/slicknav.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
+    
+   
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
+
+	
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -32,7 +49,7 @@
 				// 		        dataType : "json",
 				success : function(postData) {
 					if(postData == null)
-						alert("¾ø´Â¾ÆÀÌµğÀÓ")
+						alert("ì—†ëŠ”ì•„ì´ë””ì„")
 					else
 					window.location.href="FindUserIdConfirmForm.do?user_id="+postData;
 
@@ -72,7 +89,7 @@
 		//-------------------------------------------------------------------------------------
 		$(function() {
 			var chk = -1;
-			$("#auth_btn").click(function() { // ÀÌ¸ŞÀÏ ÀÎÁõ ¹Ş±â 
+			$("#auth_btn").click(function() { // ì´ë©”ì¼ ì¸ì¦ ë°›ê¸° 
 				var authNum = "";
 
 				$.ajax({
@@ -83,18 +100,18 @@
 					},
 					success : function(str) {
 						authNum = str;
-						alert("ÀÎÁõ¹øÈ£ Àü¼Û¿Ï·á.");
+						alert("ì¸ì¦ë²ˆí˜¸ ì „ì†¡ì™„ë£Œ.");
 						//			             alert(authNum);
 
 						$('#auth_btn2').click(function() {
 
 
 							if ($('#user_authNum').val() == authNum) {
-								alert("ÀÎÁõ¿Ï·á");
-								$("#lab1").html("ÀÎÁõ¿Ï·á");
+								alert("ì¸ì¦ì™„ë£Œ");
+								$("#lab1").html("ì¸ì¦ì™„ë£Œ");
 							} else {
-								alert("ÀÎÁõ½ÇÆĞ");
-								$("#lab1").html("<label>ÀÎÁõ½ÇÆĞ</label>");
+								alert("ì¸ì¦ì‹¤íŒ¨");
+								$("#lab1").html("<label>ì¸ì¦ì‹¤íŒ¨</label>");
 							}
 
 						});
@@ -107,17 +124,20 @@
 
 
 
-	}) //·¹µğ
+	}) //ë ˆë””
 </script>
 </head>
 <body>
-	<center>
+<!--        <header id="header"> -->
+         <%@ include file="/petst/header.jsp" %>
+    <!--header section end-->
+<center>
 		<h1>
-			<b><font color="gray">IDÃ£±â</font></b>
+			<b><font color="gray">IDì°¾ê¸°</font></b>
 		</h1>
 
-		<h2>ÀÌ¸ŞÀÏ ÀÎÁõ</h2>
-		È¸¿ø°¡ÀÔ ½Ã µî·ÏÇÑ ÀÌ¸ŞÀÏÁÖ¼Ò¿Í µ¿ÀÏÇÏ¿©¾ß <br> ÀÎÁõ¹øÈ£¸¦ ¹ŞÀ» ¼ö ÀÖ½À´Ï´Ù. <br>
+		<h2>ì´ë©”ì¼ ì¸ì¦</h2>
+		íšŒì›ê°€ì… ì‹œ ë“±ë¡í•œ ì´ë©”ì¼ì£¼ì†Œì™€ ë™ì¼í•˜ì—¬ì•¼ <br> ì¸ì¦ë²ˆí˜¸ë¥¼ ë°›ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤. <br>
 
 		<!-- //---------------------------------------------------------------------------------- -->
 		<table>
@@ -127,27 +147,27 @@
 			<tr>
 				<td colspan="2" align="center">
 					<button id=idFindBtn
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">¾ÆÀÌµğÃ£±â</button>
+						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">ì•„ì´ë””ì°¾ê¸°</button>
 					<button id=pwFindBtn onclick="location.href='FindUserPwForm.do'"
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">ºñ¹Ğ¹øÈ£Ã£±â</button>
+						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">ë¹„ë°€ë²ˆí˜¸ì°¾ê¸°</button>
 				</td>
 			</tr>
 		</table>
 
 		<table>
 			<tr>
-				<td>ÀÌ¸§</td>
+				<td>ì´ë¦„</td>
 				<td><input type="text" id="user_name" name="user_name"></td>
 			</tr>
 			<tr>
-				<td>ÀÌ¸ŞÀÏ *</td>
+				<td>ì´ë©”ì¼ *</td>
 				<td><input type="text" name="user_email" id="user_email">
-					<button type="button" id="auth_btn">ÀÎÁõÇÏ±â</button> <span id="email"></span><br>
+					<button type="button" id="auth_btn">ì¸ì¦í•˜ê¸°</button> <span id="email"></span><br>
 			</tr>
 			<tr>
-				<td>ÀÎÁõ¹øÈ£ *</td>
+				<td>ì¸ì¦ë²ˆí˜¸ *</td>
 				<td><input type="text" id="user_authNum" name="user_authNum">
-					<button type="button" id="auth_btn2">È®ÀÎ</button> <span id="lab1"></span>
+					<button type="button" id="auth_btn2">í™•ì¸</button> <span id="lab1"></span>
 				</td>
 			</tr>
 
@@ -163,13 +183,31 @@
 				<td colspan="4" align="center">
 
 					<button id=findIdBtn
-						style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white">È®ÀÎ</button>
+						style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white">í™•ì¸</button>
 				</td>
 				<span id="user_idList"></span>
 
 			</tr>
 		</table>
+		<br><br>
 
 	</center>
+	<!-- <footer> -->
+   <%@ include file="/petst/footer.jsp" %>
+    <!--footer end-->
+
+</div>
+		
+	<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./assets/js/smoothscroll.js"></script>
+<script type="text/javascript" src="./assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./assets/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="./assets/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="./assets/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./assets/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="./assets/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="./assets/js/scripts.js"></script>
 </body>
 </html>
