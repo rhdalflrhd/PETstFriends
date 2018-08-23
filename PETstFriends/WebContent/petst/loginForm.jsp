@@ -80,7 +80,7 @@
         line-height: 24px;    
         width: 200px;   
         height: 40px;
-        
+             
     }
 	.social-btn .btn i {
 		float: left;
@@ -161,10 +161,15 @@ $(document).ready(function() {
 		<div class="or-seperator"><i>or</i></div>
 		
 		
-		 <div class="text-center social-btn" >
+		 <div class="text-center social-btn"  >
     <div class="hint-text ">아직 회원이 아니신가요?  </div>
-<div align="right">
-				<table>
+    <div style="display: inline-block; width: 45%;">
+    가입
+    <br>
+    sfjdljflsdf
+    </div>
+<div style="display: inline-block;  width: 48%;">
+				<table >
 					<tr>
 						<td>
 						<a href="joinUserForm.do" class="btn btn-info btn-block">
