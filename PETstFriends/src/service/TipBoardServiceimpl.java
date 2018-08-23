@@ -85,7 +85,10 @@ public class TipBoardServiceimpl implements TipBoardService{
 	@Override
 	public int DeleteTipBoardS(int boardname, int boardno) {
 		// TODO Auto-generated method stub
-		return tipDao.deleteBoard(boardname, boardno);
+		HashMap<String, Object> params= new HashMap<String, Object>();
+		params.put("tipBoard_boardname", boardname);
+		params.put("tipBoard_boardno", boardno);
+		return tipDao.deleteBoard(params);
 	}
 
 	@Override
@@ -217,6 +220,15 @@ public class TipBoardServiceimpl implements TipBoardService{
 	public HashMap<String, Object> getBoardListPage(HashMap<String, Object> params, int page) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int getLastBoardno(int boardname, String user_Id) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("tipBoard_boardname", boardname);
+		//지금은 보드네임만 넣지만 유저랑 합치면 유저 아이디도 넣어야함 ㅇㅇ
+		return tipDao.getLastBoardno(param);
 	}
 
 }

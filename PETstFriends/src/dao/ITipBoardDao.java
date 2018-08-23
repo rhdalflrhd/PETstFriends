@@ -12,7 +12,7 @@ public interface ITipBoardDao {
 
 	public int updateBoard(TipBoard dtBoard);
 
-	public int deleteBoard(int boardname, int boardno);
+	public int deleteBoard(HashMap<String, Object> params);
 
 	public TipBoard selectOneBoard(HashMap<String, Object> params);
 
@@ -23,6 +23,10 @@ public interface ITipBoardDao {
 
 	//게시물 레코드 개수 조회
 	public int getCount(HashMap<String, Object> params);
+	
+	//해당 게시판의 마지막 게시물 보드넘버 리턴
+	public int getLastBoardno(HashMap<String, Object> params);
+	
 //
 //	//params : 제목, 내용, 넘길 레코드의 개수, 조회할 레코드의 개수
 //	public List<TipBoard> selectSearchTitleContent(HashMap<String, Object> params);

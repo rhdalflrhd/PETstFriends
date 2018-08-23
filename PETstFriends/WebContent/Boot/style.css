@@ -724,7 +724,6 @@ article.post {
 .social-share ul li a.s-instagram:hover {
     color: #3f729b;
 }
-
 .social-share ul li a.s-pinterest:hover {
     color: #bd081c;
 }
@@ -732,7 +731,9 @@ article.post {
 .social-share ul li a.s-email:hover {
     color: #FFD232;
 }
-
+.social-share ul li a.s-heart:hover {
+    color: #EB0000;
+}
 
 /* == pagination == */
 
@@ -1177,15 +1178,18 @@ a.more-about-me:hover {
   11. Single Blog
 --------------------------------------*/
 
-.decoration a {
+.decoration a{
     color: #FFD232;
     border: 1px solid #FFD232;
+    border-radius: 5px;
+    font-family: 'NanumSquareRound',sans-serif;
     font-size: 14px;
     height: 35px;
-    width: 105px;
+    width: 130px;
     line-height: 35px;
     padding: 0;
     margin-right: 5px;
+    
 }
 
 .decoration a:hover {

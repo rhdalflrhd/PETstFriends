@@ -32,6 +32,15 @@
 <script type="text/javascript">
 $(document).ready(function(){	
 	
+	$('#tblbutton').on('click',	function removeCheck() {
+
+		 if (confirm("정말 삭제하시겠습니까?") == true){    //확인
+			alert("해당 글에대한 삭제처리가 완료됐습니다.");
+		     document.removefrm.submit();
+		 }else{   //취소
+		     return false;
+		 }
+		});	
 });
 </script>
 
@@ -87,6 +96,16 @@ input::-moz-placeholder {
 
  	text-align:center;
 }
+/* .decoration a, input{ */
+/*     color: #FFD232; */
+/*     border: 1px solid #FFD232; */
+/*     border-radius: 5px; */
+/*     font-family: 'NanumSquareRound',sans-serif; */
+/*     font-size: 14px; */
+/*     height: 20px; */
+/*     width: 130px; */
+/*    	position:relative;  */
+/* } */
 </style>	
 </head>
 <body>
@@ -237,12 +256,17 @@ input::-moz-placeholder {
                         </div>
                         <div class="decoration">
 
-<!-- 							세션에서 접속중인 userid와 해당게시글의 userid가 같으면 수정하기 버튼이 보여짐 -->
+<!-- 							세션에서 접속중인 userid와 해당게시글의 userid가 같으면 수정하기 버튼과 글삭제 버튼이 보여짐 -->
 							<c:if test="${tipboard.tipBoard_userId eq user_idCheck}">
 							<a onclick="location.href='DogModifyFormTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}'">수정하기</a>
 							</c:if>
                             <a onclick="location.href='dogTipBoardList.do'">목록으로</a>
                             <a onclick="history.back();">뒤로가기</a>
+                            <c:if test="${tipboard.tipBoard_userId eq user_idCheck}">
+							<form action="dogDeleteTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}" name="removefrm" method="post">
+							 <a id="tblbutton" onclick="removeCheck()">글 삭제</a>
+							</form>
+							</c:if>
                         </div>
                         <div class="social-share">
                             <span class="social-share-title">Share This</span>
@@ -250,6 +274,7 @@ input::-moz-placeholder {
                                 <li>
                                     <a class="s-facebook" href=""><i class="fa fa-facebook"></i></a>
                                 </li>
+                                <li><a class="s-google-plus" href=""><i class="fa fa-heart" ></i></a></li>
                                 <li><a class="s-twitter" href=""><i class="fa fa-twitter"></i></a></li>
                                 <li><a class="s-google-plus" href=""><i class="fa fa-google-plus"></i></a></li>
                                 <li><a class="s-linkedin" href=""><i class="fa fa-linkedin"></i></a></li>

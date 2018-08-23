@@ -25,6 +25,8 @@ public interface TipBoardService {
 	
 	public int getSkipS(int page);
 	
+	public int getLastBoardno(int boardname, String user_Id);
+	
 	public TipBoard getBoardS(int boardname, int boardno);
 	
 	//첨부파일 갖다주는 기능 추가

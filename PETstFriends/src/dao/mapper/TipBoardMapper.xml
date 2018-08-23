@@ -82,6 +82,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   and tipBoard_writeDate 
       	  between #{startdate} and #{enddate}
 		</if>
+   
+    </select>
+    
+    <select id="getLastBoardno" resultType="int" parameterType="java.util.HashMap">
+    select MAX(tipboard_boardno) from tipboard where tipboard_boardname = #{tipBoard_boardname}
+<!--  지금은 위에 커리로 해놓지만, 유저와 합치면 아래 코드로 바꿔야함 ㅇㅇ
+   select MAX(tipboard_boardno) from tipboard where tipboard_boardname = #{tipBoard_boardname} and tipBoard_userId= #{tipBoard_userId} -->
     </select>
     
     <insert id="insertBoard" parameterType="java.util.HashMap" 
@@ -98,5 +105,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 tipBoard_YoutubeUrl = <include refid="tipBoard_YoutubeUrl"/>, tipBoard_contentPic = #{tipBoard_contentPic},
 		 tipBoard_LikeCount = #{tipBoard_LikeCount} where tipBoard_boardname = #{tipBoard_boardname} and tipBoard_boardno = #{tipBoard_boardno}
     </update>
-     
+    
+    <delete id="deleteBoard" parameterType="java.util.HashMap">
+	    delete from tipBoard where tipBoard_boardname = #{tipBoard_boardname} and tipBoard_boardno = #{tipBoard_boardno}
+	</delete>   
 </mapper>
