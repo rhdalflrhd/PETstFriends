@@ -4,5 +4,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.NoticeDao">
+	<select id="selectBoardPage" parameterType="java.util.HashMap"
+		resultType="notice">
+		select * from Notice where 1=0
+		<if test="title != null">
+			or notice_title like '%${title}%'
+		</if>
+		<if test="content != null">
+			or notice_content like '%{content}%'
+		</if>
+		<if test="name != null">
+			or notice_content like '%{name}%'
+		</if>
+		<if test="type==0">
+			or 1=1
+		</if>
+		order by notice_boardno desc limit #{skip}, #{numb}
+	</select>
+
+	<select id="getCount" parameterType="java.util.HashMap"
+		resultType="int">
+		select count(*) from notice where 1=0
+		<if test="title != null">
+			or notice_title like '%${title}%'
+		</if>
+		<if test="content != null">
+			or notice_content like '%{content}%'
+		</if>
+		<if test="name != null">
+			or notice_content like '%{name}%'
+		</if>
+		<if test="type==0">
+			or 1=1
+		</if>
+
+	</select>
+
+	<select id="selectOneBoard" parameterType="int"
+		resultType="notice">
+		select * from notice where notice_boardno=#{notice_boardno}
+	</select>
+
+
+	<update id="updateBoard" parameterType="notice">
+		update notice set
+		notice_title=#{notice_title},
+		notice_content=#{notice_content},
+		notice_contentPic=#{notice_contentPic},
+		notice_adminId=#{notice_adminId}
+		where notice_boardno=#{notice_boardno}
+	</update>
+
+	<insert id="insertBoard" parameterType="notice"
+		useGeneratedKeys="true" keyProperty="notice_boardno">
+		insert into notice values (0, #{notice_title}, #{notice_writeDate},
+		#{notice_readCount}, #{notice_content}, #{notice_contentPic},
+		#{notice_adminId})
+	</insert>
+
+	<delete id="deleteBoard">
+		delete from notice where notice_boardno = #{notice_boardno}
+	</delete>
 
 </mapper>

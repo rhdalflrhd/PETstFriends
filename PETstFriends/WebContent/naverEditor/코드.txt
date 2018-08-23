@@ -1,0 +1,25 @@
+<head>
+
+<!-- For NaverEditor
+================================================== -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+
+<!-- 네이버 에디터 사용
+================================================== -->
+<script type="text/javascript" src="js/naverEditor.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="input-prepend"  class="span7">
+	<span class="add-on"><i class="icon-pencil"></i>작품내용</span><br>
+	<textarea id="content" name="content" placeholder="작품내용을 입력하세요." style="width: 400px; height: 400px;">
+	</textarea>
+	</div>
+
+
+
+</body>

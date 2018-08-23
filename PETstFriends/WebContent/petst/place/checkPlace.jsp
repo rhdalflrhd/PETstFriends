@@ -249,19 +249,54 @@ font-size: 7px;
 border: 1px solid #4CAF50; 
 background-color: white; 
 }
+
+ul {
+    list-style:none;
+/*     margin:0; */
+/*     padding:0; */
+text-align: center;
+}
+
+.placeCate {
+    display: inline-block;
+		position: relative;
+    text-align : center;
+    font-family: 'Merriweather', serif;
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 64px;
+		padding: 0 22px;
+	letter-spacing: 0.5px; 
+		color: #666666;
+		cursor: pointer;
+}
+
 </style>
 <title>Insert title here</title>
 </head>
 <body>
 	<%@ include file="/petst/header.jsp"%>
 	<div style="height: 50px;"></div>
-	<div class="option" align="center">
-		
+	<div>
+	<div class="option" align="center" style="width: 60%; height : 200px; background-color: white; border: 1px solid red; margin:0 auto;">
+		<div>
+		<ul>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 애견카페')">애견카페</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 고양이카페')">애묘카페</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물용품')">반려동물용품</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 펫샵')">펫샵</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물 미용실')">미용실</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물 호텔')">호텔</li>
+		</ul>
+		</div><br>
+		<div style="height: 4px;"></div>
 			<div>
 				<input type="text" value="지역을 입력하세요." id="keyword" size="20" style="inline-block; height: 40px;">
 				<div id="submitBtn"><i class="fa fa-search" onclick="searchPlaces()"></i></div>
 				
 			</div>
+	
+	</div>
 	
 	</div>
 	<div style="height: 50px;"></div>
@@ -344,10 +379,21 @@ background-color: white;
 		window.onload = function(){
 			var submit = document.createElement('submitBtn');
 			submit.onclick=function(){
-				alert('dd')
 				searchPlaces();
 			}	
 		}
+		var keyword1 ='';
+		function selectPlaces(key){
+			keyword1 = key;
+		}
+		function changeColor(obj){
+			var placeCate = document.getElementsByClassName('placeCate');
+			for(var i = 0; i <placeCate.length; i++){
+				placeCate.item(i).style.background = "white";
+			}
+			obj.style.background = '#FFEE58';
+		}
+		
 		
 		//키워드 검색을 요청하는 함수입니다
 		function searchPlaces() {
@@ -356,11 +402,13 @@ background-color: white;
 				alert('키워드를 입력해주세요!');
 				return false;
 			}
-	
+			keyword += keyword1;
 			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 			ps.keywordSearch(keyword, placesSearchCB);
 		}
 	
+		
+		
 		//장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 		function placesSearchCB(data, status, pagination) {
 			if (status === daum.maps.services.Status.OK) {
@@ -369,7 +417,7 @@ background-color: white;
 				displayPlaces(data);
 	
 				// 페이지 번호를 표출합니다
-				displayPagination(pagination);
+				displayPagination(pagination);			
 	
 			} else if (status === daum.maps.services.Status.ZERO_RESULT) {
 	
