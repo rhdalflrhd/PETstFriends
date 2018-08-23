@@ -208,27 +208,23 @@ tr a:hover {
     </header>
     <!--header section end-->
     <div class="container">
-
-        <h1 class="heading-text text-center text-uppercase">
-        <font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">
+<!-- font-size: 24px; -->
+        <div class="heading-text text-center text-uppercase" >
+        <font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; font-size: 50px; color:#8B5927;">
         강아지 꿀 TIP 게시판
         </font>&nbsp;<input type="button" value="글쓰기" onclick="location.href='DogWriteTipBoardForm.do'" style= " background-color:#CD853F; color:white; font-family: 'NanumSquareRound',sans-serif; font-size: 15px !important; font-weight:bold; height:40px; width: 80px; border:1; border-color:#CD853F; border-radius: 25px;" >
-        </h1>
-        
+        </div>
+        <br><br>
 <article>
         <!-- ======================================================사용자 입력 Tip게시글 시작===================================================-->				
-						<div class="tipUserBoard" style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;" >
-														<br><br>
-							
-							<p style="float: left;">
-							 <font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">
-								총 게시물 : ${dogTipBoardCount }개
-     						   </font>							
-							</p>
-						</div>								<br><br>
-						<div class="search" align="center">
+			<div class="search" align="center">
 								<form action="dogTipBoardList.do" method="get">
-									<label>기간</label>&nbsp;&nbsp;&nbsp;&nbsp;
+																
+
+							 <font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#D7A35D;">
+								총 게시물 : ${dogTipBoardCount }개&nbsp;&nbsp;&nbsp;
+     						   </font>							
+									<label style="color: #CD853F">기간</label>&nbsp;&nbsp;
 									<input type="date" name="startDate" min="2018-06-01" style="background-color:white; color:#CD853F; border:1; width: 150px;height:30px; border-color:#CD853F; border-radius:5px;">
 									<label> ~ </label>
 									<input type="date" name="endDate" max="2018-12-31" style="background-color:white; color:#CD853F; border:1; width: 150px; height:30px; border-color:#CD853F; border-radius:5px;">
@@ -239,87 +235,72 @@ tr a:hover {
 										<option value="3">제목+내용</option>
 										<option value="4">작성자</option>
 									</select> 
-									<input type="text" placeholder="검색하세요-"  name="keyword" style="background-color:white; color:#CD853F; font-family: 'NanumSquareRound',sans-serif; padding: 4px; width: 400px; border:1; border-color:#CD853F; border-radius: 5px;" >
+									<input type="text" placeholder="검색하세요-"  name="keyword" style="background-color:white; color:#CD853F; font-family: 'NanumSquareRound',sans-serif; padding: 4px; width: 380px; border:1; border-color:#CD853F; border-radius: 5px;" >
 									<input style="background-color: #CD853F; border: none; padding: 5px 10px;
 									 border-radius: 5px; color: white; cursor: pointer;" type="submit" value="검색">									
 								</form>
-						</div>
+			</div>
 							<br>
-						<div class="portfolio">	
 <!-- ================================================================================================================================================ -->
-							
-<!-- 							<table style="width: 100%"> -->
-<!-- 								<tr> -->
-<!-- 									<th>글번호</th> -->
-<!-- 									<th>제 목</th> -->
-<!-- 									<th>작성일</th> -->
-<!-- 									<th>조회수</th> -->
-<!-- 									<th>작성자</th> -->
-<!-- 								</tr> -->
-
-<%-- 								<c:forEach items="${dogTipBoardList }" var="tipboard"> --%>
-<!-- 									<tr> -->
-<%-- 										<td>${tipboard.tipBoard_boardno }</td> --%>
-<%-- 										<td ><a href="view.do?num=${tipboard.tipBoard_boardno }&page=${current } --%>
-<%-- 								&type=${type }&keyword=${keyword}&startDate=${startdate}&endDate=${enddate}">${tipboard.tipBoard_title }</a></td> --%>
-<%-- 										<td><fmt:formatDate value="${tipboard.tipBoard_writeDate}" pattern="yyyy-MM-dd" /></td> --%>
-<%-- 										<td>${tipboard.tipBoard_readCount }</td> --%>
-<%-- 										<td>${tipboard.tipBoard_nickname }</td> --%>
-<!-- 									</tr> -->
-<%-- 								</c:forEach> --%>
-<!-- 							</table> -->
-							
+			<div class="portfolio">
 				<c:forEach items="${dogTipBoardList }" var="tipboard" varStatus="i">
 					<div id="${tipboard.tipBoard_boardno}" class="portfolio-item"
-						style="width: 330px; height: 400px; border: 1px #F2F2F2 solid;">
-
+						style="width: 353px; height: 500px; border: 1px #F2F2F2 solid;">
+						<div style="height: 285px; ">
 						<c:if test="${empty tipboard.tipBoard_file}">
-							<img src="./Boot/images/tipBoardNonImageCondition.png" alt="ocean">
+							<img src="./Boot/images/tipBoardNonImageCondition.png"
+								alt="ocean" height="280px">
 						</c:if>
-<%-- 						<c:if test="${not empty tipboard.tipBoard_file}"> --%>
-<%-- 									<img src="download.do?boardname=7&boardno=${tipboard.tipBoard_boardno}"><br></a> --%>
-<%-- 						</c:if> 
-
-C:/BitCamp/PetstFriends/bgForMember2.jpg
---%>
 						<c:if test="${not empty tipboard.tipBoard_file}">
-									<img src="download.do?boardname=7&boardno=${tipboard.tipBoard_boardno}"><br></a>
+							<img
+								src="download.do?boardname=7&boardno=${tipboard.tipBoard_boardno}" height="280px">
+							<br>
 						</c:if>
-<!-- 						<img src="C:\BitCamp\PetstFriends.png" alt="ocean">   C:\BitCamp\PetstFriends -->
+						</div>
 						<div class="form-group">
-							<div class="col-md-2">
+							<div class="col-md-2"
+								style="text-align: left; height: 60px; ">
 								<h6>
-							<font style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+									<font
+										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
 										제목</font>
 								</h6>
 							</div>
-							<div class="col-md-7" style="text-align: left;">
+							<div class="col-md-7"
+								style="text-align: left; height: 60px; ">
 								<h5>
 									<font
 										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
 										${tipboard.tipBoard_title} </font>
 								</h5>
 							</div>
-							<div class="col-md-3" style="text-align: left;">
+							<div class="col-md-3"
+								style="text-align: left; height: 60px; ">
 								<h6>
 									<font
 										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
 										조회수 ${tipboard.tipBoard_readCount} </font>
 								</h6>
 							</div>
-						</div>					
+						</div>
+						<div style="display: inline-block; width:340px; height: 200px; padding-left: none; text-align: left; border: 1px #F2F2F2 solid;">
+							<h5>
+								<font
+									style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+									${tipboard.tipBoard_content} </font>
+							</h5>
+						</div>
 						<div class="img-overlay">
 							<div class="portfolio-text">
 								<h4>${tipboard.tipBoard_title}</h4>
-								<a href="#"	onclick="">click</a> <!-- 해당게시글로 넘어가게 view.jsp만들고 난후 수정할것 -->
+								<a href="DogReadTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}">click</a>
+								<!-- 해당게시글로 넘어가게 view.jsp만들고 난후 수정할것 -->
 							</div>
 						</div>
-					
-					
 					</div>
 				</c:forEach>
-				</div>									
-<!-- ================================================================================================================================================ -->
+			</div>
+			<!-- ================================================================================================================================================ -->
 							
 				<div class="numbers">
 								<c:if test="${start != 1 }">
@@ -363,23 +344,34 @@ C:/BitCamp/PetstFriends/bgForMember2.jpg
 			<!-- ======================================================네이버 API결과 시작===================================================-->
 				<c:forEach items="${DogEncycList1 }" var="e" varStatus="i">
 					<div id="${e.encyc_title}" class="portfolio-item"
-						style="width: 260px; height: 260px; border: 1px #F2F2F2 solid;">
-
+						style="width:353px; height: 450px; border: 1px #F2F2F2 solid;">
+						<div style="height: 285px; ">
 						<c:if test="${empty e.encyc_thumbnail}">
-							<h1>
-								<font color="#F2F2F2" style="font-family: Georgia;">No-image</font>
-							</h1>
+							<img src="./Boot/images/tipBoardNonImageCondition.png"
+								alt="ocean">
 						</c:if>
 						<c:if test="${not empty e.encyc_thumbnail}">
-							<img src="${e.encyc_thumbnail}">
+							<img src="${e.encyc_thumbnail}" height="280px">
 						</c:if>
-						<h5 align="left">
-<!-- 							<font color="#8B5927" -->
-<%-- 								style="font-family: Georgia; font-weight: bold;">${e.encyc_title}</font> --%>
-					<font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#8B5927;">
-						제목: ${e.encyc_title}
-     				</font>									
-						</h5>
+						</div>
+						<br>
+						<div class="form-group">
+							<div class="col-md-2"
+								style="text-align: left; height: 40px; ">
+							<font style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+							제목</font>
+							</div>
+							<div class="col-md-10" style="text-align: left; height: 40px; ">
+			     			<font style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+							${e.encyc_title}</font>	
+							</div>
+						</div>
+						<div style="display: inline-block; width:340px; height: 150px; padding-left: none; text-align: left; border: 1px #F2F2F2 solid;">
+							<h5>
+						<font style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+									${e.encyc_description} </font>
+							</h5>
+						</div>
 						<div class="img-overlay">
 							<div class="portfolio-text">
 								<h4>${e.encyc_title}</h4>

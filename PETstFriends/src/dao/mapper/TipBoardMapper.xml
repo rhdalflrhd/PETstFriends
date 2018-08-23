@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 #{tipBoard_title}
             </when>
             <otherwise>
-                '제목없음'
+                '제목없음 '
             </otherwise>
         </choose>
     </sql>

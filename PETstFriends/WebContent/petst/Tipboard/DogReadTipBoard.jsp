@@ -13,7 +13,7 @@
     <!-- favicon icon -->
     <link rel="shortcut icon" href="./Boot/images/favicon.png">
     
-	<title>강아지 꿀 TIP 글쓰기 페이지</title>
+	<title>강아지 꿀 TIP 게시글 한개 보기 페이지</title>
 	   
 	    <!-- common css -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
@@ -80,80 +80,12 @@ input::-moz-placeholder {
 .footer-widget-section {
 	font-family: 'NanumSquareRound', sans-serif;
 }
+.main-content{
+	position:relative; 
+	left:22%; 
+	margin-left:-375px;
 
-#write-btn {
-	font-family: 'NanumSquareRound', sans-serif;
-	font-weight: bold;
-	height: 34px;
-	width: 130px;
-	 background-color:#CD853F;
-	/*     margin: 30px 0; */
-	/*     padding: 20px; */
-	color:white;
-	border: 1px solid #eeeeee;
-	border-radius: 0;
-	/*     text-transform: uppercase; */
-	/*     transition: all .4s; */
-	font-size: 16px;
-	line-height: 34px;
-	padding: 0;
-	margin: 0;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-o-transition: all 0.3s;
-	transition: all 0.3s;
-	border:1; border-color:#CD853F; border-radius: 5px;" >
-	
-}
-
-/* label { */
-/* /*  	display: inline-block;  */
-* /
-	/* /*  	padding: .5em .75em;  */ * /
-	/* 	color: #999; */
-	/* 	font-size: inherit; */
-	/* /*  	line-height: normal;  */ * /
-	/* 	vertical-align: middle; */
-	/* 	background-color: #fdfdfd; */
-	/* 	cursor: pointer; */
-	/* 	border: 1px solid #ebebeb; */
-	/* 	border-bottom-color: #e2e2e2; */
-	/* 	border-radius: .25em; */
-	/* } */
-	/* #tipBoard_contentPic { /* 파일 필드 숨기기 */ * /
-	/* 	position: absolute; */
-	/* 	width: 1px; */
-	/* 	height: 1px; */
-	/* 	padding: 0; */
-	/* 	margin: -1px; */
-	/* 	overflow: hidden; */
-	/* 	clip: rect(0, 0, 0, 0); */
-	/* 	border: 0; */
-	/* } */ 
-
-#filebox label {
-	display: inline-block;
-/* 	padding: .5em .75em; */
-	color: #999;
-	font-size: inherit;
-	line-height: normal;
-	vertical-align: middle;
-	background-color: #fdfdfd;
-	cursor: pointer;
-	border: 1px solid #ebebeb;
-	border-bottom-color: #e2e2e2;
-	border-radius: .25em;
-}
-
-#filebox input[type="file"] { /* 파일 필드 숨기기 */
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	border: 0;
+ 	text-align:center;
 }
 </style>	
 </head>
@@ -249,80 +181,174 @@ input::-moz-placeholder {
     </header>
     <!--header section end-->
     <!--main content start-->
+    
+    <!--main content start-->
     <div class="main-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <!-- end bottom comment-->
-                             <center>
-							<div class="leave-comment"
-								style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #CD853F;">
-								<!--leave comment-->
-								<div class="heading-text text-center text-uppercase">
-									<font
-										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; font-size: 50px; color: #8B5927;">
-										강아지 꿀 TIP 정보 쓰기 </font>
-								</div>
-								<br><br><br><br>
-								
-								<form action="DogWriteTipBoard.do" enctype="multipart/form-data"
-									method="post" class="form-horizontal contact-form">
-									<div class="form-group">
-										<div class="col-md-3">
+        <div class="container" >
+            <div class="row" >
+                <div class="col-md-8 col-sm-7">
 
-											<input type="text" class="form-control"
-												id="tipBoard_nickname" name="tipBoard_nickname"
-												placeholder="${nickName}" readonly="readonly">
-										</div>
-										<div class="col-md-6">
-											<input type="text" class="form-control" id="tipBoard_title"
-												name="tipBoard_title" placeholder="title">
-										</div>
-										<div class="col-md-3">
-											<jsp:useBean id="toDay" class="java.util.Date" />
-											<input type="text" class="form-control"
-												id="tipBoard_writeDate" name="tipBoard_writeDate"
-												value="<fmt:formatDate value="${toDay}" pattern="yyyy년 MM월 dd일" />"
-												readonly="readonly">
-										</div>
-									</div>
-									<br> <br>
-									<div class="form-group">
-										<div class="col-md-3">
-											<input type="file" class="form-control" id="tipBoard_file"
-												name="tipBoard_file" placeholder="첨부파일">
-										</div>
-										<div class="col-md-3">
-											<input type="file" class="form-control"
-												id="tipBoard_contentPic" name="tipBoard_contentPic"
-												placeholder="사진파일">
-										</div>
-										<div class="col-md-6">
-											<input type="text" class="form-control"
-												id="tipBoard_YoutubeUrl" name="tipBoard_YoutubeUrl"
-												placeholder="첨부하실 Youtube URL을 입력하세요">
-										</div>
-									</div>
-									<br> <br>
-									<div class="form-group">
-										<div class="col-md-12">
-											<textarea class="form-control" rows="15"
-												id="tipBoard_content" name="tipBoard_content"
-												placeholder="Write Texts"></textarea>
-										</div>
-									</div>
-									<!--<button type="button" class="btn send-btn">글 작성 완료 </button><br> -->
-									<input type="submit" value="글 작성" class="write-btn"
-										id="write-btn">
-								</form>
-							</div>
-							<!--end leave comment-->
-						</center>
+                    <article class="post" style="border: 1px solid #eeeeee;">
+                        <header class="entry-header text-center">
+                            <h2 class="entry-title"><a href="#">
+								<c:if test="${empty tipboard.tipBoard_title}">
+								"제목 없음"
+								</c:if>
+								<c:if test="${not empty tipboard.tipBoard_title}">
+								${tipboard.tipBoard_title}
+								</c:if>
+							</a></h2>
+
+                            <div class="entry-meta">
+                                <span class="date"><i class="fa fa-clock-o"></i>
+                               <fmt:formatDate value="${tipboard.tipBoard_writeDate}"	pattern="yyyy년 MM월 dd일" />
+                                 </span>
+                                <span class="cat"><i class="fa fa-folder-open-o"></i><a href="">
+								<c:if test="${tipboard.tipBoard_boardname eq '7'}">
+								강아지 tip 정보
+								</c:if>
+								<c:if test="${tipboard.tipBoard_boardname eq '8'}">
+								고양이 tip 정보
+								</c:if>
+								<c:if test="${tipboard.tipBoard_boardname eq '9'}">
+								토끼 tip 정보
+								</c:if>								
+                                </a></span>
+                                <span class="comment"><i class="fa fa-comment-o"></i><a href="">3 Comments(코멘트게시판이랑합칠것)</a></span>
+                            </div>
+                        </header>
+
+                        <div class="post-thumb" >
+						<c:if test="${empty tipboard.tipBoard_file}">
+							<img src="./Boot/images/noAttachedFile.png"
+								alt="ocean">
+						</c:if>
+						<c:if test="${not empty tipboard.tipBoard_file}">
+							<img
+								src="download.do?boardname=7&boardno=${tipboard.tipBoard_boardno}">
+							<br>
+						</c:if>
+                        </div>
+
+                        <div class="entry-content">
+							${tipboard.tipBoard_content}
+							<br>
+							<br>
+                        </div>
+                        <div class="decoration">
+
+<!-- 							세션에서 접속중인 userid와 해당게시글의 userid가 같으면 수정하기 버튼이 보여짐 -->
+							<c:if test="${tipboard.tipBoard_userId eq user_idCheck}">
+							<a onclick="location.href='DogModifyFormTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}'">수정하기</a>
+							</c:if>
+                            <a onclick="location.href='dogTipBoardList.do'">목록으로</a>
+                            <a onclick="history.back();">뒤로가기</a>
+                        </div>
+                        <div class="social-share">
+                            <span class="social-share-title">Share This</span>
+                            <ul class="text-center">
+                                <li>
+                                    <a class="s-facebook" href=""><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a class="s-twitter" href=""><i class="fa fa-twitter"></i></a></li>
+                                <li><a class="s-google-plus" href=""><i class="fa fa-google-plus"></i></a></li>
+                                <li><a class="s-linkedin" href=""><i class="fa fa-linkedin"></i></a></li>
+                                <li><a class="s-instagram" href=""><i class="fa fa-instagram"></i></a></li>
+                                <li><a class="s-pinterest" href=""><i class="fa fa-pinterest-p"></i></a></li>
+                                <li><a class="s-email" href=""><i class="fa fa-envelope-o"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </article>
+                    <div class="top-comment" style="border: 1px solid #eeeeee;"><!--top comment-->
+                        <img src="./Boot/images/comment.jpg" class="pull-left" alt="">
+                        <h4>Rubel Miah</h4>
+
+                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy hello ro mod tempor
+                            invidunt ut labore et dolore magna aliquyam erat.</p>
+                    </div><!--top comment end-->
+                    <div class="row"><!--blog next previous-->
+                        <div class="col-md-6">
+                            <div class="single-blog-box">
+                                <a href="#">
+                                    <img src="./Boot/images/blog-next.jpg" alt="">
+
+                                    <div class="overlay">
+
+                                        <div class="promo-text">
+                                            <p><i class="fa fa-angle-left"></i>Previous Post</p>
+                                            <h5>Rubel is doing Cherry theme</h5>
+                                        </div>
+                                    </div>
+
+
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="single-blog-box">
+                                <a href="#">
+                                    <img src="./Boot/images/blog-next.jpg" alt="">
+
+                                    <div class="overlay">
+                                        <div class="promo-text">
+                                            <p>next Post<i class="fa fa-angle-right"></i></p>
+                                            <h5>Rubel is doing Cherry theme</h5>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </a>
+                            </div>
+                        </div>
+                    </div><!--blog next previous end-->
+<br><br>
+                    <!-- end bottom comment-->
+                    <div class="leave-comment"><!--leave comment-->
+                        <h4>Leave a reply</h4>
+<br><br>
+                        <form class="form-horizontal contact-form" role="form" method="post" action="#">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           placeholder="Name">
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           placeholder="Email">
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" id="subject" name="subject"
+                                           placeholder="Website url">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="col-md-12">
+										<textarea class="form-control" rows="6" name="message"
+                                                  placeholder="Write Massage"></textarea>
+                                </div>
+                            </div>
+                            <br><br>
+                            <button type="button" class="btn send-btn">Post Comment</button>
+                        </form>
+                    </div><!--end leave comment-->
+
                 </div>
+
             </div>
         </div>
     </div>
     <!--main content end-->
+
  <!--footer start-->
     <footer id="footer">
 

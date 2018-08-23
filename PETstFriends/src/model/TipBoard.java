@@ -15,7 +15,7 @@ public class TipBoard {
 	private Date tipBoard_writeDate;
 	private String tipBoard_YoutubeUrl;
 	private String tipBoard_contentPic;
-	private int tipBoard__LikeCount;
+	private int tipBoard_LikeCount;
 	public int getTipBoard_boardname() {
 		return tipBoard_boardname;
 	}
@@ -82,11 +82,11 @@ public class TipBoard {
 	public void setTipBoard_contentPic(String tipBoard_contentPic) {
 		this.tipBoard_contentPic = tipBoard_contentPic;
 	}
-	public int getTipBoard__LikeCount() {
-		return tipBoard__LikeCount;
+	public int getTipBoard_LikeCount() {
+		return tipBoard_LikeCount;
 	}
-	public void setTipBoard__LikeCount(int tipBoard__LikeCount) {
-		this.tipBoard__LikeCount = tipBoard__LikeCount;
+	public void setTipBoard_LikeCount(int tipBoard_LikeCount) {
+		this.tipBoard_LikeCount = tipBoard_LikeCount;
 	}
 	@Override
 	public String toString() {
@@ -95,7 +95,7 @@ public class TipBoard {
 				+ ", tipBoard_title=" + tipBoard_title + ", tipBoard_file=" + tipBoard_file + ", tipBoard_content="
 				+ tipBoard_content + ", tipBoard_readCount=" + tipBoard_readCount + ", tipBoard_writeDate="
 				+ tipBoard_writeDate + ", tipBoard_YoutubeUrl=" + tipBoard_YoutubeUrl + ", tipBoard_contentPic="
-				+ tipBoard_contentPic + ", tipBoard__LikeCount=" + tipBoard__LikeCount + "]";
+				+ tipBoard_contentPic + ", tipBoard_LikeCount=" + tipBoard_LikeCount + "]";
 	}
 	
 

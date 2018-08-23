@@ -13,7 +13,7 @@
     <!-- favicon icon -->
     <link rel="shortcut icon" href="./Boot/images/favicon.png">
     
-	<title>강아지 꿀 TIP 글쓰기 페이지</title>
+	<title>강아지 꿀 TIP 수정페이지</title>
 	   
 	    <!-- common css -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
@@ -249,80 +249,103 @@ input::-moz-placeholder {
     </header>
     <!--header section end-->
     <!--main content start-->
-    <div class="main-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <!-- end bottom comment-->
-                             <center>
+		<div class="main-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<!-- end bottom comment-->
+						<center>
 							<div class="leave-comment"
 								style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #CD853F;">
 								<!--leave comment-->
 								<div class="heading-text text-center text-uppercase">
 									<font
 										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; font-size: 50px; color: #8B5927;">
-										강아지 꿀 TIP 정보 쓰기 </font>
+										강아지 꿀 TIP 수정하기 </font>
 								</div>
-								<br><br><br><br>
-								
-								<form action="DogWriteTipBoard.do" enctype="multipart/form-data"
-									method="post" class="form-horizontal contact-form">
+								<br>
+								<br>
+								<br>
+								<br>
+
+								<form action="DogModifyTipBoard.do"	method="post" class="form-horizontal contact-form">
 									<div class="form-group">
 										<div class="col-md-3">
 
 											<input type="text" class="form-control"
 												id="tipBoard_nickname" name="tipBoard_nickname"
-												placeholder="${nickName}" readonly="readonly">
+												value="${tipboard.tipBoard_nickname}" readonly="readonly">
 										</div>
 										<div class="col-md-6">
 											<input type="text" class="form-control" id="tipBoard_title"
-												name="tipBoard_title" placeholder="title">
+												name="tipBoard_title" placeholder="${tipboard.tipBoard_title}">
 										</div>
 										<div class="col-md-3">
 											<jsp:useBean id="toDay" class="java.util.Date" />
 											<input type="text" class="form-control"
 												id="tipBoard_writeDate" name="tipBoard_writeDate"
-												value="<fmt:formatDate value="${toDay}" pattern="yyyy년 MM월 dd일" />"
+												value="<fmt:formatDate value="${tipboard.tipBoard_writeDate}" pattern="yyyy-MM-dd" />"
 												readonly="readonly">
+					</td>
 										</div>
 									</div>
 									<br> <br>
 									<div class="form-group">
 										<div class="col-md-3">
-											<input type="file" class="form-control" id="tipBoard_file"
-												name="tipBoard_file" placeholder="첨부파일">
+											<c:if test="${empty tipboard.tipBoard_file}">No attached FIle</c:if>
+											<c:if test="${not empty tipboard.tipBoard_file}">
+												<input type="text" class="form-control" id="tipBoard_file"
+													readonly="readonly" value="${tipboard.tipBoard_file}"
+													name="tipBoard_file">
+											</c:if>
 										</div>
 										<div class="col-md-3">
-											<input type="file" class="form-control"
+											<input type="text" class="form-control"
 												id="tipBoard_contentPic" name="tipBoard_contentPic"
-												placeholder="사진파일">
+												value="${tipboard.tipBoard_contentPic}"  readonly="readonly">
 										</div>
 										<div class="col-md-6">
 											<input type="text" class="form-control"
 												id="tipBoard_YoutubeUrl" name="tipBoard_YoutubeUrl"
-												placeholder="첨부하실 Youtube URL을 입력하세요">
+												placeholder="${tipboard.tipBoard_YoutubeUrl}">
 										</div>
 									</div>
 									<br> <br>
 									<div class="form-group">
 										<div class="col-md-12">
 											<textarea class="form-control" rows="15"
-												id="tipBoard_content" name="tipBoard_content"
-												placeholder="Write Texts"></textarea>
+												id="tipBoard_content" name="tipBoard_content">
+												${tipboard.tipBoard_content}
+											</textarea>
 										</div>
 									</div>
-									<!--<button type="button" class="btn send-btn">글 작성 완료 </button><br> -->
-									<input type="submit" value="글 작성" class="write-btn"
-										id="write-btn">
+									<input type="submit" value="글 수정" class="write-btn"
+										id="write-btn"> 
+									<input type="hidden"
+										id="tipBoard_boardname" name="tipBoard_boardname"
+										value="${tipboard.tipBoard_boardname}" /> 
+									<input type="hidden"
+										id="tipBoard_boardno" name="tipBoard_boardno"
+										value="${tipboard.tipBoard_boardno}" />
+									<input type="hidden"
+										id="tipBoard_userId" name="tipBoard_userId"
+										value="${tipboard.tipBoard_userId}" />
+									<input type="hidden"
+										id="tipBoard_readCount" name="tipBoard_readCount"
+										value="${tipboard.tipBoard_readCount}" />
+									<input type="hidden"
+										id="tipBoard_LikeCount" name="tipBoard_LikeCount"
+										value="${tipboard.tipBoard_LikeCount}" />
+
 								</form>
 							</div>
 							<!--end leave comment-->
 						</center>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--main content end-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--main content end-->
  <!--footer start-->
     <footer id="footer">
 

@@ -54,6 +54,16 @@ public class TipBoardController {
 	// return mav;
 	// }
 	
+	@RequestMapping("index.do")
+	public void index() {
+	}
+
+	@RequestMapping("send.do")
+	public void send() {
+	}	
+	
+	
+	
 	//===========================펫프정보- 정보게시판====================================================================================
 	@RequestMapping("download.do")
 	public View download(int boardname, int boardno) {
@@ -92,7 +102,9 @@ public class TipBoardController {
 	//===========================펫프정보- 꿀TIP게시판==========================================================================================	
 	
 	//---------------------------강아지 꿀TIP게시판		@RequestMapping(value= "dogTipBoardList.do", method=RequestMethod.GET)
-	@RequestMapping(value= "dogTipBoardList.do", method=RequestMethod.GET) 		// 강아지 TIp정보 게시판목록
+	
+	// 강아지 TIp정보 게시판목록
+	@RequestMapping(value= "dogTipBoardList.do", method=RequestMethod.GET) 		
 	public ModelAndView dogTipBoardList(Model model,@RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
@@ -137,8 +149,9 @@ public class TipBoardController {
 		return mav;		
 	}	
 	
-	@RequestMapping("DogWriteTipBoardForm.do")	// 강아지 TIp정보 게시판 글쓰기 폼
-	public String WriteTipBoardFormC(Model model, HttpSession session) {
+	// 강아지 TIp정보 게시판 글쓰기 폼
+	@RequestMapping("DogWriteTipBoardForm.do")	
+	public String DogWriteTipBoardFormC(Model model, HttpSession session) {
 		String id = (String)session.getAttribute("TipBoard_userId");
 		//유저서비스에서 UserService의 getUserbyId함수 이용해서, USer user변수에 담고,
 		//그, user의 getUser_nickname해서 얻은 닉네임값을 String nickName이라는 변수에담음
@@ -148,13 +161,15 @@ public class TipBoardController {
 		return "Tipboard/DogWriteTipBoardForm";
 	}
 	
-	@RequestMapping("DogWriteTipBoard.do")		// 강아지 TIp정보 게시판 글쓰기 실행
+	
+	// 강아지 TIp정보 게시판 글쓰기 실행
+	@RequestMapping("DogWriteTipBoard.do")		
 	public String DogWriteTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params, @RequestParam("tipBoard_contentPic") MultipartFile contentPic) {
 		System.out.println("들어옴");
 		System.out.println(contentPic);
 		
 		TipBoard dtboard = new TipBoard();
-//		String Userid = (String)session.getAttribute("TipBoard_userId");
+//		String user_id = (String)session.getAttribute("user_id");
 		String WriteUserid = "testID";  		//지금은 USer랑 연결안했으니까 임의의 ID 지정하겠음
 		dtboard.setTipBoard_boardname(7);		// 강아지 TIP게시판 보드네임은 숫자 7로 구분함 ( 팁개=7, 팁고양이=8 팁토끼=9)
 //												보드넘버는 오토인크리트먼트, 작성일도 curdate로 넣을거임
@@ -173,6 +188,58 @@ public class TipBoardController {
 		return "Tipboard/dogTipBoardList";//지금은 이렇게 설정.
 	}
 
+	// 강아지 TIp정보 게시판 글 한개 읽기.
+	@RequestMapping("DogReadTipBoard.do")
+	public String DogReadTipBoardC(Model model, int boardname, int boardno, HttpSession session) {
+		System.out.println(boardname);
+		System.out.println(boardno);
+		tipService.ReadTipBoardS(boardname, boardno);
+		TipBoard tb = tipService.getBoardS(boardname, boardno);
+		System.out.println(tb);
+		System.out.println(tb.getTipBoard_nickname());
+//		session.setAttribute("user_id", "테스트용");
+		session.setAttribute("user_id", "testID");
+		String user_idCheck = (String) session.getAttribute("user_id");
+		System.out.println(user_idCheck);
+		model.addAttribute("user_idCheck", user_idCheck);
+		model.addAttribute("tipboard", tb);
+
+		return "Tipboard/DogReadTipBoard";
+	}
+	
+	// 강아지 TIp정보 게시판 글 한 개 수정폼 제공
+	@RequestMapping("DogModifyFormTipBoard.do")
+	public String DogModifyFormTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
+		System.out.println("강아지 꿀TIp 게시글 수정 컨트롤러 들어옴");
+		TipBoard tb = tipService.getBoardS(boardname, boardno);
+		model.addAttribute("tipboard", tb);
+		return "Tipboard/DogModifyFormTipBoard";
+	}	
+	
+	// 강아지 TIp정보 게시판 글 한 개 수정 실행!
+	@RequestMapping("DogModifyTipBoard.do")
+	public String ModifyTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params) {
+		System.out.println("강아지 TIp정보 게시판 글 한 개 수정, 들어옴");
+
+		String tipBoard_boardnameS = (String)params.get("tipBoard_boardname");
+		int tipBoard_boardname = Integer.parseInt(tipBoard_boardnameS);
+		
+		String tipBoard_boardnoS = (String)params.get("tipBoard_boardno");
+		int tipBoard_boardno = Integer.parseInt(tipBoard_boardnoS);
+		
+		TipBoard tb = tipService.getBoardS(tipBoard_boardname,tipBoard_boardno);
+
+		tb.setTipBoard_title((String) params.get("tipBoard_title"));
+		tb.setTipBoard_file((String) params.get("tipBoard_file"));
+		tb.setTipBoard_content((String) params.get("tipBoard_content"));
+		tb.setTipBoard_contentPic((String) params.get("tipBoard_contentPic"));
+		tb.setTipBoard_YoutubeUrl((String) params.get("tipBoard_YoutubeUrl"));
+		tipService.ModifyTipBoardS(tb);
+		String boardname =(String)params.get("tipBoard_boardname");
+		String boardno =(String)params.get("tipBoard_boardno");
+		
+		return "redirect:DogReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
+	}
 	
 	
 //	@RequestMapping("InfoSquareSpecies.do")

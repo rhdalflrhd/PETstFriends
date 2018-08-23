@@ -94,7 +94,6 @@ public class TipBoardServiceimpl implements TipBoardService{
 		HashMap<String, Object> params= new HashMap<String, Object>();
 		params.put("tipBoard_boardname", boardname);
 		params.put("tipBoard_boardno", boardno);	
-//		TipBoard originBoard = tipDao.selectOneBoard(params);
 		TipBoard temp = tipDao.selectOneBoard(params);
 		temp.setTipBoard_readCount(temp.getTipBoard_readCount()+1);
 		tipDao.updateBoard(temp);
