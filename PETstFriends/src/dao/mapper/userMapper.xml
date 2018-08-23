@@ -46,9 +46,9 @@
 
 	</delete>
 
-	<delete id="deletePet" parameterType="int">
+	<delete id="deletePet" parameterType="String">
 		delete from Pet where
-		pet_no = #{pet_no}
+		pet_name = #{pet_name}
 
 	</delete>
 

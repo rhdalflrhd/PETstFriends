@@ -189,7 +189,7 @@ public class UserController {
 		return result;
 
 	}
-
+//
 //	@RequestMapping(value = "/updateUser.do") // 내정보수정에서 수정하기 누르면 유저 업데이트!
 //	@ResponseBody
 //	public String updateUser(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
@@ -212,11 +212,14 @@ public class UserController {
 		System.out.println("insertPet.do로 들어옴");
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.setContentType("application/json");
+
 		String user_id = "sohyun";
 		params.put("user_id", user_id);
+		System.out.println(params);
+		userService.updateUser(params);
+		
 		String jsonStr = (String) params.get("jsonData");
-userService.updateUser(params);
-		JsonParser parser = new JsonParser();
+        JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(jsonStr);
 		JsonArray jArray = element.getAsJsonArray();
 		JsonObject jOb = new JsonObject();
@@ -271,10 +274,11 @@ userService.updateUser(params);
 			HttpServletRequest req, HttpSession session) {
 
 		resp.setContentType("text/html; charset=UTF-8");
-		int pet_no = Integer.parseInt(req.getParameter("pet_no"));
-		System.out.println(pet_no);
+		String pet_name =req.getParameter("pet_name");
+		System.out.println(pet_name);
+		params.put("pet_name", pet_name);
 
-		userService.deletePet(pet_no);
+		userService.deletePet(pet_name);
 
 		String msg = "";
 		return msg;

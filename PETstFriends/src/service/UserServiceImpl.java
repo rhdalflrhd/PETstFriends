@@ -76,14 +76,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int updateUser(HashMap<String, Object> params) {
 		String user_id = (String) params.get("user_id");
-
-     
 //		int a = Integer.parseInt((String)params.get("user_havePet"));
 //		params.put("user_havePet", a);
-
-	    
-
-        return udao.updateUser(params);
+   return udao.updateUser(params);
 	
 
 	}
@@ -186,9 +181,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deletePet(int pet_no) {
-		System.out.println(pet_no);
-		udao.deletePet(pet_no);
+	public void deletePet(String pet_name) {
+		
+		udao.deletePet(pet_name);
 		
 	}
 

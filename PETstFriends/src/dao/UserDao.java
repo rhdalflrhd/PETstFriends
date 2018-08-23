@@ -9,9 +9,9 @@ import model.User;
 public interface UserDao {
 public void deleteUser(String user_id, String user_pass);
 	
-	public void deletePet(int pet_no);
+	public void deletePet(String pet_name);
 	
-	public int insertPet(Pet pet);
+	public int insertPet(Pet pet)
 
 	public int updateUser(HashMap<String, Object> params);
 

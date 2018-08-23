@@ -54,6 +54,98 @@ pwd2Check.addEventListener('blur', function(e) {
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	
+	$('#updatebtn').click(function() { //회원가입 //가입 조건 전체 확인
+		if (!($('#user_nickname').val())==''&&!($('#user_email').val())==''&&
+				!($('#user_pass').val())==''&&!($("#new_user_pass").val())==''&&!($("#new_user_pass_chk").val())==''
+				&&!($("#user_email").val())==''&& $('.user_havePet').is(':checked'))  {
+			if ($('.user_havePet :checked').val() == 1) {
+				$('#petTable_tbody tr').each(function() {
+					if (!($('.pet_name').val() == '') && !($('.pet_species').val() == 0) && !($('.pet_gender').val() == 0))
+						insertPet();
+					else
+						alert('필수 입력조건을 확인해주세요.');
+				})
+			}
+			else
+				insertPet();
+		}
+		else
+			alert('필수 입력조건을 확인해주세요!');
+		return false;
+	});
+	var insertPet = function() {
+		var petArr = new Array();
+		if ($('.user_havePet').val() == 1) {
+			$('#petTable_tbody tr').each(function() {
+				var cellItem = $(this).find(":input");
+				var petObj = new Object();
+				petObj.pet_name = cellItem.eq(0).val();
+				petObj.pet_species = cellItem.eq(1).val();
+				petObj.pet_gender = cellItem.eq(2).val();
+				petObj.pet_age = cellItem.eq(3).val();
+				petObj.pet_no= cellItem.eq(4).val();
+				petObj.pet_file = cellItem.eq(5).val();
+				petArr.push(petObj);
+			})
+		}
+		$.ajax({
+			type : 'post',
+			url : 'insertPet.do',
+			data : {
+				"jsonData" : JSON.stringify(petArr),
+				  "user_id":$("#user_id").val(),
+				    "user_nickname":$('#user_nickname').val(),
+					"user_pass":$('#new_user_pass').val(),
+				     "user_email":$('#user_email').val(),
+					"user_phone":$('#user_phone').val(),
+					"user_proPic":$('#user_proPict').val(),
+					"user_havePet" : $('.user_havePet:checked').val()
+			},
+			success : function(data) {
+				alert('성공');
+				window.location.href = "main.jsp";
+			},
+			error : function(xhrReq, status, error) {
+				alert(error)
+			}
+		})
+	}
+});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	$('#user_pass').blur(function() { //비밀번호 일치 검사 ----------------------------------
 		$.ajax({

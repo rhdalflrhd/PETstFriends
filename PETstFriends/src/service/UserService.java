@@ -10,7 +10,7 @@ import model.User;
 
 public interface UserService {
 	
-public void deletePet (int pet_no);
+public void deletePet (String pet_name);
 	public  int updateUser(HashMap<String, Object> params);
 	public boolean updatePet(HashMap<String, Object> params);
 public boolean insertPet(HashMap<String, Object> params);
