@@ -54,18 +54,15 @@
 		//------------------------------------------------------------------------------------------------
 		$('#change').click( function() {
 
-
-			
 			 $.ajax({
 				type : 'post',
 				url : 'ChangeUserPw.do',
 				data : {
-					"user_id":  $("#userIDCheck").text(),
+					"user_id":  $("#userIDCheck").val(),
 					"user_pass":$('#user_pass').val()
 				},
 				success : function(data) {
-					alert('성공');
-					alert( $("#userIDCheck").text());
+					alert('수정성공');
 					window.location.href="loginForm.do";
 				},
 				 error: function(jqXHR, exception) {
@@ -141,13 +138,14 @@
 					<td><input type="password" id="user_pass2" name="user_pass2">
 					<span
 						id='user_passResult2'></span>
-				<span	id='userIDCheck'  > ${user_id }</span>
+<%-- 				<span	id='userIDCheck'  > ${user_id }</span> --%>
 						<font name="user_pwcheck" size="2" color="red"></font> </td>
 						    
 
 
 				</tr>
 			</table>
+			<input type="hidden" id='userIDCheck' value="${user_id }" >
 
 <!-- 			--------------------------------------------------------------- -->
 			<table>

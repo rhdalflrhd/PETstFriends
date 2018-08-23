@@ -26,8 +26,6 @@
 				'user_email' : user_email
 			};
 			
-			alert('에이작스시작');
-			alert(user_id);
 			$.ajax({
 				url : 'FindUserPw.do',
 				type : 'POST',
@@ -38,9 +36,6 @@
 					if(data ==false ){
 							alert("존재하지 않는 회원입니다.");
 						}else{
-					
-						alert("에이작스 석세스else");
-						alert(user_id);
 					window.location.href="ChangeUserPwForm.do?user_id="+user_id;
 					}
 				},

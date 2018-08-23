@@ -221,14 +221,8 @@ public class UserController {
 		@RequestMapping(value = "/FindUserIdConfirmForm.do")
 		
 		public void FindUserIdConfirmForm(@RequestParam String user_id, Model model) {	
-			System.out.println(user_id);
 
-			
-			
 			User user = userDao.selectUserbyId(user_id);
-
-			System.out.println(user.getUser_name());
-			System.out.println(user.getUser_joinDate());
 			
 			model.addAttribute("user_id", user_id);
 			model.addAttribute("user_name", user.getUser_name());
@@ -258,13 +252,9 @@ public class UserController {
 
 		}
 		@RequestMapping(value = "/ChangeUserPwForm.do")
-		public String ChangeUserPwForm(HttpServletRequest req, HttpServletResponse resp,  Model model) {	
-////hkkkk
-			System.out.println("확인용");
-			System.out.println(req.getParameter("user_id"));
+		public String ChangeUserPwForm(HttpServletRequest req, HttpServletResponse resp,  Model model) {				
 			String  user_id= req.getParameter("user_id");
-			req.setAttribute("user_id", user_id);
-//			model.addAttribute("user_id",user_id);
+			model.addAttribute("user_id",user_id);
 			return "ChangeUserPwForm";
 		
 		}
@@ -273,23 +263,9 @@ public class UserController {
 		@RequestMapping(value = "/ChangeUserPw.do", method = RequestMethod.POST)
 		@ResponseBody
 		public void ChangeUserPw(@RequestParam HashMap<String, Object> params,HttpServletResponse resp,HttpServletRequest req,HttpSession session) {
-			
 			resp.setContentType("text/html; charset=UTF-8");
-
-			System.out.println(req.getParameter("user_id"));
-//			req.getParameter("user_id");
-			
-			//-------------------------------------------------------------------------
-//		String user_id = "dd";
-//			params.put("user_id", user_id); 이렇게 하면 수정 됨
-			//--------------------------------------------------------------------------
 			String user_id =req.getParameter("user_id");
 			params.put("user_id", user_id); 
-			//이렇게 하면 수정 안됨.. 얼럿창 성공 뜨는데 디비에 저장안됨
-			//---------------------------------------------------------------------------
-			System.out.println(user_id);
-
-			params.put("user_id",user_id);
 			userService.updateUser_pass(params);
 			
 		}
