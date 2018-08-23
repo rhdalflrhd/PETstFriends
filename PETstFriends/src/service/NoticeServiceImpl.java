@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.NoticeDao;
+import dao.UserDao;
 import model.Notice;
 
 @Service
@@ -19,6 +20,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Autowired
 	NoticeDao nDao;
 
+	
 	@Override
 	public HashMap<String, Object> showNoticeList(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
@@ -79,7 +81,6 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public Notice getNoticeBoard(int notice_boardno) {
 		// TODO Auto-generated method stub
-		System.out.println("ddd");
 		return nDao.selectOneBoard(notice_boardno);
 	}
 	@Override

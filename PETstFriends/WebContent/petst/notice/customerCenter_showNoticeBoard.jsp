@@ -34,9 +34,10 @@ padding-left: 15px;
 padding-top: 10px;
 font-size: 17px;
 }
-h3{
+h4{
 text-align: center; 
 font-size: 30px;
+background: white;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -57,6 +58,7 @@ $('#deleteBtn').click(function(){
 </script>
 </head>
 <body>
+<%@ include file="/petst/header.jsp"%>
 	<div class="wrapper">
 		<!--main content start-->
 		<div class="main-content" style="border-bottom: 1px solid gray;">
@@ -66,7 +68,7 @@ $('#deleteBtn').click(function(){
 					<div style="width: 20%; display: inline-block; float: left;">
 						<div>
 							<div>
-							<h3>고객센터</h3>
+							<h4>고객센터</h4>
 							<div class="sub">공지사항</div>
 							<div class="sub">자주하는 질문</div>
 							<div class="sub">1:1문의</div>
@@ -91,9 +93,12 @@ $('#deleteBtn').click(function(){
 
 
 							<div class="text-center" style="text-align: right;">
+							<c:if test="${admin_check != null}">
 								<input type="button" id="deleteBtn" value="삭제하기">
 								<input type="button" value="수정하기">
-								<input type="button" value="목록으로">
+								</c:if>
+								<input type="button" value="목록으로" 
+								onclick="location.href='showNoticeList.do?page=${page }&type=${type }&keyword=${keyword }&numb=${numb }'">
 							</div> 
 							<div style="height: 20px;"></div>
 					</div>
@@ -116,5 +121,6 @@ $('#deleteBtn').click(function(){
 	<script type="text/javascript" src="assets/js/jquery.fitvids.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.stickit.min.js"></script>
 	<script type="text/javascript" src="assets/js/scripts.js"></script>
+		<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

@@ -11,10 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			or notice_title like '%${title}%'
 		</if>
 		<if test="content != null">
-			or notice_content like '%{content}%'
-		</if>
-		<if test="name != null">
-			or notice_content like '%{name}%'
+			or notice_content like '%${content}%'
 		</if>
 		<if test="type==0">
 			or 1=1
@@ -51,7 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		notice_title=#{notice_title},
 		notice_content=#{notice_content},
 		notice_contentPic=#{notice_contentPic},
-		notice_adminId=#{notice_adminId}
+		notice_adminId=#{notice_adminId}, 
+		notice_readCount=#{notice_readCount}
 		where notice_boardno=#{notice_boardno}
 	</update>
 

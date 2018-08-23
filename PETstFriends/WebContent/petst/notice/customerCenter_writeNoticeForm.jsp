@@ -41,10 +41,14 @@ font-family: 'Merriweather', serif;
 		});
 		//전송버튼
 		$("#insertBoard").click(function() {
+			if($('#notice_title').val().replace(/ /g, '') == "" ){
+			    alert(' 공백만 입력되었습니다 ');
+			}else{
 			//id가 smarteditor인 textarea에 에디터에서 대입
 			obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
 			//폼 submit
 			$("#insertBoardFrm").submit();
+			}
 		});
 	});
 </script>
