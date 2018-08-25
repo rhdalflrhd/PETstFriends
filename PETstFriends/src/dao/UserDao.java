@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Pet;
+import model.QnA;
 import model.User;
 
 public interface UserDao {
@@ -11,7 +12,7 @@ public void deleteUser(String user_id, String user_pass);
 	
 	public void deletePet(String pet_name);
 	
-	public int insertPet(Pet pet)
+	public int insertPet(Pet pet);
 
 	public int updateUser(HashMap<String, Object> params);
 
@@ -29,7 +30,6 @@ public void deleteUser(String user_id, String user_pass);
 
 	public User selectUserEmail(String user_email);
 
-	
 
 	public HashMap<String, Object> selectOne(String user_id);
 
@@ -41,6 +41,6 @@ public void deleteUser(String user_id, String user_pass);
 	
 	public int getLikesCount(HashMap<String, Object> params);
 	public int getMymeetingCount(HashMap<String, Object> params);
-	public int getMyQnACount(HashMap<String, Object> params);
+	
 	
 }

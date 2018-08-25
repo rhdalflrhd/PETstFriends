@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import dao.QnADao;
 import dao.UserDao;
 import model.MeetingBoard;
 import model.Pet;
@@ -22,8 +23,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao udao;
-
-	
+	@Autowired
+	private QnADao qdao;
 
 	public HashMap<String, Object> selectUserPet(String user_id) {
 	
@@ -189,13 +190,13 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public int getStartPageS(int page) {
+	public int getStartPage(int page) {
 		// TODO Auto-generated method stub
 		return (page- 1) / 10 * 10 + 1;
 	}
 
 	@Override
-	public int getEndPageS(int page) {
+	public int getEndPage(int page) {
 		// TODO Auto-generated method stub
 		return ((page-1) / 10 + 1) * 10;
 	}
@@ -207,15 +208,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int getSkipS(int page) {
+	public int getSkip(int page) {
 		// TODO Auto-generated method stub
 		return (page - 1) * 10;
 	}
 
 	@Override
-	public int getMyInquiryLastPage(HashMap<String, Object> params) {
+	public int getMyInquiryLastPage(String user_id) {
 		// TODO Auto-generated method stub
-		return (udao.getMyQnACount(params) - 1 ) / 10 + 1;
+		return (qdao.getMyQnACount(user_id) - 1 ) / 10 + 1;
 	}
 
 	@Override
@@ -229,6 +230,68 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return (udao.getLikesCount(params) - 1 ) / 10 + 1;
 	}
+
+	@Override
+	public HashMap<String, Object> myInquiry(HashMap<String, Object> params, String user_id, int page) {
+		 
+		
+		
+		
+HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		int getEndPage = getEndPage(page);
+		int getLastPage = getMyInquiryLastPage("sohyun");
+
+	
+		if (getEndPage >= getLastPage)
+			result.put("end", getMyInquiryLastPage("sohyun"));
+		else
+			result.put("end", getEndPage(page));
+
+		result.put("current", page);
+		result.put("start", getStartPage(page));
+		result.put("last", getMyInquiryLastPage("sohyun"));
+		
+		params.put("skip", getSkip(page));
+		params.put("qty", 10);	
+		
+
+//		System.out.println("겟카운트:" + tipDao.getCount(params));		
+		int size = qdao.getMyQnACount("sohyun");				
+		
+		result.put("qnaList", qdao.myInquiry(params));
+		result.put("dogTipBoardCount", size);
+	
+		return result;
+		
+//		HashMap<String, Object> result = new HashMap<String, Object>();
+//		  result.put("current", page);
+//		  result.put("start", getStartPage(page));
+//		
+//	
+//		if (getEndPage(page) < getMyInquiryLastPage("sohyun") || getEndPage(page) == getMyInquiryLastPage("sohyun")) {
+//	      result.put("end", getEndPage(page));
+//		} 
+//		else  {
+//		
+//			result.put("end",getMyInquiryLastPage("sohyun"));
+//		}
+//
+//	  result.put("last", getMyInquiryLastPage("sohyun"));
+//	  
+//		  params.put("skip", getSkip(page));
+//		  params.put("qty", 10);
+//		  result.put("boardList", qdao.myInquiry(params));
+//		  return result;
+	}
+
+
+
+
+
+
+
+	
 
 
 

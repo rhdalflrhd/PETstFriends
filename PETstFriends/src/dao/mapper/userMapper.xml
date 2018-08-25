@@ -114,14 +114,14 @@
 	<select id="getWriteCount" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select count(*) from (
 		select FreeBoard_boardno from FreeBoard where
-		FreeBoard_userid = #{userid}
+		FreeBoard_userid = #{user_id}
 		UNION ALL
 		select TipBoard_boardno from
-		TipBoard where TipBoard_userid = #{userid}
+		TipBoard where TipBoard_userid = #{user_id}
 		UNION ALL
 		select
 		meeting_boardno from MeetingBoard where MeetingBoard_userid =
-		#{userid}
+		#{user_id}
 		) cnt;
 	</select>
 
@@ -149,11 +149,7 @@
 select count(*) from ApplyDao where meetingBoardApply_userId=#{user_id};
 	</select>
 	
-	
-		<select id="getMyQnACount" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-select count(*) from QnA where  QnA_userid = #{user_id}
-	</select>
-	
+
 	
 	
 	

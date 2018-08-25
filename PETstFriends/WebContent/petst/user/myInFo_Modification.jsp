@@ -11,6 +11,9 @@
     <!-- favicon icon -->
     <link rel="shortcut icon" href="./assets/images/favicon.png">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>내정보수정</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
@@ -161,14 +164,16 @@ $(document).ready(function(){
     	      
 	    		for(var i in data){
     	    	 
-	    		$('#petTable').append('<tr><td><input type="text"  name = "pet_name"  class="pet_name" value = '+data[i].pet_name+'  readonly="readonly"></td>'
-	    				+ '<td><select class="pet_species" >'
+	    			
+	    		$('#petTable').append('<tr><td><input type="text"  name = "pet_name" class="form-control" class="pet_name" value = '+data[i].pet_name+'  readonly="readonly"></td>'
+	    				+ '<div class="container">'
+	    		        +'<select class="pet_species"class="form-control" >'
 	    				+ '<option value="0">종 선택</option>'
 	    				+ '<option value="1">개</option>'
 	    				+ '<option value="2">고양이</option>'
 	    				+ '<option value="3">토끼</option>'
 	    				+ '<option value="4">기타</option>'
-	    				+ '</select></td>'
+	    				+ '</select></div>'
 	    				+ '<td><select class="pet_gender">'
 	    				+ '<option value="0">성별</option>'
 	    				+ '<option value="1">여</option>'
@@ -177,11 +182,11 @@ $(document).ready(function(){
 	    				+ '</select></td>'
 	    				
 
-	    			+ '<td><input type="text" class="pet_age" value = '+data[i].pet_age+'><input type = "hidden" class = "pet_no" value = '+data[i].pet_no+'>'
+	    			+ '<td><input type="text" class="pet_age" class="form-control" value = '+data[i].pet_age+'><input type = "hidden" class = "pet_no" value = '+data[i].pet_no+'>'
 	    			+'</td>'
-	    			+ '<td><input type="file" class="pet_file" value ='+data[i].pet_file+'></td>'
-	    			+'<td><button class = "deletePet" style="width: 80px; height: 28px; background-color: #FFD232; border: 1 solid white" value = '+data[i].pet_name+' >삭제</button></td>'
-	    			+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
+	    			+ '<td><input type="file" class="pet_file" class="form-control" value ='+data[i].pet_file+'></td>'
+	    			+'<td><button class = "deletePet" class="btn btn-warning btn-xs" value = '+data[i].pet_name+' >삭제</button></td>'
+	    			+ '<td class="removePet"></td>'
 	    			+ '</tr>');
 	    	}	}
 					},
@@ -357,7 +362,7 @@ $(document).on('click', '.addPet', function() { //+클릭시 종 입력 줄 한�
 		alert('최대 10마리까지 입력 가능합니다.')
 	} else {
 		clickNum++;
-		$('#petTable').append('<tr><td><input type="text" class="pet_name" name = "pet_name" ></td>'
+		$('#petTable').append('<tr><td><input type="text" class="pet_name" name = "pet_name"  class="form-control"></td>'
 			+ '<td><select class="pet_species" id = "pet_species">'
 			+ '<option value="0">종 선택</option>'
 			+ '<option value="1">개</option>'
@@ -371,8 +376,8 @@ $(document).on('click', '.addPet', function() { //+클릭시 종 입력 줄 한�
 			+ '<option value="2">남</option>'
 			+ '<option value="3">중성화</option>'
 			+ '</select></td>'
-			+ '<td><input type="text" class="pet_age"><input type="hidden" class="pet_no"  value ="0"></td>' 
-			+ '<td><input type="file" class="pet_file"></td>'
+			+ '<td><input type="text" class="pet_age"><input type="hidden" class="pet_no"  value ="0" class="form-control"></td>' 
+			+ '<td><input type="file" class="pet_file" class="form-control"></td>'
 			+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
 			+ '</tr>')
 	}
@@ -405,11 +410,17 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 <style type="text/css">
     .bs-example{
     	margin: 10px;
+    	
     }
 	/* Fix alignment issue of label on extra small devices in Bootstrap 3.2 */
    .control-label{
         padding-top: 5px;
     }
+/*     .row{ */
+/*    border : solid; */
+/*    border-color : light-grey; */
+/*     } */
+ 
 </style>
 
 </head>
@@ -420,43 +431,36 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
          <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
 
-<div class="mypage_hd">
-					
-						<div class="mypage_nav_wrap">
-					
-					<table><tr>
-								<td><a href="./mypage_01.sub.php">나의 정보 수정</a></td>
-						        <td><a href="./mypage_02.sub.php"> 내가작성한문의</a></td>
-								<td><a href="./mypage_04.sub.php">내가작성한게시글</a></td>
-								<td><a href="./mypage_05.sub.php">내가 좋아요 한 글</a></td>
-							<td>	<a href="./mypage_06.sub.php">내가 참여한 모임</a></td>
-								</tr></table>
-						
-							<div class="clear"></div>
-						</div>
-						<div class="clear"></div>
-					</div>
+<div class="bs-example">
+	<ul class="nav nav-tabs navbar-right" >
+        <li class="active"><a href="getUserId.do">내정보수정</a></li>
+        <li><a href="#">내가쓴게시글</a></li>
+        <li><a href="#">내가문의한글</a></li>
+         <li><a href="#">내가좋아요한글</a></li>
+          <li><a href="#">내가참여한모임</a></li>
+	</ul>
+</div>
 <div class="main-content">
         <div class="container">
             <div class="row">
-<!--                 <div class="col-md-5 col-sm-5"> -->
+
 
                     <article class="post">
                         <header class="entry-header text-center">
-                            <h3 >내정보수정</h3>
+                          <h4>내 정보 수정</h4>
 <h5>*는 필수 입력 칸입니다.</h5>
 
                         </header>
 		
      <center>
               	<table>
-	            
+	          
 	                	<div class="bs-example">
 	                	
 	                	  <div class="form-group">
 		
-					이름
-					 <div class="col-xs-10">
+					<label for="inputid" class="control-label col-xs-2">이름</label>
+					 <div class="col-xs-4">
 					<input type="text" name="user_name" id="user_name"
 						value="${params.user_name} " readonly="readonly" class="form-control" >
 				      </div>
@@ -464,7 +468,7 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 
 				 <div class="form-group">
 				<label for="inputid" class="control-label col-xs-2">아이디</label>	
-				 <div class="col-xs-10">
+				 <div class="col-xs-4">
 					<input type="text" name="user_id" id="user_id"
 						value=" ${params.user_id} " readonly="readonly" class="form-control">
 			
@@ -472,12 +476,9 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 </div>
 
 
-
-
-
 				<div class="form-group">
 				 <label for="inputnickname" class="control-label col-xs-2">닉네임*</label>	
-				  <div class="col-xs-10">
+				  <div class="col-xs-4">
 					<input type="text" name="user_nickname" id="user_nickname"
 						value="${params.user_nickname} " class="form-control"> <span id="nickname"></span>
 			  </div>
@@ -485,21 +486,21 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 
 				<div class="form-group">
 					<label for="inputpass" class="control-label col-xs-2">기본비번*</label>
-					 <div class="col-xs-10">
+					 <div class="col-xs-4">
 					<input type="password" id="user_pass" class="form-control"><span
 						id="pass"></span>
 				</div></div>
 
 				<div class="form-group">
 						<label for="inputnewpass" class="control-label col-xs-2">새비번*</label>
-					<div class="col-xs-10">
+					<div class="col-xs-4">
 					<input type="password" name="user_pass"
 						id="new_user_pass" class="form-control"><span id="pwd1ok"></span>
 				</div></div>
 
 				<div class="form-group">
 					<label for="inputpassch" class="control-label col-xs-2">새비번확인*</label>
-						<div class="col-xs-10">
+						<div class="col-xs-4">
 					<input type="password" id="new_user_pass_chk" class="form-control"><span
 						id="pwd2ok"></span>
 						<font name ="user_pwcheck" size ="2'" color = "red"></font>
@@ -507,23 +508,23 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 
 			<div class="form-group">
 					<label for="inputemail" class="control-label col-xs-2">이메일*</label>
-					<div class="col-xs-10">
+					<div class="col-xs-4">
 					<input type="text" name="user_email" id="user_email"
 						value="${params.user_email} " class="form-control"> <span id="email"></span>
-						<button type="button" id="auth_btn"
-							style="width: 80px; height: 28px; background-color: #FFD232; border: 1 solid white">인증하기</button>
+						<button type="button" class="btn btn-warning btn-xs">인증하기</button>
+						
 				</div></div>
 			
 			<div class="form-group">
 						<label for="inputnum" class="control-label col-xs-2">인증번호*</label>
-						<div class="col-xs-10">
+						<div class="col-xs-4">
 					<input type="text" id="user_authNum" class="form-control">
 						<div id="lab1"></div>
 			</div></div>
 
 			<div class="form-group">
 						<label for="inputphone" class="control-label col-xs-2">전화번호</label>
-					<div class="col-xs-10">
+					<div class="col-xs-4">
 					<input type="text" name="user_phone" id="user_phone"
 						value="${params.user_phone} " class="form-control"><br>
 				</div></div>
@@ -537,37 +538,25 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 
 				<div class="form-group">
 						<label for="inputphone" class="control-label col-xs-2">나의점수</label>
-						<div class="col-xs-10">
+						<div class="col-xs-4">
 					<input type="text" name="user_score" id="user_score"
 						value="${params.user_score} " readonly="readonly" class="form-control">
 			</div></div>
 
 <div class="form-group">
    
-     <div class="radio"">
-				 	<label for="inputPassword" class="control-label col-xs-2">반려동물 *</label>
-				<div class="col-xs-offset-2 col-xs-10">
-				<label></label><input type="radio" name="user_havePet" class="user_havePet" value="1">있음 </label>
+				 	<label for="inputpet" class="control-label col-xs-2">반려동물 *</label>
+				<div class="col-xs-4">
+				 <div class="radio">
+				<label><input type="radio" name="user_havePet" class="user_havePet" value="1">있음 </label>
 					<label><input type="radio" name="user_havePet" class="user_havePet" value="0">없음</label>
 				
-					<td colspan="2" align="center">
-						<button id = "updatebtn" style="width: 80px; height: 28px; background-color: #FFD232; border: 1 solid white">수정하기</button>
-       </div>
+				
+				 </div>
             </div>
         </div>
-
-
-						<input type="button" value="탈퇴하기"
-						onclick="location.href='deleteUserForm.do'"
-						style="width: 80px; height: 28px; background-color: #FFD232; border: 1 solid white">
-
-					</td>
-
-				</tr>
-
 		
-	
-		
+</div>
 		</table>
 		</center>
 
@@ -581,7 +570,7 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
                     <div class="primary-sidebar">
                         <aside class="project-widget">
 <div class="project-details">
-	
+	<center>
 			
 		
 <table id="petTable" style="display: none">
@@ -601,7 +590,7 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 				</thead>
 				<tbody id="petTable_tbody">
 					<tr>
-						<td><input type="text" class="pet_name"  name = "pet_name"></td>
+						<td><input type="text" class="pet_name"  name = "pet_name" class="form-control"></td>
 
 						<td><select class="pet_species">
 								<option value="0">종 선택</option>
@@ -616,15 +605,29 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 								<option value="2">남</option>
 								<option value="3">중성화</option>
 						</select></td>
-						<td><input type="text" class="pet_age"><input type="hidden" class="pet_no"  value ="0"></td>
-						<td><input type="file" class="pet_file"></td>
-						<td class="removePet"><i class="fa fa-minus-square"></i></td>
+						<td><input type="text" class="pet_age"><input type="hidden" class="pet_no"  value ="0" class="form-control"></td>
+						<td><input type="file" class="pet_file" class="form-control"></td>
+						<td class="removePet"><i class="fa fa-minus-square"></i></td><br>
 				
 				
 					</tr>
 				</tbody>
 					
 			</table>
+			</center>
+			
+			<center>
+				<td colspan="2" align="center">
+						<button id = "updatebtn" class="btn btn-warning btn-xs">수정하기</button>
+     
+
+
+						<input type="button" value="탈퇴하기"
+						onclick="location.href='deleteUserForm.do'"
+						class="btn btn-warning btn-xs">
+
+					</td>
+			</center>
   </aside>
   </div>
   </div>

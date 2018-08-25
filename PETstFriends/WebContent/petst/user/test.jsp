@@ -218,7 +218,7 @@ $(document).ready(function(){
 	});//이메일 중복 검사-------------------------------------------------------
 	
 	
-});   // 첫번째 스크립트 끝 
+// });   // 첫번째 스크립트 끝 
 </script>
 <script type="text/javascript">
 $(function () {

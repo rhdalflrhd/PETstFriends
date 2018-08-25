@@ -4,7 +4,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.QnADao">
+
+<sql id="title">
+        <choose>
+            <when test="title != null">
+                #{title}
+            </when>
+            <otherwise>
+                '제목없음'
+            </otherwise>
+        </choose>
+    </sql>
+    <sql id="content">
+        <choose>
+            <when test="content != null">
+                #{content}
+            </when>
+            <otherwise>
+                '내용없음'
+            </otherwise>
+        </choose>
+    </sql>
+       
+    <select id="myInquiry" parameterType="java.util.HashMap" 
+        resultType="qna">
+        select * from qna
+        where 1 = 0
+		<if test="title != null">
+		    or title like '%${title}%'
+		</if>
+		<if test="content != null">
+		    or content like '%${content}%'
+		</if>
+		<if test="name != null">
+        		or name like #{name}
+		</if>
+		<if test="type == 0">
+		    or 1=1
+		</if>
+		<if test="startdate != null">
+		   and qnA_writeDate
+      	  between #{startdate} and #{enddate}
+		</if>
+         order by qnA_writeDate desc limit #{skip},#{qty}
+    </select>
+    
+
 <insert id="insertBoard" parameterType="qna">
 insert into qna values (#{qnA_boardname}, 0,#{qnA_adminId},#{qnA_userId}, #{qnA_title}, #{qnA_content}, #{qnA_contentPic}, #{qnA_reply}, #{qnA_writeDate})
 </insert>
+
+	<select id="getMyQnACount" parameterType="String" resultType="int">
+select count(*) from QnA where  QnA_userid = #{user_id}
+	</select>
+	
+
+
+
+
+
 </mapper>

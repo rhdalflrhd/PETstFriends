@@ -10,6 +10,11 @@
     <meta name="description" content="">
     <meta name="author" content="Rubel Miah">
      <link rel="shortcut icon" href="./assets/images/favicon.png">
+      <link rel="shortcut icon" href="./assets/images/favicon.png">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>내가 작성한 글 </title>
 
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
@@ -43,45 +48,82 @@
 
 
 </script>
+<style type="text/css">
+    .bs-example{
+    	margin: 10px;
+    	
+    }
 
+ 
+</style>
 <body>
+
 
 <div class="wrapper">
  
 <!--        <header id="header"> -->
 <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
+<div class="bs-example">
+	<ul class="nav nav-tabs navbar-right" >
+        <li><a href="getUserId.do">내정보수정</a></li>
+        <li><a href="#">내가쓴게시글</a></li>
+        <li class="active"><a href="#">내가문의한글</a></li>
+         <li><a href="#">내가좋아요한글</a></li>
+          <li><a href="#">내가참여한모임</a></li>
+	</ul>
+</div>
+
 <center>
-<div class="memberout-wrap"  style="border: 1px solid orange; height: 850px; width: 850px;" >
-<div>
+
+<colgroup>
+<col width = "7%">
+<col width = "*%">
+<col width = "17%">
+<col width = "10%">
+<col width = "7%">
+
+</colgroup>
+
+
+<div class="memberout-wrap"  style="border: none; height: 850px; width: 850px;" >
+
+
+<div class = "container">
+		<table class = "table table-board">
+		
 
 	<tr>
 				
 				<th width="700px" align="center">제 목</th>
-				<th width="200px" align="center">작성일</th>
-				<th width="100px" align="center">조회수</th>
 				<th width="150px" align="center">작성자</th>
+				<th width="200px" align="center">작성일</th>
+			
+				
 	</tr>
+	<tr>
+				<td width="1250px" colspan="5" bgcolor="yellow"></td>
+			</tr>
+	
 
-<c:forEach items="${boardList }" var="board">
+<c:forEach items="${qna }" var="qna">
 				<tr>
-					<td align="center">${params.no }</td>
 								<td>
-		<c:if test="${empty params.title}"><a href="view.do?num=${board.num }">제목없음</a></c:if>
-		<c:if test="${not empty params.title}"><a href="view.do?num=${board.num }">${board.title }</a></c:if>	
+		<c:if test="${empty qna.qnA_title}"><a href="view.do?num=${qna.num }">제목없음</a></c:if>
+		<c:if test="${not empty  qna.qnA_title}"><a href="view.do?num=${qna.num }">${ qna.qnA_title }</a></c:if>	
 					</td>
 				
 					<td align="center">
-					<fmt:formatDate value="${params.writedate }"
+					<fmt:formatDate value="${qna.qnA_writeDate }"
 							pattern="yyyy-MM-dd" /></td>
 							
-					<td align="center">${board.readCount }</td>
-					<td align="center">${board.name }</td>
+				
+					<td align="center">${qna.qnA_userId }</td>
 				</tr>
 			</c:forEach>
 			
 			<tr>
-				<td width="1250px" colspan="5" bgcolor="orange"></td>
+				<td width="1250px" colspan="5" bgcolor="yellow"></td>
 			</tr>
 			
 			<tr>
@@ -107,7 +149,8 @@
 					</c:if>
 				</td>
 				
-			
+		
+		</table>	
 
 </div>
 

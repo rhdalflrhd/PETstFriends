@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import dao.UserDao;
 import model.Pet;
+import model.QnA;
 import model.User;
 import service.UserService;
 import service.UserServiceImpl;
@@ -109,6 +110,8 @@ public class UserController {
 
 	}
 
+
+	
 	
 	@RequestMapping("getUserId.do")                                            // 비번 맞는지 확인하고 맞으면 수정페이지로 고~ 아니면 다시 비번확인하는 페이지
 	public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
@@ -313,7 +316,7 @@ public class UserController {
 			params.put("name", keyword);
 		}
 
-		HashMap<String, Object> result = userService.myWrites("yoo");
+		HashMap<String, Object> result = userService.myWrites("sohyun");
 
 		mav.addAllObjects(result);
 		mav.addAllObjects(params);
@@ -322,8 +325,48 @@ public class UserController {
 
 	}
 
+
 	
-	
+	@RequestMapping(value = "myinquiry.do",method = RequestMethod.GET)                                            // 비번 맞는지 확인하고 맞으면 수정페이지로 고~ 아니면 다시 비번확인하는 페이지
+	public  ModelAndView MyInquiry(Model model, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
+			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+		// String user_id = (String)session.getAttribute("user_id");
+		
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		params.put("keyword", keyword);
+		params.put("page", page);
+		if (startDate != null && endDate != null
+				&& !(startDate.equals("") || startDate.equals("0") || startDate.equals("null"))
+				&& !(endDate.equals("") || endDate.equals("null") || endDate.equals("0"))) {
+			params.put("startDate", startDate);
+			params.put("endDate", endDate);
+		}
+		if (type == 1) {
+			params.put("title", keyword);
+		} else if (type == 2) {
+			params.put("content", keyword);
+		} else if (type == 3) {
+			params.put("title", keyword);
+			params.put("content", keyword);
+		} else if (type == 4) {
+			params.put("name", keyword);
+		}
+
+		HashMap<String, Object> result = userService.myInquiry(params,"sohyun", page);
+System.out.println(result);
+		
+		mav.addAllObjects(result);
+		mav.addAllObjects(params);
+		mav.setViewName("user/myINFO_QNALIST");
+		System.out.println(mav);
+		return mav;
+
+		
+
+	}
 	
 	
 

@@ -23,15 +23,20 @@ public boolean insertPet(HashMap<String, Object> params);
 	public boolean getUserPass(String user_pass);
 	public HashMap<String, Object>selectUser(String user_id);
 	public List<Pet> selectPetAll(String user_id);
+	
+	
+	public HashMap<String, Object> myInquiry(HashMap<String, Object> params , String user_id, int page);
+	
 	public  HashMap<String, Object> myWrites(String user_id);
-	public int getStartPageS(int page);
+	public int getStartPage(int page);
 
-	public int getEndPageS(int page);
+	public int getEndPage(int page);
 	
 	public int getMyWriteLastPage(HashMap<String, Object> params);
-	public int getMyInquiryLastPage(HashMap<String, Object> params);
+	public int getMyInquiryLastPage(String user_id);
 	public int getMyMeetingLastPage(HashMap<String, Object> params);
 	public int getMyLikesLastPage(HashMap<String, Object> params);
 	
-	public int getSkipS(int page);
+	public int getSkip(int page);
+
 }
