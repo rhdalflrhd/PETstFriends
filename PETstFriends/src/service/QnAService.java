@@ -1,22 +1,18 @@
 package service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.List;
 
-import dao.QnADao;
 import model.QnA;
 
-
-@Service
-public class QnAService implements IQnAService{
-
-	@Autowired
-	QnADao qnADao;
-	
-	@Override
-	public int wrtieQnABoard(QnA qnA) {
-		// TODO Auto-generated method stub
-		return qnADao.insertBoard(qnA);
-	}
+public interface QnAService {
+	public int writeQnABoard(QnA qnA);
+	public HashMap<String, Object> showQnAList(HashMap<String, Object> params);
+	public QnA showQnABoard(int qnA_boardno);
+	public int getSkip(int page, int numb);
+	public int getStartPage(int page, int numb);
+	public int getEndPage(int page, int numb);
+	public int getLastPage(HashMap<String, Object> params);
+	public int deleteQnABoard(int qnA_boardno);
+	public int writeQnAComment(QnA qnA);
 }

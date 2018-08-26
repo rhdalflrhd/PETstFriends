@@ -93,10 +93,11 @@ $('#deleteBtn').click(function(){
 
 
 							<div class="text-center" style="text-align: right;">
-							<c:if test="${admin_check != null}">
+<%-- 							<c:if test="${admin_check != null}"> --%>
 								<input type="button" id="deleteBtn" value="삭제하기">
-								<input type="button" value="수정하기">
-								</c:if>
+								<input type="button" value="수정하기" 
+								onclick="location.href='modifyNoticeBoardForm.do?notice_boardno=${noticeBoard.notice_boardno }&page=${page }&type=${type }&keyword=${keyword }&numb=${numb }'">
+<%-- 								</c:if> --%>
 								<input type="button" value="목록으로" 
 								onclick="location.href='showNoticeList.do?page=${page }&type=${type }&keyword=${keyword }&numb=${numb }'">
 							</div> 

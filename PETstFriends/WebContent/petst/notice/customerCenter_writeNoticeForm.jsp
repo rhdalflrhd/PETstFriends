@@ -42,7 +42,7 @@ font-family: 'Merriweather', serif;
 		//전송버튼
 		$("#insertBoard").click(function() {
 			if($('#notice_title').val().replace(/ /g, '') == "" ){
-			    alert(' 공백만 입력되었습니다 ');
+			    alert('제목을 입력해주세요.');
 			}else{
 			//id가 smarteditor인 textarea에 에디터에서 대입
 			obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
@@ -65,7 +65,10 @@ font-family: 'Merriweather', serif;
 				<div style="height: 20px;"></div>
 				<div style="border: red;">
 				<textarea name="editor" id="editor"
-					style="width: 700px; height: 700px; background-color: white;"></textarea>
+					style="width: 700px; height: 700px; background-color: white;">
+					
+					
+					</textarea>
 				<div style="height: 10px;"></div>
 				<div align="right"><input type="button" id="insertBoard" value="등록" />
 				</div></div>

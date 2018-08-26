@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import service.UserServiceImpl;
 
@@ -45,6 +48,35 @@ public class UserController {
     public String termsUse() {
     	return "main"; 		
     }
+	
+	@RequestMapping("showUserList.do")
+	public ModelAndView showUserList(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "10") int numb,
+			@RequestParam(required=false) String keyword) {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("page", page);
+		params.put("numb", numb);
+		if(keyword!=null)
+			params.put("keyword", keyword);
+		HashMap<String, Object> result = userService.showUserList(params);
+		mav.addAllObjects(params);
+		mav.addAllObjects(result);
+		mav.setViewName("user/customerCenter_MemberHandling");
+		return mav;
+		
+	}
+	
+	@RequestMapping("stopUser.do")
+	public int stopUser(String user_id,
+			@RequestParam(defaultValue = "10") int stopdate) {
+		return userService.stopUser(user_id, stopdate);
+	}
+	@RequestMapping("stopCancelUser.do")
+	public int stopCancelUser(String user_id,
+			@RequestParam(defaultValue = "1") int stopdate) {
+		return userService.stopUser(user_id, stopdate);
+	}
 }
 
 	

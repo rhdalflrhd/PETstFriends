@@ -4,5 +4,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.MalDao">
+<select id="selectMalAll" resultType="mal">
+select * from mal 
+</select>
+
+<insert id="insertMal" parameterType="mal" useGeneratedKeys="true"  keyProperty="mal_no">
+insert into mal values (0, #{mal_malname})
+ </insert>
+<delete id="deleteMal">
+delete from mal where mal_no = #{mal_no}
+</delete>
+
 
 </mapper>

@@ -16,10 +16,11 @@
 		select * from User where user_id = #{user_id};
 	</select>
 
-<insert id="insertPet" parameterType="pet">
+	<insert id="insertPet" parameterType="pet">
 		insert into pet values(
 		#{user_id},0,#{pet_name},#{pet_species},
-		#{pet_gender},#{pet_age}, #{pet_file}
+		#{pet_gender},#{pet_age},
+		#{pet_file}
 		);
 	</insert>
 
@@ -30,6 +31,19 @@
 		#{user_adminCheck},#{user_state},#{user_pan_date}, #{user_havePet}
 		);
 	</insert>
+
+	<select id="getCount" resultType="int">
+		select count(*) from user where user_id like ‘%${keyword}%’
+	</select>
+	<select id="selectUserAll" resultType="user">
+		select * from user where user_id like ‘%${keyword}%’ order by user_no
+		desc limit #{skip}, #{numb}
+	</select>
+
+	<update id="updateUser" parameterType="user">
+		update user set user_state =#{user_state} where user_id=#{user_id}
+	</update>
+
 
 
 </mapper>
