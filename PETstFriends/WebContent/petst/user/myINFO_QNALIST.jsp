@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<title>내가 작성한 글 </title>
+<title>내가 문의한 글  </title>
 
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
@@ -67,10 +67,10 @@
 <div class="bs-example">
 	<ul class="nav nav-tabs navbar-right" >
         <li><a href="getUserId.do">내정보수정</a></li>
-        <li><a href="#">내가쓴게시글</a></li>
-        <li class="active"><a href="#">내가문의한글</a></li>
-         <li><a href="#">내가좋아요한글</a></li>
-          <li><a href="#">내가참여한모임</a></li>
+        <li><a href="myWritesList.do">내가쓴게시글</a></li>
+        <li class="active"><a href="myinquiry.do">내가문의한글</a></li>
+         <li><a href="myLikesList.do">내가좋아요한글</a></li>
+          <li><a href="myMeetingApply.do">내가참여한모임</a></li>
 	</ul>
 </div>
 
@@ -108,16 +108,16 @@
 <c:forEach items="${qnaList}" var="qna">
 				<tr>
 								<td>
-		<c:if test="${empty qna.qnA_title}"><a href="view.do?num=${qna.num }">제목없음</a></c:if>
-		<c:if test="${not empty  qna.qnA_title}"><a href="view.do?num=${qna.num }">${ qna.qnA_title }</a></c:if>	
+		<c:if test="${empty qna.qnA_title}"><a href="view.do?qnA_boardno=${qna.qnA_boardno }">제목없음</a></c:if>
+		<c:if test="${not empty  qna.qnA_title}"><a href="view.do?qnA_boardno=${qna.qnA_boardno  }">${ qna.qnA_title }</a></c:if>	
 					</td>
 				
+					<td align="center">${qna.qnA_userId }</td>
 					<td align="center">
 					<fmt:formatDate value="${qna.qnA_writeDate }"
 							pattern="yyyy-MM-dd" /></td>
 							
 				
-					<td align="center">${qna.qnA_userId }</td>
 				</tr>
 </c:forEach>
 			

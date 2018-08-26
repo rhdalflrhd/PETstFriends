@@ -434,10 +434,10 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 <div class="bs-example">
 	<ul class="nav nav-tabs navbar-right" >
         <li class="active"><a href="getUserId.do">내정보수정</a></li>
-        <li><a href="#">내가쓴게시글</a></li>
-        <li><a href="#">내가문의한글</a></li>
-         <li><a href="#">내가좋아요한글</a></li>
-          <li><a href="#">내가참여한모임</a></li>
+        <li><a href="myWritesList.do">내가쓴게시글</a></li>
+        <li><a href="myinquiry.do">내가문의한글</a></li>
+         <li><a href="myLikesList.do">내가좋아요한글</a></li>
+          <li><a href="myMeetingApply.do">내가참여한모임</a></li>
 	</ul>
 </div>
 <div class="main-content">

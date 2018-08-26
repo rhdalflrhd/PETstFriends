@@ -35,12 +35,19 @@ public void deleteUser(String user_id, String user_pass);
 
 	public  List<Pet> selectPetAll(String user_id);
 	
-	public HashMap<String, Object> selectmyWrite(String user_id);
+	public List<Object> selectmyWrite(HashMap<String, Object> params);
 	
-	public int getWriteCount(HashMap<String, Object> params);
+	public List<Object> selectmyLikes(HashMap<String, Object> params);
 	
-	public int getLikesCount(HashMap<String, Object> params);
-	public int getMymeetingCount(HashMap<String, Object> params);
+	public List<Object> selectMyMeetingApply (HashMap<String, Object> params);
+	
+	public int getWriteCount(String user_id);
+	
+	public int getLikesCount(String user_id);
+	
+	public int getMymeetingCount(String user_id);
+	
+	
 	
 	
 }

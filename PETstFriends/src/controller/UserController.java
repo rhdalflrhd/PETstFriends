@@ -2,6 +2,7 @@ package controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -316,8 +317,8 @@ public class UserController {
 			params.put("name", keyword);
 		}
 
-		HashMap<String, Object> result = userService.myWrites("sohyun");
-
+		HashMap<String, Object> result = userService.myWrites("sohyun", page, params);
+        System.out.println(result);
 		mav.addAllObjects(result);
 		mav.addAllObjects(params);
 		mav.setViewName("user/myInfo_MyWrites");
@@ -338,6 +339,7 @@ public class UserController {
 		params.put("type", type);
 		params.put("keyword", keyword);
 		params.put("page", page);
+		params.put("user_id", "sohyun");
 		if (startDate != null && endDate != null
 				&& !(startDate.equals("") || startDate.equals("0") || startDate.equals("null"))
 				&& !(endDate.equals("") || endDate.equals("null") || endDate.equals("0"))) {
@@ -354,10 +356,10 @@ public class UserController {
 		} else if (type == 4) {
 			params.put("name", keyword);
 		}
-
+   
 		HashMap<String, Object> result = userService.myInquiry(params,"sohyun", page);
-System.out.println(result);
-		
+       System.out.println(result);
+
 		mav.addAllObjects(result);
 		mav.addAllObjects(params);
 		mav.setViewName("user/myINFO_QNALIST");
@@ -367,7 +369,114 @@ System.out.println(result);
 		
 
 	}
-	
-	
 
+	
+	
+	@RequestMapping(value = "myLikesList.do",method = RequestMethod.GET)                                            // 비번 맞는지 확인하고 맞으면 수정페이지로 고~ 아니면 다시 비번확인하는 페이지
+	public  ModelAndView MyLikes(Model model, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
+			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+		// String user_id = (String)session.getAttribute("user_id");
+		
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		params.put("keyword", keyword);
+		params.put("page", page);
+		params.put("user_id", "sohyun");
+		if (startDate != null && endDate != null
+				&& !(startDate.equals("") || startDate.equals("0") || startDate.equals("null"))
+				&& !(endDate.equals("") || endDate.equals("null") || endDate.equals("0"))) {
+			params.put("startDate", startDate);
+			params.put("endDate", endDate);
+		}
+		if (type == 1) {
+			params.put("title", keyword);
+		} else if (type == 2) {
+			params.put("content", keyword);
+			
+		} else if (type == 3) {
+			params.put("title", keyword);
+			params.put("content", keyword);
+		} else if (type == 4) {
+			params.put("name", keyword);
+		}
+   
+		HashMap<String, Object> result = userService.selectmyLikes(params, "sohyun", page);
+       System.out.println(result);
+
+		mav.addAllObjects(result);
+		mav.addAllObjects(params);
+		mav.setViewName("user/myINFO_Likes");
+		System.out.println(mav);
+		return mav;
+
+		
+
+	}
+	
+	
+	@RequestMapping(value = "myMeetingApply.do",method = RequestMethod.GET)                                            // 비번 맞는지 확인하고 맞으면 수정페이지로 고~ 아니면 다시 비번확인하는 페이지
+	public  ModelAndView MyMeetingApply(Model model, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
+			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+		// String user_id = (String)session.getAttribute("user_id");
+		
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		params.put("keyword", keyword);
+		params.put("page", page);
+		params.put("user_id", "sohyun");
+		if (startDate != null && endDate != null
+				&& !(startDate.equals("") || startDate.equals("0") || startDate.equals("null"))
+				&& !(endDate.equals("") || endDate.equals("null") || endDate.equals("0"))) {
+			params.put("startDate", startDate);
+			params.put("endDate", endDate);
+		}
+		if (type == 1) {
+			params.put("title", keyword);
+		} else if (type == 2) {
+			params.put("content", keyword);
+			
+		} else if (type == 3) {
+			params.put("title", keyword);
+			params.put("content", keyword);
+		} else if (type == 4) {
+			params.put("name", keyword);
+		}
+   
+		HashMap<String, Object> result = userService.selectMyMeetingApply(params, "sohyun", page);
+       System.out.println(result);
+
+		mav.addAllObjects(result);
+		mav.addAllObjects(params);
+		mav.setViewName("user/myINFO_meetings");
+		System.out.println(mav);
+		return mav;
+
+		
+
+	}
+	
+     
+	@RequestMapping("view.do")
+	public String view(Model model, @RequestParam int qnA_boardno, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
+			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+		String date = simple.format(userService.viewmyInquiry(qnA_boardno).getQnA_writeDate());
+		model.addAttribute("date", date);
+		model.addAttribute("qna", userService.viewmyInquiry(qnA_boardno));
+		model.addAttribute("qnA_boardno", qnA_boardno);
+		model.addAttribute("type", type);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", page);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
+		System.out.println(model.addAttribute("qna", userService.viewmyInquiry(qnA_boardno)));
+		
+		return "user/view";
+
+}
 }

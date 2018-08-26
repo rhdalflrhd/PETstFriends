@@ -12,4 +12,11 @@ public interface QnADao {
 	 public List<QnA> myInquiry (HashMap<String, Object> params);
 
 	 public int getMyQnACount(String user_id);
+	 
+	 
+	 public QnA viewmyInquiry (int qnA_boardno);
+	 
+	 
+	 
+	 
 }

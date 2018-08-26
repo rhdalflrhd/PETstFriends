@@ -69,84 +69,94 @@
 	<select id="selectUserEmail" parameterType="String" resultType="User">
 		select user_email from User where user_email = #{user_email}
 	</select>
+	<sql id="title">
+        <choose>
+            <when test="title != null">
+                #{title}
+            </when>
+            <otherwise>
+                '제목없음'
+            </otherwise>
+        </choose>
+    </sql>
 
-	<select id="selectmyWrite" parameterType="String" resultType="java.util.HashMap">
-		select FreeBoard_boardno,FreeBoard_title, FreeBoard_userid,
-		FreeBoard_writeDate from FreeBoard where FreeBoard_userId = 'yoo'
+	<select id="selectmyWrite" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select FreeBoard_boardno AS "boardno",FreeBoard_title AS "title", FreeBoard_userid AS "userId",
+		FreeBoard_writeDate AS "writeDate" from FreeBoard where FreeBoard_userId = #{user_id}
 		UNION ALL
-		select TipBoard_boardno,TipBoard_title, TipBoard_userId,
-		TipBoard_writeDate from
-		TipBoard where TipBoard_userId = 'yoo'
-		UNION
-		ALL
-		select meeting_boardno, meetingBoard_title , meetingBoard_userId,
-		meetingBoard_writeDate from MeetingBoard where meetingBoard_userId =
-		'yoo' 
+		select TipBoard_boardno AS "boardno",TipBoard_title AS "title", TipBoard_userId AS "userId",
+		TipBoard_writeDate AS "writeDate" from
+		TipBoard where TipBoard_userId = #{user_id}
+		UNION ALL
+		select meeting_boardno AS "boardno", meetingBoard_title AS "title" , meetingBoard_userId AS "userId",
+		meetingBoard_writeDate AS "writeDate" from MeetingBoard where meetingBoard_userId = #{user_id} limit #{skip},#{qty}
 	</select>
 
-	<select id="selectmyLikes" parameterType="String" resultType="java.util.HashMap">
-		select fb.FreeBoard_boardno,fb.FreeBoard_title, fb.userid,
-		fb.FreeBoard_writeDate from FreeBoard fb , FreeLikes fl where
-		fb.userid = fl.FreeLikes_userid and fb.userid = #{user_id}
+	<select id="selectmyLikes" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select fb.FreeBoard_boardno AS "boardno",fb.FreeBoard_title AS "title", fb.FreeBoard_userId AS "userId",
+		fb.FreeBoard_writeDate AS "writeDate" from FreeBoard fb , FreeLikes fl where
+		fb.FreeBoard_boardno = fl.FreeBoard_boardno and fl.FreeLikes_userId = #{user_id}
 		UNION
 		select
-		tb.TipBoard_boardno, tb.TipBoard_title,tb.TipBoard_id ,
-		tb.TipBoard_writeDate from TipBoard tb , TipLikes tl where
-		tb.TipBoard_id = tl.TipLikes_id and tb.TipBoard_id = #{user_id}
+		tb.TipBoard_boardno AS "boardno", tb.TipBoard_title AS "title",tb.TipBoard_userId AS "userId",
+		tb.TipBoard_writeDate AS "writeDate" from TipBoard tb , TipLikes tl where
+		tb.TipBoard_boardno= tl.TipBoard_boardno and tl.TipLikes_userId = #{user_id}
 		UNION
-		select mb.meeting_boardno, mb.meetingBoard_title,
-		mb.meetingBoarduserid,
-		mb.meetingBoard_writeDate from meetingBoard mb ,
+		select mb.meeting_boardno  AS "boardno", mb.meetingBoard_title AS "title",
+		mb.meetingBoard_userId AS "userId",
+		mb.meetingBoard_writeDate AS "writeDate" from meetingBoard mb ,
 		meetingLikes ml where
-		mb.meetingBoarduserid = ml.meetingLikes_userid
+		mb.meeting_boardno = ml.meeting_boardno
 		and
-		mb.meetingBoarduserid= #{user_id}
-		UNION
-		select mr.meeting_boardno ,
-		mr.meetingReview_title ,
-		mr.meetingReview_userid, mr.writeDate from
-		meetingReview mr ,
-		meetingLikes mtl where mr.meetingReview_userid =
-		mtl.meetingLikes_userid and mr.meetingReview_userid = #{user_id} limit
-		#{skip},10
+		ml.meetingLikes_userId= #{user_id} limit #{skip},#{qty}
 	</select>
+	
+	<select id="selectMyMeetingApply" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	
+		select mb.meeting_boardno AS "boardno",mb.meetingBoard_title AS "title", mb.meetingBoard_userId AS "userId",
+		mb.meetingBoard_writeDate AS "writeDate" from meetingBoard mb , meetingBoardApply mba where
+		mb.meeting_boardno = mba.meeting_boardno  and mba.meetingBoardApply_userId = #{user_id}
+	
+	</select>
+	
+	
+	
+	
 
-	<select id="getWriteCount" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	<select id="getWriteCount" parameterType="String" resultType="int">
 		select count(*) from (
 		select FreeBoard_boardno from FreeBoard where
 		FreeBoard_userid = #{user_id}
 		UNION ALL
 		select TipBoard_boardno from
-		TipBoard where TipBoard_userid = #{user_id}
+		TipBoard where TipBoard_userId= #{user_id}
 		UNION ALL
 		select
-		meeting_boardno from MeetingBoard where MeetingBoard_userid =
-		#{user_id}
+		meeting_boardno from MeetingBoard where MeetingBoard_userid = #{user_id}
 		) cnt;
 	</select>
 
-	<select id="getLikesCount" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	<select id="getLikesCount" parameterType="String" resultType="int">
 		select count(*) from (
 		select fb.FreeBoard_boardno from FreeBoard fb, FreeLikes fl where
-		fb.FreeBoard_userid = fl.FreeLikes_userid and fb.userid = #{user_id}
+		fb.FreeBoard_boardno = fl.FreeBoard_boardno and fl.FreeLikes_userId = #{user_id}
 		UNION
 		select tb.TipBoard_boardno from TipBoard tb, TipLikes tl where
-		tb.TipBoard_id = tl.TipLikes_id and tb.TipBoard_id = #{user_id}
+		tb.TipBoard_boardno = tl.TipBoard_boardno and tl.TipLikes_userId = #{user_id}
 		UNION
 
 		select mb.meeting_boardno from meetingBoard mb , meetingLikes ml where
-		mb.meetingBoarduserid = ml.meetingLikes_userid and
-		mb.meetingBoarduserid= #{user_id}
-		UNION
-
-		select mr.meeting_boardno from meetingReview mr , meetingLikes mtl where
-		mr.meetingReview_userid = mtl.meetingLikes_userid and
-		mr.meetingReview_userid = #{user_id}
+		mb.meeting_boardno = ml.meeting_boardno and
+		ml.meetingLikes_userId= #{user_id}
+		
 		) cnt;
 	</select>
 
-	<select id="getMymeetingCount" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-select count(*) from ApplyDao where meetingBoardApply_userId=#{user_id};
+	<select id="getMymeetingCount" parameterType="String" resultType="int">
+select count(*) from (select mb.meeting_boardno from meetingBoard mb , MeetingBoardApply ml where
+		mb.meeting_boardno = ml.meeting_boardno and
+		ml.meetingBoardApply_userId = #{user_id} ) cnt;
+		
 	</select>
 	
 

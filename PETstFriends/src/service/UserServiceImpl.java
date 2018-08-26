@@ -175,11 +175,7 @@ public class UserServiceImpl implements UserService {
 	  return false;
 	}
 
-	@Override
-	public HashMap<String, Object> myWrites(String user_id) {
-		
-		return udao.selectmyWrite("yoo");
-	}
+	
 
 	@Override
 	public void deletePet(String pet_name) {
@@ -202,9 +198,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int getMyWriteLastPage(HashMap<String, Object> params) {
+	public int getMyWriteLastPage(String user_id) {
 		// TODO Auto-generated method stub
-		return (udao.getWriteCount(params) - 1 ) / 10 + 1;
+		return (udao.getWriteCount(user_id) - 1 ) / 10 + 1;
 	}
 
 	@Override
@@ -220,24 +216,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int getMyMeetingLastPage(HashMap<String, Object> params) {
+	public int getMyMeetingLastPage(String user_id) {
 		// TODO Auto-generated method stub
-		return (udao.getMymeetingCount(params) - 1 ) / 10 + 1;
+		return (udao.getMymeetingCount(user_id) - 1 ) / 10 + 1;
 	}
 
 	@Override
-	public int getMyLikesLastPage(HashMap<String, Object> params) {
+	public int getMyLikesLastPage(String user_id) {
 		// TODO Auto-generated method stub
-		return (udao.getLikesCount(params) - 1 ) / 10 + 1;
+		return (udao.getLikesCount(user_id) - 1 ) / 10 + 1;
 	}
 
 	@Override
 	public HashMap<String, Object> myInquiry(HashMap<String, Object> params, String user_id, int page) {
 		 
 		
-		
-		
-HashMap<String, Object> result = new HashMap<String, Object>();
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		int getEndPage = getEndPage(page);
 		int getLastPage = getMyInquiryLastPage("sohyun");
@@ -254,37 +248,114 @@ HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		params.put("skip", getSkip(page));
 		params.put("qty", 10);	
-		
-
+		params.put("qnA_userId", "sohyun");
+		 
 //		System.out.println("겟카운트:" + tipDao.getCount(params));		
 		int size = qdao.getMyQnACount("sohyun");				
 		
 		result.put("qnaList", qdao.myInquiry(params));
-		result.put("dogTipBoardCount", size);
+	
+		result.put("qna", size);
 	
 		return result;
-		
-//		HashMap<String, Object> result = new HashMap<String, Object>();
-//		  result.put("current", page);
-//		  result.put("start", getStartPage(page));
-//		
-//	
-//		if (getEndPage(page) < getMyInquiryLastPage("sohyun") || getEndPage(page) == getMyInquiryLastPage("sohyun")) {
-//	      result.put("end", getEndPage(page));
-//		} 
-//		else  {
-//		
-//			result.put("end",getMyInquiryLastPage("sohyun"));
-//		}
-//
-//	  result.put("last", getMyInquiryLastPage("sohyun"));
-//	  
-//		  params.put("skip", getSkip(page));
-//		  params.put("qty", 10);
-//		  result.put("boardList", qdao.myInquiry(params));
-//		  return result;
+
 	}
 
+	@Override
+	public QnA viewmyInquiry(int qnA_boardno) {
+		return qdao.viewmyInquiry(qnA_boardno);
+		
+	}
+
+	@Override
+	public HashMap<String, Object> myWrites(String user_id, int page, HashMap<String, Object> params) {
+	HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		int getEndPage = getEndPage(page);
+		int getLastPage = getMyWriteLastPage("sohyun");
+
+	
+		if (getEndPage >= getLastPage)
+			result.put("end", getMyWriteLastPage("sohyun"));
+		else
+			result.put("end", getEndPage(page));
+
+		result.put("current", page);
+		result.put("start", getStartPage(page));
+		result.put("last", getMyWriteLastPage("sohyun"));
+		
+		params.put("skip", getSkip(page));
+		params.put("qty", 10);	
+		params.put("user_id", "sohyun");
+
+
+		int size = udao.getWriteCount("sohyun");				
+		
+		result.put("myWriteList", udao.selectmyWrite(params));
+		result.put("myWrite", size);
+	
+		return result;
+	}
+
+	@Override
+	public HashMap<String, Object> selectmyLikes(HashMap<String, Object> params, String user_id, int page) {
+HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		int getEndPage = getEndPage(page);
+		int getLastPage = getMyLikesLastPage("sohyun");
+
+	
+		if (getEndPage >= getLastPage)
+			result.put("end", getMyLikesLastPage("sohyun"));
+		else
+			result.put("end", getEndPage(page));
+
+		result.put("current", page);
+		result.put("start", getStartPage(page));
+		result.put("last", getMyLikesLastPage("sohyun"));
+		
+		params.put("skip", getSkip(page));
+		params.put("qty", 10);	
+		params.put("user_id", "sohyun");
+
+
+		int size = udao.getLikesCount("sohyun")	;			
+		
+		result.put("myLikesList", udao.selectmyLikes(params));
+		result.put("myWrite", size);
+	
+		return result;
+	}
+
+	@Override
+	public HashMap<String, Object> selectMyMeetingApply(HashMap<String, Object> params, String user_id, int page) {
+HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		int getEndPage = getEndPage(page);
+		int getLastPage = getMyMeetingLastPage("sohyun");
+
+	
+		if (getEndPage >= getLastPage)
+			result.put("end", getMyMeetingLastPage("sohyun"));
+		else
+			result.put("end", getEndPage(page));
+
+		result.put("current", page);
+		result.put("start", getStartPage(page));
+		result.put("last", getMyMeetingLastPage("sohyun"));
+		
+		params.put("skip", getSkip(page));
+		params.put("qty", 10);	
+		params.put("user_id", "sohyun");
+
+
+		int size = udao.getMymeetingCount("sohyun");			
+		
+		result.put("myMeetingApplyList", udao.selectMyMeetingApply(params));
+		result.put("myWrite", size);
+	
+		return result;
+	}
 
 
 

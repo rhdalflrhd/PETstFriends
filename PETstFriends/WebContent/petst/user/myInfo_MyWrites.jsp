@@ -67,10 +67,10 @@
 <div class="bs-example">
 	<ul class="nav nav-tabs navbar-right" >
         <li><a href="getUserId.do">내정보수정</a></li>
-        <li><a href="#">내가쓴게시글</a></li>
-        <li class="active"><a href="#">내가문의한글</a></li>
-         <li><a href="#">내가좋아요한글</a></li>
-          <li><a href="#">내가참여한모임</a></li>
+        <li class="active"><a href="myWritesList.do">내가쓴게시글</a></li>
+        <li ><a href="myinquiry.do">내가문의한글</a></li>
+         <li><a href="myLikesList.do">내가좋아요한글</a></li>
+          <li><a href="myMeetingApply.do">내가참여한모임</a></li>
 	</ul>
 </div>
 
@@ -104,23 +104,22 @@
 	<tr>
 				<td width="1250px" colspan="5" bgcolor="yellow"></td>
 			</tr>
-	
 
-<c:forEach items="${qna }" var="qna">
+<c:forEach items="${myWriteList}" var="write">
 				<tr>
 								<td>
-		<c:if test="${empty qna.qnA_title}"><a href="view.do?num=${qna.num }">제목없음</a></c:if>
-		<c:if test="${not empty  qna.qnA_title}"><a href="view.do?num=${qna.num }">${ qna.qnA_title }</a></c:if>	
+		<c:if test="${empty write.title}"><a href="view.do?boardno=${write.boardno }">제목없음</a></c:if>
+		<c:if test="${not empty  write.title}"><a href="view.do?boardno=${write.boardno  }">${ write.title }</a></c:if>	
 					</td>
 				
+					<td align="center">${write.userId }</td>
 					<td align="center">
-					<fmt:formatDate value="${qna.qnA_writeDate }"
+					<fmt:formatDate value="${write.writeDate }"
 							pattern="yyyy-MM-dd" /></td>
 							
 				
-					<td align="center">${qna.qnA_userId }</td>
 				</tr>
-			</c:forEach>
+</c:forEach>
 			
 			<tr>
 				<td width="1250px" colspan="5" bgcolor="yellow"></td>
@@ -129,8 +128,8 @@
 			<tr>
 				<td width="1250px" colspan="5">
 					<c:if test="${start != 1 }">
-						<a href="boardList.do?page=1">[처음]</a>
-						<a href="boardList.do?page=${start-1 }">[이전]</a>
+						<a href="myWritesList.do?page=1">[처음]</a>
+						<a href="myWritesList.do?page=${start-1 }">[이전]</a>
 					</c:if>
 					
 					<c:forEach begin="${start }" end="${end }" var="i">
@@ -139,13 +138,13 @@
 								[${i }]
 							</c:when>
 							<c:otherwise>
-								<a href="boardList.do?page=${i }">[${i }]</a>
+								<a href="myWritesList.do?page=${i }">[${i }]</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${end != last }">
-						<a href="boardList.do?page=${end+1 }">[다음]</a>
-						<a href="boardList.do?page=${last }">[끝]</a>
+						<a href="myWritesList.do?page=${end+1 }">[다음]</a>
+						<a href="myWritesList.do?page=${last }">[끝]</a>
 					</c:if>
 				</td>
 				
