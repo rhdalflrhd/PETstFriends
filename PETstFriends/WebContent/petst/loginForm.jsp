@@ -78,7 +78,7 @@
         font-size: 15px;
         text-align: center; 
         line-height: 24px;    
-        width: 200px;   
+        width: 250px;   
         height: 40px;
              
     }
@@ -163,12 +163,12 @@ $(document).ready(function() {
 		
 		 <div class="text-center social-btn"  >
     <div class="hint-text ">아직 회원이 아니신가요?  </div>
-    <div style="display: inline-block; width: 45%;">
-    가입
+    <div style="display: inline-block; ">
+    
     <br>
-    sfjdljflsdf
-    </div>
-<div style="display: inline-block;  width: 48%;">
+
+<!--     </div> -->
+<!-- <div style="display: inline-block;  width: 30%;"> -->
 				<table >
 					<tr>
 						<td>
@@ -179,7 +179,7 @@ $(document).ready(function() {
 
 					<tr>
 						<td>
-						<a href="#"> <img src="./petst/naverid_login_button.png"style="width: 200px; height: 40px;"></a>
+						<a href="#"> <img src="./petst/naverid_login_button.png"style="width: 250px; height: 40px;"></a>
 						</td>
 					</tr>
 
