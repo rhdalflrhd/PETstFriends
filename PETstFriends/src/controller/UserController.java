@@ -41,14 +41,14 @@ import service.UserService;
 import service.UserServiceImpl;
 
 @Controller
-public class UserController {
+public class UserController {  
 
 	@Autowired
 	UserServiceImpl userService;
 	@Autowired
 	private MailSender mailSender;
 
-	public void setMailSender(MailSender mailSender) { // 이메일 인증 받기
+	public void setMailSender(MailSender mailSender) {      // 이메일 인증 받기
 		this.mailSender = mailSender;
 	}
 

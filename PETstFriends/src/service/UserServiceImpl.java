@@ -332,7 +332,7 @@ public class UserServiceImpl implements UserService {
 
 		result.put("myMeetingApplyList", udao.selectMyMeetingApply(params));
 		result.put("myWrite", size);
-
+  
 		return result;
 	}
 

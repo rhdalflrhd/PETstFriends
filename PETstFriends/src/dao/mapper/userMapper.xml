@@ -149,7 +149,7 @@
 		mb.meeting_boardno = ml.meeting_boardno and
 		ml.meetingLikes_userId= #{user_id}
 		
-		) cnt;
+		) cnt;  
 	</select>
 
 	<select id="getMymeetingCount" parameterType="String" resultType="int">

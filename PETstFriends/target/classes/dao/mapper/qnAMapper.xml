@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
          order by qnA_writeDate desc limit #{skip},#{qty}
     </select>
-    
+      
        
     <select id="viewmyInquiry" parameterType="int" resultType="qna">
      select * from qna where qnA_boardno = #{qnA_boardno}

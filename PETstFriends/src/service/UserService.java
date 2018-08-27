@@ -45,7 +45,7 @@ public interface UserService {
 	public HashMap<String, Object> selectMyMeetingApply(HashMap<String, Object> params, String user_id, int page);
 
 	public int getStartPage(int page);
-
+  
 	public int getEndPage(int page);
 
 	public int getMyWriteLastPage(String user_id);

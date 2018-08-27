@@ -300,7 +300,7 @@ $(document).ready(function (){
 				petObj.pet_age = cellItem.eq(3).val();
 				petObj.pet_no= cellItem.eq(4).val();
 				petObj.pet_file = cellItem.eq(5).val();
-				petArr.push(petObj);
+				petArr.push(petObj);  
 				}else{
 					
 				}

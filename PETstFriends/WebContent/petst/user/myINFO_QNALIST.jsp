@@ -78,7 +78,7 @@
 
  
 <!--        <header id="header"> -->
-<%@ include file="/petst/header.jsp" %>
+<%@ include file="/petst/header.jsp" %>  
     <!--header section end-->
 
 
@@ -90,7 +90,7 @@
         <li><a href="myWritesList.do">내가쓴게시글</a></li>
         <li class="active"><a href="myinquiry.do">내가문의한글</a></li>
          <li><a href="myLikesList.do">내가좋아요한글</a></li>
-                   <li><a href="myMeetingApply.do">내가참여한모임</a></li>
+                   <li><a href="myMeetingApply.do">내가참여한모임   </a></li>
 	</ul>
 
 </div>

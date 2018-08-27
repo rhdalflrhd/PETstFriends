@@ -96,7 +96,7 @@
 	<tr>
 				
 				<th width="700px" align="center">제 목</th>
-				<th width="150px" align="center">작성자</th>
+				<th width="150px" align="center">작성자</th>  
 				<th width="200px" align="center">작성일</th>
 			
 				

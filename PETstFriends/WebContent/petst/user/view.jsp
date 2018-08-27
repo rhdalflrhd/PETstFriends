@@ -52,7 +52,7 @@
 		
   
        
-	
+	  
 
 			<tr style="color: white;" bgcolor="#bebebe">
 				<th>글번호</th><br>

@@ -178,7 +178,7 @@ else if ($("#boardname") == 3 ){
 					
 					<c:forEach begin="${start }" end="${end }" var="i">
 						<c:choose>
-							<c:when test="${i == current }">
+							<c:when test="${i == current }">  
 								[${i }]
 							</c:when>
 							<c:otherwise>

@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="./assets/css/responsive.css">
 
 </head>
-<style>
+<style>  
 .layer{
   position:absolute;
   top:50%; 
