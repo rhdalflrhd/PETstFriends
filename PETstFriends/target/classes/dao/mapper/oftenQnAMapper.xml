@@ -13,7 +13,8 @@ select * from  oftenqna  where oftenQnA_boardno=#{oftenQnA_boardno}
  </select>
 
 <update id="updateBoard" parameterType="oftenQnA">
-update set oftenQnA_title = #{oftenQnA_title} oftenQnA_content=#{oftenQnA_content} from oftenQnA where oftenQnA__boardno = #{oftenQnA__boardno}
+update oftenqna set oftenQnA_title = #{oftenQnA_title}, oftenQnA_content = #{oftenQnA_content}, oftenQnA_readCount = #{oftenQnA_readCount}
+ where oftenQnA_boardno = #{oftenQnA_boardno}
 </update>
 
 <insert id="insertBoard" parameterType="oftenQnA"   

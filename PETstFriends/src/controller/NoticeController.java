@@ -101,20 +101,26 @@ public class NoticeController {
 	
 	@RequestMapping("modifyNoticeBoardForm.do")
 	public String modifyNoticeBoardForm(@RequestParam HashMap<String, Object> params, Model model) {
-		int notice_boardno = (int) params.get("notice_boardno");
+		int notice_boardno = Integer.parseInt((String) params.get("notice_boardno"));
 		model.addAttribute("notice",nService.getNoticeBoard(notice_boardno));
 		model.addAllAttributes(params);
-		return "customerCenter_noticeModifyForm";
+//		return "notice/customerCenter_noticeModifyForm";
+		return "notice/customerdd";
 	}
-	
-	@RequestMapping("modifyNoticeBoard.do")
-	public String modifyNoticeBoard(@RequestParam HashMap<String, Object> params, 
-			@RequestParam("ufile") MultipartFile ufile, HttpSession session, Model model) {
+	@RequestMapping(value="modifyNoticeBoard.do", method = RequestMethod.POST)
+	public String modifyNoticeBoard(@RequestParam HashMap<String, Object> params, HttpSession session, Model model) {
 		String notice_adminId = (String) session.getAttribute("user_id");
 		params.put("notice_adminId", notice_adminId);
 		nService.modifyBoard(params);
 		model.addAllAttributes(params);
+		System.out.println(params.get("editor"));
 		return "redirect:showNoticeBoard.do";
+	}
+	
+	@RequestMapping("aaaa.do")
+	public String aa()
+	{
+		return "notice/customerdd";
 	}
 	
 	//================================================

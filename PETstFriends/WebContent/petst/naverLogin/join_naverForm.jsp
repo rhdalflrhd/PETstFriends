@@ -105,14 +105,17 @@ h, td, tr, input, select, FORM {
 		});
 
 		$('#joinBtn').click(function() { //회원가입 //가입 조건 전체 확인
+		
+			alert($("input:radio[name=user_havePet]:checked").val())
+			alert('여기')
 			if ($('#idCheck').html() == '사용가능한 닉네임입니다.' && $('#phoneCheck').html() == '' && $('.user_havePet').is(':checked')) {
-				if ($('.user_havePet :checked').val() == 1) {
-					$('#petTable_tbody tr').each(function() {
+				if ($("input:radio[name=user_havePet]:checked").val() == 1) {
+// 					$('#petTable_tbody tr').each(function() {
 						if (!($('.pet_name').val() == '') && !($('.pet_species').val() == 0) && !($('.pet_gender').val() == 0))
 							joinFun();
 						else
 							alert('필수 입력조건을 확인해주세요.');
-					})
+// 					})
 				}
 				else
 					joinFun();
@@ -142,7 +145,7 @@ h, td, tr, input, select, FORM {
 					"jsonData" : JSON.stringify(petArr),
 					"user_nickname" : $('#user_nickname').val(),
 					"user_phone" : $('#user_phone').val(),
-					"user_havePet" : $('.user_havePet :checked').val()
+					"user_havePet" : $("input:radio[name=user_havePet]:checked").val()
 				},
 				success : function(data) {
 					alert('성공');
@@ -160,7 +163,7 @@ h, td, tr, input, select, FORM {
 	<center>
 	<header id="header">
 		<h1>회원가입</h1>
-		<form name="joinForm" id="joinForm">
+<!-- 		<form name="joinForm" id="joinForm"> -->
 			*는 필수 입력 칸입니다.
 
 			<table id="userTable" boder="" bgcolor="#cdfdee" cellspacing="1">
@@ -224,7 +227,7 @@ h, td, tr, input, select, FORM {
 			<br>
 			<button onclick="location.href='login.do'">취소</button>
 			<button id="joinBtn">가입하기</button>
-		</form>
+<!-- 		</form> -->
 		</header>
 	</center>
 </body>
