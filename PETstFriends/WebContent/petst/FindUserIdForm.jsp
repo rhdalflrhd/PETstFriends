@@ -17,7 +17,21 @@
     <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/animate.min.css">
     <link rel="stylesheet" href="./assets/css/owl.carousel.css">
-        <style>
+       
+    
+    <link rel="stylesheet" href="./assets/css/owl.theme.css">
+    <link rel="stylesheet" href="./assets/css/slicknav.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
+
+    
+   
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+
+    
+     <style>
         body {
             color: #555;
             background: #eeeeee;
@@ -35,7 +49,7 @@
             line-height: 1.5;}
 
         .main {
-            min-width: 320px;
+            min-width:500px;
             max-width: 800px;
             padding: 50px;
             margin: 0 auto;
@@ -76,18 +90,6 @@
         #tab4:checked ~ #content4 {
             display: block;}
     </style>
-    
-    <link rel="stylesheet" href="./assets/css/owl.theme.css">
-    <link rel="stylesheet" href="./assets/css/slicknav.css">
-    <link rel="stylesheet" href="./assets/style.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
-    
-    
-   
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
-
 	
 <script type="text/javascript">
 
@@ -193,28 +195,19 @@
          <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
 <center>
+
 <div class="main">
     <input id="tab1" type="radio" name="tabs" checked> <!--디폴트 메뉴-->
-    <label for="tab1">아이디 찾기</label>
+    <label for="tab1"><a href="FindUserIdForm.do"> 아이디 찾기</a></label>
 
     <input id="tab2" type="radio" name="tabs">
-    <label for="tab2">비밀번호 찾기</label>
+    <label for="tab2"><a href="FindUserPwForm.do"> 비밀번호 찾기</a></label>
 
-		<h2>이메일 인증</h2>
+
+    <section id="content1">
+<h2>이메일 인증</h2>
 		회원가입 시 등록한 이메일주소와 동일하여야 <br> 인증번호를 받을 수 있습니다. <br>
-   		<table>
-			<tr>
-				<td style="height: 3px"></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<button id=idFindBtn
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">아이디찾기</button>
-					<button id=pwFindBtn onclick="location.href='FindUserPwForm.do'"
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">비밀번호찾기</button>
-				</td>
-			</tr>
-		</table>
+
 
 		<table>
 			<tr>
@@ -250,12 +243,20 @@
 							</tr>
 		</table>
 		<br><br>
+    </section>
+
+<!--     <section id="content2"> -->
+<!--         <p>tab menu2의 내용</p> -->
+<!--     </section> -->
 
 
 
 
-</div>
-</div>
+
+		
+
+
+
 
 		<!-- //---------------------------------------------------------------------------------- -->
 
@@ -266,7 +267,7 @@
    <%@ include file="/petst/footer.jsp" %>
     <!--footer end-->
 
-</div>
+
 		
 	<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
 <script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>

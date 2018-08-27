@@ -22,6 +22,65 @@
     <link rel="stylesheet" href="./assets/style.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
     
+         <style>
+        body {
+            color: #555;
+            background: #eeeeee;
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;}
+
+        h1 {
+            padding: 50px 0;
+            font-weight: 400;
+            text-align: center;}
+
+        p {
+            margin: 0 0 20px;
+            line-height: 1.5;}
+
+        .main {
+            min-width:500px;
+            max-width: 800px;
+            padding: 50px;
+            margin: 0 auto;
+            background: #ffffff;}
+
+        section {
+            display: none;
+            padding: 20px 0 0;
+            border-top: 1px solid #ddd;}
+
+        /*라디오버튼 숨김*/
+          input {
+              display: none;}
+
+        label {
+            display: inline-block;
+            margin: 0 0 -1px;
+            padding: 15px 25px;
+            font-weight: 600;
+            text-align: center;
+            color: #bbb;
+            border: 1px solid transparent;}
+
+        label:hover {
+            color: #2e9cdf;
+            cursor: pointer;}
+
+        /*input 클릭시, label 스타일*/
+        input:checked + label {
+              color: #555;
+              border: 1px solid #ddd;
+              border-top: 2px solid #2e9cdf;
+              border-bottom: 1px solid #ffffff;}
+
+        #tab1:checked ~ #content1,
+        #tab2:checked ~ #content2,
+        #tab3:checked ~ #content3,
+        #tab4:checked ~ #content4 {
+            display: block;}
+    </style>
    
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -127,26 +186,20 @@
          <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
 	<center>
-		<h1>
-			<b><font color="gray">PW찾기</font></b>
-		</h1>
+	<div class="main">
+    <input id="tab1" type="radio" name="tabs" > <!--디폴트 메뉴-->
+    <label for="tab1"><a href="FindUserIdForm.do"> 아이디 찾기</a></label>
+
+    <input id="tab2" type="radio" name="tabs" checked>
+    <label for="tab2"><a href="FindUserPwForm.do"> 비밀번호 찾기</a></label>
+    
+        <section id="content2">
+
 
 		<h2>이메일 인증</h2>
 		회원가입 시 등록한 이메일주소와 동일하여야 <br> 인증번호를 받을 수 있습니다. <br>
 
-		<table>
-			<tr>
-				<td style="height: 3px"></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<button id=idFindBtn onclick="location.href='FindUserIdForm.do'"
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">아이디찾기</button>
-					<button id=pwFindBtn onclick="location.href='FindUserPwForm.do'"
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">비밀번호찾기</button>
-				</td>
-			</tr>
-		</table>
+
 
 		<table>
 			<tr>
@@ -188,6 +241,8 @@
 				</td>
 			</tr>
 		</table>
+    </section>
+		
 
 	</center>
 	<!-- <footer> -->

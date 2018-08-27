@@ -21,15 +21,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
-	<select id="selectBoardAll">
-		select * from FreeBoard where 1 = 0 and FreeBoard_boardname =
-		#{FreeBoard_boardname}
+	<select id="selectBoardAll" parameterType="java.util.HashMap" resultType="FreeBoard">
+		select * from FreeBoard where 1 = 0 and 
+		FreeBoard_boardname = #{FreeBoard_boardname}
 		<if test="FreeBoard_title != null">
-			or FreeBoard_title like '%${title}%' </if>
+			or FreeBoard_title like '%${ FreeBoard_title}%' </if>
 		<if test="FreeBoard_cotent != null">
-			or FreeBoard_content like '%${content}%' </if>
+			or FreeBoard_content like '%${FreeBoard_content}%' </if>
 		<if test="FreeBoard_userId != null">
-			or FreeBoard_userId like #{nickname }
+			or FreeBoard_nickname like #{FreeBoard_nickname }
 		</if>
 	</select>
 
@@ -76,20 +76,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</otherwise>
 		</choose>
 	</sql>
+	 <sql id="FreeBoard_YoutubeUrl">
+        <choose>
+            <when test="FreeBoard_YoutubeUrl != null">
+                #{FreeBoard_YoutubeUrl}
+            </when>
+            <otherwise>
+                '동영상없음'
+            </otherwise>
+        </choose>
+    </sql> 
 
 
 
 	<insert id="insertBoard" parameterType="java.util.HashMap"
 		useGeneratedKeys="true" keyProperty="FreeBoard_boardno">
-		insert into FreeBoard values (#{FreeBoard_boardname},
-		#{FreeBoard_userid},
-		<include refid="FreeBoard_title" />
-		,
-		#{FreeBoard_file},
-		<include refid="FreeBoard_content" />
-		,
-		#{FreeBoard_readCount},
-		#{FreeBoard_writeDate}, #{FreeBoard_contentPic}
+		insert into FreeBoard values (0,#{FreeBoard_boardname},
+		#{FreeBoard_userId},#{FreeBoard_nickname},<include refid="FreeBoard_title" />, #{FreeBoard_file}, <include refid="FreeBoard_content" />,
+		0,<include refid="FreeBoard_YoutubeUrl"/>,curdate(),  #{FreeBoard_contentPic},0
 		)
 	</insert>
 

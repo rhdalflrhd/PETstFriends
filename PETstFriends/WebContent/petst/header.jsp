@@ -76,7 +76,7 @@
 
 							<li><a href="index.html">첫 화면으로</a></li>
 							<li class="menu-item-has-children"><a href="#">펫프 모여라 </a></li>
-							<li class="menu-item-has-children"><a href="#">펫프 광장 <i
+							<li class="menu-item-has-children"><a href="FreeBoardList.do">펫프 광장 <i
 									class="fa fa-angle-down"></i>
 							</a>
 								<ul class="sub-menu">
