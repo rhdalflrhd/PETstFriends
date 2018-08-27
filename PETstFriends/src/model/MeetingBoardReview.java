@@ -10,7 +10,7 @@ public class MeetingBoardReview {
 	String meetingReview_pic;
 	String meetingReview_content;
 	String meetingReview_userid;
-	Date meetingReview_writeDate;
+	String meetingReview_writeDate;
 	String meetingReview_nickname;
 	public int getBoardname() {
 		return boardname;
@@ -54,10 +54,11 @@ public class MeetingBoardReview {
 	public void setMeetingReview_userid(String meetingReview_userid) {
 		this.meetingReview_userid = meetingReview_userid;
 	}
-	public Date getMeetingReview_writeDate() {
+
+	public String getMeetingReview_writeDate() {
 		return meetingReview_writeDate;
 	}
-	public void setMeetingReview_writeDate(Date meetingReview_writeDate) {
+	public void setMeetingReview_writeDate(String meetingReview_writeDate) {
 		this.meetingReview_writeDate = meetingReview_writeDate;
 	}
 	public String getMeetingReview_nickname() {

@@ -1,10 +1,14 @@
 package service;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import dao.ApplyDao;
 import dao.MeetingBoardDao;
@@ -62,10 +66,16 @@ public class MeetingServiceImpl implements MeetingService{
 		return true;
 	}
 	@Override
-	public List<MeetingBoard> showMeetingBoard(HashMap<String, Object> param) {
+	public List<HashMap<String, Object>> showMeetingBoard(HashMap<String, Object> param) {
 		// TODO Auto-generated method stub
 		return meetingBoardDao.selectBoardAll(param);
 	}
+	@Override
+	public MeetingBoard getCount() {
+		// TODO Auto-generated method stub
+		return meetingBoardDao.getCount();
+	}
+	
 	@Override
 	public MeetingBoard selectMeetingBoard(int meeting_boardno) {
 		// TODO Auto-generated method stub
@@ -168,6 +178,17 @@ public class MeetingServiceImpl implements MeetingService{
 	}
 	
 	@Override
+	public MeetingBoardReview getReviewCount(int meeting_boardno) {
+		// TODO Auto-generated method stub
+		return reviewDao.getReviewCount(meeting_boardno);
+	}
+	
+	@Override
+	public int getReviewCount2(int meeting_boardno) {
+		// TODO Auto-generated method stub
+		return reviewDao.getReviewCount2(meeting_boardno);
+	}
+	@Override
 	public boolean commentWriteReview(ReviewComment rComment) {
 		// TODO Auto-generated method stub
 		reviewCommentDao.insertReviewComment(rComment);
@@ -244,9 +265,19 @@ public class MeetingServiceImpl implements MeetingService{
 		return reviewLikesDao.getReviewLikesCount(param);
 	}
 	@Override
-	public int getMeetingBoardListPage(int meetingPage) {
+	public HashMap<String, Object> getMeetingBoardListPage(HashMap<String, Object> param, int meetingPage) {
 		// TODO Auto-generated method stub
-		return 0;
+		// TODO Auto-generated method stub
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("current", meetingPage);
+		result.put("start", getMeetingBoardStartPage(meetingPage)); 
+		result.put("end", getMeetingBoardEndPage(meetingPage));
+		result.put("last", getMeetingBoardLastPage(meetingPage));
+		
+		param.put("skip", getMeetingBoardSkip(meetingPage));
+		param.put("qty", 10);
+		
+		return result;
 	}
 	@Override
 	public int getMeetingBoardStartPage(int meetingPage) {
@@ -293,6 +324,7 @@ public class MeetingServiceImpl implements MeetingService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	  
 
 	
 }

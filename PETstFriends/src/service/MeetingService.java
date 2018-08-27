@@ -1,7 +1,10 @@
 package service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import model.MeetingBoard;
 import model.MeetingBoardApply;
@@ -15,7 +18,8 @@ public interface MeetingService {
 	public int scoreCheckMeetingBoard(String meetingBoard_userId);
 	public boolean modifyMeetingBoard(MeetingBoard mboard);
 	public boolean deleteMeetingBoard(int meeting_boardno);
-	public List<MeetingBoard> showMeetingBoard(HashMap<String, Object> param);
+	public List<HashMap<String, Object>> showMeetingBoard(HashMap<String, Object> param);
+	public MeetingBoard getCount();
 	public MeetingBoard selectMeetingBoard(int meeting_boardno);
 	
 	public boolean insertApply(MeetingBoardApply mApply);
@@ -34,6 +38,8 @@ public interface MeetingService {
     public boolean deleteReview(int Meeting_boardno, int MeetingReview_no);
     public MeetingBoardReview selectReview(int Meeting_boardno, int MeetingReview_no);
     public List<MeetingBoardReview> showReview(int meeting_boardno);
+    public MeetingBoardReview getReviewCount(int meeting_boardno);
+    public int getReviewCount2(int meeting_boardno);
     
     public boolean commentWriteReview(ReviewComment rComment);
     public boolean commentModifyReview(ReviewComment rComment);
@@ -46,7 +52,7 @@ public interface MeetingService {
     public List<MeetingLikes> selectAllReviewLikes(int Meeting_boardno, int reviewno, String meetingLikes_userId);
     public int getReviewLikesCount(int Meeting_boardno, int reviewno);
     
-    public int getMeetingBoardListPage(int meetingPage);
+    public HashMap<String, Object> getMeetingBoardListPage(HashMap<String, Object> param, int meetingPage);
     public int getMeetingBoardStartPage(int meetingPage);
     public int getMeetingBoardEndPage(int meetingPage);
     public int getMeetingBoardLastPage(int meetingPage);
@@ -58,4 +64,6 @@ public interface MeetingService {
     public int getReviewLastPage(int reviewPage);
     public int getReviewSkip(int reviewPage);
 
+
+    
 }

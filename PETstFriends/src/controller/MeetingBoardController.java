@@ -1,14 +1,27 @@
 package controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.MeetingBoard;
@@ -24,66 +37,99 @@ public class MeetingBoardController {
 
 	@Autowired
 	private MeetingServiceImpl meetingServiceImpl;
-
+	
+	@RequestMapping("meeting.do") // void !!
+	public String meeting() {
+		return "meeting/meeting";
+	}
+	
+	@RequestMapping("meetingview.do") // void !!
+	public String meetingView(Model model, @RequestParam int meeting_boardno) {
+		model.addAttribute("meeting", meetingServiceImpl.selectMeetingBoard(meeting_boardno));
+		model.addAttribute("comment", meetingServiceImpl.showCommentMeetingBoard(meeting_boardno));	
+		return "meeting/meetingView";
+	}
+	
+	@RequestMapping("writeForm.do") // void !!
+	public String meetingWriteForm() {
+		return "meeting/meetingWriteForm";
+	}
 	@RequestMapping("writeMBC.do")
-	public String writeMBC() {
+	@ResponseBody
+	public HashMap<String, Object> writeMBC(Model model, 
+			@RequestParam String title, @RequestParam String startmeetingdate, @RequestParam String startmeetingdate2, @RequestParam String endmeetingdate, @RequestParam String endmeetingdate2
+			, @RequestParam String startmeetingacceptdate, @RequestParam String startmeetingacceptdate2, @RequestParam String endmeetingacceptdate, @RequestParam String endmeetingacceptdate2
+			, @RequestParam String content, @RequestParam String place) {
+		SimpleDateFormat date1 = new SimpleDateFormat("yyyy MM dd HH:mm");
 		MeetingBoard mBoard = new MeetingBoard();
 		mBoard.setBoardname(1);
-		mBoard.setMeetingBoard_userId("id");
-		mBoard.setMeetingBoard_contentPic(null);
-		mBoard.setMeetingBoard_title("title");
-		mBoard.setMeetingBoard_startMeetingDate(new Date());
-		mBoard.setMeetingBoard_endMeetingDate(new Date());
-		mBoard.setMeetingBoard_startAcceptingDate(new Date());
-		mBoard.setMeetingBoard_endAcceptingDate(new Date());
-		mBoard.setMeetingBoard_place("place");
-		mBoard.setMeetingBoard_content("content");
-		mBoard.setMeetingBoard_contentPic("contentpic");
-		mBoard.setMeetingBoard_phone("phone");
-		mBoard.setMeetingBoard_email("email");
+//		mBoard.setMeetingBoard_userId();//세션 id
+//		mBoard.setMeetingBoard_proPic("portfolio-11.jpg"); 폴더에 저장하는법모름
+		mBoard.setMeetingBoard_title(title);
+		mBoard.setMeetingBoard_startMeetingDate(startmeetingdate+" "+startmeetingdate2);
+		mBoard.setMeetingBoard_endMeetingDate(endmeetingdate+" "+endmeetingdate2);
+		mBoard.setMeetingBoard_startAcceptingDate(startmeetingacceptdate+" "+startmeetingacceptdate2);
+		mBoard.setMeetingBoard_endAcceptingDate(endmeetingacceptdate+" "+endmeetingacceptdate2);
+		mBoard.setMeetingBoard_place(place);
+		mBoard.setMeetingBoard_content(content);
+//		mBoard.setMeetingBoard_contentPic("portfolio-11.jpg");//컨텐트에 포함됨
+//		mBoard.setMeetingBoard_phone("phone");//세션 전화번호
+//		mBoard.setMeetingBoard_email("email");//세션 이메일
 		mBoard.setMeetingBoard_readCount(0);
-		mBoard.setMeetingBoard_writeDate(new Date());
-		mBoard.setMeetingBoard_nickname("nickname");
+		mBoard.setMeetingBoard_writeDate(date1.format(new Date()));
+//		mBoard.setMeetingBoard_nickname("nickname");//세션 닉네임
 		mBoard.setMeetingBoard_LikeCount(0);
 		meetingServiceImpl.writeMeetingBoard(mBoard);
-		
-		return "redirect:testForm.do";
+		int no = meetingServiceImpl.getCount().getMeeting_boardno();
+		System.out.println(meetingServiceImpl.selectMeetingBoard(no));
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("meeting", meetingServiceImpl.selectMeetingBoard(no));
+		JSONObject meeting = new JSONObject(result);
+		return meeting;
+	}
+	@RequestMapping("modifyForm.do") // void !!
+	public String meetingModifyForm(Model model, @RequestParam int meeting_boardno) {
+		model.addAttribute("meeting",meetingServiceImpl.selectMeetingBoard(meeting_boardno));	
+		return "meeting/meetingModifyForm";
 	}
 	@RequestMapping("modifyMBC.do")
-	public String modifyMBC() {
+	public String modifyMBC(@RequestParam String title, @RequestParam String startmeetingdate, @RequestParam String endmeetingdate
+			, @RequestParam String startmeetingacceptdate, @RequestParam String endmeetingacceptdate
+			, @RequestParam String content, @RequestParam String place) {
+		SimpleDateFormat date1 = new SimpleDateFormat("yyyy MM dd HH:mm");
 		MeetingBoard mBoard = new MeetingBoard();
 		mBoard.setBoardname(1);
-		mBoard.setMeeting_boardno(1);
-		mBoard.setMeetingBoard_userId("id");
-		mBoard.setMeetingBoard_contentPic(null);
-		mBoard.setMeetingBoard_title("title");
-		mBoard.setMeetingBoard_startMeetingDate(new Date());
-		mBoard.setMeetingBoard_endMeetingDate(new Date());
-		mBoard.setMeetingBoard_startAcceptingDate(new Date());
-		mBoard.setMeetingBoard_endAcceptingDate(new Date());
-		mBoard.setMeetingBoard_place("place1");
-		mBoard.setMeetingBoard_content("content1");
-		mBoard.setMeetingBoard_contentPic("contentpic");
-		mBoard.setMeetingBoard_phone("phone2");
-		mBoard.setMeetingBoard_email("email2");
+//		mBoard.setMeetingBoard_userId();//세션 id
+//		mBoard.setMeetingBoard_proPic("portfolio-11.jpg"); 폴더에 저장하는법모름
+		mBoard.setMeetingBoard_title(title);
+		mBoard.setMeetingBoard_startMeetingDate(startmeetingdate);
+		mBoard.setMeetingBoard_endMeetingDate(endmeetingdate);
+		mBoard.setMeetingBoard_startAcceptingDate(startmeetingacceptdate);
+		mBoard.setMeetingBoard_endAcceptingDate(endmeetingacceptdate);
+		mBoard.setMeetingBoard_place(place);
+		mBoard.setMeetingBoard_content(content);
+//		mBoard.setMeetingBoard_contentPic("portfolio-11.jpg");//컨텐트에 포함됨
+//		mBoard.setMeetingBoard_phone("phone");//세션 전화번호
+//		mBoard.setMeetingBoard_email("email");//세션 이메일
 		mBoard.setMeetingBoard_readCount(0);
-		mBoard.setMeetingBoard_writeDate(new Date());
-		mBoard.setMeetingBoard_nickname("nickname2");
+		mBoard.setMeetingBoard_writeDate(date1.format(new Date()));
+//		mBoard.setMeetingBoard_nickname("nickname");//세션 닉네임
 		mBoard.setMeetingBoard_LikeCount(0);
-		System.out.println(mBoard);
 		meetingServiceImpl.modifyMeetingBoard(mBoard);
-		return "redirect:testForm.do";
+		System.out.println(mBoard);
+//		meetingView - >생성된 게시글 번호가지고
+		return "redirect:meeting.do";
 	}
 	@RequestMapping("deleteMBC.do")
 	public String deleteMBC() {
 //		int meeting_boardno 
 		meetingServiceImpl.deleteMeetingBoard(1);
+		
 		return "redirect:testForm.do";
 	}
 	@RequestMapping("showMBC.do")//검색 포함//게시판에서 페이지처리 때문에 추가 작성해야할수도잇음
-	public ModelAndView showMBC(@RequestParam(defaultValue = "1") int page, @RequestParam(required = false) String keyword, 
-			@RequestParam(defaultValue = "0") int type) {
-		ModelAndView mav = new ModelAndView();
+	@ResponseBody 
+	public HashMap<String, Object> showMBC(@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type) {
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("type", type);
 		param.put("keyword", keyword);
@@ -96,19 +142,18 @@ public class MeetingBoardController {
 			param.put("meetingBoard_content", keyword);
 		} else if (type == 4) {
 			param.put("meetingBoard_nickname", keyword);
-		}
-		List<MeetingBoard> result = meetingServiceImpl.showMeetingBoard(param);
-		mav.addObject(result);
-		mav.addAllObjects(param);
-		mav.setViewName("meeting/test");
-		System.out.println(result);
-		return mav;
+		}			
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("meetingBoard", meetingServiceImpl.showMeetingBoard(param));
+		result.put("count", meetingServiceImpl.getCount().getMeeting_boardno());
+		JSONObject meetingBoard = new JSONObject(result);
+		return meetingBoard;
 	}
 	
 	@RequestMapping("selectMBC.do")
 	public String selectMBC(Model model, int meeting_boardno) {
-		model.addAttribute("MeetingBoard", meetingServiceImpl.selectMeetingBoard(meeting_boardno));
-		return "meeting/test";
+		model.addAttribute("meetingBoard", meetingServiceImpl.selectMeetingBoard(meeting_boardno));
+		return "meeting/meetingView";
 	}
 	
 	//모임신청
@@ -149,14 +194,16 @@ public class MeetingBoardController {
 	@RequestMapping("commentWriteMBC.do")
 	public String commentWriteMBC() {
 		MeetingComment mComment = new MeetingComment();
+		for(int i = 0; i<5;i++) {
 		mComment.setBoardname(1);
-		mComment.setMeeting_boardno(1);
-		mComment.setMeetingComment_commentno(1);
+		mComment.setMeeting_boardno(204);
+		mComment.setMeetingComment_commentno(i+2);
 		mComment.setMeetingComment_content("content");
 		mComment.setMeetingComment_nickname("meetingComment_nickname");
 		mComment.setMeetingComment_userId("meetingComment_userId");
 		mComment.setMeetingComment_writeDate(new Date());
 		meetingServiceImpl.commentWriteMeetingBoard(mComment);
+		}
 		System.out.println(meetingServiceImpl.showCommentMeetingBoard(1));
 		return "redirect:testForm.do";
 	}
@@ -204,26 +251,44 @@ public class MeetingBoardController {
 	}
 	
 	//후기글
+	@RequestMapping("review.do") // void !!
+	public String review() {
+		return "meeting/review";
+	}
+	@RequestMapping("reviewView.do") // void !!
+	public String reviewview(Model model, @RequestParam int meeting_boardno, @RequestParam int meetingReview_no) {
+		model.addAttribute("meeting_boardno", meetingServiceImpl.selectReview(meeting_boardno, meetingReview_no));
+		return "meeting/reviewView";
+	}
+	@RequestMapping("writeReviewForm.do") // void !!
+	public String writeReviewForm(Model model, @RequestParam int meeting_boardno) {
+		model.addAttribute("meeting_boardno", meeting_boardno);
+		return "meeting/writeReviewForm";
+	}
 	
 	@RequestMapping("writeReviewMBC.do")
-	public String writeReviewMBC() {
+	public HashMap<String, Object> writeReviewMBC(@RequestParam int meeting_boardno, @RequestParam String meetingReview_title, 
+			@RequestParam String meetingReview_content, @RequestParam String meetingReview_userid, @RequestParam String meetingReview_nickname) {
 	MeetingBoardReview mReview = new MeetingBoardReview();
+	SimpleDateFormat date1 = new SimpleDateFormat("yyyy MM dd HH:mm");
 	mReview.setBoardname(1);
-	mReview.setMeeting_boardno(1);
-	mReview.setMeetingReview_no(1);
-	mReview.setMeetingReview_title("meetingReview_title");
-	mReview.setMeetingReview_pic("meetingReview_pic");
-	mReview.setMeetingReview_content("meetingReview_content");
-	mReview.setMeetingReview_userid("meetingReview_userid");
-	mReview.setMeetingReview_writeDate(new Date());
-	mReview.setMeetingReview_nickname("meetingReview_nickname");
+	mReview.setMeeting_boardno(meeting_boardno);
+	mReview.setMeetingReview_title(meetingReview_title);
+//	mReview.setMeetingReview_pic("meetingReview_pic");
+	mReview.setMeetingReview_content(meetingReview_content);
+	mReview.setMeetingReview_userid(meetingReview_userid);
+	mReview.setMeetingReview_writeDate(date1.format(new Date()));
+	mReview.setMeetingReview_nickname(meetingReview_nickname);
 	meetingServiceImpl.writeReview(mReview);
-	System.out.println(meetingServiceImpl.showReview(1));
-		return "redirect:testForm.do";
+	HashMap<String, Object> result = new HashMap<String, Object>();
+	result.put("review", meetingServiceImpl.selectMeetingBoard(meetingServiceImpl.getReviewCount(meeting_boardno).getMeeting_boardno()));
+	JSONObject review = new JSONObject(result);
+		return review;
 	}
 	@RequestMapping("modifyReviewMBC.do")
 	public String modifyReviewMBC() {
 		MeetingBoardReview mReview = new MeetingBoardReview();
+		SimpleDateFormat date1 = new SimpleDateFormat("yyyy MM dd HH:mm");
 		mReview.setBoardname(1);
 		mReview.setMeeting_boardno(1);
 		mReview.setMeetingReview_no(1);
@@ -231,7 +296,7 @@ public class MeetingBoardController {
 		mReview.setMeetingReview_pic("meetingReview_pic");
 		mReview.setMeetingReview_content("meetingReview_content2");
 		mReview.setMeetingReview_userid("meetingReview_userid2");
-		mReview.setMeetingReview_writeDate(new Date());
+		mReview.setMeetingReview_writeDate(date1.format(new Date()));
 		mReview.setMeetingReview_nickname("meetingReview_nickname2");
 		meetingServiceImpl.modifyReview(mReview);
 		System.out.println(meetingServiceImpl.showReview(1));
@@ -254,14 +319,17 @@ public class MeetingBoardController {
 		return mav;
 	}
 	@RequestMapping("showReviewMBC.do")
-	public ModelAndView showReviewMBC() {
-//		 int Meeting_boardno,
-		ModelAndView mav = new ModelAndView();
-		List<MeetingBoardReview> result = meetingServiceImpl.showReview(1);
-		mav.addObject(result);
-		mav.setViewName("meeting/test");
-		System.out.println(result);
-		return mav;
+	@ResponseBody
+	public HashMap<String, Object> showReviewMBC(@RequestParam int meeting_boardno) {
+       System.out.println(meeting_boardno);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("meetingReview", meetingServiceImpl.showReview(meeting_boardno));
+		if(meetingServiceImpl.getReviewCount2(meeting_boardno)!=0) {
+			result.put("count", meetingServiceImpl.getReviewCount(meeting_boardno).getMeetingReview_no());
+		}
+		JSONObject review = new JSONObject(result);
+		return review;
+		
 	}	
 	
 	//후기글 댓글
@@ -355,15 +423,66 @@ public class MeetingBoardController {
 		System.out.println(meetingServiceImpl.getReviewLikesCount(1, 1));
 		return "redirect:testForm.do";
 	}
+
 	
-	
-	
-	
-	@RequestMapping("testForm.do") // void !!
-	public String joinForm() {
-		return "meeting/test";
+
+
+
+	@RequestMapping("g.do") // void !!
+	public String joForm() {
+		return "meeting/review";
 	}
+	@RequestMapping(value = "multiplePhotoUpload.do")
+	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
+		try {
+	         //파일정보
+	         String sFileInfo = "";
+	         //파일명을 받는다 - 일반 원본파일명
+	         String filename = request.getHeader("file-name");
+	         //파일 확장자
+	         String filename_ext = filename.substring(filename.lastIndexOf(".")+1);
+	         //확장자를소문자로 변경
+	         filename_ext = filename_ext.toLowerCase();
+	         //파일 기본경로
+	         String dftFilePath = request.getSession().getServletContext().getRealPath("/");
+	         //파일 기본경로 _ 상세경로
+	         String filePath = dftFilePath + "resource" + File.separator + "photoUpload" + File.separator;
+	        
+	         File file = new File(filePath);
+	         if(!file.exists()) {
+	            file.mkdirs();
+	         }
+	         String realFileNm = "";
+	         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+	         String today= formatter.format(new java.util.Date());
+	         realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
+	         String rlFileNm = filePath + realFileNm;
+	         ///////////////// 서버에 파일쓰기 /////////////////
+	         InputStream is = request.getInputStream();
+	         OutputStream os=new FileOutputStream(rlFileNm);
+	         int numRead;
+	         byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+	         while((numRead = is.read(b,0,b.length)) != -1){
+	            os.write(b,0,numRead);
+	         }
+	         if(is != null) {
+	            is.close();
+	         }
+	         os.flush();
+	         os.close();
+	         ///////////////// 서버에 파일쓰기 /////////////////
+	         // 정보 출력
+	         sFileInfo += "&bNewLine=true";
+	         // img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
+	         sFileInfo += "&sFileName="+ filename;
+	         sFileInfo += "&sFileURL="+"http://localhost:8080/PETstFriends/resource/photoUpload/"+realFileNm;
+	         PrintWriter print = response.getWriter();
 
-
-		
+	         print.print(sFileInfo);
+	         print.flush();
+	         print.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}	
 	}
