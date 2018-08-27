@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -7,12 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -23,6 +26,7 @@ import dao.ITipBoardDao;
 import dao.UserDao;
 import model.Board;
 import model.TipBoard;
+import model.TipLikes;
 import service.TipBoardEncycService;
 import service.TipBoardService;
 
@@ -163,7 +167,7 @@ public class TipBoardController {
 		
 		TipBoard dtboard = new TipBoard();
 //		String user_id = (String)session.getAttribute("user_id");
-		String WriteUserid = "testID";  		// 지금은 USer랑 연결안했으니까 임의의 ID 지정하겠음
+		String WriteUserid = "tesID";  		// 지금은 USer랑 연결안했으니까 현재 내가 DB에 넣은 유저멤버들중 임의의 ID 지정하겠음
 		dtboard.setTipBoard_boardname(7);		// 강아지 TIP게시판 보드네임은 숫자 7로 구분함 ( 팁개=7, 팁고양이=8 팁토끼=9)
 //												    보드넘버는 오토인크리트먼트, 작성일도 curdate로 넣을거임
 		dtboard.setTipBoard_userId(WriteUserid);
@@ -190,19 +194,35 @@ public class TipBoardController {
 		
 		
 		System.out.println("DogReadTipBoard.do 들어옴");
-		System.out.println(boardname);
-		System.out.println(boardno);
+		System.out.println("해당게시판넘버(개7고양이8토끼9)= "+boardname);
+		System.out.println("해당게시글 넘버= "+boardno);
 		tipService.ReadTipBoardS(boardname, boardno);
 		TipBoard tb = tipService.getBoardS(boardname, boardno);
-		System.out.println(tb);
-		System.out.println(tb.getTipBoard_nickname());
-//		session.setAttribute("user_id", "테스트용");
-		session.setAttribute("user_id", "testID");
-		String user_idCheck = (String) session.getAttribute("user_id");
-		System.out.println(user_idCheck);
-		model.addAttribute("user_idCheck", user_idCheck);
-		model.addAttribute("tipboard", tb);
+		System.out.println("해당게시글 row전체내용= "+tb);
+		System.out.println("해당게시글의 닉네임은= "+tb.getTipBoard_nickname());
 
+		session.setAttribute("user_id", "tesID");
+		
+		String user_idCheck = (String) session.getAttribute("user_id");
+		System.out.println("접속된 id는= "+user_idCheck);
+		
+		HashMap<String, Object> paramForLike = new HashMap<String, Object>();
+		paramForLike.put("tipLikes_boardname", boardname);
+		paramForLike.put("tipLikes_boardno", boardno);
+		paramForLike.put("tipLikes_userId", user_idCheck);
+		
+	    if(tipService.countbyLike(paramForLike)==0){
+	    	tipService.createTipLikes(paramForLike);
+	    }
+	     
+	    TipLikes tLikes = tipService.readTipLikes(paramForLike);	 // 해당유저가 해당게시판의 해당게시글에 남긴 좋아요를 갖고옴.   
+	    int like_check = 0;
+	    like_check = tLikes.getTipLikes_likeCheck();    //좋아요 체크 값  
+	    System.out.println("해당세션유저의 라이크체크값은: "+like_check);
+		model.addAttribute("user_idCheck", user_idCheck);
+		model.addAttribute("tipLikes_SessionuserlikeCheck", like_check);
+		model.addAttribute("tipboard", tb);
+		
 		return "Tipboard/DogReadTipBoard";
 	}
 	
@@ -239,7 +259,7 @@ public class TipBoardController {
 		
 		return "redirect:DogReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
 	}
-	
+	@ResponseBody
 	@RequestMapping("dogDeleteTipBoard.do")
 	public String DogDeleteTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
 		System.out.println("dogDeleteTipBoard.do 컨트롤러 들어옴");
@@ -253,12 +273,61 @@ public class TipBoardController {
 		return "redirect:dogTipBoardList.do";
 	}
 
+	//좋아요
+	@ResponseBody
+	@RequestMapping(value="InsertLikesTipBoard.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public String InsertLikesTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
+		
+		System.out.println("dogInsertLikesTipBoard.do 컨트롤러 들어옴");
+		session.setAttribute("user_id", "tesID");// 지금은 USer랑 안합쳤으니 일단 이렇게 하겠음 ㅇㅇ
+		String user_idCheck = (String)session.getAttribute("user_id");
+	    JSONObject obj = new JSONObject();
+	    String mm ="";
+	    ArrayList<String> msgs = new ArrayList<String>();
+	    HashMap <String, Object> params = new HashMap<String, Object>();
+	    params.put("tipLikes_boardname", boardname);
+	    params.put("tipLikes_boardno", boardno);
+	    params.put("tipLikes_userId", user_idCheck);
+	    
+	    TipLikes tLikes = tipService.readTipLikes(params);	 //해당유저가 해당게시판의 해당게시글에 남긴 좋아요를 갖고옴.   
+	    TipBoard tBoard = tipService.getBoardS(boardname, boardno);
+	   
+	    int like_cnt = tBoard.getTipBoard_LikeCount();    //게시판의 좋아요 카운트
+	    int like_check = 0;
+	    like_check = tLikes.getTipLikes_likeCheck();    //좋아요 체크 값
+	    
+	    //해당아이디의 보드네임,보드넘버(게시글)에 남긴 좋아요가 0일시에는 Create
+	    if(tipService.countbyLike(params)==0){
+	    	tipService.createTipLikes(params);
+	    }
+	      
+	    if(like_check == 0) {
+	    	mm ="좋아요완료";
+	      msgs.add("좋아요!");
+	      tipService.like_check(params);
+	      like_check++;
+	      like_cnt++;
+	      tipService.TipBoard_likeCnt_up(boardname, boardno);  //팁보드테이블, 해당게시판 해당게시글의 좋아요 갯수 +
+	    } else {
+	      msgs.add("좋아요 취소");
+	      mm ="좋아요 취소";
+	      tipService.like_check_cancel(params);
+	      like_check--;
+	      like_cnt--;
+	      tipService.TipBoard_likeCnt_down(boardname, boardno); //팁보드테이블, 해당게시판 해당게시글의 좋아요 갯수 -
+	    }
+//	    obj.put("boardno", tLikes.getTipLikes_boardno());
+//	    obj.put("boardname", tLikes.getTipLikes_boardname());
+	    obj.put("like_check", like_check);
+	    obj.put("like_cnt", like_cnt);
+	    System.out.println(mm);
+	    obj.put("mm", mm);
+	    
+	    return obj.toJSONString();
+	}
 	
 	
-	
-	
-	
-	
+
 	
 	
 	

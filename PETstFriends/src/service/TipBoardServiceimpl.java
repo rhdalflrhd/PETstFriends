@@ -1,5 +1,7 @@
 package service;
 import model.TipBoard;
+import model.TipLikes;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -192,6 +194,39 @@ public class TipBoardServiceimpl implements TipBoardService{
 		return new File(path + fileName);
 	}
 
+
+	@Override
+	public int getLastBoardno(int boardname, String user_Id) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("tipBoard_boardname", boardname);
+		//지금은 보드네임만 넣지만 유저랑 합치면 유저 아이디도 넣어야함 ㅇㅇ
+		return tipDao.getLastBoardno(param);
+	}
+	
+	//해당 게시글의 라이크 카운트 업
+	@Override 
+	public int TipBoard_likeCnt_up(int boardname, int boardno) {
+		HashMap<String, Object> params= new HashMap<String, Object>();
+		params.put("tipBoard_boardname", boardname);
+		params.put("tipBoard_boardno", boardno);
+		return tipDao.TipBoard_likeCnt_up(params);
+	}
+
+	//해당 게시글의 라이크 카운트 다운
+	@Override
+	public int TipBoard_likeCnt_down(int boardname, int boardno) {
+		HashMap<String, Object> params= new HashMap<String, Object>();
+		params.put("tipBoard_boardname", boardname);
+		params.put("tipBoard_boardno", boardno);
+		return tipDao.TipBoard_likeCnt_down(params);
+	}
+
+	
+	//==============================팁보드 코멘트 서비스============================================	
+	
+	
+	
 	@Override
 	public HashMap<String, Object> selectAllComments(int page) {
 		// TODO Auto-generated method stub
@@ -222,13 +257,71 @@ public class TipBoardServiceimpl implements TipBoardService{
 		return null;
 	}
 
+	
+	
+	//==============================팁보드 좋아요 서비스===========================================	
+	 
+	
+	/* 조회 */
 	@Override
-	public int getLastBoardno(int boardname, String user_Id) {
+	public TipLikes readTipLikes(HashMap<String, Object> params) {
+		TipLikes TL = tipDao.readTipLikes(params);
+	    return TL;
+	}
+	
+	
+	/* 게시판의 좋아요 번호가 있는지 카운트 */
+	@Override
+	public int countbyLike(HashMap<String, Object> params) {
+	    int count = tipDao.countbyLike(params);
+	    return count;
+	}
+	
+	/* 좋아요 번호 등록 */
+	@Override
+	public int createTipLikes(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		HashMap<String, Object> param = new HashMap<String, Object>();
-		param.put("tipBoard_boardname", boardname);
-		//지금은 보드네임만 넣지만 유저랑 합치면 유저 아이디도 넣어야함 ㅇㅇ
-		return tipDao.getLastBoardno(param);
+	    int count = tipDao.createTipLikes(params);
+	    return count;
+	}
+	
+	  /**
+	   * 좋아요 체크 여부 (0 -> 1)
+	   * @param hashMap
+	   * @return
+	   */
+	@Override
+	public int like_check(HashMap<String, Object> params) {
+	    int count = tipDao.like_check(params);
+	    return count;
+	}
+
+	 /**
+	   * 좋아요 체크 여부 (1 -> 0)
+	   * @param hashMap
+	   * @return
+	   */
+	@Override
+	public int like_check_cancel(HashMap<String, Object> params) {
+	    int count = tipDao.like_check_cancel(params);
+	    return count;
+	}
+
+	/* 게시판의 좋아요 삭제 */
+	@Override
+	public int deletebyBoardNameBoardno(int boardname, int boardno) {
+		HashMap<String, Object> params= new HashMap<String, Object>();
+		
+		
+	    int count = tipDao.deletebyBoardNameBoardno(params);
+	    return count;
+	}
+	  
+	/* 회원의 좋아요 삭제 */
+	@Override
+	public int deletebyUserId(String userid) {
+	    int count = tipDao.deletebyUserId(userid);
+	    return count;
 	}
 
 }
