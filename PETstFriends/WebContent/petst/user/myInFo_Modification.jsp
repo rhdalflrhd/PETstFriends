@@ -124,7 +124,7 @@ $(document).ready(function(){
 				if (result == true) {
 					$('#email').html('사용 가능한 이메일 입니다.');
 				} else {
-					$('#email').html('사용 불가한 이메일입니다.');
+					$('#email').html('기존 이메일과 일치합니다.');
 					$(this).focus();
 				}
 			},
@@ -166,15 +166,15 @@ $(document).ready(function(){
     	    	 
 	    			
 	    		$('#petTable').append('<tr><td><input type="text"  name = "pet_name" class="form-control" class="pet_name" value = '+data[i].pet_name+'  readonly="readonly"></td>'
-	    				+ '<div class="container">'
-	    		        +'<select class="pet_species"class="form-control" >'
+	    			
+	    		      +'<td><select class="pet_species" id = "pet_species">'
 	    				+ '<option value="0">종 선택</option>'
 	    				+ '<option value="1">개</option>'
 	    				+ '<option value="2">고양이</option>'
 	    				+ '<option value="3">토끼</option>'
 	    				+ '<option value="4">기타</option>'
-	    				+ '</select></div>'
-	    				+ '<td><select class="pet_gender">'
+	    				+ '</select></td>'
+	    				+ '<td><select class="pet_gender" id = "pet_gender">'
 	    				+ '<option value="0">성별</option>'
 	    				+ '<option value="1">여</option>'
 	    				+ '<option value="2">남</option>'
@@ -269,20 +269,17 @@ $("#auth_btn").click(function () {   // 이메일 인증 받기  ---------------
 $(document).ready(function (){
 	
 	
-	$('#updatebtn').click(function() { //회원가입 //가입 조건 전체 확인
-		if ($('#pass').html()=='비밀번호가 일치합니다.'&&$("#email").html()=='사용 가능한 이메일 입니다.'&&$('font[name=user_pwcheck]').html()=='PW일치'&&$('.user_havePet').is(':checked'))  {
-			
+	$('#updatebtn').click(function() { //회원수정, 펫 수정, 펫 추가 
+		if ($('#pass').html()=='비밀번호가 일치합니다.'&&$('font[name=user_pwcheck]').html()=='PW일치'&&$('.user_havePet').is(':checked'))  {
+
 			if ($('input[name="user_havePet"]:checked').val()== 1) {
-				$('#petTable_tbody tr').each(function() { 
+
 					if (!($('.pet_name').val()=='') &&!($('.pet_species').val() == 0) && !($('.pet_gender').val() == 0))
-                           
 						insertPet();
 					else
-					
 						alert('pet 필수 입력조건을 확인해주세요.');
-					
-					})
-			}
+		}
+		
 			else 
 				insertPet();
 		}
@@ -292,8 +289,9 @@ $(document).ready(function (){
 	}); // updatebtn 끝 
 	var insertPet = function() {
 		var petArr = new Array();
-		if ($('.user_havePet').val() == 1) {
+
 			$('#petTable_tbody tr').each(function() {
+				if ($('input[name="user_havePet"]:checked').val()== 1) {
 				var cellItem = $(this).find(":input");
 				var petObj = new Object();
 				petObj.pet_name = cellItem.eq(0).val();
@@ -303,8 +301,11 @@ $(document).ready(function (){
 				petObj.pet_no= cellItem.eq(4).val();
 				petObj.pet_file = cellItem.eq(5).val();
 				petArr.push(petObj);
+				}else{
+					
+				}
 			})
-		}
+// 		}
 		
 		$.ajax({
 			type : 'post',
@@ -591,8 +592,7 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 				<tbody id="petTable_tbody">
 					<tr>
 						<td><input type="text" class="pet_name"  name = "pet_name" class="form-control"></td>
-
-						<td><select class="pet_species">
+                              <td><select class="pet_species">
 								<option value="0">종 선택</option>
 								<option value="1">개</option>
 								<option value="2">고양이</option>

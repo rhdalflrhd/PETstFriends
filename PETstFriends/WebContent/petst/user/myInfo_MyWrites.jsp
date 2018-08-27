@@ -45,7 +45,49 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	
+$("#a").click(function (){
+	if ($("#boardname") == 2 ){
+				window.location.href = ".do?boardno=$("#boardno")";
+}
+	
+else if ($("#boardname") == 3 ){
+		window.location.href = ".do?boardno=$("#boardno")";
+	}
+	
+else if ($("#boardname") == 4 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
 
+else if ($("#boardname") == 5 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 6 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 7 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 8 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 9 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 3 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+
+});
+
+});
 
 </script>
 <style type="text/css">
@@ -108,14 +150,16 @@
 <c:forEach items="${myWriteList}" var="write">
 				<tr>
 								<td>
-		<c:if test="${empty write.title}"><a href="view.do?boardno=${write.boardno }">제목없음</a></c:if>
-		<c:if test="${not empty  write.title}"><a href="view.do?boardno=${write.boardno  }">${ write.title }</a></c:if>	
+		<c:if test="${empty write.title}"><a id= "a" >제목없음</a></c:if>
+		<c:if test="${not empty  write.title}"><a id= "a"  ><input type="hidden" value = "${write.boardname}" id = "boardname">
+		<input type="hidden" value = "${write.boardno}"  id = "boardno">
+		${ write.title }</a></c:if>	
 					</td>
 				
 					<td align="center">${write.userId }</td>
 					<td align="center">
-					<fmt:formatDate value="${write.writeDate }"
-							pattern="yyyy-MM-dd" /></td>
+					<fmt:parseDate value ="${write.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
+					<fmt:formatDate value="${wriedate }" pattern="yyyy-MM-dd" /></td>
 							
 				
 				</tr>

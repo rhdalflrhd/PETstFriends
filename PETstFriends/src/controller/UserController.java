@@ -114,23 +114,18 @@ public class UserController {
 
 	
 	
-	@RequestMapping("getUserId.do")                                            // 비번 맞는지 확인하고 맞으면 수정페이지로 고~ 아니면 다시 비번확인하는 페이지
-	public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
-		// String user_id = (String)session.getAttribute("user_id");
-		// if (user_pass.equals(userService.getUserPass(user_pass))) {
-		// HashMap<String, Object> params = userService.selectUser user_id);
-		// model.addAttribute("params", userService.selectUser (user_id));
-		// }
-		System.out.println("처음에 여기옴");
-		System.out.println(userService.selectUser("sohyun"));
-		if (user_pass == null) {
-			HashMap<String, Object> params = userService.selectUser("sohyun");
-			model.addAttribute("params", userService.selectUser("sohyun"));
-
-			return "user/myInFo_Modification";
-		} else
-			return "user/myInFo_Modification";
-
+	@RequestMapping("getUserId.do")     // 비번확인 후 마이페이지 보내줌 (아직 비번체크x 해야됨 )                                      
+public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
+		 String user_id = (String)session.getAttribute("user_id");
+//		 if (user_pass.equals(userService.getUserPass(user_pass))) {
+//			 HashMap<String, Object> params = new HashMap<String, Object>();
+				model.addAttribute("params", userService.selectUser(user_id));
+				return "user/myInFo_Modification";
+//		 }
+//	
+//		 else {
+//			return "user/myInFo_PWCheck";
+//		 }
 	}
 
 	@RequestMapping(value = "/petList.do")                      // 펫 리스트 보여주기
@@ -193,23 +188,9 @@ public class UserController {
 		return result;
 
 	}
-//
-//	@RequestMapping(value = "/updateUser.do") // 내정보수정에서 수정하기 누르면 유저 업데이트!
-//	@ResponseBody
-//	public String updateUser(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
-//			HttpServletRequest req, HttpSession session) {
-//		System.out.println("updateUser.do로들어옴");
-//		resp.setContentType("text/html; charset=UTF-8");
-//		System.out.println(req.getParameter("user_havePet"));
-//		String user_id = "sohyun";
-//		params.put("user_id", user_id);
-//		userService.updateUser(params);
-//
-//		String msg = "";
-//		return msg;
-//	}
 
-	@RequestMapping(value = "/insertPet.do") // 내정보수정에서 수정하기 누르면 펫 추가/수정
+
+	@RequestMapping(value = "/insertPet.do") // 내정보수정에서 수정하기 누르면 회원수정/펫 추가/ 펫 수정
 	@ResponseBody
 	public String updatePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
 			HttpServletRequest req, HttpSession session) {
@@ -255,7 +236,7 @@ public class UserController {
 		return "user/myInFo_MembershipDelete";
 	}
 
-	@RequestMapping(value = "/deleteUser.do")// 탈퇴전비밀번호 일치 검사
+	@RequestMapping(value = "/deleteUser.do")// 탈퇴전비밀번호 일치 검사 (비번체크해서 삭제해야되는데 아직 안됨)
 	@ResponseBody 
 	public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		resp.setContentType("text/html; charset=UTF-8");
@@ -290,7 +271,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "myWritesList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "myWritesList.do", method = RequestMethod.GET)  // 내가 쓴 게시글 
 	public ModelAndView myWrites(Model model, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
@@ -328,7 +309,7 @@ public class UserController {
 
 
 	
-	@RequestMapping(value = "myinquiry.do",method = RequestMethod.GET)                                            // 비번 맞는지 확인하고 맞으면 수정페이지로 고~ 아니면 다시 비번확인하는 페이지
+	@RequestMapping(value = "myinquiry.do",method = RequestMethod.GET)        // 내가 문의한 글                                 
 	public  ModelAndView MyInquiry(Model model, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
@@ -358,7 +339,7 @@ public class UserController {
 		}
    
 		HashMap<String, Object> result = userService.myInquiry(params,"sohyun", page);
-       System.out.println(result);
+  
 
 		mav.addAllObjects(result);
 		mav.addAllObjects(params);
@@ -372,7 +353,7 @@ public class UserController {
 
 	
 	
-	@RequestMapping(value = "myLikesList.do",method = RequestMethod.GET)                                            // 비번 맞는지 확인하고 맞으면 수정페이지로 고~ 아니면 다시 비번확인하는 페이지
+	@RequestMapping(value = "myLikesList.do",method = RequestMethod.GET)      // 내가 좋아요 한 글                               
 	public  ModelAndView MyLikes(Model model, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
@@ -416,7 +397,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "myMeetingApply.do",method = RequestMethod.GET)                                            // 비번 맞는지 확인하고 맞으면 수정페이지로 고~ 아니면 다시 비번확인하는 페이지
+	@RequestMapping(value = "myMeetingApply.do",method = RequestMethod.GET)            //  내가 참여한 모임 
 	public  ModelAndView MyMeetingApply(Model model, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
@@ -447,7 +428,7 @@ public class UserController {
 		}
    
 		HashMap<String, Object> result = userService.selectMyMeetingApply(params, "sohyun", page);
-       System.out.println(result);
+       
 
 		mav.addAllObjects(result);
 		mav.addAllObjects(params);
@@ -460,7 +441,7 @@ public class UserController {
 	}
 	
      
-	@RequestMapping("view.do")
+	@RequestMapping(value = "/view.do" ,method = RequestMethod.GET)    // 내가 쓴 문의글에서 제목 클릭하면 해당 게시글 보여주기 
 	public String view(Model model, @RequestParam int qnA_boardno, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {

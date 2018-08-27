@@ -45,7 +45,49 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	
+$("#a").click(function (){
+	if ($("#boardname") == 2 ){
+				window.location.href = ".do?boardno=$("#boardno")";
+}
+	
+else if ($("#boardname") == 3 ){
+		window.location.href = ".do?boardno=$("#boardno")";
+	}
+	
+else if ($("#boardname") == 4 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
 
+else if ($("#boardname") == 5 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 6 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 7 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 8 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 9 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+else if ($("#boardname") == 3 ){
+	window.location.href = ".do?boardno=$("#boardno")";
+}
+
+
+});
+
+});
 
 </script>
 <style type="text/css">
@@ -69,7 +111,7 @@
         <li><a href="getUserId.do">내정보수정</a></li>
         <li ><a href="myWritesList.do">내가쓴게시글</a></li>
         <li ><a href="myinquiry.do">내가문의한글</a></li>
-         <li class="active"><a href="#">내가좋아요한글</a></li>
+         <li class="active"><a href="myLikesList.do">내가좋아요한글</a></li>
           <li><a href="myMeetingApply.do">내가참여한모임</a></li>
 	</ul>
 </div>
@@ -108,15 +150,21 @@
 <c:forEach items="${myLikesList}" var="like">
 				<tr>
 								<td>
-		<c:if test="${empty like.title}"><a href="view.do?boardno=${like.boardno }">제목없음</a></c:if>
-		<c:if test="${not empty  like.title}"><a href="view.do?boardno=${like.boardno  }">${ like.title }</a></c:if>	
+		<c:if test="${empty like.title}"><a id= "a"  >제목없음</a></c:if>
+		<c:if test="${not empty  like.title}"><a id= "a"  ><input type="hidden" value = "${like.boardname}" id = "boardname">
+		<input type="hidden" value = "${like.boardno}"  id = "boardno">
+		${ like.title }</a></c:if>	
 					</td>
-				
+				<%-- 		<c:if test = ${qna.qnA_boardname ==2}> // 내가 쓴글엥서 이렇게 하면됨  --%>
+		
+<%-- 		<c:set var="path" value = ".do?boardno=${like.boardno}"></c:set> --%>
+<%-- 		</c:if> --%>
 				
 				
 					<td align="center">${like.userId }</td>
 					<td align="center">
-					<fmt:formatDate value="${like.writeDate }"
+					<fmt:parseDate value ="${like.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
+					<fmt:formatDate value="${wriedate }"
 							pattern="yyyy-MM-dd" /></td>
 							
 				
@@ -140,13 +188,13 @@
 								[${i }]
 							</c:when>
 							<c:otherwise>
-								<a href="myWritesList.do?page=${i }">[${i }]</a>
+								<a href="myLikesList.do?page=${i }">[${i }]</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${end != last }">
-						<a href="myWritesList.do?page=${end+1 }">[다음]</a>
-						<a href="myWritesList.do?page=${last }">[끝]</a>
+						<a href="myLikesList.do?page=${end+1 }">[다음]</a>
+						<a href="myLikesList.do?page=${last }">[끝]</a>
 					</c:if>
 				</td>
 				

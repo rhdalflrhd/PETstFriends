@@ -116,6 +116,7 @@
 				
 					<td align="center">${like.userId }</td>
 					<td align="center">
+					<fmt:parseDate value ="${like.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
 					<fmt:formatDate value="${like.writeDate }"
 							pattern="yyyy-MM-dd" /></td>
 							
@@ -130,8 +131,8 @@
 			<tr>
 				<td width="1250px" colspan="5">
 					<c:if test="${start != 1 }">
-						<a href="myWritesList.do?page=1">[처음]</a>
-						<a href="myWritesList.do?page=${start-1 }">[이전]</a>
+						<a href="myMeetingApply.do?page=1">[처음]</a>
+						<a href="myMeetingApply.do?page=${start-1 }">[이전]</a>
 					</c:if>
 					
 					<c:forEach begin="${start }" end="${end }" var="i">
@@ -140,13 +141,13 @@
 								[${i }]
 							</c:when>
 							<c:otherwise>
-								<a href="myWritesList.do?page=${i }">[${i }]</a>
+								<a href="myMeetingApply.do?page=${i }">[${i }]</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${end != last }">
-						<a href="myWritesList.do?page=${end+1 }">[다음]</a>
-						<a href="myWritesList.do?page=${last }">[끝]</a>
+						<a href="myMeetingApply.do?page=${end+1 }">[다음]</a>
+						<a href="myMeetingApply.do?page=${last }">[끝]</a>
 					</c:if>
 				</td>
 				

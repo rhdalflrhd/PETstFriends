@@ -26,7 +26,14 @@
     <link rel="stylesheet" href="./assets/style.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
     
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+    .bs-example{
+    	margin: 20px;
+    }
+</style>
 </head>
 <!-- <style> -->
 <!-- /* .layer{ */ -->
@@ -45,8 +52,17 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
+// $(document).ready(function(){
+	
 
+// $("#a").click(function (){
+// 	if ($(".boardname").val() == 1 ){
 
+// 		window.location.href = "view.do?qnA_boardno="+$(".boardno").val();
+// }
+// });
+
+// });
 </script>
 <style type="text/css">
     .bs-example{
@@ -59,45 +75,36 @@
 <body>
 
 
-<div class="wrapper">
+
  
 <!--        <header id="header"> -->
 <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
-<div class="bs-example">
+
+
+
+<div class="memberout-wrap"  style="border: none; height: 850px; width: 850px;" >
+<div class="bs-example"  >
 	<ul class="nav nav-tabs navbar-right" >
         <li><a href="getUserId.do">내정보수정</a></li>
         <li><a href="myWritesList.do">내가쓴게시글</a></li>
         <li class="active"><a href="myinquiry.do">내가문의한글</a></li>
          <li><a href="myLikesList.do">내가좋아요한글</a></li>
-          <li><a href="myMeetingApply.do">내가참여한모임</a></li>
+                   <li><a href="myMeetingApply.do">내가참여한모임</a></li>
 	</ul>
+
 </div>
-
 <center>
-
-<colgroup>
-<col width = "7%">
-<col width = "*%">
-<col width = "17%">
-<col width = "10%">
-<col width = "7%">
-
-</colgroup>
-
-
-<div class="memberout-wrap"  style="border: none; height: 850px; width: 850px;" >
-
-
 <div class = "container">
 		<table class = "table table-board">
-		
+
+      
 
 	<tr>
 				
-				<th width="700px" align="center">제 목</th>
-				<th width="150px" align="center">작성자</th>
-				<th width="200px" align="center">작성일</th>
+				<th >제 목</th>
+				<th >작성자</th>
+				<th >작성일</th>
 			
 				
 	</tr>
@@ -105,7 +112,7 @@
 				<td width="1250px" colspan="5" bgcolor="yellow"></td>
 			</tr>
 
-<c:forEach items="${qnaList}" var="qna">
+      <c:forEach items="${qnaList}" var="qna">
 				<tr>
 								<td>
 		<c:if test="${empty qna.qnA_title}"><a href="view.do?qnA_boardno=${qna.qnA_boardno }">제목없음</a></c:if>
@@ -120,11 +127,11 @@
 				
 				</tr>
 </c:forEach>
-			
-			<tr>
+
+
+<tr>
 				<td width="1250px" colspan="5" bgcolor="yellow"></td>
 			</tr>
-			
 			<tr>
 				<td width="1250px" colspan="5">
 					<c:if test="${start != 1 }">
@@ -147,12 +154,15 @@
 						<a href="myinquiry.do?page=${last }">[끝]</a>
 					</c:if>
 				</td>
-				
-		
+				</tr>
+		 
+
 		</table>	
+</div>
 
 </div>
 
+</div>
 </center>
 
 <!--   <footer id="footer"> -->
