@@ -1,24 +1,22 @@
 package model;
 
-import java.util.Date;
-
 public class MeetingBoard {
 	int boardname;
 	int meeting_boardno;
 	String meetingBoard_userId;
 	String meetingBoard_proPic;
 	String meetingBoard_title;
-	Date meetingBoard_startMeetingDate;
-	Date meetingBoard_endMeetingDate;
-	Date meetingBoard_startAcceptingDate;
-	Date meetingBoard_endAcceptingDate;
+	String meetingBoard_startMeetingDate;
+	String meetingBoard_endMeetingDate;
+	String meetingBoard_startAcceptingDate;
+	String meetingBoard_endAcceptingDate;
 	String meetingBoard_place;
 	String meetingBoard_content;
 	String meetingBoard_contentPic;
 	String meetingBoard_phone;
 	String meetingBoard_email;
 	int meetingBoard_readCount;
-	Date meetingBoard_writeDate;
+	String meetingBoard_writeDate;
 	String meetingBoard_nickname;
 	int meetingBoard_LikeCount;
 	public int getBoardname() {
@@ -51,28 +49,28 @@ public class MeetingBoard {
 	public void setMeetingBoard_title(String meetingBoard_title) {
 		this.meetingBoard_title = meetingBoard_title;
 	}
-	public Date getMeetingBoard_startMeetingDate() {
+	public String getMeetingBoard_startMeetingDate() {
 		return meetingBoard_startMeetingDate;
 	}
-	public void setMeetingBoard_startMeetingDate(Date meetingBoard_startMeetingDate) {
+	public void setMeetingBoard_startMeetingDate(String meetingBoard_startMeetingDate) {
 		this.meetingBoard_startMeetingDate = meetingBoard_startMeetingDate;
 	}
-	public Date getMeetingBoard_endMeetingDate() {
+	public String getMeetingBoard_endMeetingDate() {
 		return meetingBoard_endMeetingDate;
 	}
-	public void setMeetingBoard_endMeetingDate(Date meetingBoard_endMeetingDate) {
+	public void setMeetingBoard_endMeetingDate(String meetingBoard_endMeetingDate) {
 		this.meetingBoard_endMeetingDate = meetingBoard_endMeetingDate;
 	}
-	public Date getMeetingBoard_startAcceptingDate() {
+	public String getMeetingBoard_startAcceptingDate() {
 		return meetingBoard_startAcceptingDate;
 	}
-	public void setMeetingBoard_startAcceptingDate(Date meetingBoard_startAcceptingDate) {
+	public void setMeetingBoard_startAcceptingDate(String meetingBoard_startAcceptingDate) {
 		this.meetingBoard_startAcceptingDate = meetingBoard_startAcceptingDate;
 	}
-	public Date getMeetingBoard_endAcceptingDate() {
+	public String getMeetingBoard_endAcceptingDate() {
 		return meetingBoard_endAcceptingDate;
 	}
-	public void setMeetingBoard_endAcceptingDate(Date meetingBoard_endAcceptingDate) {
+	public void setMeetingBoard_endAcceptingDate(String meetingBoard_endAcceptingDate) {
 		this.meetingBoard_endAcceptingDate = meetingBoard_endAcceptingDate;
 	}
 	public String getMeetingBoard_place() {
@@ -111,10 +109,11 @@ public class MeetingBoard {
 	public void setMeetingBoard_readCount(int meetingBoard_readCount) {
 		this.meetingBoard_readCount = meetingBoard_readCount;
 	}
-	public Date getMeetingBoard_writeDate() {
+
+	public String getMeetingBoard_writeDate() {
 		return meetingBoard_writeDate;
 	}
-	public void setMeetingBoard_writeDate(Date meetingBoard_writeDate) {
+	public void setMeetingBoard_writeDate(String meetingBoard_writeDate) {
 		this.meetingBoard_writeDate = meetingBoard_writeDate;
 	}
 	public String getMeetingBoard_nickname() {
@@ -144,4 +143,5 @@ public class MeetingBoard {
 				+ meetingBoard_nickname + ", meetingBoard_LikeCount=" + meetingBoard_LikeCount + "]";
 	}
 
+	
 }
