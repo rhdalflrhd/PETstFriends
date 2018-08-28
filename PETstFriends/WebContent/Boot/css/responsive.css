@@ -1,0 +1,243 @@
+
+/* lg */
+@media (min-width: 1200px) {
+
+}
+
+/* md */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* sm */
+@media (min-width: 768px) and (max-width: 991px) {
+	.single-blog-box img{
+		width: 100%;
+	}
+
+
+
+}
+
+/* sm */
+@media (min-width: 768px)  {
+	/*--------------------------------------
+  4. Main Menu
+--------------------------------------*/
+	.main-menu {
+		border-top: 1px solid #eeeeee;
+	}
+
+
+	.main-menu ul,
+	.main-menu ul ul {
+		padding: 0;
+		margin: 0;
+		text-align: center;
+	}
+
+	.main-menu li {
+		display: inline-block;
+		position: relative;
+	}
+
+	.main-menu li a {
+/* 		font-family: 'Merriweather', serif; */
+		font-family: 'NanumSquareRound',sans-serif;
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 64px;
+		padding: 0 22px;
+		letter-spacing: 0.5px;
+		color: #666666;
+		display: block;
+		-webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+		-o-transition: all 0.3s;
+		transition: all 0.3s;
+	}
+
+	.main-menu li a:after {
+		content: '';
+		border-right: 1px solid #e2e2e2;
+		position: absolute;
+		right: 0;
+		top: 24px;
+		height: 16px;
+	}
+
+	.main-menu li:last-child a:after {
+		border-right: 0;
+	}
+
+	.main-menu li > a:before {
+		position: absolute;
+		top: -1px;
+		left: 50%;
+		right: 50%;
+		height: 1px;
+		content: '';
+		-webkit-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		-o-transition: all 0.4s;
+		transition: all 0.4s;
+	}
+
+	.main-menu li:hover > a:before {
+		background: #FFD232;
+		left: 0;
+		right: 0;
+
+	}
+
+	.main-menu li.current-menu-item > a,
+	.main-menu li.current_page_item > a,
+	.main-menu li a:hover {
+		color: #FFD232;
+	}
+
+	/*** DROPDOWN ***/
+	.main-menu ul .sub-menu,
+	.main-menu ul .children {
+		background-color: #fff;
+		display: none;
+		padding: 0;
+		position: absolute;
+		margin-top: 0;
+		left: -3px;
+		z-index: 99999;
+		-webkit-box-shadow: 0 5px 4px -4px rgba(190, 190, 190, .1);
+		-moz-box-shadow: 0 5px 4px -4px rgba(190, 190, 190, .1);
+		box-shadow: 0 5px 4px -4px rgba(190, 190, 190, .1);
+		border: 1px solid #e2e2e2;
+	}
+
+	.main-menu ul .sub-menu a:after {
+		border-right: 0;
+	}
+	.main-menu ul ul a .fa{
+		float: right;
+		margin-right: -12px;
+	}
+	
+
+	.main-menu ul ul a,
+	.main-menu ul ul ul li a {
+		color: #666666;
+		margin: 0;
+		padding: 11px 22px;
+		min-width: 200px;
+		line-height: 19px;
+		-o-transition: .25s;
+		-moz-transition: .25s;
+		-webkit-transition: .25s;
+		transition: .25s;
+		border-top: 1px solid #f4f4f4;
+	}
+
+	.main-menu ul ul ul li:first-child a {
+		border-top: 0 solid #ddd;
+	}
+
+	.main-menu ul ul li,
+	.main-menu ul ul ul li {
+		padding-right: 0;
+		margin-right: 0;
+	}
+
+	.main-menu ul ul a:hover,
+	.main-menu ul ul ul a:hover {
+		color: #FFD232;
+	}
+
+	.main-menu ul li:hover > ul,
+	.main-menu ul ul li:hover > ul {
+		display: block;
+	}
+
+	.main-menu ul .sub-menu ul,
+	.main-menu ul .children ul {
+		left: 100%;
+		top: 0;
+	}
+
+	.main-menu ul .sub-menu {
+		text-align: left;
+	}
+
+	.main-menu ul .sub-menu li {
+		margin: 0;
+	}
+
+
+
+
+}
+/* xs */
+@media (max-width: 767px) {
+	.single-blog-box img, .widget img, .single-promo-box img{
+		width: 100%;
+	}
+	/*.main-menu li {
+		position: relative;
+		display: block;
+		text-align: left;
+		list-style: none;
+	}
+
+	.home-overlay p {
+		text-transform: uppercase;
+		font-size: 10px;
+		line-height: 15px;
+		margin-bottom: 0;
+	}
+
+	.main-menu ul .sub-menu, .main-menu ul .children {
+		background-color: #fff;
+		display: none;
+		padding: 0;
+		position: relative;
+		margin-top:0;
+		left: 0px;
+		z-index: 99999;
+		-webkit-box-shadow: 0 5px 4px -4px rgba(190, 190, 190, .1);
+		-moz-box-shadow: 0 5px 4px -4px rgba(190, 190, 190, .1);
+		box-shadow: 0 5px 4px -4px rgba(190, 190, 190, .1);
+		border: 1px solid #e2e2e2;
+	}
+	.main-menu li a:after {
+		content: '';
+		border-right: 0 solid #e2e2e2;
+
+	}
+*/
+	.home-overlay h3 {
+		font-size: 13px;
+	}
+	.home-overlay p {
+		text-transform: uppercase;
+		font-size: 10px;
+		line-height: 15px;
+		margin-bottom: 0;
+	}
+
+	.home-overlay a {
+		letter-spacing: 4px;
+		font-weight: 700;
+		border: 2px solid #fff;
+		position: absolute;
+		top: 67%;
+		left: 50%;
+		font-size: 10px;
+		transition: all .4s;
+		padding: 6px;
+		margin-left: -58px;
+	}
+}
+
+/* XS Portrait */
+@media (max-width: 479px) {
+
+
+
+}
