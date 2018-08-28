@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class MeetingLikes {
 	int boardname;
+	int meeting_boardno;
 	int reviewno;
 	String meetingLikes_userId;
 	Date meetingLikes_date;
@@ -12,6 +13,13 @@ public class MeetingLikes {
 	}
 	public void setBoardname(int boardname) {
 		this.boardname = boardname;
+	}
+	
+	public int getMeeting_boardno() {
+		return meeting_boardno;
+	}
+	public void setMeeting_boardno(int meeting_boardno) {
+		this.meeting_boardno = meeting_boardno;
 	}
 	public int getReviewno() {
 		return reviewno;
@@ -33,8 +41,10 @@ public class MeetingLikes {
 	}
 	@Override
 	public String toString() {
-		return "MeetingLikes [boardname=" + boardname + ", reviewno=" + reviewno + ", meetingLikes_userId="
-				+ meetingLikes_userId + ", meetingLikes_date=" + meetingLikes_date + "]";
+		return "MeetingLikes [boardname=" + boardname + ", meeting_boardno=" + meeting_boardno + ", reviewno="
+				+ reviewno + ", meetingLikes_userId=" + meetingLikes_userId + ", meetingLikes_date=" + meetingLikes_date
+				+ "]";
 	}
+
 
 }

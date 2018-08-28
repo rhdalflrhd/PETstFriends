@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ReviewComment {
 	int boardname;
+	int Meeting_boardno;
 	int reviewno;
 	int reviewComment_commentno;
 	String reviewComment_nickname;
@@ -15,6 +16,13 @@ public class ReviewComment {
 	}
 	public void setBoardname(int boardname) {
 		this.boardname = boardname;
+	}
+	
+	public int getMeeting_boardno() {
+		return Meeting_boardno;
+	}
+	public void setMeeting_boardno(int meeting_boardno) {
+		Meeting_boardno = meeting_boardno;
 	}
 	public int getReviewno() {
 		return reviewno;
@@ -54,10 +62,12 @@ public class ReviewComment {
 	}
 	@Override
 	public String toString() {
-		return "ReviewComment [boardname=" + boardname + ", reviewno=" + reviewno + ", reviewComment_commentno="
-				+ reviewComment_commentno + ", reviewComment_nickname=" + reviewComment_nickname
-				+ ", reviewComment_content=" + reviewComment_content + ", reviewComment_userId=" + reviewComment_userId
-				+ ", reviewComment_writeDate=" + reviewComment_writeDate + "]";
+		return "ReviewComment [boardname=" + boardname + ", Meeting_boardno=" + Meeting_boardno + ", reviewno="
+				+ reviewno + ", reviewComment_commentno=" + reviewComment_commentno + ", reviewComment_nickname="
+				+ reviewComment_nickname + ", reviewComment_content=" + reviewComment_content
+				+ ", reviewComment_userId=" + reviewComment_userId + ", reviewComment_writeDate="
+				+ reviewComment_writeDate + "]";
 	}
+
 
 }

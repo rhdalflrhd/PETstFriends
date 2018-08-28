@@ -15,4 +15,5 @@ public interface UserDao {
 	public List<User> selectUserAll(HashMap<String, Object> params);
 	public int getCount(String keyword);
 	public int updateUser(User user);
+	
 }

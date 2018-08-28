@@ -83,7 +83,7 @@
 					"deleteArr" : checkArr
 				},
 				success : function(data) {
-					
+					location.reload();
 				},
 				error : function(xhrReq, status, error) {
 					alert(error)
