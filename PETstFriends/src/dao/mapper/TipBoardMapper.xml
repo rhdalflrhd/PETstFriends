@@ -4,4 +4,190 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.ITipBoardDao">
 
+
+<!-- ======================================tipboard 쿼리============================================ -->
+	<sql id="tipBoard_title">
+		<choose>
+			<when test="tipBoard_title != null">
+				#{tipBoard_title}
+			</when>
+			<otherwise>
+				'제목없음 '
+			</otherwise>
+		</choose>
+	</sql>
+
+	<sql id="tipBoard_content">
+		<choose>
+			<when test="tipBoard_content != null">
+				#{tipBoard_content}
+			</when>
+			<otherwise>
+				'내용없음'
+			</otherwise>
+		</choose>
+	</sql>
+
+	<sql id="tipBoard_YoutubeUrl">
+		<choose>
+			<when test="tipBoard_YoutubeUrl != null">
+				#{tipBoard_YoutubeUrl}
+			</when>
+			<otherwise>
+				'동영상없음'
+			</otherwise>
+		</choose>
+	</sql>
+
+	<select id="selectOneBoard" parameterType="java.util.HashMap"
+		resultType="tipBoard">
+		select * from tipBoard where tipBoard_boardname = #{tipBoard_boardname} and
+		tipBoard_boardno =#{tipBoard_boardno}
+	</select>
+
+	<select id="selectBoardPage" parameterType="java.util.HashMap"
+		resultType="tipBoard">
+		select * from tipBoard where 1 = 0
+		<if test="title != null or title!=''">
+			or tipBoard_title like '%${keyword}%'
+		</if>
+		<if test="content != null or content!=''">
+			or tipBoard_content like '%${keyword}%'
+		</if>
+		<if test="nickname != null or nickname!=''">
+			or tipBoard_nickname like '%${keyword}%'
+		</if>
+		<if test="type = 0">
+			or 1=1
+		</if>
+		<if test="startdate != null or startdate!=''">
+			and tipBoard_writeDate
+			between #{startdate} and #{enddate}
+		</if>
+		and tipBoard_boardname = #{tipBoard_boardname}
+		order by tipBoard_boardno desc limit #{skip},#{qty}
+	</select>
+
+	<select id="getCount" resultType="int" parameterType="java.util.HashMap">
+		select count(*) from tipBoard
+		where 1 = 0
+		<if test="tipBoard_title != null||tipBoard_title!=''">
+			or tipBoard_title like '%${tipBoard_title}%'
+		</if>
+		<if test="tipBoard_content != null||tipBoard_content!=''">
+			or tipBoard_content like '%${tipBoard_content}%'
+		</if>
+		<if test="tipBoard_nickname != null||tipBoard_nickname!=''">
+			or tipBoard_nickname like #{tipBoard_nickname}
+		</if>
+		<if test="type == 0">
+			or 1=1
+		</if>
+		<if test="startdate != null||startdate!=''">
+			and tipBoard_writeDate
+			between #{startdate} and #{enddate}
+		</if>
+
+	</select>
+
+	<select id="getLastBoardno" resultType="int" parameterType="java.util.HashMap">
+		select MAX(tipboard_boardno) from tipboard where tipboard_boardname =
+		#{tipBoard_boardname}
+		<!-- 지금은 위에 커리로 해놓지만, 유저와 합치면 아래 코드로 바꿔야함 ㅇㅇ select MAX(tipboard_boardno) 
+			from tipboard where tipboard_boardname = #{tipBoard_boardname} and tipBoard_userId= 
+			#{tipBoard_userId} -->
+	</select>
+
+	<insert id="insertBoard" parameterType="java.util.HashMap"
+		useGeneratedKeys="true" keyProperty="TipBoard_boardno">
+		insert into tipBoard values
+		(#{tipBoard_boardname}, 0, #{tipBoard_userId}, #{tipBoard_nickname},
+		<include refid="tipBoard_title" />
+		,
+		#{tipBoard_file},
+		<include refid="tipBoard_content" />
+		, 0, curdate(),
+		<include refid="tipBoard_YoutubeUrl" />
+		, #{tipBoard_contentPic}, 0)
+	</insert>
+
+	<update id="updateBoard" parameterType="java.util.HashMap">
+		update tipBoard set tipBoard_userId= #{tipBoard_userId},
+		tipBoard_nickname = #{tipBoard_nickname},
+		tipBoard_title =
+		<include refid="tipBoard_title" />
+		, tipBoard_file = #{tipBoard_file}, tipBoard_content=
+		<include refid="tipBoard_content" />
+		,
+		tipBoard_readCount = #{tipBoard_readCount}, tipBoard_writeDate= #{tipBoard_writeDate},
+		tipBoard_YoutubeUrl =
+		<include refid="tipBoard_YoutubeUrl" />
+		, tipBoard_contentPic = #{tipBoard_contentPic},
+		tipBoard_LikeCount = #{tipBoard_LikeCount} where tipBoard_boardname =
+		#{tipBoard_boardname} and tipBoard_boardno = #{tipBoard_boardno}
+	</update>
+
+	
+	<delete id="deleteBoard" parameterType="java.util.HashMap">
+		delete from tipBoard where tipBoard_boardname = #{tipBoard_boardname} and
+		tipBoard_boardno = #{tipBoard_boardno}
+	</delete>
+
+	<update id="TipBoard_likeCnt_up" parameterType="java.util.HashMap">
+		update tipBoard set 
+		tipBoard_LikeCount = tipBoard_LikeCount +1 
+		where tipBoard_boardname = #{tipBoard_boardname} and tipBoard_boardno = #{tipBoard_boardno}
+	</update>
+
+	<update id="TipBoard_likeCnt_down" parameterType="java.util.HashMap">
+		update tipBoard set 
+		tipBoard_LikeCount = tipBoard_LikeCount -1
+		where tipBoard_boardname = #{tipBoard_boardname} and tipBoard_boardno = #{tipBoard_boardno}
+	</update>
+
+
+<!-- ======================================좋아요 쿼리============================================ -->
+
+	<select id="countbyLike" resultType="int" parameterType="HashMap">
+		SELECT COUNT(tipLikes_likeno) as cnt
+		FROM tipLikes
+		WHERE tipLikes_boardname = #{tipLikes_boardname} and tipLikes_boardno
+		=#{tipLikes_boardno} and tipLikes_userId=#{tipLikes_userId}
+	</select>
+
+	<insert id="createTipLikes" parameterType="HashMap">
+		INSERT INTO tipLikes
+		VALUES ((SELECT ifnull(MAX(tipLikes_likeno), 0) FROM tipLikes t) +1, #{tipLikes_boardname}, #{tipLikes_boardno}, #{tipLikes_userId}, 0, curdate())
+	</insert>
+
+	<update id="like_check" parameterType="HashMap">
+		UPDATE tipLikes
+		SET tipLikes_likeCheck = tipLikes_likeCheck + 1
+		WHERE tipLikes_boardname = #{tipLikes_boardname} and tipLikes_boardno
+		= #{tipLikes_boardno} and tipLikes_userId= #{tipLikes_userId}
+	</update>
+
+	<update id="like_check_cancel" parameterType="HashMap">
+		UPDATE tipLikes
+		SET tipLikes_likeCheck = 0
+		WHERE tipLikes_boardname = #{tipLikes_boardname} and tipLikes_boardno
+		= #{tipLikes_boardno} and tipLikes_userId= #{tipLikes_userId}
+	</update>
+
+	<select id="readTipLikes" resultType="tipLikes" parameterType="HashMap">
+		SELECT * FROM tipLikes
+		WHERE tipLikes_boardname = #{tipLikes_boardname} and tipLikes_boardno
+		= #{tipLikes_boardno} and tipLikes_userId= #{tipLikes_userId}
+	</select>
+
+	<delete id="deletebyBoardNameBoardno" parameterType="HashMap">
+		DELETE FROM tipLikes
+		WHERE tipLikes_boardname = #{tipLikes_boardname} and tipLikes_boardno
+		= #{tipLikes_boardno}
+	</delete>
+
+	<delete id="deletebyUserId" parameterType="HashMap">
+		DELETE FROM tipLikes
+		WHERE tipLikes_userId= #{tipLikes_userId}
+	</delete>
 </mapper>
