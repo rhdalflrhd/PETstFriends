@@ -11,6 +11,14 @@
 <link rel="stylesheet" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+a{
+ color: red;
+}
+a:hover {
+   color: brown;
+}
+</style>
 </head>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -19,6 +27,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {});
 </script>
+
 <body>
 	<%@ include file="/petst/header.jsp"%>
 	<div class="wrapper">
@@ -38,32 +47,44 @@
 					</select> <input type="submit" value="검색하기">
 
 				</form>
-				<table class="table">
-					<thead>
-						<tr>
-							<th>글 번호</th>
-							<th>제목</th>
-							<th>글쓴이</th>
-							<th>작성일</th>
-							<th>조회수</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${noticeList }" var="notice">
+				<div style="width: 20%; display: inline-block; float: left;">
+					<div>
+						<div>
+							<h4>고객센터</h4>
+							<div class="sub"><a href="showNoticeList.do">공지사항</a></div>
+							<div class="sub"><a href="showOftenQnAList.do">자주하는 질문</a></div>
+							<div class="sub"><a href="qnA.do">1:1문의</a></div>
+						</div>
+					</div>
+				</div>
+				<div style="width: 75%; display: inline-block;">
+					<table class="table">
+						<thead>
 							<tr>
-								<td>${notice.notice_boardno }</td>
-								<td width="50%;"><a
-									href="showNoticeBoard.do?notice_boardno=${notice.notice_boardno }&page=${current}&type=${type }&keyword=${keyword }&numb=${numb }">
-										${notice.notice_title }</a></td>
-								<td>관리자</td>
-								<%-- 								${notice.notice_adminId } --%>
-								<td><c:set var="str1" value="${notice.notice_writeDate }" />
-									${fn:substringBefore(str1, '.0')}</td>
-								<td>${notice.notice_readCount }</td>
+								<th>글 번호</th>
+								<th>제목</th>
+								<th>글쓴이</th>
+								<th>작성일</th>
+								<th>조회수</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach items="${noticeList }" var="notice">
+								<tr>
+									<td>${notice.notice_boardno }</td>
+									<td width="50%;"><a
+										href="showNoticeBoard.do?notice_boardno=${notice.notice_boardno }&page=${current}&type=${type }&keyword=${keyword }&numb=${numb }">
+											${notice.notice_title }</a></td>
+									<td>관리자</td>
+									<%-- 								${notice.notice_adminId } --%>
+									<td><c:set var="str1" value="${notice.notice_writeDate }" />
+										${fn:substringBefore(str1, '.0')}</td>
+									<td>${notice.notice_readCount }</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

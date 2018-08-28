@@ -12,4 +12,7 @@ public interface QnADao {
 	public QnA selectOneBoard(int qnA_boardno);
 	public int deleteQnABoard(int qnA_boardno);
 	public int updateQnABoard(QnA qnA);
+	public List<QnA> myInquiry(HashMap<String, Object> params);
+	public int getMyQnACount(String user_id);
+	public QnA viewmyInquiry(int qnA_boardno);
 }

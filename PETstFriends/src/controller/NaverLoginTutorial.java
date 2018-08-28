@@ -51,17 +51,17 @@ public class NaverLoginTutorial {
 		this.naverLoginBO = naverLoginBO;
 	}
   
-    @RequestMapping(value="/login.do")
+    @RequestMapping(value="/loginForm.do")
     public ModelAndView login(HttpSession session, Model model) {
  
         /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
         
         /* 생성한 인증 URL을 View로 전달 */
-        return new ModelAndView("naverLogin/login", "url", naverAuthUrl);
+        return new ModelAndView("user/loginForm", "url", naverAuthUrl);
     }
     
-    @RequestMapping("/callback.do")
+    @RequestMapping("/callback.do")//네아로 login.do와 같음
 	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model) throws IOException {
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		NaverUser naverUser = naverLoginBO.getUserProfile(oauthToken);
@@ -94,7 +94,7 @@ public class NaverLoginTutorial {
 		user.setUser_name(naverUser.getName());
 		user.setUser_proPic(naverUser.getProfileImage());
 		params.put("user", user);
-		userService.joinUser(params);
+		userService.joinNaverUser(params);
 		session.setAttribute("user_id", naverUser.getId());
 	}
 }

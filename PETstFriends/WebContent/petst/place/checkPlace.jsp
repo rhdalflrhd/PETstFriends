@@ -44,7 +44,7 @@ height: 400px;
 	margin: 0;
 	padding: 0;
 	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-	font-size: 10px;
+	font-size: 13px;
 }
 
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active {
@@ -278,7 +278,7 @@ text-align: center;
 	<%@ include file="/petst/header.jsp"%>
 	<div style="height: 50px;"></div>
 	<div>
-	<div class="option" align="center" style="width: 60%; height : 200px; background-color: white; border: 1px solid red; margin:0 auto;">
+	<div class="option" align="center" style="width: 60%; height : 200px; margin:0 auto;">
 		<div>
 		<ul>
 		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 애견카페')">애견카페</li>
@@ -288,18 +288,17 @@ text-align: center;
 		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물 미용실')">미용실</li>
 		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물 호텔')">호텔</li>
 		</ul>
-		</div><br>
+		</div>
 		<div style="height: 4px;"></div>
 			<div>
-				<input type="text" value="지역을 입력하세요." id="keyword" size="20" style="inline-block; height: 40px;">
+			<input type="text" value="지역을 입력하세요." id="keyword" size="20" style="inline-block; 
+				height: 40px; color: black; width: 300px; cursor: text;">
 				<div id="submitBtn"><i class="fa fa-search" onclick="searchPlaces()"></i></div>
-				
 			</div>
-	
 	</div>
 	
 	</div>
-	<div style="height: 50px;"></div>
+<!-- 	<div style="height: 50px;"></div> -->
 	<div id="box">
 		<div class="empty"></div>
 		<div id="all" style="border: 1px solid black">

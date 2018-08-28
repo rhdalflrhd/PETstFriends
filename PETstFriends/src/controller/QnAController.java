@@ -24,6 +24,15 @@ public class QnAController {
 	@Autowired
 	QnAServiceImpl qService;
 
+	
+	@RequestMapping("qnA.do")
+	public String qnA(HttpSession session) {
+		if(session.getAttribute("admin_check")!=null)
+			return "redirect:writeQnAForm.do";
+		else
+			return "redirect:showQnAList.do";
+	}
+	
 	@RequestMapping("writeQnAForm.do")
 	public String writeQnABoard() {
 		return "qna/customerCenter_Ask";

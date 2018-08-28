@@ -27,6 +27,7 @@ import model.ReviewComment;
 @Service
 public class MeetingServiceImpl implements MeetingService{
 
+	
 	@Autowired
 	private MeetingBoardDao meetingBoardDao;
 	@Autowired
@@ -51,7 +52,7 @@ public class MeetingServiceImpl implements MeetingService{
 	@Override
 	public int scoreCheckMeetingBoard(String meetingBoard_userId) {
 		// TODO Auto-generated method stub
-		return userDao.selectUserId(meetingBoard_userId).getUser_score();
+		return userDao.selectUserbyId(meetingBoard_userId).getUser_score();
 	}
 	@Override
 	public boolean modifyMeetingBoard(MeetingBoard mboard) {

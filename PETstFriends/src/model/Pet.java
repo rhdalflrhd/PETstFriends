@@ -1,6 +1,7 @@
 package model;
 
 public class Pet {
+	private int pet_no;
 	private String user_id;
 	private String pet_name;
 	private String pet_species;
@@ -9,6 +10,15 @@ public class Pet {
 	private String pet_file;
 	
 	
+	public int getPet_no() {
+		return pet_no;
+	}
+	public void setPet_no(int pet_no) {
+		this.pet_no = pet_no;
+	}
+	public int getPet_gender() {
+		return pet_gender;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -27,9 +37,6 @@ public class Pet {
 	public void setPet_species(String pet_species) {
 		this.pet_species = pet_species;
 	}
-	public int isPet_gender() {
-		return pet_gender;
-	}
 	public void setPet_gender(int pet_gender) {
 		this.pet_gender = pet_gender;
 	}
@@ -47,8 +54,9 @@ public class Pet {
 	}
 	@Override
 	public String toString() {
-		return "Pet [user_id=" + user_id + ", pet_name=" + pet_name + ", pet_species=" + pet_species + ", pet_gender="
-				+ pet_gender + ", pet_age=" + pet_age + ", pet_file=" + pet_file + "]";
+		return "Pet [pet_no=" + pet_no + ", user_id=" + user_id + ", pet_name=" + pet_name + ", pet_species="
+				+ pet_species + ", pet_gender=" + pet_gender + ", pet_age=" + pet_age + ", pet_file=" + pet_file + "]";
 	}
+	
 	
 }

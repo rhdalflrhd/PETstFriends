@@ -14,14 +14,14 @@
 <!-- favicon icon -->
    <link rel="shortcut icon" href="assets/images/favicon.png">
 <title>header</title><!-- common css -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.css">
-    <link rel="stylesheet" href="assets/css/owl.transitions.css">
-    <link rel="stylesheet" href="assets/css/slicknav.css">
-    <link rel="stylesheet" href="style.css">
+<!--     <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
+<!--     <link rel="stylesheet" href="assets/css/font-awesome.min.css"> -->
+<!--     <link rel="stylesheet" href="assets/css/animate.min.css"> -->
+<!--     <link rel="stylesheet" href="assets/css/owl.carousel.css"> -->
+<!--     <link rel="stylesheet" href="assets/css/owl.theme.css"> -->
+<!--     <link rel="stylesheet" href="assets/css/owl.transitions.css"> -->
+<!--     <link rel="stylesheet" href="assets/css/slicknav.css"> -->
+<link rel="stylesheet" href="./Boot/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
 
 </head>
@@ -44,18 +44,26 @@
 			<div class="menu-item-has-children" align="right">
 				<c:choose>
 					<c:when test="${a }">
-						<a style="cursor: pointer">로그아웃</a>
+						<a style="cursor: pointer;color: brown; font-size: 15px;"
+						href="logout.do">로그아웃</a>
 					</c:when>
 					<c:when test="${b}">
-						<a style="cursor: pointer">고객센터</a>
-						<a style="cursor: pointer">로그아웃</a>
-						<a style="cursor: pointer">마이페이지</a>
-						<a style="cursor: pointer">쪽지함</a>
+						<a style="cursor: pointer;color: brown; font-size: 15px;"
+						href="showNoticeList.do">고객센터</a>
+						<a style="cursor: pointer;color: brown; font-size: 15px;"
+						href="logout.do">로그아웃</a>
+						<a style="cursor: pointer;color: brown; font-size: 15px;"
+						href="userPwCheck.do">마이페이지</a>
+						<a style="cursor: pointer;color: brown; font-size: 15px;"
+						href="#">쪽지함</a>
 					</c:when>
 					<c:otherwise>
-						<a style="cursor: pointer">고객센터</a>
-						<a style="cursor: pointer">로그인</a>
-						<a style="cursor: pointer">회원가입</a>
+						<a style="cursor: pointer; color: brown; font-size: 15px;"
+						href="showNoticeList.do">고객센터</a>
+						<a style="cursor: pointer; color: brown; font-size: 15px;"
+						href="loginForm.do">로그인</a>
+						<a style="cursor: pointer; color: brown; font-size: 15px;"
+						href="joinUserForm.do">회원가입</a>
 					</c:otherwise>
 				</c:choose>
 
@@ -63,7 +71,7 @@
 		</div>
 
 		<h1>
-			<a href="#"><img src="assets/images/PetLogo.png" style=""></a>
+			<a href="#"><img src="./Boot/images/petstlogo_2.PNG" style="" alt="Ocean"></a>
 		</h1>
 	</div>
 
@@ -74,60 +82,55 @@
 					<div class="main-menu text-uppercase">
 						<ul id="menu">
 
-							<li><a href="index.html">첫 화면으로</a></li>
-							<li class="menu-item-has-children"><a href="#">펫프 모여라 </a></li>
+							<li><a href="main.do">첫 화면으로</a></li>
+							<li class="menu-item-has-children"><a href="meeting.do">펫프 모여라 </a></li>
 							<li class="menu-item-has-children"><a href="#">펫프 광장 <i
 									class="fa fa-angle-down"></i>
 							</a>
 								<ul class="sub-menu">
-									<li><a href="#">강아지</a></li>
-									<li><a href="#">고양이</a></li>
-									<li><a href="#">토끼</a></li>
-									<li><a href="#">기타</a></li>
+									<li><a href="dogFreeBoardList.do">강아지</a></li>
+									<li><a href="catFreeBoardList.do">고양이</a></li>
+									<li><a href="rabbitFreeBoardList.do">토끼</a></li>
+									<li><a href="etcFreeBoardList.do">기타</a></li>
 								</ul></li>
 
 							<li class="menu-item-has-children"><a href="">펫프정보 <i
-									class="fa fa-angle-down"></i></a>
-								<ul class="sub-menu">
+                                        class="fa fa-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li class="menu-item-has-children"><a href="">강아지<i
+                                                class="fa fa-angle-right"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="dogInfoSquareSpecies.do">강아지 종정보</a></li>
+                                                <li><a href="dogTipBoardList.do">강아지 Tip</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="">고양이<i
+                                                class="fa fa-angle-right"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="CatInfoSquareSpecies.do">고양이 종정보</a></li>
+                                                <li><a href="#">고양이 Tip</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="">토끼<i
+                                                class="fa fa-angle-right"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="RabbitInfoSquareSpecies.do">토끼 종정보</a></li>
+                                                <li><a href="#">토끼 Tip</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
 
-									<li class="menu-item-has-children"><a href="">강아지 <i
-											class="fa fa-angle-right"></i>
-									</a>
-										<ul class="sub-menu">
-											<li><a href="#">강아지 종류</a></li>
-											<li><a href="#">강아지 팁</a></li>
-										</ul></li>
-
-									<li class="menu-item-has-children"><a href="">고양이 <i
-											class="fa fa-angle-right"></i>
-									</a>
-										<ul class="sub-menu">
-											<li><a href="#">고양이 종류</a></li>
-											<li><a href="#">고양이 팁</a></li>
-										</ul></li>
-
-									<li class="menu-item-has-children"><a href="">토끼 <i
-											class="fa fa-angle-right"></i>
-									</a>
-										<ul class="sub-menu">
-											<li><a href="#">토끼 종류</a></li>
-											<li><a href="#">토끼 팁</a></li>
-										</ul></li>
-								</ul></li>
-
-
-
-
-							<li><a href="#">병원</a></li>
-							<li class="menu-item-has-children"><a href="#">플레이스</a>
-							<li><a href="contact.html">펫프쇼핑비교</a></li>
+							<li><a href="checkHospital.do">병원</a></li>
+							<li class="menu-item-has-children"><a href="checkPlace.do">플레이스</a>
+							<li><a href="shoppingList.do">펫프쇼핑비교</a></li>
 
 							<c:if test="${a }">
 								<li class="menu-item-has-children"><a href="">관리자 메뉴<i
 										class="fa fa-angle-down"></i></a>
 									<ul class="sub-menu">
 
-										<li class="menu-item-has-children"><a href="">고객센터 관리
+										<li class="menu-item-has-children"><a href="showNoticeList.do">고객센터 관리
 										</a>
 										<li class="menu-item-has-children"><a href="">회원관리 <i
 												class="fa fa-angle-right"></i>
@@ -137,12 +140,12 @@
 												<li><a href="#">쪽지</a></li>
 											</ul></li>
 
-										<li class="menu-item-has-children"><a href="">게시판관리 <i
+										<li class="menu-item-has-children"><a href="#">게시판관리 <i
 												class="fa fa-angle-right"></i>
 										</a>
 											<ul class="sub-menu">
-												<li><a href="#">신고글 보기</a></li>
-												<li><a href="#">말머리 추가삭제</a></li>
+												<li><a href="showReportList.do">신고글 보기</a></li>
+												<li><a href="showMalList.do">말머리 추가삭제</a></li>
 											</ul></li>
 									</ul></li>
 							</c:if>

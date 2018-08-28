@@ -4,61 +4,80 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.QnADao">
-<insert id="insertBoard" parameterType="qna">
-insert into qna values (#{qnA_boardname}, 0,#{qnA_adminId},#{qnA_userId}, #{qnA_title}, #{qnA_content}, #{qnA_contentPic}, #{qnA_reply}, #{qnA_writeDate})
-</insert>
+	<insert id="insertBoard" parameterType="qna">
+		insert into qna values (#{qnA_boardname}, 0,#{qnA_adminId},#{qnA_userId},
+		#{qnA_title}, #{qnA_content}, #{qnA_contentPic}, #{qnA_reply},
+		#{qnA_writeDate})
+	</insert>
 
-<select id="selectBoardAll" parameterType="java.util.HashMap"
-resultType="qna">
-select * from qna where 1=0
-<if test="qnA_title != null">
-or qnA_title like '%${qnA_title}%'
-</if>
-<if test="qnA_content != null">
-or qnA_content like '%${qnA_content}%'
-</if>
-<if test="qnA_userid!= null">
-or qnA_userid like '%{qnA_userid}%'
-</if>
-<if test="boardname != 0">
-or qnA_boardname = #{boardname}
-</if>
-<if test="type==0 and boardname==0">
-or 1=1
-</if>
-order by qnA_boardno desc limit #{skip}, #{numb}
-</select>
+	<select id="selectBoardAll" parameterType="java.util.HashMap"
+		resultType="qna">
+		select * from qna where 1=0
+		<if test="qnA_title != null">
+			or qnA_title like '%${qnA_title}%'
+		</if>
+		<if test="qnA_content != null">
+			or qnA_content like '%${qnA_content}%'
+		</if>
+		<if test="qnA_userid!= null">
+			or qnA_userid like '%{qnA_userid}%'
+		</if>
+		<if test="boardname != 0">
+			or qnA_boardname = #{boardname}
+		</if>
+		<if test="type==0 and boardname==0">
+			or 1=1
+		</if>
+		order by qnA_boardno desc limit #{skip}, #{numb}
+	</select>
 
-<select id="getCount" parameterType="java.util.HashMap"
-resultType="int">
-select count(*) from qna where 1=0
-<if test="qnA_title != null">
-or qnA_title like '%${qnA_title}%'
-</if>
-<if test="qnA_content != null">
-or qnA_content like '%{qnA_content}%'
-</if>
-<if test="qnA_userid!= null">
-or qnA_userid like '%${qnA_userid}%'
-</if>
-<if test="boardname != 0">
-or qnA_boardname = #{boardname}
-</if>
-<if test="type==0 and boardname==0">
-or 1=1
-</if>
-</select>
+	<select id="getCount" parameterType="java.util.HashMap"
+		resultType="int">
+		select count(*) from qna where 1=0
+		<if test="qnA_title != null">
+			or qnA_title like '%${qnA_title}%'
+		</if>
+		<if test="qnA_content != null">
+			or qnA_content like '%{qnA_content}%'
+		</if>
+		<if test="qnA_userid!= null">
+			or qnA_userid like '%${qnA_userid}%'
+		</if>
+		<if test="boardname != 0">
+			or qnA_boardname = #{boardname}
+		</if>
+		<if test="type==0 and boardname==0">
+			or 1=1
+		</if>
+	</select>
 
-<select id="selectOneBoard" parameterType="int" resultType="qna">
-select * from  qna  where qnA_boardno=#{qnA_boardno}
-</select>
+	<select id="selectOneBoard" parameterType="int" resultType="qna">
+		select * from qna where qnA_boardno=#{qnA_boardno}
+	</select>
 
-<delete id="deleteQnABoard" parameterType="int">
-delete from qna where qnA_boardno=#{qnA_boardno}
-</delete>
+	<delete id="deleteQnABoard" parameterType="int">
+		delete from qna where qnA_boardno=#{qnA_boardno}
+	</delete>
 
-<update id="updateQnABoard" parameterType="qna">
-update qna set qnA_reply = #{qnA_reply}, qnA_adminId=#{qnA_adminId} where qnA_boardno = #{qnA_boardno}
-</update>
+	<update id="updateQnABoard" parameterType="qna">
+		update qna set qnA_reply = #{qnA_reply}, qnA_adminId=#{qnA_adminId} where
+		qnA_boardno = #{qnA_boardno}
+	</update>
 
+	<select id="myInquiry" parameterType="java.util.HashMap"
+		resultType="qna">
+		select * from qna where qnA_userId =#{qnA_userId}
+		<if test="startdate != null">
+			and qnA_writeDate
+			between #{startdate} and #{enddate}
+		</if>
+		order by qnA_writeDate desc limit #{skip},#{qty}
+	</select>
+	<select id="viewmyInquiry" parameterType="int" resultType="qna">
+		select * from qna where qnA_boardno = #{qnA_boardno}
+	</select>
+	<select id="getMyQnACount" parameterType="String"
+		resultType="int">
+		select count(*) from QnA where QnA_userid = #{user_id}
+	</select>
 </mapper>

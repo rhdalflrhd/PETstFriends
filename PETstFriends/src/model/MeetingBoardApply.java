@@ -7,6 +7,7 @@ public class MeetingBoardApply {
 	String meetingBoardApply_email;
 	int meetingBoardApply_count;
 	String meetingBoardApply_nickname;
+	
 	public int getBoardname() {
 		return boardname;
 	}

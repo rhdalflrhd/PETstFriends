@@ -20,6 +20,8 @@ public class OftenQnAController {
 	@Autowired
 	OftenQnAService oqService;
 	
+	
+	
 	@RequestMapping("showOftenQnAList.do")
 	public String showOftenQnAList(Model model) {
 		model.addAttribute("oqList", oqService.showOftenList());

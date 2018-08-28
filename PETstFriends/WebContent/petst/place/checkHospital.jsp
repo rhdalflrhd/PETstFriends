@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet" />
+	<link rel="stylesheet" href="./Boot/style.css">
 <style>
 .empty {
 	width: 10%;
@@ -44,7 +46,7 @@ height: 400px;
 	margin: 0;
 	padding: 0;
 	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-	font-size: 10px;
+	font-size: 13px;
 }
 
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active {
@@ -245,20 +247,35 @@ cursor: pointer;
 button {
 border-radius: 20%;
 padding: 5px 10px;
-font-size: 7px;
+font-size: 10px;
 border: 1px solid #4CAF50; 
 background-color: white; 
 }
+/* body { */
+/* /*     background: url("assets/images/pattern/test5.png"); */ */
+/*     background: url("images/test5.png"); */
+/*     font-family: 'Merriweather', serif; */
+/*     color: #444444; */
+/*     font-size: 14px; */
+/*     font-weight: 400; */
+/*     text-rendering: optimizeLegibility; */
+/*     -webkit-font-smoothing: antialiased; */
+/* } */
 </style>
 <title>Insert title here</title>
 </head>
 <body>
+ <header id="header">
+<!-- <div style="border: 1px solid red;"> -->
 	<%@ include file="/petst/header.jsp"%>
+<!-- </div> -->
+	</header>
 	<div style="height: 50px;"></div>
 	<div class="option" align="center">
 		
 			<div>
-				<input type="text" value="지역을 입력하세요." id="keyword" size="20" style="inline-block; height: 40px;">
+				<input type="text" value="지역을 입력하세요." id="keyword" size="20" style="inline-block; 
+				height: 40px; color: black; width: 300px; cursor: text;">
 				<div id="submitBtn"><i class="fa fa-search" onclick="searchPlaces()"></i></div>
 				
 			</div>
@@ -745,6 +762,8 @@ background-color: white;
 			})
 		});
 	</script>
+	<footer>
 	<%@ include file="/petst/footer.jsp"%>
+</footer>
 </body>
 </html>

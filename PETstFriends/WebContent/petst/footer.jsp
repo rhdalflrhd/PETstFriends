@@ -59,10 +59,10 @@
 						</div>
 					</div>
 				</div>
-			<div class="footer-copy-right">
+			<div class="footer-copy-right"  style="background: black;">
 				<div class="container" align="right">
 					<div class="row">
-						<a href="" class="back-to-top" style="">Back to Top</a>
+						<a href="" class="back-to-top">Back to Top</a>
 
 					</div>
 				</div>

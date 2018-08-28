@@ -48,7 +48,7 @@ public class PlaceReviewServiceImpl implements PlaceReviewService{
 		place.setPlace_userid(user_id);
 		place.setPlace_x((String) params.get("place_x"));
 		place.setPlace_y((String) params.get("place_y"));
-		String place_usernickname = uDao.selectUserId(user_id).getUser_nickname();
+		String place_usernickname = uDao.selectUserbyId(user_id).getUser_nickname();
 		place.setPlace_usernickname(place_usernickname);
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		pDao.insertPlaceReview(place);
