@@ -27,6 +27,7 @@ import model.ReviewComment;
 @Service
 public class MeetingServiceImpl implements MeetingService{
 
+	
 	@Autowired
 	private MeetingBoardDao meetingBoardDao;
 	@Autowired
