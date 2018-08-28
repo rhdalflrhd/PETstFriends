@@ -4,5 +4,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.OftenQnADao">
+<select id="selectBoardAll" resultType="oftenQnA">
+select * from oftenqna order by oftenQnA_boardno desc;
+</select>
+
+<select id="selectOneBoard" parameterType="int" resultType="oftenQnA">
+select * from  oftenqna  where oftenQnA_boardno=#{oftenQnA_boardno}
+ </select>
+
+<update id="updateBoard" parameterType="oftenQnA">
+update oftenqna set oftenQnA_title = #{oftenQnA_title}, oftenQnA_content = #{oftenQnA_content}, oftenQnA_readCount = #{oftenQnA_readCount}
+ where oftenQnA_boardno = #{oftenQnA_boardno}
+</update>
+
+<insert id="insertBoard" parameterType="oftenQnA"   
+          useGeneratedKeys="true"  keyProperty="oftenQnA_boardno">
+insert into oftenqna values (0,#{oftenQnA_title},#{oftenQnA_content},#{oftenQnA_readCount}, #{oftenQnA_adminId}, #{oftenQnA_writeDate})
+</insert>
+
+<delete id="deleteOftenBoard" parameterType="int">
+delete from oftenqna where oftenQnA_boardno=#{oftenQnA_boardno}
+</delete>
 
 </mapper>

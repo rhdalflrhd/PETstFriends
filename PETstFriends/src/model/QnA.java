@@ -11,7 +11,7 @@ public class QnA {
 	private String qnA_content;
 	private String qnA_contentPic;
 	private String qnA_reply;
-	private Date qnA_writeDate;
+	private String qnA_writeDate;
 	public int getQnA_boardname() {
 		return qnA_boardname;
 	}
@@ -60,10 +60,10 @@ public class QnA {
 	public void setQnA_reply(String qnA_reply) {
 		this.qnA_reply = qnA_reply;
 	}
-	public Date getQnA_writeDate() {
+	public String getQnA_writeDate() {
 		return qnA_writeDate;
 	}
-	public void setQnA_writeDate(Date qnA_writeDate) {
+	public void setQnA_writeDate(String qnA_writeDate) {
 		this.qnA_writeDate = qnA_writeDate;
 	}
 	@Override
