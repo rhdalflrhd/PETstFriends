@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import service.UserServiceImpl;
 
-
 @Controller
 public class UserController {
 
