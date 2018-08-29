@@ -87,11 +87,10 @@ public class NoticeServiceImpl implements NoticeService{
 	public int modifyBoard(HashMap<String, Object> params) {
 		// TODO Auto-generated method stu
 		Notice notice = new Notice();
-		notice.setNotice_adminId((String) params.get("notice_adminId"));
-		notice.setNotice_boardno(Integer.parseInt((String)params.get("notice_boardno")));
-		notice.setNotice_content((String) params.get("notice_content"));
+		notice.setNotice_boardno(Integer.parseInt(String.valueOf(params.get("notice_boardno"))));
+		notice.setNotice_content((String) params.get("editor"));
 		notice.setNotice_contentPic((String) params.get("notice_contentPic"));
-		notice.setNotice_title((String) params.get("notice_contentPic"));
+		notice.setNotice_title((String) params.get("notice_title"));
 		return nDao.updateBoard(notice);
 	}
 

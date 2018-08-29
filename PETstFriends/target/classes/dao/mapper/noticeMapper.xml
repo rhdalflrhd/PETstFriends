@@ -48,7 +48,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		notice_title=#{notice_title},
 		notice_content=#{notice_content},
 		notice_contentPic=#{notice_contentPic},
-		notice_adminId=#{notice_adminId}, 
 		notice_readCount=#{notice_readCount}
 		where notice_boardno=#{notice_boardno}
 	</update>

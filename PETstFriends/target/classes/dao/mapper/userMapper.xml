@@ -84,6 +84,13 @@
 		#{user_havePet} where user_id = #{user_id}
 
 	</update>
+	
+	<update id="updateUserState" parameterType="java.util.HashMap">
+		update User set
+		user_state=#{user_state}
+		 where user_no = #{user_no}
+
+	</update>
 
 	<update id="updatePet" parameterType="pet">
 		update Pet set pet_name =
@@ -231,15 +238,18 @@
 	</select>
 
 
-	<select id="getCount" resultType="int">
-		select count(*) from user where
-		user_id like ‘%${keyword}%’
+	<select id="getCount" resultType="int" parameterType="java.util.HashMap">
+		select count(*) from user 
+		<if test="keyword!=null">
+		where user_id like '%${keyword}%'
+		</if>
 	</select>
-	<select id="selectUserAll" resultType="user">
-		select * from user where
-		user_id like ‘%${keyword}%’ order by user_no
-		desc limit #{skip},
-		#{numb}
+	<select id="selectUserAll" resultType="user" parameterType="java.util.HashMap">
+		select * from user 
+		<if test="keyword!=null">
+		where user_id like '%${keyword}%'
+		</if>
+		order by user_no desc limit #{skip},#{numb}
 	</select>
 
 

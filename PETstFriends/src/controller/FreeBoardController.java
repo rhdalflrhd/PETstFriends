@@ -69,22 +69,15 @@ public class FreeBoardController {
 
 	//게시물 한개 보기 
 	@RequestMapping("selectOneBoard.do")
-	public String SelectOneBoard(Model model, int FreeBoard_boardname, int FreeBoard_boardno, HttpSession session) {
-		System.out.println("DogReadTipBoard.do 들어옴");
-		System.out.println(FreeBoard_boardname);
-		System.out.println(FreeBoard_boardno);
-		freeboardService.readBoard(FreeBoard_boardname, FreeBoard_boardno);
-		FreeBoard freeboard = freeboardService.getBoard(FreeBoard_boardname, FreeBoard_boardno);
-		System.out.println(freeboard);
-		System.out.println(freeboard.getFreeBoard_nickname());
-//		session.setAttribute("user_id", "테스트용");
-//		session.setAttribute("user_id", "testID");
-		String user_idCheck = (String) session.getAttribute("user_id");
-		System.out.println(user_idCheck);
-		model.addAttribute("user_idCheck", user_idCheck);
-		model.addAttribute("Freeboard", freeboard);
+	public ModelAndView SelectOneBoard(@RequestParam(required=false) HashMap<String, Object> params, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.addAllObjects(params);
+		int freeBoard_boardname =  Integer.parseInt((String) params.get("freeBoard_boardname"));
+		int freeBoard_boardno =  Integer.parseInt((String) params.get("freeBoard_boardno"));
+		mav.addObject("freeBoard", freeboardService.readBoard(freeBoard_boardname, freeBoard_boardno));
+		mav.setViewName("freeboard/selectOneBoard");
 
-		return "freeboard/selectOneBoard";
+		return mav;
 	}
 	//---------------------------------------------------------------------------------------
 //게시글 쓰기 

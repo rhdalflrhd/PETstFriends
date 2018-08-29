@@ -26,14 +26,14 @@
 </script>
 </head>
 <body>
-	<%-- 	<%@ include file="/petst/header.jsp"%> --%>
+	<%@ include file="/petst/header.jsp"%>
 	<div class="wrapper">
 		<div class="main-content">
 			<div class="container" style="background: white;">
 				<div class="col-md-4 col-sm-5"
 					style="display: inline-block; width: 20%;">
-					<div class="widget">
-						<h3>공지사항</h3>
+					<div class="widget" style="background: white;">
+						<h3 style="background: white;">고객센터</h3>
 						<ul>
 							<li><a href="">공지사항</a></li>
 							<li><a href="">자주하는 질문</a></li>
@@ -41,7 +41,8 @@
 						</ul>
 					</div>
 				</div>
-				<div style="display: inline-block; width: 75%; float: right;">
+
+				<div style="display: inline-block; width: 80%; float: right;">
 				<form action="showQnAList.do" style="text-align: center;">
 					<select name="boardname" style="height: 27px;">
 						<option value="0">게시판 선택</option>

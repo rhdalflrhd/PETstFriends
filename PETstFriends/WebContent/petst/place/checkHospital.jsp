@@ -266,9 +266,7 @@ background-color: white;
 </head>
 <body>
  <header id="header">
-<!-- <div style="border: 1px solid red;"> -->
 	<%@ include file="/petst/header.jsp"%>
-<!-- </div> -->
 	</header>
 	<div style="height: 50px;"></div>
 	<div class="option" align="center">

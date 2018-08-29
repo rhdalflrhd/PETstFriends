@@ -29,10 +29,26 @@ a:hover {
 </script>
 
 <body>
+<header>
 	<%@ include file="/petst/header.jsp"%>
+	</header>
 	<div class="wrapper">
 		<div class="main-content">
 			<div class="container" style="background: white;">
+				<div class="col-md-4 col-sm-5"
+					style="display: inline-block; width: 20%;">
+					<div class="widget">
+						<h3>고객센터</h3>
+						<ul>
+							<li><a href="">공지사항</a></li>
+							<li><a href="">자주하는 질문</a></li>
+							<li><a href="">1:1 문의</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-md-8 col-sm-8"
+					style="border-left: 1px solid gray; width: 80%; display: inline-block;">
 				<form action="showNoticeList.do" style="text-align: center;">
 					<select name="type" style="height: 27px;">
 						<option value="0">검색어 선택</option>
@@ -47,17 +63,6 @@ a:hover {
 					</select> <input type="submit" value="검색하기">
 
 				</form>
-				<div style="width: 20%; display: inline-block; float: left;">
-					<div>
-						<div>
-							<h4>고객센터</h4>
-							<div class="sub"><a href="showNoticeList.do">공지사항</a></div>
-							<div class="sub"><a href="showOftenQnAList.do">자주하는 질문</a></div>
-							<div class="sub"><a href="qnA.do">1:1문의</a></div>
-						</div>
-					</div>
-				</div>
-				<div style="width: 75%; display: inline-block;">
 					<table class="table">
 						<thead>
 							<tr>
@@ -84,9 +89,9 @@ a:hover {
 							</c:forEach>
 						</tbody>
 					</table>
-				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<div class="container" style="text-align: right;">
 		<div id="writeBox"></div>

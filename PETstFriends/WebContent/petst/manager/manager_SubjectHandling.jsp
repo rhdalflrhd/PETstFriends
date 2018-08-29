@@ -134,6 +134,6 @@ $('#newmal_name').click(function(){
 
 
 	</div>
-
+<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

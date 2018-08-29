@@ -27,7 +27,7 @@ public class QnAController {
 	
 	@RequestMapping("qnA.do")
 	public String qnA(HttpSession session) {
-		if(session.getAttribute("admin_check")!=null)
+		if(session.getAttribute("admin_check")==null)
 			return "redirect:writeQnAForm.do";
 		else
 			return "redirect:showQnAList.do";
@@ -82,7 +82,6 @@ public class QnAController {
 	@RequestMapping("showQnABoard.do")
 	public ModelAndView showQnABoard(@RequestParam HashMap<String, Object> params) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(params.get("boardname"));
 		int qnA_boardno = Integer.parseInt(String.valueOf(params.get("qnA_boardno")));
 		params.put("qnA", qService.showQnABoard(qnA_boardno));
 		mav.addAllObjects(params);

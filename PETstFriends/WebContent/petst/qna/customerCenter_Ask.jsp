@@ -32,14 +32,14 @@
 </script>
 </head>
 <body>
-	<%@ include file="/petst/header.jsp"%>
+<%@ include file="/petst/header.jsp"%>
 	<div class="wrapper">
 		<div class="main-content">
 			<div class="container" style="background: white;">
 				<div class="col-md-4 col-sm-5"
 					style="display: inline-block; width: 20%;">
 					<div class="widget">
-						<h3>공지사항</h3>
+						<h3>고객센터</h3>
 						<ul>
 							<li><a href="">공지사항</a></li>
 							<li><a href="">자주하는 질문</a></li>
@@ -47,10 +47,11 @@
 						</ul>
 					</div>
 				</div>
-				<div class="leave-comment"
-					style="display: inline-block; width: 75%;">
-					<!--leave comment-->
+
+				<div class="col-md-8 col-sm-8"
+					style="border-left: 1px solid gray; width: 80%; display: inline-block;">
 					<h2>1:1 문의</h2>
+	
 					<form class="form-horizontal contact-form" role="form"
 						id="writeForm" method="post" action="writeQnA.do">
 						<div>
@@ -85,5 +86,6 @@
 			</div>
 		</div>
 	</div>
+	<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

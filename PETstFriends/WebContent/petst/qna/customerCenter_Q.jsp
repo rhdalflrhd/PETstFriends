@@ -39,20 +39,20 @@ background: white;
 	<div class="wrapper">
 		<div class="main-content">
 			<div class="container" style="background: white;">
-				<div class="row">
-
-					<div style="width: 20%; display: inline-block; float: left;">
-						<div>
-							<div>
-							<h2>고객센터</h2>
-							<div class="sub">공지사항</div>
-							<div class="sub">자주하는 질문</div>
-							<div class="sub">1:1문의</div>
-							</div>
-						</div>
+				<div class="col-md-4 col-sm-5"
+					style="display: inline-block; width: 20%;">
+					<div class="widget">
+						<h3>고객센터</h3>
+						<ul>
+							<li><a href="">공지사항</a></li>
+							<li><a href="">자주하는 질문</a></li>
+							<li><a href="">1:1 문의</a></li>
+						</ul>
 					</div>
 				</div>
-				<div style="display: inline-block; width: 75%; float: right;">
+
+				<div class="col-md-8 col-sm-8"
+					style="border-left: 1px solid gray; width: 80%; display: inline-block;">
 				<table class="table">
 					<thead>
 						<tr>

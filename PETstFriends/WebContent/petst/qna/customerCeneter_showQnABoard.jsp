@@ -164,6 +164,6 @@
 		</div>
 		
 		</div>
-		
+		<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

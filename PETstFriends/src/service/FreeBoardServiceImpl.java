@@ -232,15 +232,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public FreeBoard readBoard(int FreeBoard_boardname, int FreeBoard_boardno) {
+	public FreeBoard readBoard(int freeBoard_boardname, int freeBoard_boardno) {
 		// TODO Auto-generated method stub
 		//게시물 정보를 조회, 조회수 +1 추가
 				HashMap<String, Object> params = new HashMap<String, Object>();
+				params.put("freeBoard_boardname", freeBoard_boardname);
+				params.put("freeBoard_boardno", freeBoard_boardno);
 				FreeBoard b = bDao.selectOneBoard(params);
 				b.setFreeBoard_readCount(b.getFreeBoard_readCount() + 1);
-				params.put("board", b);
 				bDao.updateBoard(b);
-				FreeBoard b1 = bDao.selectOneBoard(params);
 				if(b.getFreeBoard_content()==null || b.getFreeBoard_content().equals(""))
 					b.setFreeBoard_content("내용없음");
 				if(b.getFreeBoard_title()==null || b.getFreeBoard_title().equals(""))

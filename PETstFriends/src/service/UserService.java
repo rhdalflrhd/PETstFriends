@@ -19,7 +19,7 @@ public interface UserService {
 	public String getUserFindbyId(HashMap<String, Object> params);
 	public boolean getUserFindbyPw(HashMap<String, Object> params);
 	public HashMap<String, Object> showUserList(HashMap<String, Object> params);
-	public int stopUser(String user_id, int stopdate);
+	public int stopUser(int user_no, int stopdate);
 	
 	public void deletePet(String pet_name);
 	public int updateUser(HashMap<String, Object> params);

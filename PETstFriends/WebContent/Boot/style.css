@@ -94,7 +94,7 @@ a {
     -o-transition: all 0.33s;
     transition: all 0.33s;
     text-decoration: none;
-    color: #FFD232;
+    color: #444444;
 }
 
 a:hover,
@@ -228,6 +228,7 @@ h6 {
 
 .main-menu ul,
 .main-menu ul ul {
+	font-family: 'NanumSquareRound',sans-serif;
     padding: 0;
     margin: 0;
     text-align: center;

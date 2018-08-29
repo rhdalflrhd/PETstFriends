@@ -37,6 +37,6 @@ public interface UserDao {
 	
 	//회원관리-가은
 	public List<User> selectUserAll(HashMap<String, Object> params);//d
-	public int getCount(String keyword);//d
-	
+	public int getCount(HashMap<String, Object> params);//d
+	public int updateUserState(HashMap<String, Object> params);//d
 }

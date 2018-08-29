@@ -621,25 +621,27 @@ public class UserController {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("page", page);
 		params.put("numb", numb);
-		if (keyword != null)
+		if(keyword != null)
 			params.put("keyword", keyword);
 		HashMap<String, Object> result = userService.showUserList(params);
 		mav.addAllObjects(params);
 		mav.addAllObjects(result);
-		mav.setViewName("user/customerCenter_MemberHandling");
+		mav.setViewName("manager/customerCenter_MemberHandling");
 		return mav;
 
 	}
 
 	@RequestMapping("stopUser.do")
-	public int stopUser(String user_id, @RequestParam(defaultValue = "10") int stopdate) {
-		return userService.stopUser(user_id, stopdate);
+	@ResponseBody
+	public int stopUser(int user_no, @RequestParam int stopdate) {
+		System.out.println("옴");
+		return userService.stopUser(user_no, stopdate);
 	}
 
-	@RequestMapping("stopCancelUser.do")
-	public int stopCancelUser(String user_id, @RequestParam(defaultValue = "1") int stopdate) {
-		return userService.stopUser(user_id, stopdate);
-	}
+//	@RequestMapping("stopCancelUser.do")
+//	public int stopCancelUser(String user_id, @RequestParam(defaultValue = "1") int stopdate) {
+//		return userService.stopUser(user_id, stopdate);
+//	}
 	
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
