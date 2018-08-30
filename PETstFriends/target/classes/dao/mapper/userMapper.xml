@@ -32,7 +32,7 @@
 
 	<insert id="insertPet" parameterType="pet">
 		insert into pet values(
-		#{user_id},0,#{pet_name},#{pet_species},
+		0,#{user_id},#{pet_name},#{pet_species},
 		#{pet_gender},#{pet_age},
 		#{pet_file}
 		);

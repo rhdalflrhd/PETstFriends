@@ -14,14 +14,16 @@
     
 <title>기타광장</title>
 
-  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.min.css">
-    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="./assets/css/owl.theme.css">
-    <link rel="stylesheet" href="./assets/css/slicknav.css">
-    <link rel="stylesheet" href="./assets/style.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
     
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -85,7 +87,7 @@
 				<td width="1250px" colspan="5" bgcolor="pink"></td>
 			</tr>
 
-			<c:forEach items="${EtcFreeBoardList }" var="Freeboard">
+			<c:forEach items="${etcFreeBoardList }" var="Freeboard">
 				<tr>
 					<td align="center">${FreeBoard_boardno }</td>
 					<td><a
@@ -96,8 +98,7 @@
 					제목없음
 					</c:if>
 					</a></td>
-					<td align="center"><fmt:formatDate value="${Freeboard.FreeBoard_WriteDate }"
-							pattern="yyyy-MM-dd" /></td>
+					<td align="center"><fmt:formatDate value="${Freeboard.FreeBoard_WriteDate }" pattern="yyyy-MM-dd" /></td>
 
 					<td align="center">${Freeboard.FreeBoard_readCount }</td>
 					<td align="center">${Freeboard.FreeBoard_nickname }</td>
@@ -115,9 +116,9 @@
 			<tr>
 				<td width="1250px" colspan="3"><c:if test="${start != 1 }">
 						<a
-							href="EtcFreeBoardList.do?page=1&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[처음]</a>
+							href="etcFreeBoardList.do?page=1&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[처음]</a>
 						<a
-							href="EtcFreeBoardList.do?page=${start-1 }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[이전]</a>
+							href="etcFreeBoardList.do?page=${start-1 }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[이전]</a>
 					</c:if> <c:forEach begin="${start }" end="${end }" var="i">
 						<c:choose>
 							<c:when test="${i == current }">
@@ -125,40 +126,38 @@
 							</c:when>
 							<c:otherwise>
 								<a
-									href="EtcFreeBoardList.do?page=${i }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[${i }]</a>
+									href="etcFreeBoardList.do?page=${i }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[${i }]</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach> <c:if test="${end < last}">
 						<a
-							href="EtcFreeBoardList.do?page=${end+1 }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[다음]</a>
+							href="etcFreeBoardList.do?page=${end+1 }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[다음]</a>
 						<a
-							href="EtcFreeBoardList.do?page=${last }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[끝]</a>
+							href="etcFreeBoardList.do?page=${last }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[끝]</a>
 					</c:if></td>
 				<td colspan="2"><input type="button" value="글쓰기"
 					style="width: 80px; height: 25px; background-color: #FFE6E6; border: 1 solid white"
-					onclick="location.href='WriteFreeBoardForm.do'"> <input
+					onclick="location.href='writeFreeBoardForm.do'"> <input
 					type="button" value="뒤로가기"
 					style="width: 80px; height: 25px; background-color: #FFE6E6; border: 1 solid white"
 					onclick="location.href='main.do'"></td>
 			</tr>
 		</table>
 	</center>
-	<!-- <footer> -->
-   <%@ include file="/petst/footer.jsp" %>
-    <!--footer end-->
+<%@ include file="/petst/footer.jsp"%>
+<!-- js files -->
+<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 
 
-		
-	<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./assets/js/smoothscroll.js"></script>
-<script type="text/javascript" src="./assets/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="./assets/js/imagesloaded.pkgd.js"></script>
-<script type="text/javascript" src="./assets/js/isotope.2.2.2min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.stickit.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.slicknav.js"></script>
-<script type="text/javascript" src="./assets/js/scripts.js"></script>
 </body>
 </html>

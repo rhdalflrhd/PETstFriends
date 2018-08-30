@@ -1,64 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTf-8"?>
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.FreeBoardDao">
 
-	<select id="selectOneBoard" parameterType="int" resultType="FreeBoard">
-		select * from FreeBoard where FreeBoard_boardname =
-		#{FreeBoard_boardname}
-		and FreeBoard_boardno =#{FreeBoard_boardno}
+	<select id="selectOneBoard" parameterType="int" resultType="freeBoard">
+		select * from freeBoard where freeBoard_boardname =
+		#{freeBoard_boardname}
+		and freeBoard_boardno =#{freeBoard_boardno}
 
 	</select>
 
 	<!-- 파라미터타입 string 맞나? -->
 	<select id="selectBoardbyId" parameterType="String" resultType="List">
 
-		select * from FreeBoard where FreeBoard_boardname =
-		#{FreeBoard_boardname}
-		and FreeBoard_userId = #{FreeBoard_userId}
+		select * from freeBoard where freeBoard_boardname =
+		#{freeBoard_boardname}
+		and freeBoard_userId = #{freeBoard_userId}
 
 	</select>
 
-	<select id="selectBoardAll" parameterType="java.util.HashMap" resultType="FreeBoard">
-		select * from FreeBoard where 1 = 0 and 
-		FreeBoard_boardname = #{FreeBoard_boardname}
-		<if test="FreeBoard_title != null">
-			or FreeBoard_title like '%${ FreeBoard_title}%' </if>
-		<if test="FreeBoard_cotent != null">
-			or FreeBoard_content like '%${FreeBoard_content}%' </if>
-		<if test="FreeBoard_userId != null">
-			or FreeBoard_nickname like #{FreeBoard_nickname }
+	<select id="selectBoardAll" parameterType="java.util.HashMap" resultType="freeBoard">
+		select * from freeBoard where 1 = 1 and 
+		freeBoard_boardname = #{freeBoard_boardname}
+		<if test="freeBoard_title != null">
+			or freeBoard_title like '%${ freeBoard_title}%' </if>
+		<if test="freeBoard_cotent != null">
+			or freeBoard_content like '%${freeBoard_content}%' </if>
+		<if test="freeBoard_userId != null">
+			or freeBoard_nickname like #{freeBoard_nickname }
 		</if>
 	</select>
 
 
 	<select id="getCount" parameterType="java.util.HashMap"
 		resultType="int">
-		select count(*) from Freeboard
+		select count(*) from freeboard
 		where 1 = 0
-		<if test="FreeBoard_title != null">
-			or FreeBoard_title like '%${FreeBoard_title}%'
+		<if test="freeBoard_title != null">
+			or freeBoard_title like '%${freeBoard_title}%'
 		</if>
-		<if test="FreeBoard_content != null">
-			or FreeBoard_content like '%${FreeBoard_content}%'
+		<if test="freeBoard_content != null">
+			or freeBoard_content like '%${freeBoard_content}%'
 		</if>
-		<if test="FreeBoard_name != null">
-			or FreeBoard_name like '%${FreeBoard_name}%'
+		<if test="freeBoard_name != null">
+			or freeBoard_name like '%${freeBoard_name}%'
 		</if>
-		<if test="FreeBoard_type == 0">
+		<if test="freeBoard_type == 0">
 			or 1=1
 		</if>
-		<if test="FreeBoard_startdate != null">
-			and FreeBoard_writedate
+		<if test="freeBoard_startdate != null">
+			and freeBoard_writedate
 			between #{startdate} and #{enddate}
 		</if>
 	</select>
-	<sql id="FreeBoard_title">
+	<sql id="freeBoard_title">
 		<choose>
-			<when test="FreeBoard_title == null or FreeBoard_title != '' ">
-				#{FreeBoard_title}
+			<when test="freeBoard_title == null or freeBoard_title != '' ">
+				#{freeBoard_title}
 			</when>
 			<otherwise>
 				'제목없음'
@@ -66,20 +66,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</choose>
 	</sql>
 
-	<sql id="FreeBoard_content">
+	<sql id="freeBoard_content">
 		<choose>
-			<when test="FreeBoard_content == null or FreeBoard_content != ''">
-				#{FreeBoard_content}
+			<when test="freeBoard_content == null or freeBoard_content != ''">
+				#{freeBoard_content}
 			</when>
 			<otherwise>
 				'내용없음'
 			</otherwise>
 		</choose>
 	</sql>
-	 <sql id="FreeBoard_YoutubeUrl">
+	 <sql id="freeBoard_YoutubeUrl">
         <choose>
-            <when test="FreeBoard_YoutubeUrl != null">
-                #{FreeBoard_YoutubeUrl}
+            <when test="freeBoard_YoutubeUrl != null">
+                #{freeBoard_YoutubeUrl}
             </when>
             <otherwise>
                 '동영상없음'
@@ -90,33 +90,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<insert id="insertBoard" parameterType="java.util.HashMap"
-		useGeneratedKeys="true" keyProperty="FreeBoard_boardno">
-		insert into FreeBoard values (0,#{FreeBoard_boardname},
-		#{FreeBoard_userId},#{FreeBoard_nickname},<include refid="FreeBoard_title" />, #{FreeBoard_file}, <include refid="FreeBoard_content" />,
-		0,<include refid="FreeBoard_YoutubeUrl"/>,curdate(),  #{FreeBoard_contentPic},0
+		useGeneratedKeys="true" keyProperty="freeBoard_boardno">
+		insert into freeBoard values (#{freeBoard_boardname},0,
+		#{freeBoard_userId},#{freeBoard_nickname},<include refid="freeBoard_title" />, #{freeBoard_file}, <include refid="freeBoard_content" />,
+		curdate(),<include refid="freeBoard_YoutubeUrl"/>,0,  #{freeBoard_contentPic},0
 		)
 	</insert>
 
 	<update id="updateBoard" parameterType="java.util.HashMap">
-		update FreeBoard set
-		<include refid="FreeBoard_title" />
+		update freeBoard set
+		<include refid="freeBoard_title" />
 		,
-		FreeBoard_file=#{file},
-		<include refid="FreeBoard_content" />
+		freeBoard_file=#{file},
+		<include refid="freeBoard_content" />
 		,
-		FreeBoard_readCount=#{FreeBoard_readCount}, #{FreeBoard_contentPic}
-		where FreeBoard_boardname = #{FreeBoard_boardname}
-		and FreeBoard_boardno =#{FreeBoard_boardno}
+		freeBoard_readCount=#{freeBoard_readCount}, #{freeBoard_contentPic}
+		where freeBoard_boardname = #{freeBoard_boardname}
+		and freeBoard_boardno =#{freeBoard_boardno}
 
 	</update>
 
 	<delete id="deleteBoard" parameterType="int">
 
-		delete FreeBoard where FreeBoard_boardname = #{FreeBoard_boardname}
-		and FreeBoard_boardno =#{FreeBoard_boardno}
+		delete freeBoard where freeBoard_boardname = #{freeBoard_boardname}
+		and freeBoard_boardno =#{freeBoard_boardno}
 
 	</delete>
 
+<select id="getLastBoardno" resultType="int" parameterType="java.util.HashMap">
+		select MAX(freeboard_boardno) from freeBoard where freeBoard_boardname = #{freeBoard_boardname} and freeBoard_userId= 
+			#{freeBoard_userId}
+		<!-- 지금은 위에 커리로 해놓지만, 유저와 합치면 아래 코드로 바꿔야함 ㅇㅇ select MAX(tipboard_boardno) 
+			 -->
+	</select>
 
 
 
