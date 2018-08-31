@@ -49,10 +49,10 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	//글삭제
 	
 	@Override
-	public int DeleteFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno) {
+	public int DeleteFreeBoard(int freeBoard_boardname, int freeBoard_boardno) {
 		HashMap<String, Object> params= new HashMap<String, Object>();
-		params.put("freeBoard_boardname", FreeBoard_boardname);
-		params.put("freeBoard_boardno", FreeBoard_boardno);
+		params.put("freeBoard_boardname",freeBoard_boardname);
+		params.put("freeBoard_boardno", freeBoard_boardno);
 		return bDao.deleteBoard(params);
 	}
 //----------------------------------------------------------------------------------------------------
@@ -145,8 +145,10 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		result.put("dogFreeBoardList", bDao.selectBoardAll(params));
 		result.put("dogFreeBoardCount", size);
 
-		System.out.println("타이틀="+(String) params.get("freeBoard_title"));
-		
+//		System.out.println("타이틀="+params.get("freeBoard_title"));
+		System.out.println("파람에 뭐있음?"+params);
+		System.out.println(bDao.selectBoardAll(params));
+		System.out.println("리절트"+result);
 		
 
 		return result;
@@ -224,20 +226,30 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	@Override
 	public FreeBoard getBoard(int freeBoard_boardname, int freeBoard_boardno) {
+		System.out.println("getBoard 서비스 들어옴");
+		System.out.println("보드네임은: "+freeBoard_boardname);
+		System.out.println("보드넘버는:"+freeBoard_boardno);
+		
 		// TODO Auto-generated method stub
 		HashMap<String, Object> params= new HashMap<String, Object>();
+
 		params.put("freeBoard_boardname", freeBoard_boardname);
 		params.put("freeBoard_boardno", freeBoard_boardno);
-		return bDao.selectOneBoard(freeBoard_boardname,freeBoard_boardno);
+//		FreeBoard freeboard = bDao.selectOneBoard(params);
+
+		
+		return bDao.selectOneBoard(params); 
 	}
 
 	@Override
 	public FreeBoard readBoard(int freeBoard_boardname, int freeBoard_boardno) {
 		// TODO Auto-generated method stub
 		//게시물 정보를 조회, 조회수 +1 추가
-		
-		FreeBoard freeboard = bDao.selectOneBoard(freeBoard_boardno,freeBoard_boardname);
-		freeboard.setFreeBoard_readCount(freeboard.getFreeBoard_readCount()+1);
+		HashMap<String, Object> params= new HashMap<String, Object>();
+		params.put("freeBoard_boardname", freeBoard_boardname);
+		params.put("freeBoard_boardno", freeBoard_boardno);
+		FreeBoard freeboard = bDao.selectOneBoard(params);
+
 		bDao.updateBoard(freeboard);
 		return freeboard;
 		

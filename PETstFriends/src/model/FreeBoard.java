@@ -96,6 +96,8 @@ public class FreeBoard {
 				+ freeBoard_YoutubeUrl + ", freeBoard_writeDate=" + freeBoard_writeDate + ", freeBoard_contentPic="
 				+ freeBoard_contentPic + ", freeBoard_LikeCount=" + freeBoard_LikeCount + "]";
 	}
+
+	
 	
 	
 }

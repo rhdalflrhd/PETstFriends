@@ -94,18 +94,18 @@
 				<tr>
 					<td align="center">${FreeBoard.freeBoard_boardno }</td>
 					<td>
-					<a href="selectOneBoard.do?freeBoard_boardno=${freeBoard_boardno }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
-							<c:if test="${freeBoard_title != null &&  freeBoard_title ne '' }">
+					<a href="selectOneBoard.do?freeBoard_boardno=${FreeBoard.freeBoard_boardno }&freeBoard_boardname=${FreeBoard.freeBoard_boardname }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
+							<c:if test="${FreeBoard.freeBoard_title != null &&  FreeBoard.freeBoard_title ne '' }">
 					${FreeBoard.freeBoard_title }
 					</c:if>
-					 <c:if test="${freeBoard_title == null || freeBoard_title eq '' }">
+					 <c:if test="${FreeBoard.freeBoard_title == null || FreeBoard.freeBoard_title eq '' }">
 					제목없음
 					</c:if>
 					</a></td>
 						<td align="center">${FreeBoard.freeBoard_nickname }</td>
 					<td align="center">
-					<fmt:formatDate value="${FreeBoard.freeBoard_writeDate }" pattern="yyyy-MM-dd" /></td>
-
+					<td align="center">${FreeBoard.freeBoard_writeDate }</td>
+<%--  <fmt:formatDate value="${FreeBoard.freeBoard_writeDate}" pattern="yyyy-MM-dd" /> --%>
 					<td align="center">${FreeBoard.freeBoard_readCount }</td>
 				
 				</tr>
@@ -147,8 +147,10 @@
 					<input type="button" value="뒤로가기"
 					style="width: 80px; height: 25px; background-color: #FFE6E6; border: 1 solid white"
 					onclick="location.href='main.do'"></td>
+					
 			</tr>
 		</table>
+		<input type="hidden" id="FreeBoard.freeBoard_boardname" name="FreeBoard.freeBoard_boardname" value=" FreeBoard.freeBoard_boardname">
 	</center>
 
 

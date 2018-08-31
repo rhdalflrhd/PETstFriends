@@ -65,8 +65,8 @@ public class FreeBoardController {
 			} else if (type == 4) {
 				params.put("nickname", keyword);
 			}
-			FreeBoard freeboard = new FreeBoard();
-			freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
+//			FreeBoard freeboard = new FreeBoard();
+//			freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
 			result = freeboardService.ShowFreeBoard(params, page);
 			
 			mav.addAllObjects(result);
@@ -216,13 +216,21 @@ public class FreeBoardController {
 //---------------------------------------------------------------------------------------------------------
 	//게시물 한개 보기 
 	@RequestMapping("selectOneBoard.do")
-	public ModelAndView SelectOneBoard(Model model, @RequestParam(required=false) HashMap<String, Object> params, HttpSession session,int page) {
-		
+	public ModelAndView SelectOneBoard(Model model, @RequestParam(required=false) HashMap<String, Object> params, HttpSession session,@RequestParam int freeBoard_boardname, @RequestParam int freeBoard_boardno ) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+//		System.out.println(freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno)+"겟보드");	
 		System.out.println("셀렉트원보드.두 들어옴");
-		System.out.println(params.get("freeBoard_content"));
+
 		ModelAndView mav = new ModelAndView();
 		mav.addAllObjects(params);
-		mav.addObject("freeBoard", freeboardService.ShowFreeBoard(params, page));
+		System.out.println("보드네임은: "+freeBoard_boardname);
+		System.out.println("보드넘버는:"+freeBoard_boardno);
+	
+//	System.out.println( "겟보드"+freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno));
+		mav.addObject("freeBoard", freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno));
+		
+
+		System.out.println("셀렉트원보드.두 파람에는:"+params);
 		mav.setViewName("freeboard/selectOneBoard");
 		return mav;
 		
@@ -336,17 +344,19 @@ public class FreeBoardController {
 		}
 		//------------------------------------------------------------------------------------------------------------------------------
 //게시글 삭제
-		@RequestMapping("deleteFreeBoard.do")
-		public String DeleteFreeBoard(Model model, int FreeBoard_boardname, int FreeBoard_boardno,HttpSession session) {
-			System.out.println("dogDeleteTipBoard.do 컨트롤러 들어옴");
-			FreeBoard freeboard = freeboardService.getBoard(FreeBoard_boardname, FreeBoard_boardno);
-//			session.setAttribute("user_id", "testID");//지금은 유저랑 연결안해놨으니까 일단 이렇게 해놈 08.23 현재날짜 기준.
-			String user_idCheck = (String) session.getAttribute("user_id");
-			if(freeboard.getFreeBoard_userId().equals(user_idCheck)) {
-				freeboardService.DeleteFreeBoard(FreeBoard_boardname, FreeBoard_boardno);
-			}
+		@RequestMapping("dogDeleteFreeBoard.do")
+		public String DeleteFreeBoard(Model model, int freeBoard_boardname, int freeBoard_boardno,HttpSession session) {
+			System.out.println("dogDeleteFreeBoard.do 컨트롤러 들어옴");
+//			FreeBoard freeboard = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+//			
+//			System.out.println( (String) session.getAttribute("user_id")+"세션에 있는 유저아이디 ㅋ");
+//			
+//			String user_idCheck = (String) session.getAttribute("user_id");
+//			if(freeboard.getFreeBoard_userId().equals(user_idCheck)) {
+				freeboardService.DeleteFreeBoard(freeBoard_boardname, freeBoard_boardno);
 			
-			return "redirect:freeboard/FreeBoardList.do";
+			
+			return "redirect:dogFreeBoardList.do";
 		}
 		
 //		@RequestMapping("download.do")

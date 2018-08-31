@@ -5,10 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="dao.FreeBoardDao">
 
-	<select id="selectOneBoard" parameterType="int" resultType="freeBoard">
+	<select id="selectOneBoard" parameterType="java.util.HashMap" resultType="freeBoard">
 		select * from freeBoard where freeBoard_boardname =
-		#{freeBoard_boardname}
-		and freeBoard_boardno =#{freeBoard_boardno}
+		#{freeBoard_boardname}	and freeBoard_boardno =#{freeBoard_boardno}
 
 	</select>
 
@@ -103,11 +102,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 
-	<update id="updateBoard" parameterType="java.util.HashMap">
+	<update id="updateBoard" parameterType="int">
 		update freeBoard set
 		<include refid="freeBoard_title" />
 		,
-		freeBoard_file=#{file},
+		freeBoard_file=#{freeBoard_file},
 		<include refid="freeBoard_content" />
 		,
 		freeBoard_readCount=#{freeBoard_readCount}, #{freeBoard_contentPic}

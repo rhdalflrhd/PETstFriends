@@ -35,8 +35,10 @@
 $(document).ready(function() {
 $('#deleteBtn').click(function(){
 	var result = confirm('삭제하시겠습니까?');
-	if(result){
-		location.href='deleteNoticeBoard.do?notice_boardno='+${notice_boardno};
+	if(result==true){
+		alert("성공적으로 삭제되었습니다.")
+		location.href='dogDeleteFreeBoard.do?freeBoard_boardno='+${freeBoard_boardno};
+
 	}
 	else{
 	}
@@ -63,11 +65,11 @@ $('#deleteBtn').click(function(){
 			</tr>
 
 			<tr align="center" style="font-family: 'monaco';" bgcolor="white">
-				<td>${FreeBoard.freeBoard_boardno }</td>
-				<td>${FreeBoard.freeBoard_title }</td>
-				<td>${FreeBoard.freeBoard_nickname }</td>
-				<td>${FreeBoard.freeBoard_writeDate }</td>
-				<td>${FreeBoard.freeBoard_readCount }</td>
+				<td>${freeBoard.freeBoard_boardno }</td>
+				<td>${freeBoard.freeBoard_title }</td>
+				<td>${freeBoard.freeBoard_nickname }</td>
+				<td>${freeBoard.freeBoard_writeDate }</td>
+				<td>${freeBoard.freeBoard_readCount }</td>
 
 <%-- 				<td><a href="download.do?num=${board.num }">${board.file }</a></td> --%>
 			</tr>
@@ -79,7 +81,7 @@ $('#deleteBtn').click(function(){
 
 			<tr>
 				<td align="center" colspan="7" height="500">
-				${FreeBoard.freeBoard_content }</td>
+				${freeBoard.freeBoard_content }</td>
 			</tr>
 
 			<tr>
@@ -88,10 +90,10 @@ $('#deleteBtn').click(function(){
 					onclick="location.href='modifyForm.do?num=${board.num}&page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'">
 				<input type="button" value="삭제하기"
 				style="width:500 font-family: 'monaco'; background-color: #FFE6E6; border: 1 solid white"
-					onclick="location.href='deleteForm.do?num=${board.num }&page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'">
+					onclick="location.href='dogDeleteFreeBoard.do?freeBoard_boardno=${freeBoard.freeBoard_boardno }&freeBoard_boardname=${freeBoard.freeBoard_boardname }&page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'">
 			<input type="button" value="게시판으로"
 			style="width:500 font-family: 'monaco'; background-color: #FFE6E6; border: 1 solid white"
-					onclick="location.href='boardList.do?page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'"></td>
+					onclick="location.href='dogFreeBoardList.do?page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'"></td>
 			</tr>
 
 		</table>
