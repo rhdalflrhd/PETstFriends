@@ -112,7 +112,7 @@ font-family: 'NanumSquareRound',sans-serif;
 						<!--                 <div class="img-overlay"> -->
 						<!--                     <div class="portfolio-text"> -->
 						<%--                    <h4>${e.encyc_title}</h4> --%>
-						<%--                     <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>   --%>
+						<%-- d                    <a href="#" onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>   --%>
 						<!--                     </div> -->
 						<!--                 </div> -->
 

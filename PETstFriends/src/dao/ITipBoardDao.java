@@ -65,7 +65,7 @@ public interface ITipBoardDao {
 	  /* 좋아요 번호 등록 */
 	public int createTipLikes(HashMap<String, Object> params);
 	  
-	  /**
+	  /**  
 	   * 좋아요 체크 여부 (0 -> 1)
 	   * @param hashMap
 	   * @return

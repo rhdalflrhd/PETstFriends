@@ -196,7 +196,7 @@ font-family: 'NanumSquareRound',sans-serif;
    </div> 
   </center>  
     </div>
-<!--main content end-->
+<!--main content end  -->
 </div>
 
 <%@ include file="/petst/footer.jsp"%>

@@ -146,7 +146,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 
-<!-- ======================================좋아요 쿼리============================================ -->
+<!-- ======================================  좋아요 쿼리============================================ -->
 
 	<select id="countbyLike" resultType="int" parameterType="HashMap">
 		SELECT COUNT(tipLikes_likeno) as cnt

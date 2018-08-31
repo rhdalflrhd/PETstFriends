@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class TipComments {
-
+	//
 	private String tipComments_boardname;
 	private String tipComments_boardno;
 	private String tipComments_commentno;

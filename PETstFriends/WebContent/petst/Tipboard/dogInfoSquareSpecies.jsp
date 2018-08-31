@@ -160,7 +160,7 @@ font-family: 'NanumSquareRound',sans-serif;
 						style="width: 260px; height: 380px; border: 1px #F2F2F2 solid; border-radius: 5px;">
 						<div style=" height: 200px;">
 						<c:if test="${empty e.encyc_thumbnail}">
-<!-- 							<h1> -->
+<!-- 							<h1> d-->
 <!-- 								<font color="#F2F2F2" style="font-family: Georgia;">No-image</font> -->
 <!-- 							</h1> -->
 								<img src="./Boot/images/nothumnails.jpg"

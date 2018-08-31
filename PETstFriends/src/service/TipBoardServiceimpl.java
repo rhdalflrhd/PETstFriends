@@ -48,7 +48,7 @@ public class TipBoardServiceimpl implements TipBoardService{
 		File dir = new File(path);
 		
 		if(!dir.exists()) {
-			dir.mkdirs();//저 경로에 폴더 없으면 폴더하나 만들어 make directory
+			dir.mkdirs();//저  경로에 폴더 없으면 폴더하나 만들어 make directory
 		}
 		String fileName = TipBoard_contentPic.getOriginalFilename();
 		File attachFile = new File(path + fileName);

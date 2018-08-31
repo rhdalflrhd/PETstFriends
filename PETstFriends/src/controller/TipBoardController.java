@@ -146,7 +146,7 @@ public class TipBoardController {
 		return mav;		
 	}		
 
-	//-----------------------------------------강아지 TIp정보 게시판 글 한개 읽기.
+	//----------------------------------------- 강아지 TIp정보 게시판 글 한개 읽기.
 	@RequestMapping("DogReadTipBoard.do")
 	public String DogReadTipBoardC(Model model, int boardname, int boardno, HttpSession session) {
 		

@@ -170,7 +170,7 @@ input::-moz-placeholder {
 <body>
 <%@ include file="/petst/header.jsp"%>
 <div class="wrapper">
-    <!--main content start-->
+    <!--main content startd-->
 		<div class="main-content">
 			<div class="container">
 				<div class="row">

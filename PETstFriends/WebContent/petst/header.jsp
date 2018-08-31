@@ -42,7 +42,7 @@ ul, li {
 <body>
     <header id="header">
 	<%
-		boolean a = false;//어드민 이면 ture
+		boolean a = false;//어드민 이면     ture
 		boolean b = false;//회원 이면 true
 		if (session.getAttribute("user_id") != null && session.getAttribute("adminCheck") != null) {//아이디가 있고 어드민 있으므로 어드민
 			a = true;

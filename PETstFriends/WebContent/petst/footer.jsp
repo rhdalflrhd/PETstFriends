@@ -41,7 +41,7 @@ h3 {
 </head>
 <body>
 	<div id="footer">
-<!-- 		<div class="footer-widget-section" style="background-color: black"> -->
+<!-- 		<div class="footer-widget-section" style="background-color: black">      -->
 		<div class="footer-widget-section" >
 			<div class="container">
 <!-- 				<div class="row" style="background-color: black; color: dimgray"> -->

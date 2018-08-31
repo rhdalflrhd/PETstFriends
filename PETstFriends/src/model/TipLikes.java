@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class TipLikes {
-
+	//
 	private int tipLikes_likeno;
 	private int tipLikes_boardname;
 	private int tipLikes_boardno;

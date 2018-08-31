@@ -222,7 +222,7 @@ input::-moz-placeholder {
 <!-- 						&nbsp;&nbsp;수정하기&nbsp;&nbsp; -->
 <!-- 						</a> -->
 <%-- 					</c:if> --%>
-<!-- 					<a onclick="location.href='dogTipBoardList.do'">&nbsp;&nbsp;목록으로&nbsp;&nbsp;</a> -->
+<!--d 					<a onclick="location.href='dogTipBoardList.do'">&nbsp;&nbsp;목록으로&nbsp;&nbsp;</a> -->
 <!-- 					<a onclick="history.back();">&nbsp;&nbsp;뒤로가기&nbsp;&nbsp;</a> -->
 <!-- 					</div> -->
 <!-- 					<div align="right"class="col-md-2"> -->

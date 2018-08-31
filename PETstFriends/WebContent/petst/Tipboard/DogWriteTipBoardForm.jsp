@@ -225,7 +225,7 @@ input::-moz-placeholder {
 								<input type="hidden" id="tipBoard_boardname" name="tipBoard_boardname"
 										value="7" /> <!-- 강아지 팁게시판 보드네임은 7! -->
 									</div>
-									<!--<button type="button" class="btn send-btn">글 작성 완료 </button><br> -->
+									<!-- <button type="button" class="btn send-btn">글 작성 완료 </button><br> -->
 
 								
 							</div>

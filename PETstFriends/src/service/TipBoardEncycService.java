@@ -54,7 +54,7 @@ public class TipBoardEncycService {
 			while ((msg = br.readLine()) != null) {
 				data += msg;
 			}
-//			System.out.println("들어온 반려동물 정보 확인");
+//		 	System.out.println("들어온 반려동물 정보 확인");
 //			System.out.println(data);
 			parser.setInput(new StringReader(data));
 			int eventType = parser.getEventType();
