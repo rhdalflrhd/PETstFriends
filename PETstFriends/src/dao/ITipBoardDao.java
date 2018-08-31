@@ -48,22 +48,15 @@ public interface ITipBoardDao {
 	
 	
 	//==============================팁보드 코멘트 다오============================================	
-	public int CommentsgetCount();
+	public int insertTipComments(HashMap<String, Object> params);
 	
-	public int insertTipComments(TipComments tc);
+	public boolean updateTipComments(HashMap<String, Object> params);
 	
-	public int updateTipCommentsGroup(int TipComments_no);
+	public List<TipComments> selectAllTipcomments(HashMap<String, Object> params);
+	
+	public int deleteTipComments(HashMap<String, Object> params);
 
-	public TipComments selectOneTipCommnets(int TipComments_groupno);
-	
-	public int updateTipComments(HashMap<String, Object> params);
-	
-	public List<TipComments> selectAll(int skip);
-	
-	public int groupnoCount(int TipComments_no);
-	
-	public int deleteTipComments(int TipComments_no);
-
+	public int deleteTipCommentsAll(HashMap<String, Object> params);
 	//==============================팁보드 좋아요 다오============================================
 	
 	 /* 게시판의 좋아요 번호가 있는지 카운트 */

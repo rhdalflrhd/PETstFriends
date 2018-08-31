@@ -59,6 +59,7 @@ public class OftenQnAController {
 		model.addAttribute("oftenQnA_boardno", oftenQnA.getOftenQnA_boardno());
 		return "redirect:showOftenQnA.do";
 	}
+	
 	@RequestMapping("deleteOftenQnA.do")
 	public String deleteOftenQnABoard(@RequestParam int oftenQnA_boardno) {
 		System.out.println("옴");

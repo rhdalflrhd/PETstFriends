@@ -26,7 +26,7 @@
 </script>
 </head>
 <body>
-	<%-- 	<%@ include file="/petst/header.jsp"%> --%>
+		<%@ include file="/petst/header.jsp"%>
 	<div class="wrapper">
 		<div class="main-content">
 			<div class="container" style="background: white;">

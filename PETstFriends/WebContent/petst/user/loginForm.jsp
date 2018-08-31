@@ -129,12 +129,13 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-    
+<%@ include file="/petst/header.jsp"%>
+<div class="wrapper">    
 <div class="login-form">
 
         <h2 class="text-center">로그인</h2>		
         
-               <div class="form-group">
+         <div class="form-group">
         	<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                 <input type="text" class="form-control" name="user_id" id="user_id"  placeholder="Id" required="required">
@@ -189,20 +190,6 @@ $(document).ready(function() {
 <br><br>
 <!-- <footer> -->
    <%@ include file="/petst/footer.jsp" %>
-    <!--footer end-->
-
-
-		
-	<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./assets/js/smoothscroll.js"></script>
-<script type="text/javascript" src="./assets/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="./assets/js/imagesloaded.pkgd.js"></script>
-<script type="text/javascript" src="./assets/js/isotope.2.2.2min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.stickit.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.slicknav.js"></script>
-<script type="text/javascript" src="./assets/js/scripts.js"></script>
+    <!--footer end-->		
 </body>
 </html>

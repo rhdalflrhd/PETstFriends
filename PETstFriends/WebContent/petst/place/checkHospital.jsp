@@ -8,7 +8,7 @@
 <link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet" />
-	<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/style.css">
 <style>
 .empty {
 	width: 10%;
@@ -37,11 +37,12 @@
 	background-color: white;
 }
 
-#reviewList{
-overflow:auto;
-width: 100%; 
-height: 400px;
+#reviewList {
+	overflow: auto;
+	width: 100%;
+	height: 400px;
 }
+
 .map_wrap, .map_wrap * {
 	margin: 0;
 	padding: 0;
@@ -234,25 +235,27 @@ input[type="text"] {
 }
 
 .reviewBoard {
-	border-bottom: 1px solid black; 
-} 
+	border-bottom: 1px solid black;
+}
 
-#submitBtn{
-display: inline-block; 
-color: brown; 
-font-size: 35px; 
-cursor: pointer;
+#submitBtn {
+	display: inline-block;
+	color: brown;
+	font-size: 35px;
+	cursor: pointer;
 }
 
 button {
-border-radius: 20%;
-padding: 5px 10px;
-font-size: 10px;
-border: 1px solid #4CAF50; 
-background-color: white; 
+	border-radius: 20%;
+	padding: 5px 10px;
+	font-size: 10px;
+	border: 1px solid #4CAF50;
+	background-color: white;
 }
 /* body { */
-/* /*     background: url("assets/images/pattern/test5.png"); */ */
+/* /*     background: url("assets/images/pattern/test5.png"); */
+*
+/
 /*     background: url("images/test5.png"); */
 /*     font-family: 'Merriweather', serif; */
 /*     color: #444444; */
@@ -265,21 +268,21 @@ background-color: white;
 <title>Insert title here</title>
 </head>
 <body>
- <header id="header">
-<!-- <div style="border: 1px solid red;"> -->
-	<%@ include file="/petst/header.jsp"%>
-<!-- </div> -->
+	<header id="header"> <!-- <div style="border: 1px solid red;"> -->
+	<%@ include file="/petst/header.jsp"%> <!-- </div> -->
 	</header>
 	<div style="height: 50px;"></div>
 	<div class="option" align="center">
-		
-			<div>
-				<input type="text" value="지역을 입력하세요." id="keyword" size="20" style="inline-block; 
-				height: 40px; color: black; width: 300px; cursor: text;">
-				<div id="submitBtn"><i class="fa fa-search" onclick="searchPlaces()"></i></div>
-				
+
+		<div>
+			<input type="text" value="지역을 입력하세요." id="keyword" size="20"
+				style="height: 40px; color: black; width: 300px; cursor: text;">
+			<div id="submitBtn">
+				<i class="fa fa-search" onclick="searchPlaces()"></i>
 			</div>
-	
+
+		</div>
+
 	</div>
 	<div style="height: 50px;"></div>
 	<div id="box">
@@ -297,33 +300,36 @@ background-color: white;
 				</div>
 			</div>
 		</div>
-		
-		
-		
+
+
+
 		<div id="hospitalReview">
-		<div style="border: 1px solid black">
-			<span class="hospitalName" style="font-size: 20px; font-weight: bold;"><i class="fa fa-hospital"></i></span>
-			<div style="width: 70%; height : 2px; border: 2px solid gray;"></div>
-			<div style="height : 5px; "></div>
-			<input type="hidden" class="hspitalName">
-			<input type="hidden" id="hospitalX">
-			<input type="hidden" id="hospitalY">
+			<div style="border: 1px solid black">
+				<span class="hospitalName"
+					style="font-size: 20px; font-weight: bold;"><i
+					class="fa fa-hospital"></i></span>
+				<div style="width: 70%; height: 2px; border: 2px solid gray;"></div>
+				<div style="height: 5px;"></div>
+				<input type="hidden" class="hspitalName"> <input
+					type="hidden" id="hospitalX"> <input type="hidden"
+					id="hospitalY">
 
-			<div id="reviewList">
-				<div class="reviewBoard">
-					닉네임 <br> 후기글
+				<div id="reviewList">
+					<div class="reviewBoard">
+						닉네임 <br> 후기글
+					</div>
 				</div>
-			</div>
 
-		</div>
-			<div id="writeReview" align="center" style="background-color: orange;">
-			<div style="height: 5px;"></div>
-			<div>
-				<textarea id="writeText" rows="4" cols="35" style="height: 125px;">후기를 작성해주세요.</textarea>
 			</div>
-			<div align="right">
-				<button id="writeBtn">작성</button>
-			</div>
+			<div id="writeReview" align="center"
+				style="background-color: orange;">
+				<div style="height: 5px;"></div>
+				<div>
+					<textarea id="writeText" rows="4" cols="35" style="height: 125px;">후기를 작성해주세요.</textarea>
+				</div>
+				<div align="right">
+					<button id="writeBtn">작성</button>
+				</div>
 			</div>
 
 		</div>
@@ -570,7 +576,7 @@ background-color: white;
 	<script type="text/javascript">
 
 		$(document).ready(function() {
-			var sessionId = <%=session.getAttribute("user_id") %>;
+			var sessionId = <%=session.getAttribute("user_id")%>;
 			$(document).on('click', '.placeReview', function() {
 				$('.hospitalName').empty();
 				$('#hospitalX').empty();
@@ -762,8 +768,7 @@ background-color: white;
 			})
 		});
 	</script>
-	<footer>
-	<%@ include file="/petst/footer.jsp"%>
-</footer>
+	<footer> <%@ include file="/petst/footer.jsp"%>
+	</footer>
 </body>
 </html>

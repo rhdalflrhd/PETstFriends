@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <title>내가 참여한 모임 글 </title>
 
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css">

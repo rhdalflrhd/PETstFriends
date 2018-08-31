@@ -13,14 +13,15 @@
 
 <title>로그인</title>
 
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.min.css">
-    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="./assets/css/owl.theme.css">
-    <link rel="stylesheet" href="./assets/css/slicknav.css">
-    <link rel="stylesheet" href="./assets/style.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
     
    
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -356,12 +357,17 @@ $(function () {
 <!--        <header id="header"> -->
          <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
+    <div class="wrapper">
+    			<div class="container">
+				<div class="row">  
 	<center>
 		<h1>
-			<b><font color="gray">회원가입</font></b>
+			<b><font color="gray">회원가입*는 필수 입력 칸 입니다.</font></b>
 		</h1>
+<!-- <h4> -->
+<!-- 		*는 필수 입력 칸 입니다. -->
+<!-- </h4> -->
 
-		*는 필수 입력 칸 입니다.
 
 			<b><font color="gray">${msg }</font></b>
 <!-- ------------------------------------------------------------------------------------------------------ -->
@@ -495,12 +501,11 @@ $(function () {
 			</table>
 
 	</center>
-	<!-- <footer> -->
-   <%@ include file="/petst/footer.jsp" %>
-    <!--footer end-->
-
+	</div>
+	</div>
 </div>
-		
+
+	   <%@ include file="/petst/footer.jsp" %>	
 	<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
 <script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
