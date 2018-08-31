@@ -27,5 +27,10 @@ public interface FreeBoardDao {
 	//댓글
 	public int getCommentCount(HashMap<String, Object> params);//댓글 개수 조회
 	public List<FreeComment> selectCommentAll(HashMap<String, Object> params);
-	
+	public int insertComment(FreeComment freecomment);
+	public int updateCommentParent(FreeComment freecomment);
+	public int groupCount(int freeComments_commentno);
+	public int updateComments(HashMap<String, Object> params);
+	public int deleteComments(int freeComments_commentno);
+	public FreeComment selectOneComments(int freeComments_parent);
 }

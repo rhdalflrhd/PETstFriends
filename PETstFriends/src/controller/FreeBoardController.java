@@ -191,13 +191,8 @@ public class FreeBoardController {
 			return "redirect:FreeBoardList.do";
 		}
 		
-//		@RequestMapping("download.do")
-//		public View download(HashMap<String, Object> params) {
-//
-//			View view = new DownloadView(freeboardService.getAttachFile(params));
-//			return view;
-//		}
 		
+		//댓글 리스트
 		@RequestMapping("freeCommentList.do")
 		@ResponseBody
 		public void freeCommentList(HttpServletResponse resp, int freeBoard_boardname, int freeBoard_boardno, int comment_page) {
@@ -213,5 +208,33 @@ public class FreeBoardController {
 			}
 		}
 
-	
+		//댓글 쓰기
+		@RequestMapping("writefreeComment.do")
+		@ResponseBody
+		public int writefreeComment(@RequestParam(defaultValue = "0") int freeComments_parent, @RequestParam int freeBoard_boardname,
+				@RequestParam String freeComments_content, @RequestParam int freeBoard_boardno, HttpSession session) {
+			FreeComment freeCom = new FreeComment();
+			String freeComments_userId = (String) session.getAttribute("user_id");
+			String freeComments_nickname = (String) userService.selectUser(freeComments_userId).get("user_nickname");
+			freeCom.setFreeBoard_boardname(freeBoard_boardname);
+			freeCom.setFreeBoard_boardno(freeBoard_boardno);
+			freeCom.setFreeComments_content(freeComments_content);
+			freeCom.setFreeComments_nickname(freeComments_nickname);
+			freeCom.setFreeComments_parent(freeComments_parent);
+			freeCom.setFreeComments_userId(freeComments_userId);
+			return freeboardService.writeCommentFreeBoard(freeCom);
+			
+		}
+		//댓글삭제
+		@RequestMapping("deletefreeComment.do")
+		@ResponseBody
+		public int deletefreeComment(@RequestParam int freeComments_commentno, @RequestParam int freeComments_parent) {
+			return freeboardService.deleteComments(freeComments_commentno, freeComments_parent);
+		}
+		//댓글 수정
+		@RequestMapping("updatefreeComment.do")
+		@ResponseBody
+		public int updatefreeComment(@RequestParam int freeComments_commentno, @RequestParam String freeComments_content) {
+			return freeboardService.updatefreeComment(freeComments_commentno, freeComments_content);
+		}
 }

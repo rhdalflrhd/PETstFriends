@@ -117,6 +117,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</delete>
 
+
+
+
+
 <select id="selectCommentAll" parameterType="java.util.HashMap"
 resultType="freeComment">
 select * from freecomments where freeBoard_boardname=#{freeBoard_boardname} and freeBoard_boardno=#{freeBoard_boardno}
@@ -125,6 +129,28 @@ order by freeComments_parent ASC, freeComments_commentno ASC limit #{comment_ski
 
 <select id="getCommentCount"  resultType="int">
 select count(*) from freecomments where freeBoard_boardname=#{freeBoard_boardname} and freeBoard_boardno=#{freeBoard_boardno}
+</select>
+
+
+<insert id="insertComment" parameterType="freeComment" useGeneratedKeys="true"  keyProperty="freeBoard_boardno">
+insert into freecomments values (#{freeBoard_boardname}, #{freeBoard_boardno},0, #{freeComments_nickname}, 
+#{freeComments_userId}, #{freeComments_parent}, #{freeComments_content},#{freeComments_writeDate})
+</insert>
+<update id="updateCommentParent" parameterType="freeComment">
+update freecomments set freeComments_parent=#{freeComments_parent}
+ where freeComments_commentno=#{freeComments_commentno}
+ </update>
+<select id="groupCount" parameterType="int" resultType="int">
+select count(*) from freecomments where freeComments_commentno = #{freeComments_commentno}
+</select>
+<update id="updateComments" parameterType="java.util.HashMap">
+update freecomments set freeComments_content=#{freeComments_content} where freeComments_commentno = #{freeComments_commentno}
+</update>
+<delete id="deleteComments" parameterType="int">
+delete from freecomments where freeComments_commentno = #{freeComments_commentno}
+</delete>
+<select id="selectOneComments" parameterType="int" resultType="freeComment">
+select * from freecomments where freeComments_commentno = #{freeComments_commentno}
 </select>
 
 

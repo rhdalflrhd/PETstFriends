@@ -43,8 +43,11 @@ public interface FreeBoardService {
 	
 	public FreeBoard getBoard(int FreeBoard_boardname,int FreeBoard_boardno); 
 	
+	//읽기 및 댓글
 	public HashMap<String, Object> readBoard(int FreeBoard_boardname, int FreeBoard_boardno);
 	public int getLastBoardno(int boardname, String user_id);
 	public File getAttachFile(HashMap<String, Object> params);
+	public int deleteComments(int freeComments_commentno, int freeComments_parent);
+	public int updatefreeComment(int freeComments_commentno, String freeComments_content);
 	
 }

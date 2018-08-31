@@ -2,6 +2,8 @@ package service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -134,7 +136,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public int writeCommentFreeBoard(FreeComment freecomment) {
 		// TODO Auto-generated method stub
-		return 0;
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+		freecomment.setFreeComments_writeDate(simple.format(new Date()));
+		int result = bDao.insertComment(freecomment);
+		if(freecomment.getFreeComments_parent()==0) {
+			freecomment.setFreeComments_parent(freecomment.getFreeBoard_boardno());
+			freecomment.setFreeComments_commentno(freecomment.getFreeBoard_boardno());
+			result = bDao.updateCommentParent(freecomment);
+		}
+		return result;
 	}
 
 	@Override
@@ -208,34 +218,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	// -----------------------------------------------------------------------------------------------------------
-
-	// @Override
-	// public HashMap<String, Object> getBoardListPage(HashMap<String, Object>
-	// params,int page) {
-	//
-	// HashMap<String, Object> result = new HashMap<String, Object>();
-	//
-	// result.put("current", page);
-	// result.put("start", getStartPage(page));
-	//
-	// if(getEndPage(page)<=getLastPage(params)) {
-	// result.put("end", getEndPage(page));
-	// }else {
-	// result.put("end", getLastPage(params));
-	// }
-	// result.put("last", getLastPage(params));
-	//
-	// params.put("skip", getSkip(page));
-	// params.put("qty", 10);
-	// result.put("boardList", bDao.selectBoardAll(params));
-	//
-	//
-	//
-	// return result;
-	// }
-	// -----------------------------------------------------------------------------------------------------------
-
+	
 	@Override
 	public int getStartPage(int page) {
 		// TODO Auto-generated method stub
@@ -321,6 +304,36 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		String fileName = free.getFreeBoard_file();
 		String path = "C:/BitCamp/image/";
 		return new File(path + fileName);
+	}
+	public int deleteComments(int freeComments_commentno, int freeComments_parent) {
+		if(freeComments_commentno == freeComments_parent) { //가장 상위 댓글
+			System.out.println(bDao.groupCount(freeComments_commentno)+"가장상위인가");
+			if(bDao.groupCount(freeComments_commentno) == 0)//대댓 없는 경우(나만 패런트넘=코멘트넘이 자신 하나만 있는 경우) 
+			  bDao.deleteComments(freeComments_commentno);//지우기
+			else {
+			  HashMap<String, Object> params = new HashMap<String, Object>();
+			  params.put("freeComments_commentno", freeComments_commentno);
+			  params.put("freeBoard_content", "");
+			  bDao.updateComments(params);//대댓있는경우 빈칸  
+		  }
+			
+		}else { //대댓
+			System.out.println(bDao.selectOneComments(freeComments_parent));
+		 if(bDao.selectOneComments(freeComments_parent).getFreeComments_content() ==""
+				 && bDao.groupCount(freeComments_commentno) == 1) {//패런트가코멘트넘인 원댓 지워지고 대댓 하나뿐인 경우
+		   bDao.deleteComments(freeComments_commentno);//해당댓
+		   bDao.deleteComments(freeComments_parent);//해당 원댓
+		}
+		 else //원댓 안지워지거나 대댓이 여러개인경우
+		   bDao.deleteComments(freeComments_commentno);
+		}
+		return freeComments_parent;
+	}
+	public int updatefreeComment(int freeComments_commentno, String freeComments_content) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		  params.put("freeComments_commentno", freeComments_commentno);
+		  params.put("freeComments_content", freeComments_content);
+		return bDao.updateComments(params);
 	}
 
 }
