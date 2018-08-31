@@ -16,15 +16,16 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>내가 참여한 모임 글 </title>
-
-  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.min.css">
-    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="./assets/css/owl.theme.css">
-    <link rel="stylesheet" href="./assets/css/slicknav.css">
-    <link rel="stylesheet" href="./assets/style.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
     
 
 </head>
@@ -53,7 +54,11 @@
     	margin: 10px;
     	
     }
-
+.nav  {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
  
 </style>
 <body>
@@ -65,7 +70,7 @@
 <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
 <div class="bs-example">
-	<ul class="nav nav-tabs navbar-right" >
+	<ul class="nav nav-tabs navbar-" >
         <li><a href="getUserId.do">내정보수정</a></li>
         <li ><a href="myWritesList.do">내가쓴게시글</a></li>
         <li ><a href="myinquiry.do">내가문의한글</a></li>
@@ -88,8 +93,8 @@
 
 <div class="memberout-wrap"  style="border: none; height: 850px; width: 850px;" >
 
-
-<div class = "container">
+<center>
+<div class = "container"></div>
 		<table class = "table table-board">
 		
 
@@ -102,14 +107,15 @@
 				
 	</tr>
 	<tr>
-				<td width="1250px" colspan="5" bgcolor="yellow"></td>
+				<td width="1250px" colspan="5" bgcolor="#FFD700""></td>
 			</tr>
 
 <c:forEach items="${myMeetingApplyList}" var="like">
 				<tr>
 								<td>
-		<c:if test="${empty like.title}"><a href="view.do?boardno=${like.boardno }">제목없음</a></c:if>
-		<c:if test="${not empty  like.title}"><a href="view.do?boardno=${like.boardno  }">${ like.title }</a></c:if>	
+		<c:if test="${empty like.title}"><a href="selectMBC.do?meeting_boardno=${like.meeting_boardno }">제목없음</a></c:if>
+		<c:if test="${not empty  like.title}"><a href="selectMBC.do?meeting_boardno=${like.meeting_boardno  }">${ like.title }</a></c:if>	
+					<input type="hidden" value = "${like.meeting_boardno}"  id = "boardno">
 					</td>
 				
 				
@@ -117,7 +123,7 @@
 					<td align="center">${like.userId }</td>
 					<td align="center">
 					<fmt:parseDate value ="${like.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
-					<fmt:formatDate value="${like.writeDate }"
+					<fmt:formatDate value="${wriedate }"
 							pattern="yyyy-MM-dd" /></td>
 							
 				
@@ -125,7 +131,7 @@
 </c:forEach>
 			
 			<tr>
-				<td width="1250px" colspan="5" bgcolor="yellow"></td>
+				<td width="1250px" colspan="5" bgcolor="#FFD700""></td>
 			</tr>
 			
 			<tr>

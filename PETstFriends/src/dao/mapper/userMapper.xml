@@ -63,25 +63,20 @@
 	</update>
 
 <delete id="deleteUser" parameterType="String">
-		delete from User where
-		user_id = #{user_id}
+	delete u,p from user as u INNER JOIN pet as p on u.user_id = p.user_id where u.user_id = #{user_id}
 
 	</delete>
 
 
-	<delete id="deletePet" parameterType="String">
+	<delete id="deletePet" parameterType="int">
 		delete from Pet where
-		pet_name = #{pet_name}
+		pet_no = #{pet_no}
 
 	</delete>
 
 	<update id="updateUser" parameterType="java.util.HashMap">
 		update User set
-		user_nickname = #{user_nickname}, user_pass =
-		#{user_pass} , user_email
-		= #{user_email} ,user_phone = #{user_phone},
-		user_havePet =
-		#{user_havePet} where user_id = #{user_id}
+		user_nickname = #{user_nickname}, user_pass =#{user_pass} , user_email = #{user_email} ,user_phone = #{user_phone}, user_proPic = #{user_proPic}, user_havePet = #{user_havePet} where user_id = #{user_id}
 
 	</update>
 
@@ -107,7 +102,7 @@
 	</select>
 
 	<select id="selectOne" parameterType="String"
-		resultType="java.util.HashMap">
+		resultType="user">
 		select * from User where user_id = #{user_id}
 	</select>
 
@@ -125,10 +120,10 @@
 		FreeBoard where FreeBoard_userId = #{user_id}
 		UNION ALL
 		select
-		TipBoard_boardname AS "boardname", TipBoard_boardno AS
-		"boardno",TipBoard_title AS "title", TipBoard_userId AS "userId",
-		TipBoard_writeDate AS "writeDate" from
-		TipBoard where TipBoard_userId =
+		TipBoard_boardname AS "boardname", tipBoard_boardno AS
+		"boardno",tipBoard_title AS "title", tipBoard_userId AS "userId",
+		tipBoard_writeDate AS "writeDate" from
+		TipBoard where tipBoard_userId =
 		#{user_id}
 		UNION ALL
 		select boardname AS "boardname" , meeting_boardno
@@ -149,12 +144,12 @@
 		fl.FreeBoard_boardno and fl.FreeLikes_userId = #{user_id}
 		UNION
 		select
-		tb.TipBoard_boardname AS "boardname",
-		tb.TipBoard_boardno AS "boardno",
-		tb.TipBoard_title AS "title",tb.TipBoard_userId AS "userId",
-		tb.TipBoard_writeDate AS "writeDate" from TipBoard tb , TipLikes tl
+		tb.tipBoard_boardname AS "boardname",
+		tb.tipBoard_boardno AS "boardno",
+		tb.tipBoard_title AS "title", tb.tipBoard_userId AS "userId",
+		tb.tipBoard_writeDate AS "writeDate" from TipBoard tb , TipLikes tl
 		where
-		tb.TipBoard_boardno= tl.TipBoard_boardno and tl.TipLikes_userId =
+		tb.tipBoard_boardno= tl.tiplikes_boardno and tl.tiplikes_userId=
 		#{user_id}
 		UNION
 		select mb.boardname AS "boardname", mb.meeting_boardno
@@ -173,7 +168,7 @@
 		parameterType="java.util.HashMap" resultType="java.util.HashMap">
 
 		select mb.boardname AS "boardname", mb.meeting_boardno AS
-		"boardno",mb.meetingBoard_title AS "title", mb.meetingBoard_userId AS
+		"meeting_boardno",mb.meetingBoard_title AS "title", mb.meetingBoard_userId AS
 		"userId",
 		mb.meetingBoard_writeDate AS "writeDate" from meetingBoard mb
 		, meetingBoardApply mba where
@@ -189,8 +184,8 @@
 		FreeBoard_userid = #{user_id}
 		UNION ALL
 		select
-		TipBoard_boardno from
-		TipBoard where TipBoard_userId= #{user_id}
+		tipBoard_boardno from
+		TipBoard where tipBoard_userId= #{user_id}
 		UNION
 		ALL
 		select
@@ -208,8 +203,8 @@
 		fl.FreeBoard_boardno and fl.FreeLikes_userId = #{user_id}
 		UNION
 		select
-		tb.TipBoard_boardno from TipBoard tb, TipLikes tl where
-		tb.TipBoard_boardno = tl.TipBoard_boardno and tl.TipLikes_userId =
+		tb.tipBoard_boardno from TipBoard tb, TipLikes tl where
+		tb.tipBoard_boardno = tl.tiplikes_boardno and tl.tiplikes_userId =
 		#{user_id}
 		UNION
 

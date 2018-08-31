@@ -15,16 +15,19 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>내정보수정</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.min.css">
-    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="./assets/css/owl.theme.css">
-    <link rel="stylesheet" href="./assets/css/slicknav.css">
-    <link rel="stylesheet" href="./assets/style.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
+	    <!-- common css -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
     
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
    
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -90,6 +93,22 @@ $(document).ready(function(){
 			}
 		});
 	}); //  비밀번호 일치 검사 끝 ------------------------------------------------------------
+	
+	$('#user_phone').blur(function() { //휴대폰 정규식----------------
+		var phonePattern = /^\d{3}-\d{3,4}-\d{4}$/;
+		if ($(this).val() == "") {
+			$('#phoneCheck').html('');
+		} else if (!(phonePattern.test($('#user_phone').val))) {
+			$('#phoneCheck').html('잘못된 입력입니다.');
+		} else {
+			$('#phoneCheck').html('');
+		}
+	});
+	
+	//--------------------------------------------------------------------------------------
+	
+
+	
 	$('#user_nickname').blur(function() { //닉네임 중복 검사-------------------------------------
 			$.ajax({
 				method : 'GET',
@@ -185,7 +204,7 @@ $(document).ready(function(){
 	    			+ '<td><input type="text" class="pet_age" class="form-control" value = '+data[i].pet_age+'><input type = "hidden" class = "pet_no" value = '+data[i].pet_no+'>'
 	    			+'</td>'
 	    			+ '<td><input type="file" class="pet_file" class="form-control" value ='+data[i].pet_file+'></td>'
-	    			+'<td><button class = "deletePet" class="btn btn-warning btn-xs" value = '+data[i].pet_name+' >삭제</button></td>'
+	    			+'<td><button class = "deletePet" class="btn btn-warning btn-xs" value = '+data[i].pet_no+' >삭제</button></td>'
 	    			+ '<td class="removePet"></td>'
 	    			+ '</tr>');
 	    	}	}
@@ -201,14 +220,14 @@ $(document).ready(function(){
 			// petlist 보여주기 ------------------------------------------------------------------------------------------------
 
 			$(document).on('click', '.deletePet', function() { //-클릭시 펫 삭제   
-				var pet_name = $(this).val();
+				var pet_no = $(this).val();
 			  var thisbtn = $(this);	
 			
 				$.ajax({
 					method : 'post',
 					url : 'deletePet.do',
 					data : {
-					  pet_name : pet_name
+					  pet_no : pet_no
 				  
 					},
 					success : function(data) {
@@ -317,7 +336,7 @@ $(document).ready(function (){
 					"user_pass":$('#new_user_pass').val(),
 				     "user_email":$('#user_email').val(),
 					"user_phone":$('#user_phone').val(),
-					"user_proPic":$('#user_proPict').val(),
+					"user_proPic":$('#imgInp').val(),
 					"user_havePet" :$('input[name="user_havePet"]:checked').val()
 					
 			},
@@ -408,171 +427,255 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 
 
 </script>
-<style type="text/css">
-    .bs-example{
-    	margin: 10px;
-    	
-    }
-	/* Fix alignment issue of label on extra small devices in Bootstrap 3.2 */
-   .control-label{
-        padding-top: 5px;
-    }
-/*     .row{ */
-/*    border : solid; */
-/*    border-color : light-grey; */
-/*     } */
+
+<script>
+var upload = document.getElementsByTagName('input')[0],
+    holder = document.getElementById('holder'),
+    state = document.getElementById('status');
+
+if (typeof window.FileReader === 'undefined') {
+  state.className = 'fail';
+} else {
+  state.className = 'success';
+  state.innerHTML = 'File API & FileReader available';
+}
  
+upload.onchange = function (e) {
+  e.preventDefault();
+
+  var file = upload.files[0],
+      reader = new FileReader();
+  reader.onload = function (event) {
+    var img = new Image();
+    img.src = event.target.result;
+    // note: no onload required since we've got the dataurl...I think! :)
+    if (img.width > 560) { // holder width
+      img.width = 560;
+    }
+    holder.innerHTML = '';
+    holder.appendChild(img);
+  };
+  reader.readAsDataURL(file);
+
+  return false;
+};
+</script>
+  <script type="text/javascript">
+        $(function() {
+            $("#imgInp").on('change', function(){
+                readURL(this);
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+              reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+    </script>
+
+
+
+
+
+<style type="text/css">
+.bss-example{
+    	margin: 10px;
+    }
+  .nav  {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+  
+	.bs-example{
+    	margin: 20px;
+    }
+    
+ .main-content{
+	position:relative; 
+	left:22%; 
+	margin-left:-375px;
+
+ 	text-align:center;
+}
+.btntable{
+
+width:50%;
+margin :auto;
+
+}
+
 </style>
 
 </head>
 <body>
-<div class="wrapper">
- 
-<!--        <header id="header"> -->
-         <%@ include file="/petst/header.jsp" %>
-    <!--header section end-->
 
-<div class="bs-example">
-	<ul class="nav nav-tabs navbar-right" >
+
+
+
+		
+
+
+
+<%@ include file="/petst/header.jsp" %>
+
+<div class="wrapper">
+<div class="bss-example">
+	<ul class="nav nav-tabs navbar-" >
         <li class="active"><a href="getUserId.do">내정보수정</a></li>
-        <li><a href="myWritesList.do">내가쓴게시글</a></li>
-        <li><a href="myinquiry.do">내가문의한글</a></li>
-         <li><a href="myLikesList.do">내가좋아요한글</a></li>
-          <li><a href="myMeetingApply.do">내가참여한모임</a></li>
+        <li ><a href="myWritesList.do">내가쓴게시글</a></li>
+        <li ><a href="myinquiry.do">내가문의한글</a></li>
+         <li ><a href="myLikesList.do">내가좋아요한글</a></li>
+          <li ><a href="myMeetingApply.do">내가참여한모임</a></li>
 	</ul>
 </div>
+
+		
+
+<center>
+<h1>내 정보 수정</h1><h5>*는 필수 입력 칸입니다.</h5></center>
+
 <div class="main-content">
+
+
         <div class="container">
+           
             <div class="row">
 
 
-                    <article class="post">
-                        <header class="entry-header text-center">
-                          <h4>내 정보 수정</h4>
-<h5>*는 필수 입력 칸입니다.</h5>
+		<form class="form-horizontal contact-form" role="form"	method="post" action="#" >
 
-                        </header>
 		
-     <center>
-              	<table>
-	          
-	                	<div class="bs-example">
-	                	
-	                	  <div class="form-group">
+		<div class = "hi">
+	 <div class="form-group" >
+	 
+	
+                           
+                                <div class="col-md-2">
+                            <img id="blah" src="#" alt="your image"  value = "${params.user_proPic }"  width=" 200px" height="200px"/> 	</div>
+                         <div class="col-md-5">                          
+                            <input type='file' id="imgInp"  class="form-control" name="user_proPic"  />
+                         </div>
+								</div>
+								<br>
+			                   <br>
+			                   
+			                   
+<!-- 			                    <div class="form-group" > -->
+<!-- 							<div class="col-md-2"><input type="text" class="form-control"  name = "프로필" value = "프로필사진"  readonly = "readonly"></div> -->
+<!-- 								<div class="col-md-5"> -->
+<!-- 								<input type="file" name="user_proPic" id="user_proPic"   class="form-control"> -->
+<!-- 								</div> -->
+<!-- 								</div> -->
+<!-- 								<br> -->
+
 		
-					<label for="inputid" class="control-label col-xs-2">이름</label>
-					 <div class="col-xs-4">
-					<input type="text" name="user_name" id="user_name"
-						value="${params.user_name} " readonly="readonly" class="form-control" >
-				      </div>
-				      </div>
-
-				 <div class="form-group">
-				<label for="inputid" class="control-label col-xs-2">아이디</label>	
-				 <div class="col-xs-4">
-					<input type="text" name="user_id" id="user_id"
-						value=" ${params.user_id} " readonly="readonly" class="form-control">
-			
-</div>
-</div>
-
-
-				<div class="form-group">
-				 <label for="inputnickname" class="control-label col-xs-2">닉네임*</label>	
-				  <div class="col-xs-4">
-					<input type="text" name="user_nickname" id="user_nickname"
-						value="${params.user_nickname} " class="form-control"> <span id="nickname"></span>
-			  </div>
-        </div>
-
-				<div class="form-group">
-					<label for="inputpass" class="control-label col-xs-2">기본비번*</label>
-					 <div class="col-xs-4">
-					<input type="password" id="user_pass" class="form-control"><span
+								<div class="form-group" >
+								<div class="col-md-2"><input type="text" class="form-control"  name = "이름" value = "이름"  readonly = "readonly"></div>
+								<div class="col-md-5">
+								<input type="text" class="form-control" id="user_name" name="user_name" value ="${params.user_name}" readonly = "readonly">
+								</div>
+								</div>
+								<br>
+								
+								<div class="form-group">
+									<div class="col-md-2"><input type="text" class="form-control"  name = "아이디" value = "아이디"  readonly = "readonly"></div>
+									<div class="col-md-5">
+									<input type="text" name="user_id" id="user_id" value=" ${params.user_id} " readonly="readonly" class="form-control">
+									</div>
+								</div>
+								<br>
+								
+								<div class="form-group">
+												<div class="col-md-2"><input type="text" class="form-control"  name = "닉네임*" value = "닉네임*" readonly = "readonly" ></div>
+									<div class="col-md-5">
+									<input type="text" name="user_nickname" id="user_nickname" value="${params.user_nickname} " class="form-control"> <span id="nickname"></span>
+									</div>
+								</div>
+								<br>
+								<div class="form-group">
+														<div class="col-md-2"><input type="text" class="form-control"  name = "기본비번*" value = "기본비번*" readonly = "readonly"></div>
+									<div class="col-md-5">
+										<input type="password" id="user_pass" class="form-control"><span
 						id="pass"></span>
-				</div></div>
-
-				<div class="form-group">
-						<label for="inputnewpass" class="control-label col-xs-2">새비번*</label>
-					<div class="col-xs-4">
-					<input type="password" name="user_pass"
-						id="new_user_pass" class="form-control"><span id="pwd1ok"></span>
-				</div></div>
-
-				<div class="form-group">
-					<label for="inputpassch" class="control-label col-xs-2">새비번확인*</label>
-						<div class="col-xs-4">
-					<input type="password" id="new_user_pass_chk" class="form-control"><span
-						id="pwd2ok"></span>
+									</div>
+								</div>
+								<br>
+							<div class="form-group">
+														<div class="col-md-2"><input type="text" class="form-control"  name = "새비번*" value = "새비번*" readonly = "readonly" ></div>
+									<div class="col-md-5">
+									<input type="password" name="user_pass" id="new_user_pass" class="form-control"><span id="pwd1ok"></span>
+									</div>
+								</div>
+						<br>
+							<div class="form-group">
+														<div class="col-md-2"><input type="text" class="form-control"  name = "새비번확인*" value = "새비번확인*"readonly = "readonly"></div>
+									<div class="col-md-5">
+									<input type="password" id="new_user_pass_chk" class="form-control">
+									<div class="col-md-5"><span id="pwd2ok"></span></div>
 						<font name ="user_pwcheck" size ="2'" color = "red"></font>
-				</div></div>
-
-			<div class="form-group">
-					<label for="inputemail" class="control-label col-xs-2">이메일*</label>
-					<div class="col-xs-4">
-					<input type="text" name="user_email" id="user_email"
+									</div>
+								</div>
+								<br>
+							<div class="form-group">
+														<div class="col-md-2"><input type="text" class="form-control"  name = "이메일*" value = "이메일*" readonly = "readonly" ></div>
+									<div class="col-md-5">
+							<input type="text" name="user_email" id="user_email"
 						value="${params.user_email} " class="form-control"> <span id="email"></span>
 						<button type="button" class="btn btn-warning btn-xs">인증하기</button>
-						
-				</div></div>
-			
-			<div class="form-group">
-						<label for="inputnum" class="control-label col-xs-2">인증번호*</label>
-						<div class="col-xs-4">
+									</div>
+								</div>
+						<br>
+						<div class="form-group">
+														<div class="col-md-2"><input type="text" class="form-control"  name = "인증번호*" value = "인증번호*" readonly = "readonly"></div>
+									<div class="col-md-5">
 					<input type="text" id="user_authNum" class="form-control">
 						<div id="lab1"></div>
-			</div></div>
-
-			<div class="form-group">
-						<label for="inputphone" class="control-label col-xs-2">전화번호</label>
-					<div class="col-xs-4">
-					<input type="text" name="user_phone" id="user_phone"
-						value="${params.user_phone} " class="form-control"><br>
-				</div></div>
-
-<!-- 				<tr> -->
-<!-- 					<td>프로필사진</td> -->
-<!-- 					<td><input type="text" name="user_proPic" id="user_proPic" -->
-<%-- 						value="${params.user_proPic} "></td> --%>
-<!-- 				</tr> -->
-
-
-				<div class="form-group">
-						<label for="inputphone" class="control-label col-xs-2">나의점수</label>
-						<div class="col-xs-4">
-					<input type="text" name="user_score" id="user_score"
+									</div>
+								</div>
+						<br>
+							<div class="form-group">
+												<div class="col-md-2"><input type="text" class="form-control"  name = "전화번호" value = "전화번호"  readonly = "readonly"></div>
+									<div class="col-md-5">
+							<input type="text" name="user_phone" id="user_phone"
+						value="${params.user_phone} " class="form-control"><span id="phoneCheck"></span>
+									</div>
+								</div>
+						<br>
+							<div class="form-group">
+												<div class="col-md-2"><input type="text" class="form-control"  name = "나의점수" value = "나의점수" readonly = "readonly"  ></div>
+									<div class="col-md-5">
+						<input type="text" name="user_score" id="user_score"
 						value="${params.user_score} " readonly="readonly" class="form-control">
-			</div></div>
-
-<div class="form-group">
-   
-				 	<label for="inputpet" class="control-label col-xs-2">반려동물 *</label>
-				<div class="col-xs-4">
-				 <div class="radio">
-				<label><input type="radio" name="user_havePet" class="user_havePet" value="1">있음 </label>
-					<label><input type="radio" name="user_havePet" class="user_havePet" value="0">없음</label>
-				
-				
+									</div>
+								</div>
+						<br>		
+						<div class="form-group">
+					<div class="col-md-2"><input type="text" class="form-control"  name = "반려동물 *" value = "반려동물 *"  readonly = "readonly"></div>
+					   <div class="col-md-4">
+					   <input type="radio" name="user_havePet" class="user_havePet"  value="1" >있음
+					  <input type="radio" name="user_havePet" class="user_havePet"  value="0" >없음
 				 </div>
-            </div>
-        </div>
-		
-</div>
-		</table>
-		</center>
+					</div>
+						</div>		
+								
+							</form>
+					
+								
+								</div>
+						<br>
 
-</article>
-</div>
-		<br>
-
-
-
-<!--  <div class="col-md-5 col-sm-5" > -->
-                    <div class="primary-sidebar">
-                        <aside class="project-widget">
 <div class="project-details">
-	<center>
-			
+
 		
 <table id="petTable" style="display: none">
 				<thead>
@@ -607,49 +710,44 @@ $(document).on('click', '.removePet', function() { //-클릭시 그 줄 삭제
 						</select></td>
 						<td><input type="text" class="pet_age"><input type="hidden" class="pet_no"  value ="0" class="form-control"></td>
 						<td><input type="file" class="pet_file" class="form-control"></td>
-						<td class="removePet"><i class="fa fa-minus-square"></i></td><br>
+						<td class="removePet"><i class="fa fa-minus-square"></i></td>
 				
 				
 					</tr>
 				</tbody>
-					
-			</table>
-			</center>
-			
-			<center>
-				<td colspan="2" align="center">
-						<button id = "updatebtn" class="btn btn-warning btn-xs">수정하기</button>
-     
-
-
-						<input type="button" value="탈퇴하기"
+				</table>	
+<table class = "btntable">
+		<tr>
+					<td>	<button id = "updatebtn" class="btn btn-warning btn-xs">수정하기</button>
+                   
+                        <input type="button" value="탈퇴하기"
 						onclick="location.href='deleteUserForm.do'"
-						class="btn btn-warning btn-xs">
+						class="btn btn-warning btn-xs"> </td>
+</tr>
+</table>
+			</div>
 
-					</td>
-			</center>
-  </aside>
-  </div>
-  </div>
-  </div>
+ </div>
 
-    
-<!-- <footer> -->
-   <%@ include file="/petst/footer.jsp" %>
-    <!--footer end-->
+ </div>
+ </div>
+ 
 
-</div>
 		
-	<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./assets/js/smoothscroll.js"></script>
-<script type="text/javascript" src="./assets/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="./assets/js/imagesloaded.pkgd.js"></script>
-<script type="text/javascript" src="./assets/js/isotope.2.2.2min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.stickit.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.slicknav.js"></script>
-<script type="text/javascript" src="./assets/js/scripts.js"></script>
+<%@ include file="/petst/footer.jsp"%>
+<!-- js files -->
+<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="./Boot/js/scripts.js"></script>
+
+
 </body>
 </html>

@@ -11,11 +11,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
- 
+<%@ include file="/petst/header.jsp" %>
 
-
-</script>
 </head>
 <style type="text/css">
 #applybutton {
@@ -82,7 +79,6 @@
 <div align="right"><button id="applybutton" style="height: 30">신청하기</button></div>
 </td></tr>
 
-
 <tr><td colspan="2">
 <table border="1" width="1000" height= "400px">
 <tr>
@@ -104,37 +100,47 @@
                 <p style="text-align:center; bottom:-100px; position: absolute; background:#ffffff; padding:20px;">
                 <a href="#" class="close">닫기</a></p>
             </div>
-	 <a href="#" class="openMask"  style="cursor: pointer;">모임후기</a>
+	 <a href="#" class="openMask" id="re"  style="cursor: pointer;">모임후기</a>
 <td width="200"></td>
 </tr>
 <tbody>
 <tr><td id="content" colspan="5" height="200" style="padding-left: 20px">
 ${meeting.meetingBoard_content }
-</td></tr><tr><td colspan="5">
+</td></tr><tr><td colspan="6" style="padding-left: 20px">
+지도 보기</td></tr>
+<tr><td colspan="5">
+
 <div id="map" style="width: 1000px; height: 450px;"></div>
-</td></tr><tr><td id="comment" colspan="5" >
-댓글!
-
-
-<c:forEach items="${comment}" var="comment">
-<tr>
-<td colspan="4" width="100%"><input type="hidden" id="no" value="${comment.meetingComment_commentno}">
-${comment.meetingComment_content}</td><td><button onclick=" ">댓글</button></td>
-</tr>
-</c:forEach>
-<tr><td>
-<form action="writeMBC.do">
-<input type="text" id="commentcontent">
-<input type="submit" value="입력">
-</form>
 </td></tr>
 </tbody>
-
 </table>
 
+<table id="commentTable" border="1" width="1000px">
+<tr><td id="comment" style="padding-left: 20px">
+댓글 보기
+</td></tr>
+<c:forEach items="${comment}" var="comment">
+<tr id="${comment.meetingComment_commentno}">
+<td style="padding-left: 20px" width="100%" colspan="2">
+${comment.meetingComment_nickname } ${comment.meetingComment_content}</td>
+<td><button id="recomment" value="${comment.meetingComment_commentno}/${comment.meetingComment_nickname }" style="cursor: pointer;">답글</button> 
+</td></tr>
+
+
+
+</c:forEach>
+<tr><td style="padding-left: 20px" width="150px" height="100px">
+댓글 내용
+</td><td>
+<textarea id="commentcontent" style="width: 650px; height: 95px; resize: none;"></textarea>
+</td><td>
+<button id="commentbtn"  style="width: 150px; height: 100px;">댓글 입력</button>
 
 </td></tr>
 </table>
+</td></tr></table>
+
+
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=Ne3L3fT_ARphRLHIt9DR&submodules=geocoder"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -158,43 +164,97 @@ function fnMove(se){
     var offset = $(se).offset();
     $('html, body').animate({scrollTop : offset.top}, 400);
 }
-
-
+var trigge = ${trigge};
+if(trigge==1){
+	wrapWindowByMask();
+}
+var tri = ${tri};
+if(tri==1){
+	fnMove('#comment');
+}
 
 $(document).ready(function() {
+	$(document).on('click', '#recomment', function(event) {
+		var recom = $(this).attr('value');
+		var spilt = recom.split('/');
+		var commentno = spilt[0];
+		$('#'+commentno+':last').append(
+	"<tr><td style=\"padding-left: 20px;\" >답글 내용</td><td><textarea id=\"recommentcontent\" rows=\"6\" style=\"width: 100%; height: 50px; resize: none;\">"+
+	"</textarea></td><td><button id=\"recommentbtn\"  style=\"width: 100px; height: 50px;\" >답글 입력</button></td></tr>");
+	})
+	
+	var boardno = ${meeting.meeting_boardno };
+	$(document).on('click', '#recommentbtn', function(event) {
+		var commentnonickname = $(this).attr('value');
+		var spilt = commentnonickname.split('/');
+		var commentno = spilt[0];
+		var nickname = spilt[1];
+		var recommentcontent = $('#recommentcontent').val();
+		alert(recommentcontent)
+		$.ajax({
+			type : "get",
+			url : "commentWriteMBC.do",
+			data : {
+				"meeting_boardno" : boardno,
+				"meetingComment_commentno" : commentno,
+				"meetingComment_nickname" : nickname,
+				"meetingComment_content" : recommentcontent
+			},
+			success : function(data){
+				window.location.href="http://localhost:8080/PETstFriends/meetingview.do?meeting_boardno="+data.boardno+"&tri=1"
+			},
+			error : function(request){
+				alert("에러 : "+request.status);
+			}
+		})	
+	})
+	$('#commentbtn').click(function(){
+		var commentcontent = $('#commentcontent').val();
+		$.ajax({
+			type : "get",
+			url : "commentWriteMBC.do",
+			data : {
+				"meeting_boardno" : boardno,
+				"meetingComment_content" : commentcontent
+			},
+			success : function(data){
+				window.location.href="http://localhost:8080/PETstFriends/meetingview.do?meeting_boardno="+data.boardno+"&tri=1"
+			},
+			error : function(request){
+				alert("에러 : "+request.status);
+			}
+		})	
+	})
 
+	$.ajax({
+		type : "get",
+		url : "showReviewMBC.do",
+		data : {
+			"meeting_boardno" : boardno 
+		},
+		dataType : "json",
+		contentType : "application/json; charset=UTF-8",
+		success : function(data){
+		for(var io = 0; io<data.count; io++){
+			$('#listTable>tbody:last').append(
+					//사진크기 400 / 350
+							"<tr><td width=\"100px\" height=\"50px\">"+
+							data.meetingReview[io].meetingReview_no+"</td>"+
+							"<td width=\"500px\" height=\"50px\" style=\"cursor:pointer\" onclick=\"document.location.href='reviewView.do?meeting_boardno="+
+									data.meetingReview[io].meeting_boardno+"&meetingReview_no="+data.meetingReview[io].meetingReview_no+"'\">"+
+							data.meetingReview[io].meetingReview_title+"</td>"+
+							"<td>"+data.meetingReview[io].meetingReview_nickname+"</td>"+
+							"<td>"+data.meetingReview[io].meetingReview_writeDate+"</td></tr>");
+		} 
+		},
+		error : function(request){
+			alert("에러 : "+request.status);
+		}
+	})
     //검은 막 띄우기
     $(".openMask").click(function(e){
         e.preventDefault();
         wrapWindowByMask();
-    	var no = ${meeting.meeting_boardno };
-    	$.ajax({
-    		type : "get",
-    		url : "showReviewMBC.do",
-    		data : {
-    			"meeting_boardno" : no 
-    		},
-    		dataType : "json",
-    		contentType : "application/json; charset=UTF-8",
-    		success : function(data){
-    			alert(data.count)
-    			alert(data.meetingReview[0].meetingReview_title)
-    		for(var io = 0; io<data.count; io++){
-    			$('#listTable>tbody:last').append(
-    					//사진크기 400 / 350
-    							"<tr><td width=\"100px\" height=\"50px\">"+
-    							data.meetingReview[io].meetingReview_no+"</td>"+
-    							"<td width=\"500px\" height=\"50px\" style=\"cursor:pointer\" onclick=\"document.location.href='meetingview.do?meeting_boardno="+
-    									data.meetingBoard[io].meeting_boardno+"&meetingReview_no="+data.meetingReview[io].meetingReview_no+"'\">"+
-    							data.meetingReview[io].meetingReview_title+"</td>"+
-    							"<td>"+data.meetingReview[io].meetingReview_nickname+"</td>"+
-    							"<td>"+data.meetingReview[io].meetingReview_writeDate+"</td></tr>");
-    		} 
-    		},
-    		error : function(request){
-    			alert("에러 : "+request.status);
-    		}
-    	})
     });
 
     //닫기 버튼을 눌렀을 때
@@ -257,5 +317,6 @@ var map = new naver.maps.Map("map", {
 	naver.maps.onJSContentLoaded = initGeocoder;
 });
 </script>
+<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

@@ -165,7 +165,7 @@ c++;
 
 </table>
 <table style="margin: auto; width: 1000px;"><tr><td>
-	<textarea name="ir1" id="ir1" rows="10" cols="100" style="width:1000px; height:400px;; display:none;"></textarea>
+	<textarea name="ir1" id="ir1" rows="10" cols="100" style="width:1000px; height:400px; display:none;"></textarea>
 	<p align="center">
 		<input type="button" onclick="setDefaultFont();" style="font-size: 14pt" value="취소"/>
 		<input type="button" onclick="submitContents(this);" style="font-size: 14pt" value="개설 완료" />

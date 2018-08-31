@@ -13,12 +13,12 @@
 <script src="resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <table style="margin: auto; width: 1000px;"><tr><td height="100px;" style="font-size: 20px; padding-left: 50px;">
 <input type="hidden" id="meeting_boardno" value="${meeting_boardno }">
-제목 : <input type="text" id="title"style="width:600px; height:20px; padding-left: 100px;">
+제목 : <input type="text" id="title"style="width:600px; height:20px; padding-left: 20px;">
 </td></tr>
 <tr><td>
 	<textarea name="ir1" id="ir1" rows="10" cols="100" style="width:100%; height:400px; display:none;"></textarea>
 	<p align="center">
-		<input type="button" onclick="setDefaultFont();" style="font-size: 14pt" value="취소"/>
+		<input type="button" onclick="location.href='meetingview.do?meeting_boardno=${meeting_boardno }&trigger=1'" style="font-size: 14pt" value="취소"/>
 		<input type="button" onclick="submitContents(this);" style="font-size: 14pt" value="작성 완료" />
 	</p>
 </td></tr></table>

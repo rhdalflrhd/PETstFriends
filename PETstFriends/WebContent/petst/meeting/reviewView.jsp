@@ -25,12 +25,26 @@ ${review.meetingReview_content }
 <tr><td colspan="2" height="20px;" style="padding-left: 30px;">
 댓글
 </td></tr>
-
+<tr><td colspan="2" height="20px;" align="right"><input type="button" onclick="location.href='meetingview.do?meeting_boardno=${review.meeting_boardno }&trigger=1'"  value="목록"></td></tr>
 
 </table>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
 
+$(document).ready(function(){
 
+	$("#back").click(function(){
+
+		
+
+	});
+
+});
+
+</script>
 
 </body>
 </html>

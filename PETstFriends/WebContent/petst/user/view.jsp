@@ -11,10 +11,11 @@
     <meta name="author" content="Rubel Miah">
      <link rel="shortcut icon" href="./assets/images/favicon.png">
       <link rel="shortcut icon" href="./assets/images/favicon.png">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+      
+
+
+
+
 <title>내가 작성한 글 </title>
 
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
@@ -28,67 +29,73 @@
 
 
 </head>
+</script>
+<style type="text/css">
+
+ .nav  {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
 <body>
 
-
+	
 <div class="wrapper">
  
 <!--        <header id="header"> -->
 <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
+<br>
+	<center>	
 <div class="bs-example">
-	<ul class="nav nav-tabs navbar-right" >
+	
+	<ul class="nav nav-tabs navbar-" >
+	
         <li><a href="getUserId.do">내정보수정</a></li>
-        <li><a href="#">내가쓴게시글</a></li>
-        <li class="active"><a href="#">내가문의한글</a></li>
-         <li><a href="#">내가좋아요한글</a></li>
-          <li><a href="#">내가참여한모임</a></li>
+        <li><a href="myWritesList.do">내가쓴게시글</a></li>
+        <li class="active"><a href="myinquiry.do">내가문의한글</a></li>
+         <li><a href="myLikesList.do">내가좋아요한글</a></li>
+          <li><a href="myMeetingApply.do">내가참여한모임</a></li>
+         
 	</ul>
+	</div>
+	
+<center>
+<div class="row">
+                <div class="col-md-8 col-sm-8" >
+</center>
+                    <article class="post">
+                        <header class="entry-header text-center">
+                            <h2 class="entry-title" > 제목 : ${qna.qnA_boardtitle }</h2>
+
+                            <div class="entry-meta">
+                                <span class="date"><i class="fa fa-clock-o"></i> 작성일 : <fmt:parseDate value ="${qna.qnA_writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate><fmt:formatDate value="${wriedate}" pattern="yyyy-MM-dd" /></span>
+                                  <span class="cat"><i class="fa fa-folder-open-o"></i>작성자 : ${qna.qnA_userId }</span>
+                           
+                            </div>
+                        </header>
+
+
+                        <div class="" style="border:1px solid #FFD700 ; height: 500px; width: 500px;">
+                           <p>${qna.qnA_content}" </p>
+
+                            
+                        </div>
+	<td colspan="2" align="center">
+						<input type=button value="뒤로가기" onClick="history.back();" class="btn btn-warning btn-xs">
+     
+
+
+					</td>
+                      
+                    </article>
+</center>
+</div>
 </div>
 
-	<center>
-<h1><b><font color="gray"></font></b></h1>
-		<br>
-		
-  
-       
-	  
+</div>
 
-			<tr style="color: white;" bgcolor="#bebebe">
-				<th>글번호</th><br>
-				<th>제 목</th><br>
-				<th>작성일</th><br>
-				
-				<th>작성자</th><br>
-				
-			</tr>
-
-			<tr align="center" style="font-family: 'monaco';" bgcolor="white">
-				<td>${qna.qnA_boardno }</td>
-				<td>${qna.qnA_title }</td>
-				<td>${date }</td>
-				
-				<td>${qna.qnA_userId }</td>
-				
-				
-			</tr>
-
-			<tr>
-				<td style="color: white" bgcolor="#FFD2D2" align="center" colspan="10">
-					내용</td>
-			</tr>
-
-			<tr>
-				<td align="center" colspan="10" height="500">
-			
-				${qna.qnA_content }</td>
-			</tr>
-
-			<tr>
-				<td colspan="7" align="right">
-		<input type=button value="뒤로가기" onClick="history.back();">
-			</tr>
-</center>
 <!--   <footer id="footer"> -->
 <%@ include file="/petst/footer.jsp" %>
     <!--footer end-->

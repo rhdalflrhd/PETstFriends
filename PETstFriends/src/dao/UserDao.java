@@ -19,13 +19,13 @@ public interface UserDao {
 	public User selectUserbyName(String user_name); //비번찾기할때 이름 있는지 확인할거//d
 
 	//소현
-	public void deleteUser(String user_id, String user_pass);//d
-	public void deletePet(String pet_name);//dd
+	public void deleteUser(String user_id);//d
+	public void deletePet(int pet_no);//dd
 	public int updateUser(HashMap<String, Object> params);//d
 	public int updatePet(Pet pet);//d
 	public HashMap<String, Object> selectUserPet(String user_id);//d
 	public User selectUserPw(String user_pass);//d
-	public HashMap<String, Object> selectOne(String user_id);//d
+	public User selectOne(String user_id);//d
 	public  List<Pet> selectPetAll(String user_id);//d
 	public List<Object> selectmyWrite(HashMap<String, Object> params);//d
 	public List<Object> selectmyLikes(HashMap<String, Object> params);//d

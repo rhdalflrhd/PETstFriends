@@ -17,6 +17,8 @@ public class User {
 	private int user_state;
 	private String user_pan_date;
 	private int user_havePet;
+
+	
 	public int getUser_no() {
 		return user_no;
 	}

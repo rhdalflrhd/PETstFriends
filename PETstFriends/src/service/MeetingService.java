@@ -1,10 +1,7 @@
 package service;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import model.MeetingBoard;
 import model.MeetingBoardApply;
@@ -32,6 +29,8 @@ public interface MeetingService {
     public boolean commentDeleteMeetingBoard(int meetingComment_commentno, int meeting_boardno);
     public MeetingComment selectCommentMeetingBoard(int meetingComment_commentno, int meeting_boardno);
     public List<MeetingComment> showCommentMeetingBoard(int meeting_boardno);
+    public MeetingComment getCommentCount(int meeting_boardno);
+    public int getCommentCount2(int meeting_boardno);
     
     public boolean writeReview(MeetingBoardReview mReview);
     public boolean modifyReview(MeetingBoardReview mReview);

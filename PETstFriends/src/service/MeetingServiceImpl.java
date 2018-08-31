@@ -27,7 +27,6 @@ import model.ReviewComment;
 @Service
 public class MeetingServiceImpl implements MeetingService{
 
-	
 	@Autowired
 	private MeetingBoardDao meetingBoardDao;
 	@Autowired
@@ -143,6 +142,19 @@ public class MeetingServiceImpl implements MeetingService{
 		// TODO Auto-generated method stub
 		return meetingCommentDao.selectCommentAll(meeting_boardno);
 	}
+	
+	
+	@Override
+	public MeetingComment getCommentCount(int meeting_boardno) {
+		// TODO Auto-generated method stub
+		return meetingCommentDao.getCommentCount(meeting_boardno);
+	}
+	@Override
+	public int getCommentCount2(int meeting_boardno) {
+		// TODO Auto-generated method stub
+		return meetingCommentDao.getCommentCount2(meeting_boardno);
+	}
+	
 	@Override
 	public boolean writeReview(MeetingBoardReview mReview) {
 		// TODO Auto-generated method stub

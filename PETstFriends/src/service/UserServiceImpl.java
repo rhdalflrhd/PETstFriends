@@ -272,7 +272,7 @@ public class UserServiceImpl implements UserService {
 //		}
 
 		@Override
-		public HashMap<String, Object> selectUser(String user_id) {   // 회원 한명 찾아오기 
+		public User selectUser(String user_id) {   // 회원 한명 찾아오기 
 			// TODO Auto-generated method stub
 			return udao.selectOne(user_id);
 		}
@@ -361,21 +361,18 @@ public class UserServiceImpl implements UserService {
 		}
 
 		@Override
-		public boolean deleteUser(String user_id, String user_pass) { // 회원삭제 
+		public void deleteUser(String user_id) { // 회원삭제 
 
-			String user_passch = (String) udao.selectOne(user_id).get("user_pass");
 
-			if (user_pass.equals(user_passch)) {
-				udao.deleteUser(user_id, user_pass);
-				return true;
-			} else
-				return false;
-		}
+			udao.deleteUser(user_id);
+	
+
+	}
 
 		@Override
-		public void deletePet(String pet_name) {  //펫 삭제 
+		public void deletePet(int pet_no) {  //펫 삭제 
 
-			udao.deletePet(pet_name);
+			udao.deletePet(pet_no);
 
 		}
 

@@ -124,9 +124,10 @@ public class UserController {
 		return result1;
 	}
 
-	@RequestMapping("/main.do") //
+	@RequestMapping("main.do") //
+
 	public String termsUse() {
-		return "main";
+		return "user/main";
 	}
 
 	// ----------------------------------------------------------------------
@@ -264,31 +265,29 @@ public class UserController {
 	
 			@RequestMapping("userPwCheck.do")              // 나의 정보 수정 클릭하면 비번체크하는 폼으로 보내주기
 			public String UserPwCheck(HttpSession session, Model model) {
-
+				String user_id = (String)session.getAttribute("user_id");
+				model.addAttribute("user_id", user_id);
 				return "user/myInFo_PWCheck";
 
 			}
 			
-			
-			@RequestMapping("usermain.do")            // 메인 
-			public String Useramin(HttpSession session, Model model) {
-
-				return "user/main";
-
-			}
-			
+		
 			@RequestMapping("getUserId.do")     // 비번확인 후 마이페이지 보내줌 (아직 비번체크x 해야됨 )                                      
-			public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
-					 String user_id = (String)session.getAttribute("user_id");
-//					 if (user_pass.equals(userService.getUserPass(user_pass))) {
-//						 HashMap<String, Object> params = new HashMap<String, Object>();
-							model.addAttribute("params", userService.selectUser(user_id));
-							return "user/myInFo_Modification";
-//					 }
-			//	
-//					 else {
-//						return "user/myInFo_PWCheck";
-//					 }
+			public String UserUpdateForm(HttpServletRequest req, HttpServletResponse resp,Model model) {
+				String user_id = req.getParameter("user_id");
+				String user_pass = req.getParameter("user_pass");
+				System.out.println("2번"+user_id);
+				System.out.println("3번"+user_pass);
+				System.out.println("4번"+userService.selectUser(user_id));
+				
+				 if (userService.selectUser("sohyun").getUser_pass().equals(user_pass)) {
+					 
+						model.addAttribute("params", userService.selectUser("sohyun"));
+						return "user/myInFo_Modification" ;		
+				 }
+				 else 
+					 
+					return "user/myInFo_PWCheck" ;	
 				}
 			
 			
@@ -382,26 +381,33 @@ public class UserController {
 			}
 			
 			@RequestMapping("deleteUserForm.do") // 탈퇴하기 누르면 비번확인폼으로이동
-			public String userDeleteForm() {
-
+			public String userDeleteForm(HttpSession session, Model model) {
+				String user_id = (String)session.getAttribute("user_id");
+				model.addAttribute("user_id", "sohyun");
 				return "user/myInFo_MembershipDelete";
 			}
 			@RequestMapping(value = "/deleteUser.do")// 탈퇴전비밀번호 일치 검사 (비번체크해서 삭제해야되는데 아직 안됨)
 			@ResponseBody 
 			public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 				resp.setContentType("text/html; charset=UTF-8");
-				String user_pass = req.getParameter("user_pass");
 				String user_id = req.getParameter("user_id");
-				String user_idch = (String) session.getAttribute("user_id");
-
-				if (user_id.equals(user_idch)) {
-					userService.deleteUser(user_idch, user_pass);
-				}
-				boolean result = userService.getUserPass(user_pass);
-				user_pass = req.getParameter("user_pass");
-				return result;
-
+				String user_pass = req.getParameter("user_pass");
+			System.out.println(user_id);
+			System.out.println(user_pass);
+				   if (userService.selectUser(user_id).getUser_pass().equals(user_pass)) {
+					   System.out.println(userService.selectUser(user_id).getUser_pass());
+					   userService.deleteUser(user_id);
+				   return true;
+				   }
+				
+				   else 
+					   return false;
 			}
+			
+		
+			
+			
+			
 			
 			@RequestMapping(value = "/deletePet.do") // 마이페이지에서 펫 삭제하기
 			@ResponseBody
@@ -409,11 +415,10 @@ public class UserController {
 					HttpServletRequest req, HttpSession session) {
 
 				resp.setContentType("text/html; charset=UTF-8");
-				String pet_name =req.getParameter("pet_name");
-				System.out.println(pet_name);
-				params.put("pet_name", pet_name);
+				int pet_no =Integer.parseInt(req.getParameter("pet_no"));
+				params.put("pet_no", pet_no);
 
-				userService.deletePet(pet_name);
+				userService.deletePet(pet_no);
 
 				String msg = "";
 				return msg;
@@ -595,8 +600,8 @@ public class UserController {
 			public String view(Model model, @RequestParam int qnA_boardno, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-				SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
-				String date = simple.format(userService.viewmyInquiry(qnA_boardno).getQnA_writeDate());
+//				SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss+SSSS");
+				String date = userService.viewmyInquiry(qnA_boardno).getQnA_writeDate();
 				model.addAttribute("date", date);
 				model.addAttribute("qna", userService.viewmyInquiry(qnA_boardno));
 				model.addAttribute("qnA_boardno", qnA_boardno);
@@ -608,6 +613,41 @@ public class UserController {
 				System.out.println(model.addAttribute("qna", userService.viewmyInquiry(qnA_boardno)));
 				
 				return "user/view";
+
+		}
+			
+			
+			@RequestMapping(value = "/allview.do" ,method = RequestMethod.GET)    // 내가 쓴 문의글에서 제목 클릭하면 해당 게시글 보여주기 
+			public String view2(Model model, @RequestParam int boardno, @RequestParam int boardname) {
+		
+				System.out.println("보드네임"+boardname);
+				System.out.println("보드넘버"+boardno);
+				
+				if (boardname==3 || boardname==4 || boardname ==5 || boardname ==6) {
+					model.addAttribute("boardname", boardname);
+					model.addAttribute("boardno", boardno);
+				
+					return "redirect:selectOneBoard.do";	
+						}
+				else if (boardname ==2) {
+					
+					model.addAttribute("meeting_boardname", boardname);
+					model.addAttribute("meeting_boardno", boardno);
+					return "redirect:selectMBC.do";	
+				}
+				else if (boardname ==7|| boardname==8||boardname==9 ) {
+					model.addAttribute("boardname", boardname);
+					model.addAttribute("boardno", boardno);
+				
+					return "redirect:DogReadTipBoard.do";	
+}
+				
+				else 
+				return "";
+			
+		
+				
+		
 
 		}
 			
