@@ -12,7 +12,7 @@ public class FreeBoard {
 	private String freeBoard_content;
 	private int freeBoard_readCount;
 	private String freeBoard_YoutubeUrl;
-	private Date freeBoard_WriteDate;
+	private Date freeBoard_writeDate;
 	private String freeBoard_contentPic;
 	private int freeBoard_LikeCount;
 	public int getFreeBoard_boardno() {
@@ -69,11 +69,11 @@ public class FreeBoard {
 	public void setFreeBoard_YoutubeUrl(String freeBoard_YoutubeUrl) {
 		this.freeBoard_YoutubeUrl = freeBoard_YoutubeUrl;
 	}
-	public Date getFreeBoard_WriteDate() {
-		return freeBoard_WriteDate;
+	public Date getFreeBoard_writeDate() {
+		return freeBoard_writeDate;
 	}
-	public void setFreeBoard_WriteDate(Date freeBoard_WriteDate) {
-		this.freeBoard_WriteDate = freeBoard_WriteDate;
+	public void setFreeBoard_writeDate(Date freeBoard_WriteDate) {
+		this.freeBoard_writeDate = freeBoard_WriteDate;
 	}
 	public String getFreeBoard_contentPic() {
 		return freeBoard_contentPic;
@@ -93,7 +93,7 @@ public class FreeBoard {
 				+ ", freeBoard_userid=" + freeBoard_userid + ", freeBoard_nickname=" + freeBoard_nickname
 				+ ", freeBoard_title=" + freeBoard_title + ", freeBoard_file=" + freeBoard_file + ", freeBoard_content="
 				+ freeBoard_content + ", freeBoard_readCount=" + freeBoard_readCount + ", freeBoard_YoutubeUrl="
-				+ freeBoard_YoutubeUrl + ", freeBoard_WriteDate=" + freeBoard_WriteDate + ", freeBoard_contentPic="
+				+ freeBoard_YoutubeUrl + ", freeBoard_writeDate=" + freeBoard_writeDate + ", freeBoard_contentPic="
 				+ freeBoard_contentPic + ", freeBoard_LikeCount=" + freeBoard_LikeCount + "]";
 	}
 	

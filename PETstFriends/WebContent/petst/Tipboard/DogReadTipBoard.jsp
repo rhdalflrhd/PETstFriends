@@ -30,8 +30,11 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-$(document).ready(function(){	
+$(document).ready(function(){
 	
+	
+	
+	//----------------------------------------------------글삭제
 	$('#tblbutton').on('click',	function removeCheck() {
 
 		 if (confirm("정말 삭제하시겠습니까?") == true){    //확인
@@ -43,6 +46,7 @@ $(document).ready(function(){
 		});	
 	
 	
+	//------------------------------------------------------좋아요 기능
 	$('#likeCheckFunction').on('click',	function like_func(){
 	
 		alert("likeCheckFunction들어옴");
@@ -80,11 +84,12 @@ $(document).ready(function(){
 		  });//ajax끝
 		  
 		});
-	
+	//--------------------------------로그인안하고 좋아요 누를시
 		$('#loginNeedLike').on('click',	function login_need(){
 			alert("로그인이 필요합니다. 로그인하시겠습니까?");
 		});
-		
+
+
 	
 });
 </script>
@@ -106,8 +111,10 @@ th, td {
 	text-align: center;
 	padding: 8px
 }
-
-ul, li {
+h4{
+	font-family: 'NanumSquareRound', sans-serif;
+}
+ ul, li {
 	font-family: 'NanumSquareRound', sans-serif;
 }
 
@@ -123,7 +130,7 @@ input::-moz-placeholder {
 	color: #CD853F;
 }
 
-.wrapper {
+..wrapper {
 	font-family: 'NanumSquareRound', sans-serif;
 }
 
@@ -151,110 +158,70 @@ input::-moz-placeholder {
 /*     width: 130px; */
 /*    	position:relative;  */
 /* } */
+
+.chooseYourDesc a{
+    color: #fff;
+    background-color: #FFD232;
+    border: 1px solid #FFD232;
+    border-radius: 5px;
+    font-family: 'NanumSquareRound',sans-serif;
+    font-size: 15px !important;
+    font-weight:bold; 
+    height: 35px;
+    width: 130px;
+    line-height: 35px;
+    padding: 0;
+    margin-right: 5px;
+}
+
+.chooseYourDesc a:hover {
+    color: #fff;
+    border: 1px solid #d2d2d2;
+    background-color: #d2d2d2;
+}
 </style>	
 </head>
 <body>
+<%@ include file="/petst/header.jsp"%>
+<center>
+<br>
+<br>
+<br>
+<div class="wrapper">  
 
-<div class="wrapper">
-
-    <!--header section start-->
-    <header id="header">
-        <div class="main-logo text-center">
-            <h1><a href="#"><img src="./Boot/images/petstlogo_2.PNG" alt="Ocean"></a></h1>
-<!--              <h1><a href="#"><img src="./Boot/images/header2.png" alt="Ocean"></a></h1>            -->
-        </div>
-        <div id="demo2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="main-menu text-uppercase">
-                            <ul id="menu">
-                                <li><a href="index.html">메인</a></li>
-                                <li class="menu-item-has-children"><a href="#">펫프모여라<i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">STANDARD POST</a></li>
-                                        <li><a href="#">GALLERY POST</a></li>
-                                        <li><a href="#"> VIDEO POST</a></li>
-                                        <li><a href="#">AUDIO POST</a></li>
-                                        <li><a href="#">TYPOGRAPHY</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
-
-                                    </ul>
-                                </li>
-                                 <li class="menu-item-has-children"><a href="">펫프광장 <i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">강아지 광장</a></li>
-                                        <li><a href="#">고양이 광장</a></li>
-                                        <li><a href="#">토끼 광장</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children"><a href="">펫프정보 <i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li class="menu-item-has-children"><a href="">강아지<i
-                                                class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="dogInfoSquareSpecies.do">강아지 종정보</a></li>
-                                                <li><a href="dogTipBoardList.do">강아지 Tip</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="">고양이<i
-                                                class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="CatInfoSquareSpecies.do">고양이 종정보</a></li>
-                                                <li><a href="#">고양이 Tip</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="">토끼<i
-                                                class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="RabbitInfoSquareSpecies.do">토끼 종정보</a></li>
-                                                <li><a href="#">토끼 Tip</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">병원</a></li>
-                                <li><a href="#">플레이스</a></li>
-                                <li><a href="#">펫프쇼핑비교</a></li>
-                                <li class="menu-item-has-children"><a href="#">templates <i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="testimonial.html">Testimonial</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        <li><a href="about-us-1.html">About Us 1</a></li>
-                                        <li><a href="about-us-2.html">About Us 2</a></li>
-                                        <li><a href="about-me.html">About Me</a></li>
-                                        <li><a href="portfolio.html">Portfolio</a></li>
-                                        <li><a href="single-protfolio.html">Single Portfolio</a></li>
-                                        <li><a href="service.html">Service</a></li>
-                                        <li><a href="blog.html"> single Blog</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
-
-                                    </ul>
-                                </li>
-                                <li><a href="./Boot/contact.html">contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!--header section end-->
     <!--main content start-->
-    
-    <!--main content start-->
-		<div class="main-content">
 			<div class="container">
+<!-- 				<div align="right" class="chooseYourDesc"> -->
+<!-- 					세션에서 접속중인 userid와 해당게시글의 userid가 같으면 수정하기 버튼과 글삭제 버튼이 보여짐 -->
+<!-- 					<div align="right"class="col-md-7"> -->
+
+<!-- 					</div> -->
+<!-- 					<div align="right"class="col-md-3"> -->
+<%-- 					<c:if test="${tipboard.tipBoard_userId eq user_idCheck}"> --%>
+<%-- 						<a onclick="location.href='DogModifyFormTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}'"> --%>
+<!-- 						&nbsp;&nbsp;수정하기&nbsp;&nbsp; -->
+<!-- 						</a> -->
+<%-- 					</c:if> --%>
+<!-- 					<a onclick="location.href='dogTipBoardList.do'">&nbsp;&nbsp;목록으로&nbsp;&nbsp;</a> -->
+<!-- 					<a onclick="history.back();">&nbsp;&nbsp;뒤로가기&nbsp;&nbsp;</a> -->
+<!-- 					</div> -->
+<!-- 					<div align="right"class="col-md-2"> -->
+<%-- 					<c:if test="${tipboard.tipBoard_userId eq user_idCheck}"> --%>
+<!-- 						<form -->
+<%-- 							action="dogDeleteTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}" --%>
+<!-- 							name="removefrm" method="post"> -->
+<!-- 							<a id="tblbutton" onclick="removeCheck()" style="font-family: 'NanumSquareRound',sans-serif; font-size: 15px !important; font-weight:bold;  border:1; background-color:#CD853F;"> -->
+<!-- 							&nbsp;&nbsp;글 삭제&nbsp;&nbsp;</a>  -->
+<!-- 						</form> -->
+<%-- 					</c:if>										 --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
 				<div class="row">
-					<div class="col-md-8 col-sm-7">
+					<div class="col-md-12 col-sm-12">
 
 						<article class="post" style="border: 1px solid #eeeeee;">
 						<header class="entry-header text-center">
-						<h2 class="entry-title">
+						<h2 class="entry-title" style="font-family: 'NanumSquareRound', sans-serif;">
 							<a href="#"> <c:if test="${empty tipboard.tipBoard_title}">
 								"제목 없음"
 								</c:if> <c:if test="${not empty tipboard.tipBoard_title}">
@@ -264,72 +231,117 @@ input::-moz-placeholder {
 						</h2>
 
 						<div class="entry-meta">
-					<input type="hidden" id="user_idCheck" name="user_idCheck"
-										value="${user_idCheck}" />
-							<span class="date"><i class="fa fa-clock-o"></i> <fmt:formatDate
+							<input type="hidden" id="user_idCheck" name="user_idCheck"
+								value="${user_idCheck}" /> 
+							 <span class="comment">♥작성자:  ${tipboard.tipBoard_userId}</span>	
+								<span class="date"><i
+								class="fa fa-clock-o"></i> <fmt:formatDate
 									value="${tipboard.tipBoard_writeDate}" pattern="yyyy년 MM월 dd일" />
-							</span> <span class="cat"><i class="fa fa-folder-open-o"></i><a
-								href=""> <c:if test="${tipboard.tipBoard_boardname eq '7'}">
+							</span> <span class="cat"><i class="fa fa-folder-open-o"></i><c:if test="${tipboard.tipBoard_boardname eq '7'}">
 								강아지 tip 정보
 								</c:if> <c:if test="${tipboard.tipBoard_boardname eq '8'}">
 								고양이 tip 정보
 								</c:if> <c:if test="${tipboard.tipBoard_boardname eq '9'}">
 								토끼 tip 정보
 								</c:if>
-							</a></span> <span class="comment"><i class="fa fa-comment-o"></i><a
+							</span> <span class="comment"><i class="fa fa-comment-o"></i><a
 								href="">3 Comments(코멘트게시판이랑합칠것)</a></span>
 						</div>
 						</header>
 
-						<div class="post-thumb">
-							<c:if test="${empty tipboard.tipBoard_file}">
-								<img src="./Boot/images/noAttachedFile.png" alt="ocean">
-							</c:if>
-							<c:if test="${not empty tipboard.tipBoard_file}">
-								<img
-									src="download.do?boardname=7&boardno=${tipboard.tipBoard_boardno}">
-								<br>
-							</c:if>
-						</div>
+<!-- 						<div class="post-thumb"> -->
+<%-- 							<c:if test="${empty tipboard.tipBoard_file}"> --%>
+<!-- 								<img src="./Boot/images/noAttachedFile.png" alt="ocean"> -->
+<%-- 							</c:if> --%>
+<%-- 							<c:if test="${not empty tipboard.tipBoard_file}"> --%>
+<!-- 								<img -->
+<%-- 									src="download.do?boardname=7&boardno=${tipboard.tipBoard_boardno}"> --%>
+<!-- 								<br> -->
+<%-- 							</c:if> --%>
+<!-- 						</div> -->
 
 						<div class="entry-content">
 							${tipboard.tipBoard_content} <br> <br>
 						</div>
 
 						<div class="decoration">
-
-							<!-- 세션에서 접속중인 userid와 해당게시글의 userid가 같으면 수정하기 버튼과 글삭제 버튼이 보여짐 -->
-							<c:if test="${tipboard.tipBoard_userId eq user_idCheck}">
-								<a
-									onclick="location.href='DogModifyFormTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}'">수정하기</a>
-							</c:if>
-							<a onclick="location.href='dogTipBoardList.do'">목록으로</a> <a
-								onclick="history.back();">뒤로가기</a>
-							<c:if test="${tipboard.tipBoard_userId eq user_idCheck}">
-								<form
-									action="dogDeleteTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}"
-									name="removefrm" method="post">
-									<a id="tblbutton" onclick="removeCheck()">글 삭제</a>
-								</form>
-							</c:if>
 							<!--  좋아요  -->
-							<div class="LikesDiv">
+<!-- 							<div class="LikesDiv"> -->
+<%-- 								<c:choose> --%>
+<%-- 									<c:when --%>
+<%-- 										test="${user_idCheck ne null and tipLikes_SessionuserlikeCheck eq '0'}"> --%>
+<!-- 										<button type="button" id="likeCheckFunction" -->
+<!-- 											class="btn send-btn" -->
+<!-- 											style="border-radius: 5px; height: 40px;"> -->
+<!-- 											<span id='like_msg'>좋아요누르기</span> <i class="fa fa-heart" -->
+<!-- 												style="color: #FF895A;"></i> -->
+<!-- 										</button> -->
+
+<%-- 									</c:when> --%>
+<%-- 									<c:when --%>
+<%-- 										test="${user_idCheck ne null and tipLikes_SessionuserlikeCheck eq '1'}"> --%>
+<!-- 										<button type="button" id="likeCheckFunction" -->
+<!-- 											class="btn send-btn" -->
+<!-- 											style="border-radius: 5px; height: 40px;"> -->
+<!-- 											<span id='like_msg'>좋아요 취소하기</span> <i class="fa fa-heart" -->
+<!-- 												style="color: #FF895A;"></i> -->
+<!-- 										</button> -->
+
+<%-- 									</c:when> --%>
+<%-- 									<c:otherwise> --%>
+<!-- 										<button type="button" id="loginNeedLike" class="btn send-btn" -->
+<!-- 											style="border-radius: 5px; height: 40px;">좋아요를 누르려면 -->
+<!-- 											로그인이 필요합니다.</button> -->
+<%-- 									</c:otherwise> --%>
+<%-- 								</c:choose> --%>
+<!-- 								&nbsp;&nbsp;&nbsp; -->
+<!-- 								<button type="button" -->
+<!-- 									style="background: none; border-color: #FFD232; border-radius: 5px; text-transform: uppercase; transition: all .4s; height: 40px;"> -->
+<%-- 									총 좋아요 수 <span id='like_cnt'>${tipboard.tipBoard_LikeCount}</span> --%>
+<!-- 									Likes -->
+<!-- 								</button> -->
+
+<!-- 							</div> -->
+						</div>
+						<!-- decoration div 끝 -->
+						<div class="social-share">
+							<ul class="text-center">
+								<li><c:if
+										test="${tipboard.tipBoard_userId eq user_idCheck}">
+										<a class="s-facebook"
+											onclick="location.href='DogModifyFormTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}'">
+											수정하기 </a>
+									</c:if></li>
+								<li><a class="s-google-plus" onclick="location.href='dogTipBoardList.do'">목록으로</a></li>
+								<li><a class="s-twitter" onclick="history.back();">뒤로가기</a></li>
+								<li>
+								<c:if test="${tipboard.tipBoard_userId eq user_idCheck}">
+								<form action="dogDeleteTipBoard.do?boardname=${tipboard.tipBoard_boardname}
+								&boardno=${tipboard.tipBoard_boardno}" name="removefrm" method="post">
+								<a class="s-google-plus" id="tblbutton" onclick="removeCheck()">글 삭제</a>
+								</form>
+								</c:if>			
+								</li>
+								<li>
+								<a class="s-pinterest">
 								<c:choose>
-									<c:when test="${user_idCheck ne null and tipLikes_SessionuserlikeCheck eq '0'}">
+									<c:when
+										test="${user_idCheck ne null and tipLikes_SessionuserlikeCheck eq '0'}">
 										<button type="button" id="likeCheckFunction"
 											class="btn send-btn"
 											style="border-radius: 5px; height: 40px;">
-											<span id='like_msg'>좋아요누르기ㅎ</span> 
-											<i class="fa fa-heart" style="color: red;"></i>
+											<span id='like_msg'>좋아요누르기</span> <i class="fa fa-heart"
+												style="color: #FF895A;"></i>
 										</button>
 
 									</c:when>
-									<c:when test="${user_idCheck ne null and tipLikes_SessionuserlikeCheck eq '1'}">
+									<c:when
+										test="${user_idCheck ne null and tipLikes_SessionuserlikeCheck eq '1'}">
 										<button type="button" id="likeCheckFunction"
 											class="btn send-btn"
 											style="border-radius: 5px; height: 40px;">
-											<span id='like_msg'>좋아요 취소하기</span> 
-											<i class="fa fa-heart" style="color: red;"></i>
+											<span id='like_msg'>좋아요 취소하기</span> <i class="fa fa-heart"
+												style="color: #FF895A;"></i>
 										</button>
 
 									</c:when>
@@ -339,179 +351,89 @@ input::-moz-placeholder {
 											로그인이 필요합니다.</button>
 									</c:otherwise>
 								</c:choose>
-								&nbsp;&nbsp;&nbsp;
+								</a>	
+								</li>								
+								<li>
 								<button type="button"
-									style="background: none; border-color: #FFD232; border-radius: 5px; text-transform: uppercase; transition: all .4s; height: 40px;">
+									style="background: none; color:#FFD232; border-color: #FFD232; border-radius: 5px; text-transform: uppercase; transition: all .4s; height: 40px;">
 									총 좋아요 수 <span id='like_cnt'>${tipboard.tipBoard_LikeCount}</span>
 									Likes
 								</button>
-
-							</div>
-						</div>
-						<!-- decoration div 끝 -->
-						<div class="social-share">
-							<span class="social-share-title">Share This</span>
-							<ul class="text-center">
-								<li><a class="s-facebook" href=""><i
-										class="fa fa-facebook"></i></a></li>
-								<li><a class="s-google-plus" href=""><i
-										class="fa fa-heart"></i></a>
-										</li>
-								<li><a class="s-twitter" href=""><i
-										class="fa fa-twitter"></i></a></li>
-								<li><a class="s-google-plus" href=""><i
-										class="fa fa-google-plus"></i></a></li>
-								<li><a class="s-linkedin" href=""><i
-										class="fa fa-linkedin"></i></a></li>
-								<li><a class="s-instagram" href=""><i
-										class="fa fa-instagram"></i></a></li>
-								<li><a class="s-pinterest" href=""><i
-										class="fa fa-pinterest-p"></i></a></li>
-								<li><a class="s-email" href=""><i
-										class="fa fa-envelope-o"></i></a></li>
+								</li>
+<!-- 								<li><a class="s-pinterest" href=""><i -->
+<!-- 										class="fa fa-pinterest-p"></i></a></li> -->
+<!-- 								<li><a class="s-linkedin" href=""><i -->
+<!-- 										class="fa fa-linkedin"></i></a></li> -->
 							</ul>
 						</div>
 
 						</article>
 						<div class="top-comment" style="border: 1px solid #eeeeee;">
 							<!--top comment-->
-							<img src="./Boot/images/comment.jpg" class="pull-left" alt="">
-							<h4>Rubel Miah</h4>
+							<img src="./Boot/images/comment.jpg" class="pull-left">
+							<h4
+								style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold;">글쓴이
+								: ${tipboard.tipBoard_userId}</h4>
 
-							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-								sed diam nonumy hello ro mod tempor invidunt ut labore et dolore
-								magna aliquyam erat.</p>
+							<p>저기 이미지도 사용자 프로필사진이나 키우는 펫 프로필 사진 들어가게 여기에는 자기소개 내지는 그런게
+								들어가야함.ㅎㅎ</p>
+							<br>
+							<br>
+						</div>
+
+						<br> <br>
+						<div id="testComment" class="top-comment"
+							style="border: 1px solid #eeeeee; background-color: #E1B771;">
+
+							<table border="1" width="1200px" id="reply_area">
+								<tr reply_type="all" style="display: none">
+									<!-- 뒤에 댓글 붙이기 쉽게 선언 -->
+									<td colspan="4"></td>
+								</tr>
+								<!-- 댓글이 들어갈 공간 -->
+								<c:forEach var="replyList" items="${replyList}"
+									varStatus="status">
+									<tr
+										reply_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>">
+										<!-- 댓글의 depth 표시 -->
+										<td width="820px"><c:if test="${replyList.depth == '1'}"> → </c:if>${replyList.reply_content}
+										</td>
+										<td width="100px">${replyList.reply_writer}</td>
+										<td width="100px"><input type="password"
+											id="reply_password_${replyList.reply_id}"
+											style="width: 100px;" maxlength="10" placeholder="패스워드" /></td>
+										<td align="center"><c:if test="${replyList.depth != '1'}">
+												<button name="reply_reply" parent_id="${replyList.reply_id}"
+													reply_id="${replyList.reply_id}">댓글</button>
+												<!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
+											</c:if>
+											<button name="reply_modify"
+												parent_id="${replyList.parent_id}"
+												r_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>"
+												reply_id="${replyList.reply_id}">수정</button>
+											<button name="reply_del"
+												r_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>"
+												reply_id="${replyList.reply_id}">삭제</button></td>
+									</tr>
+								</c:forEach>
+							</table>
+
+							<!--top comment-->
+							<img src="./Boot/images/comment.jpg" class="pull-left">
+							<%-- 							<h3 align="left">닉네임: ${user_idCheck}</h3> --%>
+							<p align="left" style="font-size: 16px;">닉네임:
+								${user_idCheck}</p>
+							<p align="left">
+								<textarea id="reply_content" rows="3" cols="120"
+									name="reply_content" placeholder="댓글을 입력하세요."></textarea>
+							</p>
+							<button id="reply_save" name="reply_save"
+								style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px; font-weight: bold; border: 1; border-color: #CD853F; border-radius: 5px;">댓글
+								등록</button>
 						</div>
 						<!--top comment end-->
-						<div class="row">
-							<!--blog next previous-->
-							<div class="col-md-6">
-								<div class="single-blog-box">
-									<a href="#"> <img src="./Boot/images/blog-next.jpg" alt="">
-
-										<div class="overlay">
-
-											<div class="promo-text">
-												<p>
-													<i class="fa fa-angle-left"></i>Previous Post
-												</p>
-												<h5>Rubel is doing Cherry theme</h5>
-											</div>
-										</div>
-
-
-									</a>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="single-blog-box">
-									<a href="#"> <img src="./Boot/images/blog-next.jpg" alt="">
-
-										<div class="overlay">
-											<div class="promo-text">
-												<p>
-													next Post<i class="fa fa-angle-right"></i>
-												</p>
-												<h5>Rubel is doing Cherry theme</h5>
-
-											</div>
-
-										</div>
-
-
-									</a>
-								</div>
-							</div>
-						</div>
-						<!--blog next previous end-->
-						<br>
-						<br>
-						<!-- end bottom comment-->
-						<div class="leave-comment">
-						
-					<table border="1" width="1200px" id="reply_area">
-   				<tr reply_type="all"  style="display:none"><!-- 뒤에 댓글 붙이기 쉽게 선언 -->
-   					<td colspan="4"></td>
-   				</tr>
-	   			<!-- 댓글이 들어갈 공간 -->
-	   			<c:forEach var="replyList" items="${replyList}" varStatus="status">
-					<tr reply_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>"><!-- 댓글의 depth 표시 -->
-			    		<td width="820px">
-			    			<c:if test="${replyList.depth == '1'}"> → </c:if>${replyList.reply_content}
-			    		</td>
-			    		<td width="100px">
-			    			${replyList.reply_writer}
-			    		</td>
-			    		<td width="100px">
-			    			<input type="password" id="reply_password_${replyList.reply_id}" style="width:100px;" maxlength="10" placeholder="패스워드"/>
-			    		</td>
-			    		<td align="center">
-			    			<c:if test="${replyList.depth != '1'}">
-			    				<button name="reply_reply" parent_id = "${replyList.reply_id}" reply_id = "${replyList.reply_id}">댓글</button><!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
-			    			</c:if>
-			    			<button name="reply_modify" parent_id = "${replyList.parent_id}" r_type = "<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>" reply_id = "${replyList.reply_id}">수정</button>
-			    			<button name="reply_del" r_type = "<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>" reply_id = "${replyList.reply_id}">삭제</button>
-			    		</td>
-			    	</tr>
-			    </c:forEach>
-   			</table>
-   			<table border="1" width="1200px" bordercolor="#46AA46">
-   				<tr>
-   					<td width="500px">
-						이름: ${tipboard.tipBoard_userId}
-<%-- 						<input type="text" id="reply_writer" name="reply_writer" value="${tipboard.tipBoard_userId}" readonly="readonly"> --%>
-<!-- 						패스워드: <input type="password" id="reply_password" name="reply_password" style="width:170px;" maxlength="10" placeholder="패스워드"/> -->
-						<button id="reply_save" name="reply_save">댓글 등록</button>
-					</td>
-   				</tr>
-   				<tr>
-   					<td>
-   						<textarea id="reply_content" name="reply_content" rows="4" cols="50" placeholder="댓글을 입력하세요."></textarea>
-   					</td>
-   				</tr>
-   			</table>
-							<!--leave comment-->
-							<h4>Leave a reply</h4>
-							<br>
-							<br>
-							<form class="form-horizontal contact-form" role="form"
-								method="post" action="#">
-								<div class="form-group">
-									<div class="col-md-12">
-										<input type="text" class="form-control" id="name" name="name"
-											placeholder="Name">
-									</div>
-								</div>
-								<br>
-								<br>
-								<div class="form-group">
-									<div class="col-md-12">
-										<input type="email" class="form-control" id="email"
-											name="email" placeholder="Email">
-									</div>
-								</div>
-								<br>
-								<br>
-								<div class="form-group">
-									<div class="col-md-12">
-										<input type="text" class="form-control" id="subject"
-											name="subject" placeholder="Website url">
-									</div>
-								</div>
-								<br>
-								<div class="form-group">
-									<div class="col-md-12">
-										<textarea class="form-control" rows="6" name="message"
-											placeholder="Write Massage"></textarea>
-									</div>
-								</div>
-								<br>
-								<br>
-								<button type="button" class="btn send-btn">Post Comment</button>
-							</form>
-						</div>
-						<!--end leave comment-->
-
+						<br> <br>
+												
 					</div>
 					<!--  <div class="col-md-8 col-sm-7">의 끝 -->
 
@@ -519,108 +441,9 @@ input::-moz-placeholder {
 				<!-- row div 끝 -->
 			</div>
 			<!--컨테이너 div 끝-->
-		</div>
-		<!--main content end-->
-
-		<!--footer start-->
-    <footer id="footer">
-
-        <div class="footer-widget-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <aside class="footer-widget">
-                            <div class="about-me-img"><img src="./Boot/images/UUU.png" alt="ocean"></div>
-                            <div class="about-me-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                                diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-                                voluptua. At vero eos et accusam et justo duo dlores et ea rebum magna text ar koto din.
-                            </div>
-                            <div class="about-me-social">
-                                <a href=""><i class="fa fa-facebook"></i></a>
-                                <a href=""><i class="fa fa-twitter"></i></a>
-                                <a href=""><i class="fa fa-google-plus"></i></a>
-                                <a href=""><i class="fa fa-instagram"></i></a>
-                                <a href=""><i class="fa fa-pinterest-p"></i></a>
-                                <a href=""><i class="fa fa-linkedin"></i></a>
-                            </div>
-                        </aside>
-                    </div>
-                    <div class="col-md-4">
-                        <aside class="footer-widget">
-                            <h3 class="widget-title text-uppercase">Recent Posts</h3>
-
-                            <div class="thumb-latest-posts">
-
-                                <div class="media">
-                                    <div class="media-body">
-                                        <h4><a href="">A Responsive WordPress Theme for you</a></h4>
-
-                                        <div class="entry-meta small">November 25, 2015</div>
-                                    </div>
-                                </div>
-
-                                <div class="media">
-                                    <div class="media-body">
-                                        <h4><a href="">A Responsive WordPress Theme for you</a></h4>
-
-                                        <div class="entry-meta small">November 25, 2015</div>
-                                    </div>
-                                </div>
-
-                                <div class="media">
-                                    <div class="media-body">
-                                        <h4><a href="">A Responsive WordPress Theme for you</a></h4>
-
-                                        <div class="entry-meta small">November 25, 2015</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </aside>
-                    </div>
-                    <div class="col-md-4">
-                        <aside class="footer-widget">
-                            <h3 class="widget-title text-uppercase">Tag Clouds</h3>
-
-                            <div class="tagcloud">
-                                <a href="">Lifestyle</a>
-                                <a href="">Food</a>
-                                <a href="">Travel</a>
-                                <a href="">Business</a>
-                                <a href="">Story</a>
-                                <a href="">Drinks</a>
-                                <a href="">DIY</a>
-                                <a href="">Tips</a>
-                                <a href="">Theme</a>
-                                <a href="">Plugin</a>
-                                <a href="">WordPres</a>
-                                <a href="">HTML</a>
-                                <a href="">Bootstrap</a>
-                            </div>
-                        </aside>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-copy-right">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        &copy; 2015 <a href="">Ocean</a>, Designed by <a href="">ShapedTheme</a> & Powered by <a
-                            href="">WordPress</a>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="" class="back-to-top"><font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; color:#CD853F;">Back to Top</font></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!--footer end-->
-
 </div>
-
+</center>
+<%@ include file="/petst/footer.jsp"%>
 
 <!-- js files -->
 <script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>

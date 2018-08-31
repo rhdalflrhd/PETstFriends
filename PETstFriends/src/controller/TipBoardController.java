@@ -1,6 +1,7 @@
 package controller;
 
-import java.util.ArrayList;import java.util.Date;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -158,9 +159,10 @@ public class TipBoardController {
 	}
 	
 	
-	//----강아지 TIp정보 게시판 글쓰기 실행
+	//---------------------------------------강아지 TIp정보 게시판 글쓰기 실행
 	@RequestMapping("DogWriteTipBoard.do")		
-	public String DogWriteTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params, @RequestParam(value="tipBoard_contentPic", required=false) MultipartFile contentPic) {
+	public String DogWriteTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params,
+@RequestParam(value="tipBoard_contentPic", required=false) MultipartFile contentPic) {
 		System.out.println("들어옴");
 		System.out.println(contentPic);
 		
@@ -174,7 +176,7 @@ public class TipBoardController {
 		dtboard.setTipBoard_nickname("test");	//지금은 USer랑 연결안했으니까 임의의 nickname 지정하겠음
 		dtboard.setTipBoard_title((String) params.get("tipBoard_title"));
 		dtboard.setTipBoard_file((String) params.get("tipBoard_file"));
-		dtboard.setTipBoard_content((String) params.get("tipBoard_content"));	
+		dtboard.setTipBoard_content((String) params.get("editor"));	
 		//아직 조회수 없음
 		dtboard.setTipBoard_YoutubeUrl((String) params.get("tipBoard_YoutubeUrl"));
 		//아직 좋아요 수 없음
@@ -187,7 +189,7 @@ public class TipBoardController {
 		return "redirect:DogReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
 	}
 
-	//----강아지 TIp정보 게시판 글 한개 읽기.
+	//-----------------------------------------강아지 TIp정보 게시판 글 한개 읽기.
 	@RequestMapping("DogReadTipBoard.do")
 	public String DogReadTipBoardC(Model model, int boardname, int boardno, HttpSession session) {
 		
@@ -218,14 +220,21 @@ public class TipBoardController {
 	    int like_check = 0;
 	    like_check = tLikes.getTipLikes_likeCheck();    //좋아요 체크 값  
 	    System.out.println("해당세션유저의 라이크체크값은: "+like_check);
-		model.addAttribute("user_idCheck", user_idCheck);
+	  
+	    // 해당게시판에 있는 댓글리스트도 같이 보내줘야함 ㅇㅇ 
+	    HashMap<String, Object> paramForComment = new HashMap<String, Object>();
+	    paramForLike.put("tipComments_boardname", boardname);
+		paramForLike.put("tipComments_boardno", boardno);
+		model.addAttribute("replyList", tipService.getTipCommentsList(paramForComment));
+		
+	    model.addAttribute("user_idCheck", user_idCheck);
 		model.addAttribute("tipLikes_SessionuserlikeCheck", like_check);
 		model.addAttribute("tipboard", tb);
 		
 		return "Tipboard/DogReadTipBoard";
 	}
 	
-	//----강아지 TIp정보 게시판 글 한 개 수정폼 제공
+	//------------------------------------------------------강아지 TIp정보 게시판 글 한 개 수정폼 제공
 	@RequestMapping("DogModifyFormTipBoard.do")
 	public String DogModifyFormTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
 		System.out.println("강아지 꿀TIp 게시글 수정 컨트롤러 들어옴");
@@ -234,7 +243,7 @@ public class TipBoardController {
 		return "Tipboard/DogModifyFormTipBoard";
 	}	
 	
-	//----강아지 TIp정보 게시판 글 한 개 수정 실행!
+	//------------------------------------------------------강아지 TIp정보 게시판 글 한 개 수정 실행!
 	@RequestMapping("DogModifyTipBoard.do")
 	public String DogModifyTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params) {
 		System.out.println("강아지 TIp정보 게시판 글 한 개 수정, 들어옴");
@@ -249,7 +258,7 @@ public class TipBoardController {
 
 		tb.setTipBoard_title((String) params.get("tipBoard_title"));
 		tb.setTipBoard_file((String) params.get("tipBoard_file"));
-		tb.setTipBoard_content((String) params.get("tipBoard_content"));
+		tb.setTipBoard_content((String) params.get("editor"));
 		tb.setTipBoard_contentPic((String) params.get("tipBoard_contentPic"));
 		tb.setTipBoard_YoutubeUrl((String) params.get("tipBoard_YoutubeUrl"));
 		tipService.ModifyTipBoardS(tb);
@@ -258,7 +267,10 @@ public class TipBoardController {
 		
 		return "redirect:DogReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
 	}
-	@ResponseBody
+	
+	
+	//------------------------------------------------------강아지 TIp정보 게시판 글 한 개 삭제 실행!!	
+//	@ResponseBody
 	@RequestMapping("dogDeleteTipBoard.do")
 	public String DogDeleteTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
 		System.out.println("dogDeleteTipBoard.do 컨트롤러 들어옴");
@@ -272,7 +284,7 @@ public class TipBoardController {
 		return "redirect:dogTipBoardList.do";
 	}
 
-	//좋아요
+	//--------------------------------------------------------TIpboard 공통좋아요--------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value="InsertLikesTipBoard.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String InsertLikesTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
@@ -290,7 +302,7 @@ public class TipBoardController {
 	    
 	    TipLikes tLikes = tipService.readTipLikes(params);	 //해당유저가 해당게시판의 해당게시글에 남긴 좋아요를 갖고옴.   
 	    TipBoard tBoard = tipService.getBoardS(boardname, boardno);
-	   
+	    
 	    int like_cnt = tBoard.getTipBoard_LikeCount();    //게시판의 좋아요 카운트
 	    int like_check = 0;
 	    like_check = tLikes.getTipLikes_likeCheck();    //좋아요 체크 값
@@ -325,11 +337,81 @@ public class TipBoardController {
 	    return obj.toJSONString();
 	}
 	
+	//=============================================TIpboard 공통 댓글 쿼리 시작=====================================================
+	
+    //-------------------------------------AJAX 호출 (댓글 등록)
+	@RequestMapping(value="TipboardwriteTipComments.do", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+    @ResponseBody
+    public Object TipboardwriteTipCommentsC(@RequestParam HashMap<String, Object> param) {
+ 
+        //리턴값
+		HashMap<String, Object> SendingResult = new HashMap<String, Object>();
+
+        //정보입력
+        int result = tipService.writeTipComments(param);
+ 
+        if(result>0){
+        	SendingResult.put("code", "OK");
+        	SendingResult.put("reply_id", param.get("reply_id"));
+        	SendingResult.put("parent_id", param.get("parent_id"));
+        	SendingResult.put("message", "등록에 성공 하였습니다.");
+        }else{
+        	SendingResult.put("code", "FAIL");
+        	SendingResult.put("message", "등록에 실패 하였습니다.");
+        }
+ 
+        return SendingResult;
+ 
+    }
+ 
+	//-------------------------------------AJAX 호출 (댓글 삭제)
+    @RequestMapping(value="/board/reply/del", method=RequestMethod.POST)
+    @ResponseBody
+    public Object boardReplyDel(@RequestParam HashMap<String, Object> param) {
+ 
+        //리턴값
+    	HashMap<String, Object> SendingResult = new HashMap<String, Object>();
+        
+        //정보입력
+        int result = tipService.deleteTipComments(param);
+ 
+        if(result>0){
+        	SendingResult.put("code", "OK");
+        }else{
+        	SendingResult.put("code", "FAIL");
+        	SendingResult.put("message", "삭제에 실패했습니다. 패스워드를 확인해주세요.");
+        }
+ 
+        return SendingResult;
+ 
+    }
 	
 
-	
-	
-	
+  //-------------------------------------AJAX 호출 (댓글 수정)
+    @RequestMapping(value="/board/reply/update", method=RequestMethod.POST)
+    @ResponseBody
+    public Object boardReplyUpdate(@RequestParam HashMap<String, Object> param) {
+ 
+        //리턴값
+    	HashMap<String, Object> SendingResult = new HashMap<String, Object>();
+ 
+        System.out.println(param);
+ 
+        //정보입력
+        boolean check = tipService.updateTipComments(param);
+ 
+        if(check){
+        	SendingResult.put("code", "OK");
+        	SendingResult.put("reply_id", param.get("reply_id"));
+        	SendingResult.put("message", "수정에 성공 하였습니다.");
+        }else{
+        	SendingResult.put("code", "FAIL");
+        	SendingResult.put("message", "수정에 실패 하였습니다.");
+        }
+ 
+        return SendingResult;
+ 
+    }
 	
 	
 	

@@ -1,10 +1,13 @@
 package service;
 import model.TipBoard;
+import model.TipComments;
 import model.TipLikes;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +27,8 @@ public class TipBoardServiceimpl implements TipBoardService{
 	private static UserDao uDao;
 	
 	@Override
-	public int writeTipBoardS(TipBoard dtBoard, MultipartFile TipBoard_contentPic) {
+	public int writeTipBoardS(TipBoard dtBoard,MultipartFile TipBoard_contentPic) {
+		System.out.println("writeTipBoard 서비스로 들어옴");
 		//여기서 해야하는 역할. 1. 게시글작성
 		//					2. 사용자 score 10점 추가.
 		
@@ -38,7 +42,7 @@ public class TipBoardServiceimpl implements TipBoardService{
 		
 	//-----------------------------글작성시 사용자 score +10점 하는 기능 처리 끝-------------------------------------------	
 		// TODO Auto-generated method stub
-		System.out.println("writeTipBoard 서비스로 들어옴");
+
 		String path = "C:/BitCamp/PetstFriends/";
 		
 		File dir = new File(path);
@@ -63,10 +67,10 @@ public class TipBoardServiceimpl implements TipBoardService{
 			System.out.println("오류남2");
 		}
 		
-		System.out.println("여기옴1");	
+		System.out.println("tipDao.insertBoard 하기전 .여기옴1");	
 		tipDao.insertBoard(dtBoard);
 		//다오 호출
-		System.out.println("여기옴2");
+		System.out.println("tipDao.insertBoard 한 후 .여기옴2");
 		return dtBoard.getTipBoard_boardno();
 	}
 
@@ -226,37 +230,80 @@ public class TipBoardServiceimpl implements TipBoardService{
 	//==============================팁보드 코멘트 서비스============================================	
 	
 	
+	@Override
+	public int writeTipComments(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+	     return tipDao.insertTipComments(param);
+	}
+
+	@Override
+	public List<TipComments> getTipCommentsList(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		 
+        List<TipComments> TipCommentsList = tipDao.selectAllTipcomments(param);
+ 
+       
+        //msyql 에서 계층적 쿼리가 어려우니 여기서 그냥 해결하자
+ 
+        //부모
+        List<TipComments> TipCommentsListParent = new ArrayList<TipComments>();
+        //자식
+        List<TipComments> TipCommentsListChild = new ArrayList<TipComments>();
+        //통합
+        List<TipComments> newTipCommentsList = new ArrayList<TipComments>();
+ 
+        //1.부모와 자식 분리
+        for(TipComments tComment: TipCommentsList){
+            if(tComment.getTipComments_depth().equals("0")){
+            	TipCommentsListParent.add(tComment);
+            }else{
+            	TipCommentsListChild.add(tComment);
+            }
+        }
+ 
+        //2.부모를 돌린다.
+        for(TipComments tipCommentsParent: TipCommentsListParent){
+            //2-1. 부모는 무조건 넣는다.
+        	newTipCommentsList.add(tipCommentsParent);
+            //3.자식을 돌린다.
+            for(TipComments tipCommentsChild: TipCommentsListChild){
+                //3-1. 부모의 자식인 것들만 넣는다.
+                if(tipCommentsParent.getTipComments_commentno().equals(tipCommentsChild.getTipComments_groupno())){
+                	newTipCommentsList.add(tipCommentsChild);
+                }
+ 
+            }
+ 
+        }
+ 
+        //정리한 list return
+        return newTipCommentsList;
+	}
+
+	@Override
+	public int deleteTipComments(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub		
+        
+		if(param.get("r_type").equals("main")) {
+            //부모부터 하위 다 지움
+            return tipDao.deleteTipCommentsAll(param);
+        }else {
+            //자기 자신만 지움
+            return tipDao.deleteTipComments(param);
+        }
+	}
+
+	@Override
+	public boolean updateTipComments(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		 return tipDao.updateTipComments(param);
+	}
 	
-	@Override
-	public HashMap<String, Object> selectAllComments(int page) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int writeComments(int tipComments_groupno, String tipComments_content, String tipComments_userid) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteTipComments(int tipComments_no, int tipComments_groupno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int modifyTipComments(int tipComments_no, String tipComments_content) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	@Override
 	public HashMap<String, Object> getBoardListPage(HashMap<String, Object> params, int page) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
+	}	
 	
 	
 	//==============================팁보드 좋아요 서비스===========================================	
@@ -324,4 +371,5 @@ public class TipBoardServiceimpl implements TipBoardService{
 	    return count;
 	}
 
+	//=========================================================================	
 }

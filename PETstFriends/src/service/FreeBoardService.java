@@ -21,10 +21,12 @@ public interface FreeBoardService {
 	public List<FreeBoard> SearchFreeBoardbyNN(int FreeBoard_boardname,String FreeBoard_nickname); // 닉넴으로 검색
 	public List<FreeBoard> SearchFreeBoardbyCon(int FreeBoard_boardname,String FreeBoard_content); // 내용으로 검색
 	public HashMap<String, Object> ShowFreeBoard(HashMap<String, Object> params, int page); //게시판 목록?
+	
 	public int writeCommentFreeBoard(FreeComment freecomment); // 댓글쓰기
 	public int CommentModifyFreeBoard(FreeComment freecomment); //댓글 수정
 	public int CommentDeleteFreeBoard(int FreeBoard_boardname,int FreeBoard_boardno,int FreeComments_commentno); //댓글삭제
-	public List<FreeComment> ShowCommentFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno); //코멘트 보기
+	public List<FreeComment> ShowCommentFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno, int comment_page); //코멘트 보기
+	
 	public boolean insertLikesFreeBoard(FreeLikes FreeLikes); //좋아요
 	public boolean deleteLikesFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno); //좋아요취소
 	
@@ -41,7 +43,7 @@ public interface FreeBoardService {
 	
 	public FreeBoard getBoard(int FreeBoard_boardname,int FreeBoard_boardno); 
 	
-	public FreeBoard readBoard(int FreeBoard_boardname, int FreeBoard_boardno);
+	public HashMap<String, Object> readBoard(int FreeBoard_boardname, int FreeBoard_boardno);
 	public int getLastBoardno(int boardname, String user_id);
 	public File getAttachFile(HashMap<String, Object> params);
 	

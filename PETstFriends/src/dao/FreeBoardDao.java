@@ -24,6 +24,8 @@ public interface FreeBoardDao {
 	public FreeBoard selectOneLikes(int FreeBoard_boardname,int FreeBoard_boardno); //모였지.. 내가조아요한게시물?
 	public List<FreeBoard> selectAllLikes(int FreeBoard_boardname,String FreeLikes_id); //?? 조아요누름 게시물 전체..?
 	
-
+	//댓글
+	public int getCommentCount(HashMap<String, Object> params);//댓글 개수 조회
+	public List<FreeComment> selectCommentAll(HashMap<String, Object> params);
 	
 }

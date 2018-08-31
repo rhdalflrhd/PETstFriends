@@ -41,11 +41,11 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	@Override
 	public int getStartPage(int page, int numb) { //시작페이지
-		return (page- 1) / numb * numb + 1;
+		return (page- 1) / 10 * 10 + 1;
 	}
 	@Override
 	public int getEndPage(int page, int numb) { //10단위로
-		return ((page-1) / numb + 1) * numb;
+		return ((page-1) / 10 + 1) * 10;
 	}
 	@Override
 	public int getLastPage(HashMap<String, Object> params) {//목록의 끝 번호

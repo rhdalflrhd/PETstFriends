@@ -190,4 +190,71 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM tipLikes
 		WHERE tipLikes_userId= #{tipLikes_userId}
 	</delete>
+	
+	
+<!-- ======================================코멘트 쿼리============================================ -->
+	
+<!-- 	<insert id="insertTipComments" parameterType="java.util.HashMap" -->
+<!-- 		useGeneratedKeys="true" keyProperty="tipComments_commentno"> -->
+<!-- 		insert into tipcomments( -->
+<!-- 		tipComments_boardname, tipComments_boardno, tipComments_commentno, -->
+<!-- 		tipComments_groupno, tipComments_depth, tipComments_id, tipComments_nickname, -->
+<!-- 		tipComments_content,tipComments_writeDate ) values( -->
+<!-- 		#{tipComments_boardname}, #{tipComments_boardno}, 0, #{ -->
+<!-- 		tipComments_groupno},#{tipComments_depth}, #{tipComments_depth}, -->
+<!-- 		#{tipComments_id}, -->
+<!-- 		#{tipComments_nickname}, #{tipComments_content},curdate()) -->
+<!-- 	</insert>	 -->
+
+	<insert id="insertTipComments" parameterType="java.util.HashMap"
+		useGeneratedKeys="true" keyProperty="tipComments_commentno">
+		insert into tipcomments values(
+		#{tipComments_boardname}, #{tipComments_boardno}, 0, #{tipComments_groupno},
+		#{tipComments_depth}, #{tipComments_depth}, #{tipComments_id},
+		#{tipComments_nickname},#{tipComments_content}, curdate())
+	</insert>	
+
+	    <update id="updateTipComments" parameterType="java.util.HashMap">
+        update tipcomments set
+            tipComments_groupno = #{tipComments_groupno},
+            tipComments_depth = #{tipComments_depth},
+            tipComments_id = #{tipComments_id},
+            tipComments_nickname = #{tipComments_nickname},
+            tipComments_content = #{tipComments_content},
+            tipComments_writeDate =curdate()
+       where tipComments_boardname= #{tipComments_boardname}
+		and tipComments_boardno = #{tipComments_boardno} and tipComments_commentno =#{tipComments_commentno}
+    </update>
+
+	<select id="selectAllTipcomments" resultType="tipComments" parameterType="java.util.HashMap">
+		select * from tipcomments where tipComments_boardname= #{tipComments_boardname} 
+		and tipComments_boardno = #{tipComments_boardno} order by tipComments_commentno asc
+	</select> 
+	
+
+	<delete id="deleteTipComments" parameterType="java.util.HashMap">
+		delete from tipcomments where tipComments_boardname= #{tipComments_boardname}
+		and tipComments_boardno = #{tipComments_boardno} and tipComments_commentno =#{tipComments_commentno}
+	</delete>
+
+	
+	<delete id="deleteTipCommentsAll" parameterType="java.util.HashMap">
+		delete from tipcomments
+		where tipComments_commentno in
+		(select tipComments_commentno from
+		(select	tipComments_commentno from tipcomments where tipComments_boardname= #{tipComments_boardname} and tipComments_boardno = #{tipComments_boardno} and tipComments_commentno = #{tipComments_commentno})
+		 a) 	
+		or tipComments_groupno in 
+		(select tipComments_commentno from
+		(select	tipComments_commentno from tipcomments where tipComments_boardname= #{tipComments_boardname} and tipComments_boardno = #{tipComments_boardno} and tipComments_commentno = #{tipComments_commentno})
+		 a)
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

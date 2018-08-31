@@ -1,9 +1,12 @@
 package controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
+import com.google.gson.Gson;
+
 import model.FreeBoard;
+import model.FreeComment;
 import service.FreeBoardServiceImpl;
 import service.UserService;
 
@@ -74,9 +81,11 @@ public class FreeBoardController {
 		mav.addAllObjects(params);
 		int freeBoard_boardname =  Integer.parseInt((String) params.get("freeBoard_boardname"));
 		int freeBoard_boardno =  Integer.parseInt((String) params.get("freeBoard_boardno"));
-		mav.addObject("freeBoard", freeboardService.readBoard(freeBoard_boardname, freeBoard_boardno));
+		mav.addAllObjects(freeboardService.readBoard(freeBoard_boardname, freeBoard_boardno));
 		mav.setViewName("freeboard/selectOneBoard");
 
+		
+		
 		return mav;
 	}
 	//---------------------------------------------------------------------------------------
@@ -85,7 +94,6 @@ public class FreeBoardController {
 		public String WriteFreeBoardForm(Model model, HttpSession session) {
 			String user_id = (String) session.getAttribute("user_id");
 			String user_nickname = (String) session.getAttribute("user_nickname");
-
 			model.addAttribute("user_nickname", userService.getUserbyNn(user_nickname));
 			model.addAttribute("user_id", user_id);
 			return "freeboard/WriteFreeBoardForm";
@@ -125,23 +133,11 @@ public class FreeBoardController {
 		@RequestMapping("ReadFreeBoard.do")
 		public String ReadFreeBoard(Model model, int FreeBoard_boardname, int FreeBoard_boardno, HttpSession session) {
 			
-			System.out.println("ReadFreeBoard.do 들어옴");
-			System.out.println(FreeBoard_boardname);
-			System.out.println(FreeBoard_boardno);
-			
 			freeboardService.readBoard(FreeBoard_boardno,FreeBoard_boardname);
 			FreeBoard freeBoard = freeboardService.getBoard(FreeBoard_boardno,FreeBoard_boardname);
 			
-			System.out.println(freeBoard);
-			System.out.println(freeBoard.getFreeBoard_nickname());
-			
-//			session.setAttribute("user_id", "테스트용");
-			session.setAttribute("user_id", "user_id");
-			String user_idCheck = (String) session.getAttribute("user_id");
-			System.out.println(user_idCheck);
-			model.addAttribute("user_idCheck", user_idCheck);
+			session.setAttribute("user_id", "user_id");//용도
 			model.addAttribute("freeboard", freeBoard);
-
 			return "freeboard/ReadFreeBoard";
 		}
 		
@@ -202,6 +198,20 @@ public class FreeBoardController {
 //			return view;
 //		}
 		
+		@RequestMapping("freeCommentList.do")
+		@ResponseBody
+		public void freeCommentList(HttpServletResponse resp, int freeBoard_boardname, int freeBoard_boardno, int comment_page) {
+			List<FreeComment> freeCommentList = freeboardService.ShowCommentFreeBoard(freeBoard_boardname, freeBoard_boardno, comment_page);
+			Gson gson = new Gson();
+			resp.setCharacterEncoding("UTF-8");
+			String result =gson.toJson(freeCommentList);
+			try {
+				resp.getWriter().println(result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	
 }

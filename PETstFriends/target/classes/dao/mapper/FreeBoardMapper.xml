@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			or 1=1
 		</if>
 		<if test="FreeBoard_startdate != null">
-			and FreeBoard_Writedate
+			and FreeBoard_writedate
 			between #{startdate} and #{enddate}
 		</if>
 	</select>
@@ -117,8 +117,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</delete>
 
+<select id="selectCommentAll" parameterType="java.util.HashMap"
+resultType="freeComment">
+select * from freecomments where freeBoard_boardname=#{freeBoard_boardname} and freeBoard_boardno=#{freeBoard_boardno}
+order by freeComments_parent ASC, freeComments_commentno ASC limit #{comment_skip}, #{comment_numb}
+</select>
 
-
+<select id="getCommentCount"  resultType="int">
+select count(*) from freecomments where freeBoard_boardname=#{freeBoard_boardname} and freeBoard_boardno=#{freeBoard_boardno}
+</select>
 
 
 </mapper>
