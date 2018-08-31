@@ -27,19 +27,7 @@
     <script src="assets/js/html5shiv.js"></script>
     <script src="assets/js/respond.js"></script>
     <![endif]-->
-<style type="text/css">
-.sub{
-border-bottom: 1px solid red;
-padding-left: 15px;
-padding-top: 10px;
-font-size: 17px;
-}
-h4{
-text-align: center; 
-font-size: 30px;
-background: white;
-}
-</style>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
@@ -59,48 +47,57 @@ $('#deleteBtn').click(function(){
 </head>
 <body>
 <%@ include file="/petst/header.jsp"%>
-	<div class="wrapper">
-		<!--main content start-->
-		<div class="main-content" style="border-bottom: 1px solid gray;">
-			<div class="container" style="background: white; border-left: 1px solid gray; border-top: 1px solid gray;">
-				<div class="row">
 
-					<div class="col-md-8 col-sm-8" style="border-left: 1px solid gray; width: 80%; display: inline-block;">
+<center>
+<h1><b><font color="gray">게시글</font></b></h1>
+		<br>
+		<table border="1">
 
-						<h2 style="text-align: center;">
-							${FreeBoard.freeBoard_title }
-						</h2>
-						<div style="display: inline-block; height: 20px; width: 48%;">
-							작성일 : ${FreeBoard.freeBoard_writeDate }
-							</div>
-							<div style="display: inline-block; height: 20px; width: 48%; text-align: right;">
-								조회수 : ${FreeBoard.freeBoard_readCount }
-								</div>
-	<div style="border-bottom: 1px solid red; height: 5px;"></div>
-	<div style="height: 20px;"></div>
-						<div class="post-thumb">${FreeBoard.freeBoard_content }</div>
+			<tr style="color: white;" bgcolor="#bebebe">
+				<th>글번호</th>
+				<th>제 목</th>
+					<th>작성자</th>
+				<th>작성일</th>
+				<th>조회수</th>
 
+			</tr>
 
-							<div class="text-center" style="text-align: right;">
-<%-- 							<c:if test="${admin_check != null}"> --%>
-								<input type="button" id="deleteBtn" value="삭제하기">
-								<input type="button" value="수정하기" 
-								onclick="location.href='modifyNoticeBoardForm.do?notice_boardno=${FreeBoard.freeBoard_boardno }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
-<%-- 								</c:if> --%>
-								<input type="button" value="목록으로" 
-								onclick="location.href='dogFreeBoardList.do?&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
-							</div> 
-							<div style="height: 20px;"></div>
-					</div>
+			<tr align="center" style="font-family: 'monaco';" bgcolor="white">
+				<td>${FreeBoard.freeBoard_boardno }</td>
+				<td>${FreeBoard.freeBoard_title }</td>
+				<td>${FreeBoard.freeBoard_nickname }</td>
+				<td>${FreeBoard.freeBoard_writeDate }</td>
+				<td>${FreeBoard.freeBoard_readCount }</td>
 
+<%-- 				<td><a href="download.do?num=${board.num }">${board.file }</a></td> --%>
+			</tr>
 
-				</div>
-			</div>
-		</div>
-		<!--main content end-->
+			<tr>
+				<td style="color: white" bgcolor="#FFD2D2" align="center" colspan="7">
+					내용</td>
+			</tr>
 
+			<tr>
+				<td align="center" colspan="7" height="500">
+				${FreeBoard.freeBoard_content }</td>
+			</tr>
 
-	</div>
+			<tr>
+				<td colspan="7" align="right"><input type="button" value="수정하기" 
+				style="width:500 font-family: 'monaco'; background-color: #FFE6E6; border: 1 solid white"
+					onclick="location.href='modifyForm.do?num=${board.num}&page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'">
+				<input type="button" value="삭제하기"
+				style="width:500 font-family: 'monaco'; background-color: #FFE6E6; border: 1 solid white"
+					onclick="location.href='deleteForm.do?num=${board.num }&page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'">
+			<input type="button" value="게시판으로"
+			style="width:500 font-family: 'monaco'; background-color: #FFE6E6; border: 1 solid white"
+					onclick="location.href='boardList.do?page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'"></td>
+			</tr>
+
+		</table>
+
+	</center>
+	
 
 
 	<!-- js files -->

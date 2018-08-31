@@ -41,13 +41,7 @@ public class FreeBoardController {
 		public ModelAndView DogFreeBoardList(Model model,@RequestParam(defaultValue = "1") int page,
 				@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 				@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-			
 
-			System.out.println("자게정보 요청");
-			System.out.println("들어온 키워드는: "+keyword);
-			System.out.println("요청 타입은: "+keyword);	
-			
-//			FreeBoard free = new FreeBoard();
 			ModelAndView mav = new ModelAndView();
 			HashMap<String, Object> params = new HashMap<String, Object>();
 			HashMap<String, Object> result = null;
@@ -71,27 +65,16 @@ public class FreeBoardController {
 			} else if (type == 4) {
 				params.put("nickname", keyword);
 			}
-			
+			FreeBoard freeboard = new FreeBoard();
+			freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
 			result = freeboardService.ShowFreeBoard(params, page);
 			
-			
-//			mav.addObject("DogEncycList1", EncycService.searchEncyc("다시 쓰는 개 사전", 46, 3));
 			mav.addAllObjects(result);
 			mav.addAllObjects(params);
 			mav.setViewName("freeboard/dogFreeBoardList");
-//			System.out.println("보더리스트에서:" + result.toString());
 			return mav;		
 		}		
-		
-		
-		//강아지 게시글 클릭 했을때 
-		@RequestMapping("dogFreeBoardView.do")
-		public String dogFreeBoardView(Model model, int FreeBoard_boardname, int FreeBoard_boardno, HttpSession session) {
-			
 
-		}
-		
-		
 		//-----------------------------------------------------------------------------------------
 			//고양이자게
 			@RequestMapping(value= "catFreeBoardList.do", method=RequestMethod.GET) 		
@@ -129,13 +112,11 @@ public class FreeBoardController {
 				}
 				
 				result = freeboardService.SearchFreeBoardbyTNC(params,page);
-				
-				
-//				mav.addObject("DogEncycList1", EncycService.searchEncyc("다시 쓰는 개 사전", 46, 3));
+
 				mav.addAllObjects(result);
 				mav.addAllObjects(params);
 				mav.setViewName("freeboard/catFreeBoardList");
-//				System.out.println("보더리스트에서:" + result.toString());
+
 				return mav;		
 			}		
 			
@@ -235,22 +216,32 @@ public class FreeBoardController {
 //---------------------------------------------------------------------------------------------------------
 	//게시물 한개 보기 
 	@RequestMapping("selectOneBoard.do")
-	public String SelectOneBoard(Model model, int FreeBoard_boardname, int FreeBoard_boardno, HttpSession session) {
-		System.out.println("DogReadTipBoard.do 들어옴");
-		System.out.println(FreeBoard_boardname);
-		System.out.println(FreeBoard_boardno);
-		freeboardService.readBoard(FreeBoard_boardname, FreeBoard_boardno);
-		FreeBoard freeboard = freeboardService.getBoard(FreeBoard_boardname, FreeBoard_boardno);
-		System.out.println(freeboard);
-		System.out.println(freeboard.getFreeBoard_nickname());
-//		session.setAttribute("user_id", "테스트용");
-//		session.setAttribute("user_id", "testID");
-		String user_idCheck = (String) session.getAttribute("user_id");
-		System.out.println(user_idCheck);
-		model.addAttribute("user_idCheck", user_idCheck);
-		model.addAttribute("freeBoard", freeboard);
+	public ModelAndView SelectOneBoard(Model model, @RequestParam(required=false) HashMap<String, Object> params, HttpSession session,int page) {
+		
+		System.out.println("셀렉트원보드.두 들어옴");
+		System.out.println(params.get("freeBoard_content"));
+		ModelAndView mav = new ModelAndView();
+		mav.addAllObjects(params);
+		mav.addObject("freeBoard", freeboardService.ShowFreeBoard(params, page));
+		mav.setViewName("freeboard/selectOneBoard");
+		return mav;
+		
+		
+//		System.out.println("Dog원보드들어옴");
+//		System.out.println(FreeBoard_boardname+"보드네임");
+//		System.out.println(FreeBoard_boardno+"보드넘버");
+//		freeboardService.readBoard(FreeBoard_boardname, FreeBoard_boardno);
+//		FreeBoard freeboard = freeboardService.getBoard(FreeBoard_boardname, FreeBoard_boardno);
+//		System.out.println(freeboard);
+//		System.out.println(freeboard.getFreeBoard_nickname());
+////		session.setAttribute("user_id", "테스트용");
+////		session.setAttribute("user_id", "testID");
+//		String user_idCheck = (String) session.getAttribute("user_id");
+//		System.out.println(user_idCheck);
+//		model.addAttribute("user_idCheck", user_idCheck);
+//		model.addAttribute("freeBoard", freeboard);
 
-		return "freeboard/selectOneBoard";
+		
 	}
 	//---------------------------------------------------------------------------------------
 //게시글 쓰기 dog
@@ -266,24 +257,20 @@ public class FreeBoardController {
 			HttpServletRequest req) {
 
 		FreeBoard freeboard = new FreeBoard();
+		
 		String userid = (String) session.getAttribute("user_id");
 		freeboard.setFreeBoard_userId(userid);
 		freeboard.setFreeBoard_nickname(
 				(String) userService.selectUser((String) session.getAttribute("user_id")).get("user_nickname"));
-
-		System.out.println("닉네임="
-				+ (String) userService.selectUser((String) session.getAttribute("user_id")).get("user_nickname"));
+		System.out.println((String) userService.selectUser((String) session.getAttribute("user_id")).get("user_nickname"));
 
 		freeboard.setFreeBoard_content((String) params.get("editor"));
 		freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
 		freeboard.setFreeBoard_boardname(3);
-
 		freeboardService.writeFreeBoard(freeboard);
-		// model.addAttribute("freeBoard_boardno", freeboard.getFreeBoard_boardname());
-
 		int boardname = freeboard.getFreeBoard_boardname();
 		int boardno = freeboardService.getLastBoardno(boardname, userid);
-		System.out.println("보드넘버는= " + boardno);
+
 
 		return "redirect:dogFreeBoardList.do?boardname=" + boardname + "&boardno=" + boardno;
 	}

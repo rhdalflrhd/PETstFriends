@@ -19,6 +19,7 @@ import model.Board;
 import model.FreeBoard;
 import model.FreeComment;
 import model.FreeLikes;
+import model.Notice;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -37,10 +38,10 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		HashMap<String, Object> params= new HashMap<String, Object>();
 		params.put("freeBoard_boardname", freeBoard.getFreeBoard_boardname());
 		params.put("freeBoard_boardno", freeBoard.getFreeBoard_boardno());	
-		FreeBoard originBoard = bDao.selectOneBoard(params);
-		if (originBoard.getFreeBoard_userId().equals(freeBoard.getFreeBoard_userId()))
-			return bDao.updateBoard(freeBoard);
-		else
+//		FreeBoard originBoard = bDao.selectOneBoard(params);
+//		if (originBoard.getFreeBoard_userId().equals(freeBoard.getFreeBoard_userId()))
+//			return bDao.updateBoard(freeBoard);
+//		else
 			return 0;
 		}
 
@@ -127,42 +128,23 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public 	HashMap<String, Object> ShowFreeBoard(HashMap<String, Object> params, int page) {
 
-		System.out.println("showfreeBoardS 들어옴");
-
-	
 		HashMap<String, Object> result = new HashMap<String, Object>();
-	
-		
-		
-		
 		int getEndPage = getEndPage(page);
 		int getLastPage = getLastPage(params);
-
-	
 		if (getEndPage >= getLastPage)
 			result.put("end", getLastPage(params));
 		else
 			result.put("end", getEndPage(page));
-
 		result.put("current", page);
 		result.put("start", getStartPage(page));
 		result.put("last", getLastPage(params));
-		
 		params.put("skip", getSkip(page));
 		params.put("qty", 10);	
-		System.out.println("showFreeBoard 최종 파람:" + params.toString());
-
-//		System.out.println("겟카운트:" + tipDao.getCount(params));		
+	
 		int size = bDao.getCount(params);				
-		
 		result.put("dogFreeBoardList", bDao.selectBoardAll(params));
 		result.put("dogFreeBoardCount", size);
-		
 
-		System.out.println(params.get("freeBoard_boardname")+"보드네임 안오니???");
-		System.out.println("result"+result);
-		System.out.println("bDao.selectBoardAll(params)="+bDao.selectBoardAll(params));
-		System.out.println("파람에는"+params);
 		System.out.println("타이틀="+(String) params.get("freeBoard_title"));
 		
 		
@@ -246,24 +228,30 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		HashMap<String, Object> params= new HashMap<String, Object>();
 		params.put("freeBoard_boardname", freeBoard_boardname);
 		params.put("freeBoard_boardno", freeBoard_boardno);
-		return bDao.selectOneBoard(params);
+		return bDao.selectOneBoard(freeBoard_boardname,freeBoard_boardno);
 	}
 
 	@Override
-	public FreeBoard readBoard(int FreeBoard_boardname, int FreeBoard_boardno) {
+	public FreeBoard readBoard(int freeBoard_boardname, int freeBoard_boardno) {
 		// TODO Auto-generated method stub
 		//게시물 정보를 조회, 조회수 +1 추가
-				HashMap<String, Object> params = new HashMap<String, Object>();
-				FreeBoard b = bDao.selectOneBoard(params);
-				b.setFreeBoard_readCount(b.getFreeBoard_readCount() + 1);
-				params.put("board", b);
-				bDao.updateBoard(b);
-				FreeBoard b1 = bDao.selectOneBoard(params);
-				if(b.getFreeBoard_content()==null || b.getFreeBoard_content().equals(""))
-					b.setFreeBoard_content("내용없음");
-				if(b.getFreeBoard_title()==null || b.getFreeBoard_title().equals(""))
-					b.setFreeBoard_title("제목없음");
-				return b;
+		
+		FreeBoard freeboard = bDao.selectOneBoard(freeBoard_boardno,freeBoard_boardname);
+		freeboard.setFreeBoard_readCount(freeboard.getFreeBoard_readCount()+1);
+		bDao.updateBoard(freeboard);
+		return freeboard;
+		
+//				HashMap<String, Object> params = new HashMap<String, Object>();
+//				FreeBoard freeBoard = bDao.selectOneBoard(params);
+//				freeBoard.setFreeBoard_readCount(freeBoard.getFreeBoard_readCount() + 1);
+//				params.put("freeBoard", freeBoard);
+//				bDao.updateBoard(freeBoard);
+//				FreeBoard b1 = bDao.selectOneBoard(params);
+//				if(freeBoard.getFreeBoard_content()==null || freeBoard.getFreeBoard_content().equals(""))
+//					freeBoard.setFreeBoard_content("내용없음");
+//				if(freeBoard.getFreeBoard_title()==null || freeBoard.getFreeBoard_title().equals(""))
+//					freeBoard.setFreeBoard_title("제목없음");
+//				return freeBoard;
 		
 	}
 

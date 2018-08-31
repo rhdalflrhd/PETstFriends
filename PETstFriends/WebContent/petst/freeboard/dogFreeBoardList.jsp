@@ -94,7 +94,7 @@
 				<tr>
 					<td align="center">${FreeBoard.freeBoard_boardno }</td>
 					<td>
-					<a href="dogFreeBoardView.do?freeBoard_boardno=${freeBoard_boardno }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
+					<a href="selectOneBoard.do?freeBoard_boardno=${freeBoard_boardno }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
 							<c:if test="${freeBoard_title != null &&  freeBoard_title ne '' }">
 					${FreeBoard.freeBoard_title }
 					</c:if>

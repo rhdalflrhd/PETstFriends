@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from freeBoard where 1 = 1 and 
 		freeBoard_boardname = #{freeBoard_boardname}
 		<if test="freeBoard_title != null">
-			or freeBoard_title like '%${ freeBoard_title}%' </if>
+			or freeBoard_title like '%${freeBoard_title}%' </if>
 		<if test="freeBoard_cotent != null">
 			or freeBoard_content like '%${freeBoard_content}%' </if>
 		<if test="freeBoard_userId != null">
@@ -85,15 +85,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 '동영상없음'
             </otherwise>
         </choose>
-    </sql> 
+    </sql>
 
 
 
 	<insert id="insertBoard" parameterType="java.util.HashMap"
 		useGeneratedKeys="true" keyProperty="freeBoard_boardno">
 		insert into freeBoard values (#{freeBoard_boardname},0,
-		#{freeBoard_userId},#{freeBoard_nickname},<include refid="freeBoard_title" />, #{freeBoard_file}, <include refid="freeBoard_content" />,
-		curdate(),<include refid="freeBoard_YoutubeUrl"/>,0,  #{freeBoard_contentPic},0
+		#{freeBoard_userId},#{freeBoard_nickname},
+		<include refid="freeBoard_title" />
+		, #{freeBoard_file},
+		<include refid="freeBoard_content" />
+		,
+		curdate(),
+		<include refid="freeBoard_YoutubeUrl" />
+		,0, #{freeBoard_contentPic},0
 		)
 	</insert>
 
