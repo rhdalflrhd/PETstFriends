@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and tipBoard_writeDate
 			between #{startdate} and #{enddate}
 		</if>
-		and tipBoard_boardname = #{tipBoard_boardname}
+		having tipBoard_boardname = #{tipBoard_boardname}
 		order by tipBoard_boardno desc limit #{skip},#{qty}
 	</select>
 
@@ -87,7 +87,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and tipBoard_writeDate
 			between #{startdate} and #{enddate}
 		</if>
-
+		and tipBoard_boardname = #{tipBoard_boardname}
+<!-- 		group by tipBoard_boardname having tipBoard_boardname = #{tipBoard_boardname};		 -->
 	</select>
 
 	<select id="getLastBoardno" resultType="int" parameterType="java.util.HashMap">

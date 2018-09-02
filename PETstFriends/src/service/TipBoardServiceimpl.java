@@ -27,7 +27,7 @@ public class TipBoardServiceimpl implements TipBoardService{
 	private static UserDao uDao;
 	
 	@Override
-	public int writeTipBoardS(TipBoard dtBoard,MultipartFile TipBoard_contentPic) {
+	public int writeTipBoardS(TipBoard dtBoard,MultipartFile contentPic) {
 		System.out.println("writeTipBoard 서비스로 들어옴");
 		//여기서 해야하는 역할. 1. 게시글작성
 		//					2. 사용자 score 10점 추가.
@@ -38,7 +38,7 @@ public class TipBoardServiceimpl implements TipBoardService{
 		
 		//User tempUser = uDao.selectUserId(dtBoard.getTipBoard_userId)
 		//tempUser.setScore(tempUser.getUser_score()+10);
-		//UDao.updateUser(tempUser);
+		//UDao.updateUser(tempUser);fs
 		
 	//-----------------------------글작성시 사용자 score +10점 하는 기능 처리 끝-------------------------------------------	
 		// TODO Auto-generated method stub
@@ -50,11 +50,11 @@ public class TipBoardServiceimpl implements TipBoardService{
 		if(!dir.exists()) {
 			dir.mkdirs();//저  경로에 폴더 없으면 폴더하나 만들어 make directory
 		}
-		String fileName = TipBoard_contentPic.getOriginalFilename();
+		String fileName = contentPic.getOriginalFilename();
 		File attachFile = new File(path + fileName);
 		
 		try {		
-			TipBoard_contentPic.transferTo(attachFile);
+			contentPic.transferTo(attachFile);
 			dtBoard.setTipBoard_file(fileName);
 			
 		} catch (IllegalStateException e) {
@@ -66,7 +66,7 @@ public class TipBoardServiceimpl implements TipBoardService{
 			e.printStackTrace();
 			System.out.println("오류남2");
 		}
-		
+		System.out.println(dtBoard.getTipBoard_file());	
 		System.out.println("tipDao.insertBoard 하기전 .여기옴1");	
 		tipDao.insertBoard(dtBoard);
 		//다오 호출
@@ -139,7 +139,8 @@ public class TipBoardServiceimpl implements TipBoardService{
 	public HashMap<String, Object> SearchTipBoardS(HashMap<String, Object> params, int page) {
 		// TODO Auto-generated method stub
 		System.out.println("SearchTipBoardS 들어옴");
-		System.out.println(params.get("tipBoard_title"));
+		System.out.println("게시판은"+params.get("tipBoard_boardname"));
+//		System.out.println(params.get("tipBoard_title"));
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
@@ -155,16 +156,25 @@ public class TipBoardServiceimpl implements TipBoardService{
 		result.put("current", page);
 		result.put("start", getStartPageS(page));
 		result.put("last", getLastPageS(params));
-		
+//		params. d
 		params.put("skip", getSkipS(page));
 		params.put("qty", 10);	
 		System.out.println("SearchTipBoardS 최종 파람:" + params.toString());
 
 //		System.out.println("겟카운트:" + tipDao.getCount(params));		
-		int size = tipDao.getCount(params);				
+		int size = tipDao.getCount(params);
+		System.out.println("size is :"+size);
+		 System.out.println("다오넣기전 확인용1 "+params.get("tipBoard_boardname"));
+		 int tName = (Integer)params.get("tipBoard_boardname");
+		 System.out.println("tName은"+tName);
 		
-		result.put("dogTipBoardList", tipDao.selectBoardPage(params));
-		result.put("dogTipBoardCount", size);
+//		 	params.replace("tipBoard_boardname", 8); v
+//		 
+		 System.out.println("다오넣기전 확인용2  "+params.get("tipBoard_boardname"));
+		
+		 result.put("TipBoardList", tipDao.selectBoardPage(params));
+		System.out.println("팁다오결과물확인"+tipDao.selectBoardPage(params));
+		result.put("TipBoardCount", size);
 		
 		
 //		result.put("current", page);

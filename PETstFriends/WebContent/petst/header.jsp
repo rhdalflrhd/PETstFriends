@@ -117,21 +117,21 @@ ul, li {
                                                 class="fa fa-angle-right"></i></a>
                                             <ul class="sub-menu">
                                                 <li><a href="dogInfoSquareSpecies.do">강아지 종정보</a></li>
-                                                <li><a href="dogTipBoardList.do">강아지 Tip</a></li>
+                                                <li><a href="TipBoardList.do?tipBoard_boardname=7">강아지 Tip</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children"><a href="">고양이<i
                                                 class="fa fa-angle-right"></i></a>
                                             <ul class="sub-menu">
                                                 <li><a href="CatInfoSquareSpecies.do">고양이 종정보</a></li>
-                                                <li><a href="catTipBoardList.do">고양이 Tip</a></li>
+                                                <li><a href="TipBoardList.do?tipBoard_boardname=8">고양이 Tip</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children"><a href="">토끼<i
                                                 class="fa fa-angle-right"></i></a>
                                             <ul class="sub-menu">
                                                 <li><a href="RabbitInfoSquareSpecies.do">토끼 종정보</a></li>
-                                                <li><a href="rabbitTipBoardList.do">토끼 Tip</a></li>
+                                                <li><a href="TipBoardList.do?tipBoard_boardname=9">토끼 Tip</a></li>
                                             </ul>
                                         </li>
                                     </ul>

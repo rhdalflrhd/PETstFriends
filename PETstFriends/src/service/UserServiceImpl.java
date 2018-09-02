@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 		// user
 		String user_id = (String) params.get("user_id");
 		String user_pass = (String) params.get("user_pass");
-		
+		System.out.println(user_id);
 		User user = new User();
 
 		user.setUser_id(user_id);
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
 		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 		user.setUser_joinDate(sim.format(new Date()));
-		user.setUser_adminCheck(0); // 0=일반 1=관리자
+		user.setUser_adminCheck(0); // 0=일반 1=관리자  
 		user.setUser_score(0); // 회원가입하자마자 점수는 0점
 		
 		Calendar cal = new GregorianCalendar(Locale.KOREA);

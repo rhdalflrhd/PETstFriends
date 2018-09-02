@@ -148,7 +148,7 @@ font-family: 'NanumSquareRound',sans-serif;
 						<div class="img-overlay">
 							<div class="portfolio-text">
 								<h4><font style="font-family: 'NanumSquareRound', sans-serif;"> ${e.encyc_title}</font></h4>
-								<a href="#"
+								<a 
 									onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>
 							</div>
 						</div>
@@ -196,7 +196,7 @@ font-family: 'NanumSquareRound',sans-serif;
 						<div class="img-overlay">
 							<div class="portfolio-text">
 								<h4><font style="font-family: 'NanumSquareRound', sans-serif;"> ${e.encyc_title}</font></h4>
-								<a href="#"
+								<a
 									onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>
 							</div>
 						</div>
@@ -244,7 +244,7 @@ font-family: 'NanumSquareRound',sans-serif;
 						<div class="img-overlay">
 							<div class="portfolio-text">
 								<h4><font style="font-family: 'NanumSquareRound', sans-serif;"> ${e.encyc_title}</font></h4>
-								<a href="#"
+								<a 
 									onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>
 							</div>
 						</div>
@@ -292,7 +292,7 @@ font-family: 'NanumSquareRound',sans-serif;
 						<div class="img-overlay">
 							<div class="portfolio-text">
 								<h4><font style="font-family: 'NanumSquareRound', sans-serif;"> ${e.encyc_title}</font></h4>
-								<a href="#"
+								<a 
 									onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>
 							</div>
 						</div>
