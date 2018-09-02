@@ -3,22 +3,29 @@ package model;
 import java.sql.Date;
 
 public class FreeLikes {
-	private int freeBoard_boardname;
-	private int freeBoard_boardno;
+	private int freeLikes_likeno;
+	private int freeLikes_boardname;
+	private int freeLikes_boardno;
 	private String freeLikes_userId;
-	private String freeLikes_nickname;
-	private Date freeLikes_date;
-	public int getFreeBoard_boardname() {
-		return freeBoard_boardname;
+	private int freeLikes_likeCheck;
+	private String freeLikes_date;
+	public int getFreeLikes_likeno() {
+		return freeLikes_likeno;
 	}
-	public void setFreeBoard_boardname(int freeBoard_boardname) {
-		this.freeBoard_boardname = freeBoard_boardname;
+	public void setFreeLikes_likeno(int freeLikes_likeno) {
+		this.freeLikes_likeno = freeLikes_likeno;
 	}
-	public int getFreeBoard_boardno() {
-		return freeBoard_boardno;
+	public int getFreeLikes_boardname() {
+		return freeLikes_boardname;
 	}
-	public void setFreeBoard_boardno(int freeBoard_boardno) {
-		this.freeBoard_boardno = freeBoard_boardno;
+	public void setFreeLikes_boardname(int freeLikes_boardname) {
+		this.freeLikes_boardname = freeLikes_boardname;
+	}
+	public int getFreeLikes_boardno() {
+		return freeLikes_boardno;
+	}
+	public void setFreeLikes_boardno(int freeLikes_boardno) {
+		this.freeLikes_boardno = freeLikes_boardno;
 	}
 	public String getFreeLikes_userId() {
 		return freeLikes_userId;
@@ -26,23 +33,24 @@ public class FreeLikes {
 	public void setFreeLikes_userId(String freeLikes_userId) {
 		this.freeLikes_userId = freeLikes_userId;
 	}
-	public String getFreeLikes_nickname() {
-		return freeLikes_nickname;
+	public int getFreeLikes_likeCheck() {
+		return freeLikes_likeCheck;
 	}
-	public void setFreeLikes_nickname(String freeLikes_nickname) {
-		this.freeLikes_nickname = freeLikes_nickname;
+	public void setFreeLikes_likeCheck(int freeLikes_likeCheck) {
+		this.freeLikes_likeCheck = freeLikes_likeCheck;
 	}
-	public Date getFreeLikes_date() {
+	public String getFreeLikes_date() {
 		return freeLikes_date;
 	}
-	public void setFreeLikes_date(Date freeLikes_date) {
+	public void setFreeLikes_date(String freeLikes_date) {
 		this.freeLikes_date = freeLikes_date;
 	}
 	@Override
 	public String toString() {
-		return "FreeLikes [freeBoard_boardname=" + freeBoard_boardname + ", freeBoard_boardno=" + freeBoard_boardno
-				+ ", freeLikes_userId=" + freeLikes_userId + ", freeLikes_nickname=" + freeLikes_nickname
-				+ ", freeLikes_date=" + freeLikes_date + "]";
+		return "FreeLikes [freeLikes_likeno=" + freeLikes_likeno + ", freeLikes_boardname=" + freeLikes_boardname
+				+ ", freeLikes_boardno=" + freeLikes_boardno + ", freeLikes_userId=" + freeLikes_userId
+				+ ", freeLikes_likeCheck=" + freeLikes_likeCheck + ", freeLikes_date=" + freeLikes_date + "]";
 	}
+	
 
 }

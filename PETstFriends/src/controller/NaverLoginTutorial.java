@@ -67,6 +67,7 @@ public class NaverLoginTutorial {
 		NaverUser naverUser = naverLoginBO.getUserProfile(oauthToken);
 		session.setAttribute("naverUser", naverUser);
 		String user_id = naverUser.getId();
+		System.out.println(userService.getUserbyId(user_id));
 		if(userService.getUserbyId(user_id)) {//유저 아이디가 없으면 true, 회원가입창으로 
 			return "redirect:/terms_use.do";
 		}

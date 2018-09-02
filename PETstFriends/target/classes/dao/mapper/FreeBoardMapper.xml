@@ -141,7 +141,7 @@ update freecomments set freeComments_parent=#{freeComments_parent}
  where freeComments_commentno=#{freeComments_commentno}
  </update>
 <select id="groupCount" parameterType="int" resultType="int">
-select count(*) from freecomments where freeComments_commentno = #{freeComments_commentno}
+select count(*) from freecomments where freeComments_parent = #{freeComments_commentno}
 </select>
 <update id="updateComments" parameterType="java.util.HashMap">
 update freecomments set freeComments_content=#{freeComments_content} where freeComments_commentno = #{freeComments_commentno}
@@ -153,5 +153,60 @@ delete from freecomments where freeComments_commentno = #{freeComments_commentno
 select * from freecomments where freeComments_commentno = #{freeComments_commentno}
 </select>
 
+
+<select id="countbyLike" resultType="int" parameterType="HashMap">
+		SELECT COUNT(freeLikes_likeno) as cnt
+		FROM freeLikes
+		WHERE freeLikes_boardname = #{freeLikes_boardname} and freeLikes_boardno
+		=#{freeLikes_boardno} and freeLikes_userId=#{freeLikes_userId}
+	</select>
+<insert id="createFreeLikes" parameterType="HashMap">
+		INSERT INTO freeLikes
+		VALUES ((SELECT ifnull(MAX(freeLikes_likeno), 0) FROM freeLikes t) +1, #{freeLikes_boardname}, #{freeLikes_boardno}, 
+		#{freeLikes_userId}, 0, curdate())
+	</insert>
+
+<update id="like_check" parameterType="HashMap">
+		UPDATE freeLikes
+		SET freeLikes_likeCheck = freeLikes_likeCheck + 1
+		WHERE freeLikes_boardname = #{freeLikes_boardname} and freeLikes_boardno
+		= #{freeLikes_boardno} and freeLikes_userId= #{freeLikes_userId}
+	</update>
+
+<update id="like_check_cancel" parameterType="HashMap">
+		UPDATE freeLikes
+		SET freeLikes_likeCheck = 0
+		WHERE freeLikes_boardname = #{freeLikes_boardname} and freeLikes_boardno
+		= #{freeLikes_boardno} and freeLikes_userId= #{freeLikes_userId}
+	</update>
+
+<select id="readFreeLikes" resultType="freeLikes" parameterType="HashMap">
+		SELECT * FROM freeLikes
+		WHERE freeLikes_boardname = #{freeLikes_boardname} and freeLikes_boardno
+		= #{freeLikes_boardno} and freeLikes_userId= #{freeLikes_userId}
+	</select>
+
+<delete id="deletebyBoardNameBoardno" parameterType="HashMap">
+		DELETE FROM freeLikes
+		WHERE freeLikes_boardname = #{freeLikes_boardname} and freeLikes_boardno
+		= #{freeLikes_boardno}
+	</delete>
+
+<delete id="deletebyUserId" parameterType="HashMap">
+		DELETE FROM freeLikes
+		WHERE freeLikes_userId= #{freeLikes_userId}
+	</delete>
+
+<update id="FreeBoard_likeCnt_up" parameterType="java.util.HashMap">
+		update freeBoard set 
+		freeBoard_LikeCount = freeBoard_LikeCount +1 
+		where freeBoard_boardname = #{freeBoard_boardname} and freeBoard_boardno = #{freeBoard_boardno}
+	</update>
+
+	<update id="FreeBoard_likeCnt_down" parameterType="java.util.HashMap">
+		update freeBoard set 
+		freeBoard_LikeCount = freeBoard_LikeCount -1
+		where freeBoard_boardname = #{freeBoard_boardname} and freeBoard_boardno = #{freeBoard_boardno}
+	</update>
 
 </mapper>

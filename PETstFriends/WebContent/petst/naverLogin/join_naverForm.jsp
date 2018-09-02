@@ -149,7 +149,7 @@ h, td, tr, input, select, FORM {
 				},
 				success : function(data) {
 					alert('성공');
-					window.location.href = "main.jsp";
+					window.location.href = "main.do";
 				},
 				error : function(xhrReq, status, error) {
 					alert(error)

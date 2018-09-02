@@ -10,6 +10,7 @@ import model.Board;
 import model.FreeBoard;
 import model.FreeComment;
 import model.FreeLikes;
+import model.TipLikes;
 
 public interface FreeBoardService {
 
@@ -25,7 +26,7 @@ public interface FreeBoardService {
 	public int writeCommentFreeBoard(FreeComment freecomment); // 댓글쓰기
 	public int CommentModifyFreeBoard(FreeComment freecomment); //댓글 수정
 	public int CommentDeleteFreeBoard(int FreeBoard_boardname,int FreeBoard_boardno,int FreeComments_commentno); //댓글삭제
-	public List<FreeComment> ShowCommentFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno, int comment_page); //코멘트 보기
+	public HashMap<String, Object> ShowCommentFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno, int comment_page); //코멘트 보기
 	
 	public boolean insertLikesFreeBoard(FreeLikes FreeLikes); //좋아요
 	public boolean deleteLikesFreeBoard(int FreeBoard_boardname, int FreeBoard_boardno); //좋아요취소
@@ -50,4 +51,23 @@ public interface FreeBoardService {
 	public int deleteComments(int freeComments_commentno, int freeComments_parent);
 	public int updatefreeComment(int freeComments_commentno, String freeComments_content);
 	
+	
+	//좋아요
+
+	 /* 게시판의 좋아요 번호가 있는지 카운트 */
+	  public int countbyLike(HashMap<String, Object> params);
+	  
+	  /* 좋아요 번호 등록 */
+	  public int creatFreeLikes(HashMap<String, Object> params);
+
+	  /* 조회 */
+	  public FreeLikes readFreeLikes(HashMap<String, Object> params);
+	  public int like_check(HashMap<String, Object> params);
+
+		//해당 게시글의 라이크 카운트 업
+		public int FreeBoard_likeCnt_up(int boardname, int boardno);
+		public int like_check_cancel(HashMap<String, Object> params);
+		
+		//해당 게시글의 라이크 카운트 다운
+		public int FreeBoard_likeCnt_down(int boardname, int boardno);
 }
