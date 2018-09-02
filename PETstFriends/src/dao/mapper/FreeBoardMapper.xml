@@ -5,9 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="dao.FreeBoardDao">
 
-	<select id="selectOneBoard" parameterType="java.util.HashMap" resultType="freeBoard">
+	<select id="selectOneBoard" parameterType="java.util.HashMap"
+		resultType="freeBoard">
 		select * from freeBoard where freeBoard_boardname =
-		#{freeBoard_boardname}	and freeBoard_boardno =#{freeBoard_boardno}
+		#{freeBoard_boardname} and freeBoard_boardno =#{freeBoard_boardno}
 
 	</select>
 
@@ -20,8 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
-	<select id="selectBoardAll" parameterType="java.util.HashMap" resultType="freeBoard">
-		select * from freeBoard where 1 = 1 and 
+	<select id="selectBoardAll" parameterType="java.util.HashMap"
+		resultType="freeBoard">
+		select * from freeBoard where 1 = 1 and
 		freeBoard_boardname = #{freeBoard_boardname}
 		<if test="freeBoard_title != null">
 			or freeBoard_title like '%${freeBoard_title}%' </if>
@@ -30,6 +32,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="freeBoard_userId != null">
 			or freeBoard_nickname like #{freeBoard_nickname }
 		</if>
+		<if test="startDate != null">
+		   and writedate 
+      	  between #{startDate} and #{endDate}
+		</if>
+         order by freeBoard_boardno desc limit #{skip},#{qty}
 	</select>
 
 
@@ -75,16 +82,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</otherwise>
 		</choose>
 	</sql>
-	 <sql id="freeBoard_YoutubeUrl">
-        <choose>
-            <when test="freeBoard_YoutubeUrl != null">
-                #{freeBoard_YoutubeUrl}
-            </when>
-            <otherwise>
-                '동영상없음'
-            </otherwise>
-        </choose>
-    </sql>
+	<sql id="freeBoard_YoutubeUrl">
+		<choose>
+			<when test="freeBoard_YoutubeUrl != null">
+				#{freeBoard_YoutubeUrl}
+			</when>
+			<otherwise>
+				'동영상없음'
+			</otherwise>
+		</choose>
+	</sql>
 
 
 
@@ -104,29 +111,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="updateBoard" parameterType="int">
 		update freeBoard set
-		<include refid="freeBoard_title" />
-		,
-		freeBoard_file=#{freeBoard_file},
-		<include refid="freeBoard_content" />
-		,
-		freeBoard_readCount=#{freeBoard_readCount}, #{freeBoard_contentPic}
-		where freeBoard_boardname = #{freeBoard_boardname}
-		and freeBoard_boardno =#{freeBoard_boardno}
+		freeBoard_title=#{freeBoard_title},
+		freeBoard_content=#{freeBoard_content}
+		where freeBoard_boardname=#{freeBoard_boardname}
+		and
+		freeBoard_boardno=#{freeBoard_boardno}
 
 	</update>
 
 	<delete id="deleteBoard" parameterType="int">
 
-		delete freeBoard where freeBoard_boardname = #{freeBoard_boardname}
-		and freeBoard_boardno =#{freeBoard_boardno}
+		delete from freeBoard
+		where freeBoard_boardname=#{freeBoard_boardname}
+		and freeBoard_boardno=#{freeBoard_boardno}
 
 	</delete>
 
-<select id="getLastBoardno" resultType="int" parameterType="java.util.HashMap">
-		select MAX(freeboard_boardno) from freeBoard where freeBoard_boardname = #{freeBoard_boardname} and freeBoard_userId= 
-			#{freeBoard_userId}
-		<!-- 지금은 위에 커리로 해놓지만, 유저와 합치면 아래 코드로 바꿔야함 ㅇㅇ select MAX(tipboard_boardno) 
-			 -->
+	<select id="getLastBoardno" resultType="int" parameterType="java.util.HashMap">
+		select MAX(freeboard_boardno) from freeBoard where freeBoard_boardname
+		= #{freeBoard_boardname} and freeBoard_userId=
+		#{freeBoard_userId}
+		<!-- 지금은 위에 커리로 해놓지만, 유저와 합치면 아래 코드로 바꿔야함 ㅇㅇ select MAX(tipboard_boardno) -->
 	</select>
 
 

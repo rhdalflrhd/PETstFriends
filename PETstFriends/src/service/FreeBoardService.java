@@ -14,12 +14,12 @@ import model.FreeLikes;
 public interface FreeBoardService {
 
 	public int writeFreeBoard(FreeBoard freeboard); //게시글 쓰기
-	public int ModifyFreeBoard(FreeBoard freeBoard); //게시글 수정
+	public int ModifyFreeBoard(HashMap<String, Object> params); //게시글 수정
 	public int DeleteFreeBoard(int freeBoard_boardname, int freeBoard_boardno); //게시글 삭제
 	public HashMap<String, Object> SearchFreeBoardbyTNC(HashMap<String, Object> params,int page); //제목,닉넴,내용으로검색
-	public HashMap<String, Object> SearchFreeBoardbyTitle(HashMap<String, Object> params);//제목으로 검색
-	public HashMap<String, Object> SearchFreeBoardbyNN(HashMap<String, Object> params); // 닉넴으로 검색
-	public HashMap<String, Object> SearchFreeBoardbyCon(HashMap<String, Object> params); // 내용으로 검색
+//	public HashMap<String, Object> SearchFreeBoardbyTitle(HashMap<String, Object> params);//제목으로 검색
+//	public HashMap<String, Object> SearchFreeBoardbyNN(HashMap<String, Object> params); // 닉넴으로 검색
+//	public HashMap<String, Object> SearchFreeBoardbyCon(HashMap<String, Object> params); // 내용으로 검색
 	public HashMap<String, Object> ShowFreeBoard(HashMap<String, Object> params,int page);//게시판 목록?
 	public int writeCommentFreeBoard(FreeComment freecomment); // 댓글쓰기
 	public int CommentModifyFreeBoard(FreeComment freecomment); //댓글 수정

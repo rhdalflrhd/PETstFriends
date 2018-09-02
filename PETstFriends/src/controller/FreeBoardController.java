@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,12 +49,12 @@ public class FreeBoardController {
 			params.put("type", type);
 			params.put("keyword", keyword);
 			params.put("freeBoard_boardname", 3);
-			
-			if (type == 0) {
+			params.put("page", page);
+//			if (type == 0) {
 				if ((startDate != null || startDate != "") && (endDate != null || endDate != "")) {
 					params.put("startdate", startDate);
 					params.put("enddate", endDate);
-				}
+//				}
 			} 
 			else if (type == 1) {
 				params.put("title", keyword);
@@ -310,37 +311,53 @@ public class FreeBoardController {
 		//------------------------------------------------------------------------------------------------------------------------------
 //게시글 수정
 		
-		@RequestMapping("freeBoardModifyForm.do")
-		public String FreeBoardModifyForm(Model model, int FreeBoard_boardname, int FreeBoard_boardno,HttpSession session) {
+		@RequestMapping("dogModifyFreeBoardForm.do")
+		public String dogModifyFreeBoardForm(@RequestParam HashMap<String, Object> params, Model model) {
 			System.out.println("freeBoardModifyForm");
-			FreeBoard freeboard = freeboardService.getBoard(FreeBoard_boardname, FreeBoard_boardno);
-			model.addAttribute("freeBoard", freeboard);
-			return "freeboard/freeBoardModifyForm";
+			System.out.println("컨트롤러 모디파이 폼에있는 파람스"+params);
+			
+			int freeBoard_boardno = Integer.parseInt((String) params.get("freeBoard_boardno"));
+			int freeBoard_boardname = Integer.parseInt((String) params.get("freeBoard_boardname"));
+			model.addAttribute("notice",freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno));
+			model.addAllAttributes(params);
+			return "freeboard/dogModifyFreeBoardForm";
 		}	
 		
 
-		@RequestMapping("freeBoardModify.do")
-		public String FreeBoardModify(HttpSession session, @RequestParam HashMap<String, Object> params) {
-			System.out.println("freeBoardModify");
+		@RequestMapping("dogModifyFreeBoard.do")
+		public String dogModifyFreeBoard(@RequestParam HashMap<String, Object> params, HttpSession session, Model model,HttpRequest request) {
+			System.out.println("freeBoardModifyform");
+			
+			String freeBoard_userId = (String) session.getAttribute("user_id");
+//			System.out.println((String) params.get("freeBoard_boardno")+"sssss");
+//			System.out.println((String) params.get("freeBoard_boardname")+"sssss");
+			
+//		int freeBoard_boardno = Integer.parseInt((String) params.get("freeBoard_boardno"));
+//			int freeBoard_boardname = Integer.parseInt((String) params.get("freeBoard_boardname"));
+			
+			params.put("freeBoard_userId", freeBoard_userId);
+//			params.put("freeBoard_boardno", freeBoard_boardno);
+//			params.put("freeBoard_boardname", freeBoard_boardname);
+			System.out.println("dogModifyFreeBoard의 파람스에는"+params);
+			freeboardService.ModifyFreeBoard(params);
+			model.addAllAttributes(params);
+			System.out.println(params.get("editor"));
+			return "redirect:dogFreeBoardList.do";
 
-			String FreeBoard_boardname = (String)params.get("freeBoard_boardname");
-			int FreeBoard_boardname1 = Integer.parseInt(FreeBoard_boardname);
-			
-			String FreeBoard_boardno = (String)params.get("freeBoard_boardno");
-			int FreeBoard_boardno1 = Integer.parseInt(FreeBoard_boardno);
-			
-			FreeBoard freeboard = freeboardService.getBoard(FreeBoard_boardname1,FreeBoard_boardno1);
-
-			freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
-			freeboard.setFreeBoard_file((String) params.get("freeBoard_file"));
-			freeboard.setFreeBoard_content((String) params.get("freeBoard_content"));
-			freeboard.setFreeBoard_contentPic((String) params.get("freeBoard_contentPic"));
-			freeboard.setFreeBoard_YoutubeUrl((String) params.get("freeBoard_YoutubeUrl"));
-			freeboardService.ModifyFreeBoard(freeboard);
-			String boardname =(String)params.get("freeBoard_boardname");
-			String boardno =(String)params.get("freeBoard_boardno");
-			
-			return "redirect:freeboard/readFreeBoard.do?boardname="+boardname+"&boardno="+boardno;
+//			String FreeBoard_boardname = (String)params.get("freeBoard_boardname");
+//			int freeBoard_boardname = Integer.parseInt(FreeBoard_boardname);
+//			String FreeBoard_boardno = (String)params.get("freeBoard_boardno");
+//			int freeBoard_boardno = Integer.parseInt(FreeBoard_boardno);
+//			
+//			FreeBoard freeboard = freeboardService.getBoard(freeBoard_boardname,freeBoard_boardno);
+//
+//			freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
+//			freeboard.setFreeBoard_content((String) params.get("freeBoard_content"));
+//			freeboardService.ModifyFreeBoard(freeboard);
+//			String boardname =(String)params.get("freeBoard_boardname");
+//			String boardno =(String)params.get("freeBoard_boardno");
+//			
+//			return "redirect:dogFreeBoardList.do?boardname="+boardname+"&boardno="+boardno;
 		}
 		//------------------------------------------------------------------------------------------------------------------------------
 //게시글 삭제

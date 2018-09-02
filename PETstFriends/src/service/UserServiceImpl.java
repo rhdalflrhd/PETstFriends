@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
 
 		user.setUser_havePet(Integer.parseInt((String) params.get("user_havePet")));
 
+		System.out.println(udao.insertUser(user)+"udao.insertUser(user)");
 		udao.insertUser(user);
 
 		// pet

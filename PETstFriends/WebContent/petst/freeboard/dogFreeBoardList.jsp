@@ -37,14 +37,15 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+<center>
 
 	<%@ include file="/petst/header.jsp"%>
-	<center>
+
 		<h1>
 			<b><font color="gray">강아지게시판</font></b>
 		</h1>
-	<form action="showNoticeList.do" style="text-align: center;">
-		<table>
+	<form action="dogFreeBoardList.do" style="text-align: center;">
+		<table align="center">
 			<tr>
 				<th></th>
 				<th></th>
@@ -74,9 +75,9 @@
 		</form>
 
 		<br>
-		<table>
+		<table align="center">
 			<tr>
-				<td width="1000px" colspan="5" bgcolor="pink"></td>
+				<td width="1250px" colspan="5" bgcolor="pink" align="center"></td>
 			</tr>
 			<tr>
 				<th width="100px" align="center">글 번호</th>
@@ -87,13 +88,13 @@
 
 			</tr>
 			<tr>
-				<td width="800px" colspan="5" bgcolor="pink"></td>
+				<td width="1250px" colspan="5" bgcolor="pink" align="center"></td>
 			</tr>
 
 			<c:forEach items="${dogFreeBoardList }" var="FreeBoard">
 				<tr>
 					<td align="center">${FreeBoard.freeBoard_boardno }</td>
-					<td>
+					<td align="center">
 					<a href="selectOneBoard.do?freeBoard_boardno=${FreeBoard.freeBoard_boardno }&freeBoard_boardname=${FreeBoard.freeBoard_boardname }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
 							<c:if test="${FreeBoard.freeBoard_title != null &&  FreeBoard.freeBoard_title ne '' }">
 					${FreeBoard.freeBoard_title }
@@ -112,7 +113,7 @@
 			</c:forEach>
 
 			<tr>
-				<td width="800px" colspan="5" bgcolor="pink"></td>
+				<td width="1250px" colspan="5" bgcolor="pink" align="center"></td>
 			</tr>
 
 
@@ -120,7 +121,7 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td width="800px" colspan="3"><c:if test="${start != 1 }">
+				<td width="1250px" colspan="3" align="center"><c:if test="${start != 1 }">
 						<a
 							href="dogFreeBoardList.do?page=1&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[처음]</a>
 						<a
@@ -141,7 +142,7 @@
 						<a
 							href="dogFreeBoardList.do?page=${last }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[끝]</a>
 					</c:if></td>
-				<td colspan="2"><input type="button" value="글쓰기"
+				<td colspan="2" align="right"><input type="button" value="글쓰기"
 					style="width: 80px; height: 25px; background-color: #FFE6E6; border: 1 solid white"
 					onclick="location.href='writeDogFreeBoardForm.do'">
 					<input type="button" value="뒤로가기"
@@ -151,7 +152,7 @@
 			</tr>
 		</table>
 		<input type="hidden" id="FreeBoard.freeBoard_boardname" name="FreeBoard.freeBoard_boardname" value=" FreeBoard.freeBoard_boardname">
-	</center>
+
 
 
 
@@ -170,6 +171,6 @@
 	<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
 	<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 
-
+</center>
 </body>
 </html>

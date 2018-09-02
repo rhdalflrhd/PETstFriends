@@ -85,7 +85,9 @@ public class UserController {
 	@ResponseBody
 	public void join(@RequestParam HashMap<String, Object> params, HttpServletResponse resp) {
 		resp.setContentType("text/html; charset=UTF-8");
+
 		userService.joinUser(params);
+		
 	}
 
 	// ----------------------------------------------------------------------------------------
