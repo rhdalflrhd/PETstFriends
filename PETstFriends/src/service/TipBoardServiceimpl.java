@@ -24,7 +24,19 @@ public class TipBoardServiceimpl implements TipBoardService{
 	private ITipBoardDao tipDao;
 	private static int StartPg;
 
-	private static UserDao uDao;
+	@Autowired
+	private UserDao uDao;
+	
+
+	//해당팁보드게시판에 전체 글 갯수가 0이면, 더미용가짜글을 만들기위한 함수.
+	@Override
+	public int TipboardNullcheck(int boardname) {
+		// TODO Auto-generated method stub
+	    int TipboardNullcheckcount = tipDao.TipboardNullcheck(boardname);
+	    return TipboardNullcheckcount;
+	}
+	/* 게시판의 좋아요 번호가 있는지 카운트 */
+
 	
 	@Override
 	public int writeTipBoardS(TipBoard dtBoard,MultipartFile contentPic) {
@@ -43,6 +55,9 @@ public class TipBoardServiceimpl implements TipBoardService{
 	//-----------------------------글작성시 사용자 score +10점 하는 기능 처리 끝-------------------------------------------	
 		// TODO Auto-generated method stub
 
+		if(contentPic !=null) {
+		
+		
 		String path = "C:/BitCamp/PetstFriends/";
 		
 		File dir = new File(path);
@@ -67,7 +82,10 @@ public class TipBoardServiceimpl implements TipBoardService{
 			System.out.println("오류남2");
 		}
 		System.out.println(dtBoard.getTipBoard_file());	
-		System.out.println("tipDao.insertBoard 하기전 .여기옴1");	
+		System.out.println("tipDao.insertBoard 하기전 .여기옴1");
+		
+		}//MultipartFile contentPic이 null 값이 아닐때만 위의 문장들이 실행됨
+		
 		tipDao.insertBoard(dtBoard);
 		//다오 호출
 		System.out.println("tipDao.insertBoard 한 후 .여기옴2");
@@ -204,7 +222,7 @@ public class TipBoardServiceimpl implements TipBoardService{
 	@Override
 	public int getLastPageS(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		return (tipDao.getCount(params) - 1 ) / 10 + 1;
+		return (tipDao.getCount(params) - 2 ) / 10 + 1;
 	}
 
 	@Override

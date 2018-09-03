@@ -13,7 +13,10 @@ import model.TipComments;
 public interface TipBoardService {
 
 	
-	//==============================  팁보드 서비스============================================	
+	//==============================  팁보드 서비스==== ========================================
+	
+	public int TipboardNullcheck(int boardname);
+	
 	public int writeTipBoardS(TipBoard dtBoard,MultipartFile TipBoard_contentPic);
 	public int ModifyTipBoardS(TipBoard dtBoard,MultipartFile TipBoard_contentPic);
 	public int DeleteTipBoardS(int boardname, int boardno);

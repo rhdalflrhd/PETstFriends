@@ -39,6 +39,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</choose>
 	</sql>
 
+	<select id="TipboardNullcheck" resultType="int" parameterType="int">
+		SELECT COUNT(*) as cnt
+		FROM tipBoard
+		WHERE tipBoard_boardname = #{boardname}
+	</select>
+
+
 	<select id="selectOneBoard" parameterType="java.util.HashMap"
 		resultType="tipBoard">
 		select * from tipBoard where tipBoard_boardname = #{tipBoard_boardname} and
@@ -64,12 +71,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and tipBoard_writeDate
 			between #{startdate} and #{enddate}
 		</if>
-		having tipBoard_boardname = #{tipBoard_boardname}
+		having tipBoard_boardname = #{tipBoard_boardname}  
 		order by tipBoard_boardno desc limit #{skip},#{qty}
 	</select>
 
 	<select id="getCount" resultType="int" parameterType="java.util.HashMap">
-		select count(*) from tipBoard
+		select count(*) as cnt from tipBoard
 		where 1 = 0
 		<if test="tipBoard_title != null||tipBoard_title!=''">
 			or tipBoard_title like '%${tipBoard_title}%'
@@ -87,8 +94,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and tipBoard_writeDate
 			between #{startdate} and #{enddate}
 		</if>
-		and tipBoard_boardname = #{tipBoard_boardname}
-<!-- 		group by tipBoard_boardname having tipBoard_boardname = #{tipBoard_boardname};		 -->
+<!-- 		and tipBoard_title not like '%더미용%' -->
+		group by tipBoard_boardname having tipBoard_boardname = #{tipBoard_boardname}	
 	</select>
 
 	<select id="getLastBoardno" resultType="int" parameterType="java.util.HashMap">

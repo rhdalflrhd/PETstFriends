@@ -24,9 +24,9 @@ import com.google.gson.Gson;
 
 import dao.ITipBoardDao;
 import dao.UserDao;
-import model.Board;
 import model.TipBoard;
 import model.TipLikes;
+import model.User;
 import service.TipBoardEncycService;
 import service.TipBoardService;
 
@@ -38,10 +38,12 @@ public class TipBoardController {
 
 	@Autowired
 	private TipBoardEncycService EncycService;
-	private static UserDao uDao;
+	
+	@Autowired
+	private UserDao uDao;
 	
 	public static Gson gson = new Gson();		
-	// Spring MVC 컨트롤러에서 사용할 수 있는 반환유형의 종류
+	// Spring MVC 컨트롤러에서 사용할 수 있는 반환유형의 종류  dd
 	// 데이터와 페이지 정보가 둘 다 있는 경우	= ModelAndView
 	// 데이터에 대한 정보만 있는 경우   		=  Model or Map(해쉬맵. 키값과 밸류값으로 넘어감)
 	// 페이지에 대한 정보만 있는경우    		=   String
@@ -105,19 +107,34 @@ public class TipBoardController {
 	public ModelAndView TipBoardList(Model model,@RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,  @RequestParam(defaultValue = "0") int tipBoard_boardname) {
-		System.out.println(tipBoard_boardname);
-		String check = String.valueOf(tipBoard_boardname);
 		
+		System.out.println(tipBoard_boardname+": 꿀 Tip정보 요청(개7고양이8토끼9)");
+		System.out.println("들어온 키워드는: "+keyword);
+		System.out.println("요청 타입은: "+type);	
+		
+		String check = String.valueOf(tipBoard_boardname);	
 		int sendboardName = 0;
 		if(check.equals("0")){
 			sendboardName =7;
 		}else {
 			sendboardName = tipBoard_boardname;
 		}
+		
+		//해당게시판에 게시글이 0개일시, 최초 dummy용 fake게시글 하나 생성. 이럴려면 User table에 fakeDummyID이 있어야함 반드시.
+	    if(tipService.TipboardNullcheck(sendboardName)==0){
+	    	
+			TipBoard dtboard = new TipBoard();
+			String WriteUserid = "fakeDummyID";
+			dtboard.setTipBoard_boardname(sendboardName);
+			dtboard.setTipBoard_userId(WriteUserid);
+			dtboard.setTipBoard_nickname("fakeDummynickname");		
+			dtboard.setTipBoard_title("fakeDummy게시글");
+			dtboard.setTipBoard_content("이 게시글은 fakeDummy 게시글이 0개일시 최초 생성되는 가짜게시글이다.");	
+			MultipartFile contentPic =null;
+			tipService.writeTipBoardS(dtboard, contentPic);
+			System.out.println("해당게시판에 게시글이 0개일시, 최초 dummy용 fake게시글 하나 생성하는 쿼리실행됨");
+	    }
 
-		System.out.println(tipBoard_boardname+": 꿀 Tip정보 요청(개7고양이8토끼9)");
-		System.out.println("들어온 키워드는: "+keyword);
-		System.out.println("요청 타입은: "+type);	
 		
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> params = new HashMap<String, Object>();
@@ -150,25 +167,24 @@ public class TipBoardController {
 		}else if (sendboardName==8) {
 			mav.addObject("EncycList1", EncycService.searchEncyc("다시 쓰는 고양이 사전", 49, 2));	
 		}else if(sendboardName==9) {
-			
+			//토끼 키워드 찾아야함 
 		}
 		
 //		mav.addObject("DogEncycList1", EncycService.searchEncyc("다시 쓰는 개 사전", 46, 3));
 		mav.addAllObjects(result);
 		mav.addAllObjects(params);
 		mav.setViewName("Tipboard/TipBoardList");
-		System.out.println("보더리스트에서:" + result.toString());
+//		System.out.println("보더리스트에서:" + result.toString());
 		//return "redirect:ReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
 		return mav;		
 	}		
-//팁보드리스트.do만 일단 강아지 고양이 토끼 따로따로 만들어서해야겠다.아니면 헤더에 href링크에 다는것도 있지만 음 그편이 더 쉽기도 하겠군.( 이렇게 하기로함)
 	
-	
-	
+
 	//----------------------------------------- 강아지 TIp정보 게시판 글 한개 읽기.
 	@RequestMapping("ReadTipBoard.do")
 	public String ReadTipBoardC(Model model, int boardname, int boardno, HttpSession session) {
-		
+		String user_idCheck = (String)session.getAttribute("user_id");
+		System.out.println("접속된 id는= "+user_idCheck);
 		
 		System.out.println("ReadTipBoard.do 들어옴");
 		System.out.println("해당게시판넘버(개7고양이8토끼9)= "+boardname);
@@ -178,20 +194,21 @@ public class TipBoardController {
 //		System.out.println("해당게시글 row전체내용= "+tb);
 		System.out.println("해당게시글의 닉네임은= "+tb.getTipBoard_nickname());
 
-		session.setAttribute("user_id", "tesID");
+//		session.setAttribute("user_id", "tesID");
 		
-		String user_idCheck = (String) session.getAttribute("user_id");
-		System.out.println("접속된 id는= "+user_idCheck);
+
 		
 		HashMap<String, Object> paramForLike = new HashMap<String, Object>();
 		paramForLike.put("tipLikes_boardname", boardname);
 		paramForLike.put("tipLikes_boardno", boardno);
 		paramForLike.put("tipLikes_userId", user_idCheck);
 		
-	    if(tipService.countbyLike(paramForLike)==0){
-	    	tipService.createTipLikes(paramForLike);
-	    }
-	     
+		if (session.getAttribute("user_id") != null) {
+			if (tipService.countbyLike(paramForLike) == 0) {
+				tipService.createTipLikes(paramForLike);
+			}
+		}
+		
 	    TipLikes tLikes = tipService.readTipLikes(paramForLike);	 // 해당유저가 해당게시판의 해당게시글에 남긴 좋아요를 갖고옴.   
 	    int like_check = 0;
 	    like_check = tLikes.getTipLikes_likeCheck();    //좋아요 체크 값  
@@ -214,12 +231,19 @@ public class TipBoardController {
 	@RequestMapping("WriteTipBoardForm.do")	
 	public String WriteTipBoardFormC(Model model, HttpSession session, int tipBoard_boardname) {
 		System.out.println("WriteTipBoardForm.do 들어옴");
-		String id = (String)session.getAttribute("TipBoard_userId");
-		//유저서비스에서 UserService의 getUserbyId함수 이용해서, USer user변수에 담고,
+		String id = (String)session.getAttribute("user_id");
+		System.out.println("접속된 유저 아이디는 :"+id);
+		HashMap<String, Object> paramforuser = new HashMap<String, Object>();
+		paramforuser.put("user_id", id);
+		User tempuser = uDao.selectUserbyId2(paramforuser);
+
+		
+		//유저서비스에서 UserService의 getUserbyId함수 이용해서, USer user변수에 담고, f
 		//그, user의 getUser_nickname해서 얻은 닉네임값을 String nickName이라는 변수에담음
 		//지금은 아직 USer랑 연결안했으니까 아래와같이 임의로 만듦.
-		String nickName = "user컨트롤러 연결전 닉네임";
+		String nickName = tempuser.getUser_nickname();
 		model.addAttribute("tipBoard_boardname", tipBoard_boardname);
+		model.addAttribute("id", id);
 		model.addAttribute("nickName", nickName);	
 		return "Tipboard/WriteTipBoardForm";
 	}
@@ -234,7 +258,7 @@ public class TipBoardController {
 		
 		TipBoard dtboard = new TipBoard();
 //		String user_id = (String)session.getAttribute("user_id");
-		String WriteUserid = "tesID";
+		String WriteUserid = (String)session.getAttribute("user_id");
 		// 지금은 USer랑 연결안했으니까 현재 내가 DB에 넣은 유저멤버들중 임의의 ID 지정하겠음
 		String tName = (String)params.get("tipBoard_boardname");
 		int trealName = Integer.parseInt(tName);
@@ -273,28 +297,35 @@ public class TipBoardController {
 	@RequestMapping("ModifyTipBoard.do")
 	public String ModifyTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params,
 			@RequestParam(value="tipBoard_contentPic", required=false) MultipartFile contentPic){
+		
+		String WriteUserid = (String)session.getAttribute("user_id");
 
 		System.out.println("TIp정보 게시판 글 한 개 수정, 들어옴");
 		System.out.println("컨텐츠 픽은: "+contentPic);
 		System.out.println(params);
+		System.out.println("해당글의 작성자는: "+(String)params.get("tipBoard_userId") );
+		System.out.println("현재접속자는: "+WriteUserid);
 		
-		String tipBoard_boardnameS = (String)params.get("tipBoard_boardname");
-		int tipBoard_boardname = Integer.parseInt(tipBoard_boardnameS);
-		
-		String tipBoard_boardnoS = (String)params.get("tipBoard_boardno");
-		int tipBoard_boardno = Integer.parseInt(tipBoard_boardnoS);
+		String boardname =(String)params.get("tipBoard_boardname");
+		String boardno =(String)params.get("tipBoard_boardno");
+	
+		int tipBoard_boardname = Integer.parseInt(boardname);
+		int tipBoard_boardno = Integer.parseInt(boardno);
 		
 		TipBoard tb = tipService.getBoardS(tipBoard_boardname,tipBoard_boardno);
-
+		System.out.println("지금 tb변수로 끄집어온 글의 작성자는: "+tb.getTipBoard_userId());
 		tb.setTipBoard_title((String) params.get("tipBoard_title"));
 		tb.setTipBoard_content((String) params.get("editor"));
 		tb.setTipBoard_contentPic((String) params.get("tipBoard_contentPic"));
 		tb.setTipBoard_YoutubeUrl((String) params.get("tipBoard_YoutubeUrl"));
-		tipService.ModifyTipBoardS(tb,contentPic);
-		String boardname =(String)params.get("tipBoard_boardname");
-		String boardno =(String)params.get("tipBoard_boardno");
-		
-		return "redirect:ReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
+			
+		if(WriteUserid.equals((String)params.get("tipBoard_userId"))) {
+			tipService.ModifyTipBoardS(tb,contentPic);		
+			return "redirect:ReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
+		}else {			
+			return "redirect:ModifyFormTipBoard.do?boardname="+boardname+"&boardno="+boardno;
+		}
+
 	}
 	
 	
@@ -306,7 +337,6 @@ public class TipBoardController {
 		System.out.println("boardname: "+boardname);
 		System.out.println("boardno: "+boardno);
 		TipBoard tb = tipService.getBoardS(boardname, boardno);
-		session.setAttribute("user_id", "tesID");//지금은 유저랑 연결안해놨으니까 일단 이렇게 해놈 08.23 현재날짜 기준.
 		String user_idCheck = (String) session.getAttribute("user_id");
 		if(tb.getTipBoard_userId().equals(user_idCheck)) {
 			tipService.DeleteTipBoardS(boardname, boardno);
@@ -321,7 +351,6 @@ public class TipBoardController {
 	public String InsertLikesTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
 		
 		System.out.println("InsertLikesTipBoard.do 컨트롤러 들어옴");
-		session.setAttribute("user_id", "tesID");// 지금은 USer랑 안합쳤으니 일단 이렇게 하겠음 ㅇㅇ
 		String user_idCheck = (String)session.getAttribute("user_id");
 	    JSONObject obj = new JSONObject();
 	    String mm ="";
@@ -444,13 +473,4 @@ public class TipBoardController {
  
     }
 	
-	
-	
-//	@RequestMapping("InfoSquareSpecies.do")
-//	public String InfoSquareSpecies(Model model) {
-//		System.out.println("모든종류 백과사전 요청");
-//		return "Tipboard/InfoSquareSpecies";
-//	}
-//		
-
 }

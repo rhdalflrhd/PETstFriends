@@ -8,8 +8,10 @@ import model.User;
 
 public interface UserDao {
 	//오경
-	public User selectUserbyNn(String user_nickname);//d
+	public User selectUserbyNn(String user_nickname);//dd
 	public User selectUserbyId(String user_id);//d
+	//<!-- 세륜 추가분 유저 쿼리문(2018.09.03) -->
+	public User selectUserbyId2(HashMap<String, Object> params);//d
 	public int insertPet(Pet pet); //회원가입//d
 	public int insertUser(User user); //회원가입//d
 	public String selectUserFindId(HashMap<String, Object>params); //id찾기/dd

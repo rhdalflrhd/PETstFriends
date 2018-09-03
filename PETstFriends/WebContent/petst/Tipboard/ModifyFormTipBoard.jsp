@@ -193,7 +193,7 @@ input::-moz-placeholder {
 						<c:if test="${tipboard.tipBoard_boardname eq '9'}">
 						토끼
 						</c:if>
-										꿀 TIP 수정하기 </font>
+										꿀 TIP 수정하기 아이디는 </font>
 								</div>
 								<br>
 								<br>

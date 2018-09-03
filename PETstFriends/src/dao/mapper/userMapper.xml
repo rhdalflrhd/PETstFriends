@@ -6,14 +6,19 @@
 <mapper namespace="dao.UserDao">
 
 	<select id="selectUserbyNn" parameterType="String"
-		resultType="User">
-		select * from User where user_nickname = #{user_nickname};
+		resultType="user">
+		select * from user where user_nickname = #{user_nickname};
+	</select>
+
+<!-- 세륜 추가분 유저 쿼리문(2018.09.03) -->
+	<select id="selectUserbyId2" parameterType="java.util.HashMap" resultType="user">
+		select * from user where user_id like #{user_id};
 	</select>
 
 
 	<select id="selectUserbyId" parameterType="String"
-		resultType="User">
-		select * from User where user_id = #{user_id};
+		resultType="user">
+		select * from user where user_id = #{user_id};
 	</select>
 
 	<!-- string이 맞나 -->
@@ -24,14 +29,14 @@
 	</select>
 
 	<select id="selectUserFindPw" parameterType="java.util.HashMap"
-		resultType="User">
+		resultType="user">
 		select * from user where user_id=#{user_id} and
 		user_name=#{user_name} and
 		user_email=#{user_email}
 	</select>
 
 	<insert id="insertPet" parameterType="pet">
-		insert into pet values(
+		insert into pet values(0,
 		#{user_id},0,#{pet_name},#{pet_species},
 		#{pet_gender},#{pet_age},
 		#{pet_file}
@@ -41,18 +46,17 @@
 	<insert id="insertUser" parameterType="user">
 		insert into user values(
 		0,#{user_name},#{user_id},#{user_nickname},#{user_pass},#{user_email},
-		#{user_phone},#{user_proPic},#{user_score},#{user_joinDate},
-		#{user_adminCheck},#{user_state},#{user_pan_date}, #{user_havePet}
-		);
+		#{user_phone},#{user_proPic},#{user_havePet},#{user_score},#{user_joinDate},
+		#{user_adminCheck},#{user_state},#{user_pan_date});
 	</insert>
 
 
 	<select id="selectUserbyEmail" parameterType="String"
-		resultType="User">
+		resultType="user">
 		select * from User where user_email = #{user_email}
 	</select>
 	<select id="selectUserbyName" parameterType="String"
-		resultType="User">
+		resultType="user">
 		select * from User where user_name = #{user_name}
 	</select>
 

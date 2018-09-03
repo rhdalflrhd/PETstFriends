@@ -11,6 +11,9 @@ public interface ITipBoardDao {
 
 		
 	//==============================팁보드 다오============================================
+	
+	public int TipboardNullcheck(int boardname);
+	
 	public int insertBoard(TipBoard dtBoard);
 
 	public int updateBoard(TipBoard dtBoard);
@@ -19,7 +22,8 @@ public interface ITipBoardDao {
 
 	public TipBoard selectOneBoard(HashMap<String, Object> params);
 
-	public List<TipBoard> selectBoardbyId(int boardname, String id);
+//	public List<TipBoard> selectBoardbyId(int boardname, String id);
+	public List<TipBoard> selectBoardbyId(HashMap<String, Object> params);
 	
 	//params : 제목, 내용, 넘길 레코드의 개수, 조회할 레코드의 개수
 	public List<TipBoard> selectBoardPage(HashMap<String, Object> params);

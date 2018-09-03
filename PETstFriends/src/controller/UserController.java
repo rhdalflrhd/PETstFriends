@@ -57,9 +57,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean login(String user_id, String user_pass) {
+	public boolean login(HttpSession session, String user_id, String user_pass) {
 
 		if (userService.loginUser(user_id, user_pass)) {
+			session.setAttribute("user_id", user_id);
 			return true;
 		} else {
 			return false;
