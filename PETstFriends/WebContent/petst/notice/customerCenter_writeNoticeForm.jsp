@@ -56,7 +56,6 @@
 	});
 </script>
 <body>
-	<center>
 		<%@ include file="/petst/header.jsp"%>
 		<div class="wrapper">
 			<div class="main-content">
@@ -66,16 +65,23 @@
 						<div class="widget">
 							<h2>고객센터</h2>
 							<ul>
-								<li><a href="">공지사항</a></li>
-								<li><a href="">자주하는 질문</a></li>
-								<li><a href="">1:1 문의</a></li>
+							<li><a href="showNoticeList.do">공지사항</a></li>
+							<li><a href="showOftenQnAList.do">자주하는 질문</a></li>
+							<li><a href="qnA.do">1:1 문의</a></li>
 							</ul>
 						</div>
 					</div>
 
 					<div class="col-md-8 col-sm-8"
 						style="border-left: 1px solid gray; width: 80%; display: inline-block;">
-						<div style="height: 900px;  background-color: white;">
+						<div style="border-bottom: 2px solid brown; width: 20%;">
+					<div style="border-bottom: 5px solid #FFD232; width: 70%;">
+					<h2>공지사항</h2>
+					</div>
+					</div>
+					<br>
+						<div style="height: 900px;  background-color: white;" align="center">
+							
 							<form action="writeNoticeBoard.do" method="post"
 								id="insertBoardFrm" enctype="multipart/form-data">
 								<span id="title"> 제목 :</span> <input type="text"
@@ -90,7 +96,8 @@
 									<div style="height: 10px;"></div>
 									<br><br>
 									<div align="right">
-										<input type="button" id="insertBoard" value="등록" />
+										<input type="button" id="insertBoard" value="등록">
+										<input type="button" id="insertBoard" value="목록으로" onclick="location.href='showNoticeList.do'">
 									</div>
 								</div>
 							</form>
@@ -100,6 +107,5 @@
 			</div>
 		</div>
 		<%@ include file="/petst/footer.jsp"%>
-	</center>
 </body>
 </html>

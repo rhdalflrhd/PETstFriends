@@ -35,9 +35,9 @@
 					<div class="widget" style="background: white;">
 						<h3 style="background: white;">고객센터</h3>
 						<ul>
-							<li><a href="">공지사항</a></li>
-							<li><a href="">자주하는 질문</a></li>
-							<li><a href="">1:1 문의</a></li>
+							<li><a href="showNoticeList.do">공지사항</a></li>
+							<li><a href="showOftenQnAList.do">자주하는 질문</a></li>
+							<li><a href="qnA.do">1:1 문의</a></li>
 						</ul>
 					</div>
 				</div>

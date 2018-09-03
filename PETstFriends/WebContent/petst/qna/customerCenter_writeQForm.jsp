@@ -38,7 +38,7 @@
 				// 입력창 크기 조절바 사용 여부
 				bUseVerticalResizer : false,
 				// 모드 탭(Editor | HTML | TEXT) 사용 여부
-				bUseModeChanger : true,
+				bUseModeChanger : false,
 			}
 		});
 		//전송버튼
@@ -66,31 +66,34 @@
 						<div class="widget">
 							<h2>고객센터</h2>
 							<ul>
-								<li><a href="">공지사항</a></li>
-								<li><a href="">자주하는 질문</a></li>
-								<li><a href="">1:1 문의</a></li>
+								<li><a href="showNoticeList.do">공지사항</a></li>
+								<li><a href="showOftenQnAList.do">자주하는 질문</a></li>
+								<li><a href="qnA.do">1:1 문의</a></li>
 							</ul>
 						</div>
 					</div>
 
 					<div class="col-md-8 col-sm-8"
 						style="border-left: 1px solid gray; width: 80%; display: inline-block;">
-						<div style="height: 900px; background-color: white;">
+						<div style="height: 800px; background-color: white;">
 							<form action="writeOftenQnA.do" method="post" id="insertBoardFrm"
 								enctype="multipart/form-data">
 								<span id="title"> 제목 :</span> <input type="text"
 									id="oftenQnA_title" name="oftenQnA_title"
-									style="width: 500px; height: 50px;">
+									style="width: 500px; height: 50px; cursor: text; color: black;">
 
 								<div style="height: 20px;"></div>
-								<div style="border: red;">
+								<div>
+								<div >
 									<textarea name="editor" id="editor"
-										style="width: 700px; height: 700px; background-color: white;">
-									</textarea>
-									<div style="height: 10px;"></div>
-									<div align="right">
-										<input type="button" id="insertBoard" value="등록" />
-									</div>
+										style="width: 870px; height: 600px; background-color: white;">
+									</textarea>			
+								</div>
+								</div>
+								<br>
+								<div align="right">
+								<input type="button" id="insertBoard" value="등록">
+								<input type="button" id="insertBoard" value="목록으로" onclick="location.href='showOftenQnAList.do'">
 								</div>
 							</form>
 						</div>

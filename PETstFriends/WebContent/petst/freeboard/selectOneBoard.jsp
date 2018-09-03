@@ -37,7 +37,6 @@ $(document).ready(function(){
 	
 	//----------------------------------------------------글삭제
 	$('#tblbutton').on('click',	function removeCheck() {
-
 		 if (confirm("정말 삭제하시겠습니까?") == true){    //확인
 			alert("해당 글에대한 삭제처리가 완료됐습니다.");
 		     document.removefrm.submit();
@@ -48,50 +47,47 @@ $(document).ready(function(){
 	
 	
 // 	//------------------------------------------------------좋아요 기능
-// 	$('#likeCheckFunction').on('click',	function like_func(){
+	$('#likeCheckFunction').on('click',	function like_func(){
 	
-// 		alert("likeCheckFunction들어옴");
-// 		  var boardno = ${tipboard.tipBoard_boardno};
-// 		  var boardname = ${tipboard.tipBoard_boardname};
-// 		  var userid = $('#user_idCheck').val();
-// 		  console.log("boardno, boardname, userid : " + boardno +","+ boardname+","+userid );
+		alert("likeCheckFunction들어옴");
+		  var boardno = ${freeBoard.freeBoard_boardno};
+		  var boardname = ${freeBoard.freeBoard_boardname};
+		  var userid = $('#user_idCheck').val();
+		  console.log("boardno, boardname, userid : " + boardno +","+ boardname+","+userid );
 		  
-// 		  $.ajax({
-// 		    url: "InsertLikesTipBoard.do",
-// 		    type: "GET",
-// 		    cache: false,
-// 		    dataType: "json",
-// 		    data: 'boardno=' +boardno+ '&boardname=' +boardname,
-// 		    success: function(data) {
+		  $.ajax({
+		    url: "insertLikesFreeBoard.do",
+		    type: "GET",
+		    cache: false,
+		    dataType: "json",
+		    data: 'boardno=' +boardno+ '&boardname=' +boardname,
+		    success: function(data) {
 		    	
-// 		    alert(data.mm);
-// 		      var msg = data.mm;
-// // 		      msg += data.mm;
-// 		      alert(msg);
+		    alert(data.mm);
+		      var msg = data.mm;
+// 		      msg += data.mm;
+		      alert(msg);
 		      
-// 		      var like_msg='';
-// 		      if(data.like_check == 0){
-// 		        like_msg = "좋아요 누르기";
-// 		      } else {
-// 		        like_msg = "좋아요 취소하기";
-// 		      }      
-
-// 		      $('#like_msg').html(like_msg);
-// 		      $('#like_cnt').html(data.like_cnt);
-// 		    },
-// 		    error: function(request, status, error){
-// 		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-// 		    }
-// 		  });//ajax끝
+		      var like_msg='';
+		      if(data.like_check == 0){
+		        like_msg = "좋아요 누르기";
+		      } else {
+		        like_msg = "좋아요 취소하기";
+		      }      
+		      $('#like_msg').html(like_msg);
+		      $('#like_cnt').html(data.like_cnt);
+		    },
+		    error: function(request, status, error){
+		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    }
+		  });//ajax끝
 		  
-// 		});
-// 	//--------------------------------로그인안하고 좋아요 누를시
-// 		$('#loginNeedLike').on('click',	function login_need(){
-// 			alert("로그인이 필요합니다. 로그인하시겠습니까?");
-// 		});
-
+		});
+	//--------------------------------로그인안하고 좋아요 누를시
+		$('#loginNeedLike').on('click',	function login_need(){
+			alert("로그인이 필요합니다. 로그인하시겠습니까?");
+		});
 //=================댓글
-
 var comment_start = ${comment_start}
 	var comment_end = ${comment_end }
 	var comment_current = ${comment_current}
@@ -100,7 +96,8 @@ var comment_start = ${comment_start}
 	var boardname = ${freeBoard.freeBoard_boardname};
 	var comment_finalpage = ${comment_current};
 	var comment_page = ${comment_current};
-	
+// 	var user_idCheck = ${user_idCheck};
+	var listsize = ${listsize}%3;
 	//댓글 리스트 불러오기
 	var cPaging = function(){
 		$.ajax({
@@ -113,43 +110,61 @@ var comment_start = ${comment_start}
 			},
 			dataType : 'json',
 			success : function(data) {
+				var fList = JSON.parse(data.freeCommentList);
 				comment_current = comment_page;
 				var commentList = data;
 				var commentStr = '';
-				for(var i in data){
-					if(data[i].freeComments_commentno == data[i].freeComments_parent){
-						commentStr +='<tr><td colspan="2" style="text-align: left; 1px solid red;">닉네임'+data[i].freeComments_nickname+'</td>'
+				for(var i in fList){
+					if(fList[i].freeComments_commentno == fList[i].freeComments_parent){
+						commentStr +='<tr><td colspan="2" style="text-align: left;">닉네임'+fList[i].freeComments_nickname+'</td>'
 					}else{
-						commentStr +='<tr><td width="15px;"></td><td>닉네임'+data[i].freeComments_nickname+'</td>'
+						commentStr +='<tr><td colspan="2" style="text-align: left;"><div style="width: 10%;display: inline-block;"></div>닉네임'
+						+fList[i].freeComments_nickname+'</td>'
 					}
-					commentStr += '<td>날짜'+data[i].freeComments_writeDate+'</td></tr><tr style="border-bottom: 1px solid black;">';
-					if(data[i].freeComments_commentno == data[i].freeComments_parent){
-						commentStr += '<td colspan="2" style="text-align: left;">내용'+data[i].freeComments_content +'</td>';
+					commentStr += '<td>날짜'+fList[i].freeComments_writeDate+'</td></tr><tr style="border-bottom: 1px solid black;">';
+					if(fList[i].freeComments_commentno == fList[i].freeComments_parent){
+						commentStr += '<td colspan="2" style="text-align: left;">';
 					}else{
-						commentStr +='<td width="15px;"></td><td style="text-align: left;">내용'+data[i].freeComments_content +'</td>';
+						commentStr +='<td colspan="2" style="text-align: left;"><div style="width: 10%; display: inline-block;"></div>';
 					}
-					commentStr +='<td><button value="'+data[i].freeComments_parent +'&'+data[i].freeComments_nickname+'" class="reComBtn">답글</button>'+
-					'<button value="'+data[i].freeComments_commentno+'" class="modifyComBtn">수정</button><button value="'
-					+data[i].freeComments_commentno+'&'+data[i].freeComments_parent
-					+'"class="deleteComBtn">삭제</button></td></tr>';
+					if(fList[i].freeComments_content != null){
+						commentStr +=fList[i].freeComments_content +'</td>';
+					}
+					else{
+						commentStr += '이미 삭제된 댓글입니다.' +'</td>';
+					}
+					commentStr +='<td><button value="'+fList[i].freeComments_parent +'&'+fList[i].freeComments_nickname+'" class="reComBtn">답글</button>';
+					if(fList[i].freeComments_content !=null && fList[i].freeComments_userId==data.user_idCheck){
+						commentStr += '<button value="'+fList[i].freeComments_commentno+'" class="modifyComBtn">수정</button><button value="'
+						+fList[i].freeComments_commentno+'&'+fList[i].freeComments_parent
+						+'"class="deleteComBtn">삭제</button>';
+					}
+					commentStr += '</td></tr>'
+						 
 				}
 				$('#commentTable').empty();
 				$('#commentTable').append(commentStr);
+				comment_end = data.comment_end;
+				comment_current = data.comment_current;
+				comment_last = data.comment_last;
+				comment_start = data.comment_start;
 				var paginStr='';
-				if(comment_start != 1)
-					paginStr += '<li><a class="pagingFun">[처음]</a></li><li><a class="pagingFun">[이전]</a></li>';
+				if(comment_start != 1){
+					paginStr += '<li><a class="pagingFun" page='+1+'>[처음]</a></li>'
+					+'<li><a class="pagingFun"page='+comment_start+1+'>[이전]</a></li>';
+				}
 				for(var i = comment_start; i <= comment_end; i++){
 					if(i == comment_current)
-						paginStr +='<li><a page='+i+' class="pagingFun">['+i+']</a></li>';
+						paginStr +='<li><a page='+i+' class="pagingFun" style="background-color: yellow;">['+i+']</a></li>';
 					else
 						paginStr +='<li><a page='+i+' class="pagingFun">['+i+']</a></li>';
 				}
 				if(comment_end < comment_last){
-					paginStr +='<li><a class="pagingFun">[다음]</a></li><li><a class="pagingFun">[끝]</a></li>'
+					paginStr +='<li><a class="pagingFun" page='+comment_end+1 +'>[다음]</a></li>'
+					+'<li><a class="pagingFun" page='+comment_last+'>[끝]</a></li>'
 				}
 				$('.pagination').empty();
 				$('.pagination').append(paginStr);
-
 			},
 			error : function(xhrReq, status, error) {
 				alert(error)
@@ -197,6 +212,7 @@ var comment_start = ${comment_start}
 				"freeBoard_boardno" : boardno
 			},
 			success : function(data) {
+				listsize++;
 				cPaging();
 			},
 			error : function(xhrReq, status, error) {
@@ -220,11 +236,15 @@ var comment_start = ${comment_start}
 				"freeBoard_boardno" : boardno
 			},
 			success : function(data) {
-				if($('#commentTable tr').length/2 >= numb)
+				listsize++;
+				if(listsize > numb){
 					comment_finalpage = comment_finalpage+1;
+					listsize= listsize%3;
+				}
+				alert(listsize+"리사");
+				alert(comment_finalpage+"파이널")
 				comment_page = comment_finalpage;
 				cPaging();
-				$('#reply_save').html('');
 			},
 			error : function(xhrReq, status, error) {
 				alert(error)
@@ -247,8 +267,13 @@ var comment_start = ${comment_start}
 				"freeComments_parent" : freeComments_parent
 			},
 			success : function(data) {
-				if($('#commentTable tr').length/2 <= 1)
-				comment_page = comment_page-1;
+				listsize--;
+				if(listsize < 1){
+					comment_finalpage = comment_finalpage-1;
+					comment_page = comment_page-1;
+					listsize=3;
+				}
+				alert(comment_page+"페이지현재")
 				cPaging();
 			},
 			error : function(xhrReq, status, error) {
@@ -299,55 +324,46 @@ var comment_start = ${comment_start}
 
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-
 @import
 	url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css')
 	;
-
 table {
 	width: 100%;
 	background-color: transparent;
 }
-
-th, td {
-	/* 	border: 1px gray solid; */
-	text-align: center;
-	padding: 8px
+#commentTable {
+	padding: 20px;
 }
-
+td {
+	/* 	border: 1px gray solid; */
+	/* 	text-align: center; */
+	padding: 20px;
+}
 h4 {
 	font-family: 'NanumSquareRound', sans-serif;
 }
-
 ul, li {
 	font-family: 'NanumSquareRound', sans-serif;
 }
-
 input::-ms-input-placeholder {
 	color: #CD853F;
 }
-
 input::-webkit-input-placeholder {
 	color: #CD853F;
 }
-
 input::-moz-placeholder {
 	color: #CD853F;
 }
-
 .
 .wrapper {
 	font-family: 'NanumSquareRound', sans-serif;
 }
-
 #footer {
 	font-family: 'NanumSquareRound', sans-serif;
 }
-
 .footer-widget-section {
 	font-family: 'NanumSquareRound', sans-serif;
 }
-
 .main-content {
 	position: relative;
 	left: 22%;
@@ -378,7 +394,6 @@ input::-moz-placeholder {
 	padding: 0;
 	margin-right: 5px;
 }
-
 .chooseYourDesc a:hover {
 	color: #fff;
 	border: 1px solid #d2d2d2;
@@ -432,19 +447,19 @@ input::-moz-placeholder {
 						<div class="social-share">
 							<ul class="text-center">
 								<li><c:if
-										test="${tipboard.tipBoard_userId eq user_idCheck}">
+										test="${freeBoard.freeBoard_userId eq user_idCheck}">
 										<a class="s-facebook"
-											onclick="location.href='DogModifyFormTipBoard.do?boardname=${tipboard.tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}'">
+											onclick="location.href='DogModifyFormTipBoard.do?boardname=${freeBoard.freeBoard_boardname}&boardno=${freeBoard.freeBoard_boardno}'">
 											수정하기 </a>
 									</c:if></li>
 								<li><a class="s-google-plus"
 									onclick="location.href='dogTipBoardList.do'">목록으로</a></li>
 								<li><a class="s-twitter" onclick="history.back();">뒤로가기</a></li>
 								<li><c:if
-										test="${tipboard.tipBoard_userId eq user_idCheck}">
+										test="${freeBoard.freeBoard_userId eq user_idCheck}">
 										<form
-											action="dogDeleteTipBoard.do?boardname=${tipboard.tipBoard_boardname}
-								&boardno=${tipboard.tipBoard_boardno}"
+											action="dogDeleteTipBoard.do?boardname=${freeBoard.freeBoard_boardname}
+								&boardno=${freeBoard.freeBoard_boardno}"
 											name="removefrm" method="post">
 											<a class="s-google-plus" id="tblbutton"
 												onclick="removeCheck()">글 삭제</a>
@@ -452,7 +467,7 @@ input::-moz-placeholder {
 									</c:if></li>
 								<li><a class="s-pinterest"> <c:choose>
 											<c:when
-												test="${user_idCheck ne null and tipLikes_SessionuserlikeCheck eq '0'}">
+												test="${user_idCheck ne null and freeLikes_SessionuserlikeCheck eq '0'}">
 												<button type="button" id="likeCheckFunction"
 													class="btn send-btn"
 													style="border-radius: 5px; height: 40px;">
@@ -462,14 +477,13 @@ input::-moz-placeholder {
 
 											</c:when>
 											<c:when
-												test="${user_idCheck ne null and tipLikes_SessionuserlikeCheck eq '1'}">
+												test="${user_idCheck ne null and freeLikes_SessionuserlikeCheck eq '1'}">
 												<button type="button" id="likeCheckFunction"
 													class="btn send-btn"
 													style="border-radius: 5px; height: 40px;">
 													<span id='like_msg'>좋아요 취소하기</span> <i class="fa fa-heart"
 														style="color: #FF895A;"></i>
 												</button>
-
 											</c:when>
 											<c:otherwise>
 												<button type="button" id="loginNeedLike"
@@ -482,7 +496,7 @@ input::-moz-placeholder {
 								<li>
 									<button type="button"
 										style="background: none; color: #FFD232; border-color: #FFD232; border-radius: 5px; text-transform: uppercase; transition: all .4s; height: 40px;">
-										총 좋아요 수 <span id='like_cnt'>${tipboard.tipBoard_LikeCount}</span>
+										총 좋아요 수 <span id='like_cnt'>${freeBoard.freeBoard_LikeCount}</span>
 										Likes
 									</button>
 								</li>
@@ -504,40 +518,55 @@ input::-moz-placeholder {
 
 						<br> <br>
 						<div class="bottom-comment">
-							<table id="commentTable">
+							<table id="commentTable" style="padding: 20px; text-align: left;">
 								<c:forEach items="${commentList }" var="comment">
-									<tr>
+									<tr class="line">
 										<c:if
 											test="${comment.freeComments_commentno == comment.freeComments_parent}">
-											<td colspan="2" style="text-align: left; 1px solid red;">
-												닉네임${comment.freeComments_nickname}</td>
+											<td colspan="2">
+												<!-- 											style="text-align: left;" -->
+												닉네임${comment.freeComments_nickname}
+											</td>
 										</c:if>
 										<c:if
 											test="${comment.freeComments_commentno != comment.freeComments_parent}">
-											<td></td>
-											<td bordercolor="red;"
-												style="text-align: left; border: 1px solid red;">
-												닉네임${comment.freeComments_nickname}</td>
+											<td colspan="2">
+												<div style="width: 10%; display: inline-block;"></div>
+												닉네임${comment.freeComments_nickname}
+											</td>
 										</c:if>
 										<td>날짜${comment.freeComments_writeDate }</td>
 									</tr>
 									<tr style="border-bottom: 1px solid black;">
 										<c:if
 											test="${comment.freeComments_commentno == comment.freeComments_parent}">
-											<td colspan="2" style="text-align: left;">내용${comment.freeComments_content }</td>
+											<td colspan="2"><c:if
+													test="${comment.freeComments_content ==null}">
+											삭제된 댓글입니다.
+											</c:if> <c:if test="${comment.freeComments_content !=null}">
+											${comment.freeComments_content }
+											</c:if></td>
 										</c:if>
 										<c:if
 											test="${comment.freeComments_commentno != comment.freeComments_parent}">
-											<td width="10px;"></td>
-											<td style="text-align: left;">내용${comment.freeComments_content }</td>
+
+											<td colspan="2"><div
+													style="width: 10%; display: inline-block;"></div>
+												${comment.freeComments_content }</td>
 										</c:if>
-										<td><button
+										<td>
+											<button
 												value="${comment.freeComments_parent }&${comment.freeComments_nickname}"
-												class="reComBtn">답글</button>
-											<button value="${comment.freeComments_commentno}"
-												class="modifyComBtn">수정</button>
-											<button value="${comment.freeComments_commentno}&${comment.freeComments_parent}"
-												class="deleteComBtn">삭제</button></td>
+												class="reComBtn">답글</button> <c:if
+												test="${comment.freeComments_content !=null &&
+											comment.freeComments_userId eq user_idCheck}">
+												<button value="${comment.freeComments_commentno}"
+													class="modifyComBtn">수정</button>
+												<button
+													value="${comment.freeComments_commentno}&${comment.freeComments_parent}"
+													class="deleteComBtn">삭제</button>
+											</c:if>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -547,15 +576,14 @@ input::-moz-placeholder {
 							<ul class="pagination">
 								<!-- 			스타트 엔드 페이지는 페이지값 보고!  -->
 								<c:if test="${comment_start != 1 }">
-									<li><a class="pagingFun" onclick="commentPage(1)">[처음]</a></li>
-									<li><a class="pagingFun"
-										onclick="commentPage(comment_start-1)">[이전]</a></li>
+									<li><a class="pagingFun" page=1>[처음]</a></li>
+									<li><a class="pagingFun" page=${comment_start+1 }>[이전]</a></li>
 								</c:if>
 								<c:forEach begin="${comment_start }" end="${comment_end }"
 									var="i">
 									<c:choose>
 										<c:when test="${i == comment_current }">
-											<li><a>[${i }]</a></li>
+											<li><a style="background-color: yellow;">[${i }]</a></li>
 										</c:when>
 										<c:otherwise>
 											<li><a page=${i } onclick="return false;"

@@ -61,9 +61,9 @@
 					<div class="widget">
 						<h2>고객센터</h2>
 						<ul>
-							<li><a href="">공지사항</a></li>
-							<li><a href="">자주하는 질문</a></li>
-							<li><a href="">1:1 문의</a></li>
+							<li><a href="showNoticeList.do">공지사항</a></li>
+							<li><a href="showOftenQnAList.do">자주하는 질문</a></li>
+							<li><a href="qnA.do">1:1 문의</a></li>
 						</ul>
 					</div>
 				</div>
@@ -72,8 +72,14 @@
 					style="border-left: 1px solid gray; width: 80%; display: inline-block;">
 		
 <!-- 		<div style="border: 1px solid red; height: 1000px; width: 45%; background-color: white;"> -->
+			<div style="border-bottom: 2px solid brown; width: 20%;">
+					<div style="border-bottom: 5px solid #FFD232; width: 70%;">
+					<h2>공지사항</h2>
+					</div>
+					</div>
 			<form action="modifyNoticeBoard.do" method="post" id="modifyBoardFrm"
 				enctype="multipart/form-data">
+				
 				<span id="title">
 				제목 :</span> <input type="text" id="notice_title" name="notice_title" value="${notice.notice_title }"
 					style="width: 500px; height: 50px; color: black; cursor: text;">

@@ -12,11 +12,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-a{
- color: red;
+a {
+	color: red;
 }
+
 a:hover {
-   color: brown;
+	color: brown;
 }
 </style>
 </head>
@@ -29,8 +30,7 @@ a:hover {
 </script>
 
 <body>
-<header>
-	<%@ include file="/petst/header.jsp"%>
+	<header> <%@ include file="/petst/header.jsp"%>
 	</header>
 	<div class="wrapper">
 		<div class="main-content">
@@ -40,29 +40,35 @@ a:hover {
 					<div class="widget">
 						<h3>고객센터</h3>
 						<ul>
-							<li><a href="">공지사항</a></li>
-							<li><a href="">자주하는 질문</a></li>
-							<li><a href="">1:1 문의</a></li>
+							<li><a href="showNoticeList.do">공지사항</a></li>
+							<li><a href="showOftenQnAList.do">자주하는 질문</a></li>
+							<li><a href="qnA.do">1:1 문의</a></li>
 						</ul>
 					</div>
 				</div>
 
 				<div class="col-md-8 col-sm-8"
 					style="border-left: 1px solid gray; width: 80%; display: inline-block;">
-				<form action="showNoticeList.do" style="text-align: center;">
-					<select name="type" style="height: 27px;">
-						<option value="0">검색어 선택</option>
-						<option value="1">제목으로 검색</option>
-						<option value="2">내용으로 검색</option>
-						<option value="3">제목,내용으로 검색</option>
-					</select> <input type="text" name="keyword" style="height: 27px;"> <select
-						name="numb" style="height: 27px;">
-						<option value="10">10개씩 보기</option>
-						<option value="20">20개씩 보기</option>
-						<option value="30">30개씩 보기</option>
-					</select> <input type="submit" value="검색하기">
+					<div style="border-bottom: 2px solid brown; width: 20%;">
+					<div style="border-bottom: 5px solid #FFD232; width: 70%;">
+					<h2>공지사항</h2>
+					</div>
+					</div>
+					<br>
+					<form action="showNoticeList.do" style="text-align: center;">
+						<select name="type" style="height: 27px;">
+							<option value="0">검색어 선택</option>
+							<option value="1">제목으로 검색</option>
+							<option value="2">내용으로 검색</option>
+							<option value="3">제목,내용으로 검색</option>
+						</select> <input type="text" name="keyword" style="height: 27px;">
+						<select name="numb" style="height: 27px;">
+							<option value="10">10개씩 보기</option>
+							<option value="20">20개씩 보기</option>
+							<option value="30">30개씩 보기</option>
+						</select> <input type="submit" value="검색하기">
 
-				</form>
+					</form>
 					<table class="table">
 						<thead>
 							<tr>
@@ -89,47 +95,50 @@ a:hover {
 							</c:forEach>
 						</tbody>
 					</table>
+
+
+					<div align="center">
+						<ul class="pagination">
+							<c:if test="${start != 1 }">
+								<li><a
+									href="showNoticeList.do?page=1&type=${type }&keyword=${keyword }&numb=${numb }">[처음]</a></li>
+								<li><a
+									href="showNoticeList.do?page=${start-1 }&type=${type }&keyword=${keyword }&numb=${numb }">[이전]</a></li>
+							</c:if>
+							<c:forEach begin="${start }" end="${end }" var="i">
+								<c:choose>
+									<c:when test="${i == current }">
+										<li><a style="background-color: #FFD232">[${i }]</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a
+											href="showNoticeList.do?page=${i }&type=${type }&keyword=${keyword }&numb=${numb }">
+												[${i }]</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${end < last}">
+								<li><a
+									href="showNoticeList.do?page=${end+1 }&type=${type }&keyword=${keyword }&numb=${numb }">[다음]</a></li>
+								<li><a
+									href="showNoticeList.do?page=${last }&type=${type }&keyword=${keyword }&numb=${numb }">[끝]</a></li>
+							</c:if>
+						</ul>
+					</div>
+					<div style="text-align: right;">
+						<div id="writeBox"></div>
+						<c:if test="${admin_check != null}">
+							<input type="button" value="글쓰기"
+								onclick="location.href='writeNoticeBoardForm.do'">
+						</c:if>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	</div>
-	<div class="container" style="text-align: right;">
-		<div id="writeBox"></div>
-		<c:if test="${admin_check != null}">
-			<input type="button" value="글쓰기"
-				onclick="location.href='writeNoticeBoardForm.do'">
-		</c:if>
-	</div>
 
-	<div align="center">
-		<ul class="pagination">
-			<c:if test="${start != 1 }">
-				<li><a
-					href="showNoticeList.do?page=1&type=${type }&keyword=${keyword }&numb=${numb }">[처음]</a></li>
-				<li><a
-					href="showNoticeList.do?page=${start-1 }&type=${type }&keyword=${keyword }&numb=${numb }">[이전]</a></li>
-			</c:if>
-			<c:forEach begin="${start }" end="${end }" var="i">
-				<c:choose>
-					<c:when test="${i == current }">
-						<li><a>[${i }]</a></li>
-					</c:when>
-					<c:otherwise>
-						<li><a
-							href="showNoticeList.do?page=${i }&type=${type }&keyword=${keyword }&numb=${numb }">
-								[${i }]</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${end < last}">
-				<li><a
-					href="showNoticeList.do?page=${end+1 }&type=${type }&keyword=${keyword }&numb=${numb }">[다음]</a></li>
-				<li><a
-					href="showNoticeList.do?page=${last }&type=${type }&keyword=${keyword }&numb=${numb }">[끝]</a></li>
-			</c:if>
-			<!-- 			<li><a href="#"><i class="fa fa-angle-double-right"></i></a></li> -->
-		</ul>
-	</div>
+
+
 	<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

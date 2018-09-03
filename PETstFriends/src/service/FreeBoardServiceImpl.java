@@ -16,6 +16,7 @@ import dao.UserDao;
 import model.FreeBoard;
 import model.FreeComment;
 import model.FreeLikes;
+import model.TipLikes;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -61,7 +62,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		params.put("freeBoard_boardname", freeBoard.getFreeBoard_boardname());
 		params.put("freeBoard_boardno", freeBoard.getFreeBoard_boardno());
 		FreeBoard originBoard = bDao.selectOneBoard(params);
-		if (originBoard.getFreeBoard_userid().equals(freeBoard.getFreeBoard_userid()))
+		if (originBoard.getFreeBoard_userId().equals(freeBoard.getFreeBoard_userId()))
 			return bDao.updateBoard(freeBoard);
 		else
 			return 0;
@@ -160,28 +161,26 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public List<FreeComment> ShowCommentFreeBoard(int freeBoard_boardname, int freeBoard_boardno, int comment_page) {
+	public HashMap<String, Object> ShowCommentFreeBoard(int freeBoard_boardname, int freeBoard_boardno, int comment_page) {
 		// TODO Auto-generated method stub
-		// 이건 처음 게시글 볼때
 		int comment_numb = 3;
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("freeBoard_boardname", freeBoard_boardname);
 		params.put("freeBoard_boardno", freeBoard_boardno);
 		params.put("comment_page", comment_page);
 		params.put("comment_numb", comment_numb);
-		// params.put("comment_current",comment_page);
-		// params.put("comment_start", getStartCommentPage(comment_page, numb));
-		// if(getEndCommentPage(comment_page, numb) > getLastCommentPage(params))
-		// params.put("comment_end", getLastCommentPage(params));
-		// else
-		// params.put("comment_end", getEndCommentPage(comment_page, numb));
-		// params.put("comment_end", getLastCommentPage(params));
+		 params.put("comment_current",comment_page);
+		 params.put("comment_start", getStartCommentPage(comment_page, comment_numb));
+		 if(getEndCommentPage(comment_page) > getLastCommentPage(params))
+		 params.put("comment_end", getLastCommentPage(params));
+		 else
+		 params.put("comment_end", getEndCommentPage(comment_page));
+		 params.put("comment_last", getLastCommentPage(params));
 		int comment_skip = getCommentSkip(comment_page, comment_numb);
 		params.put("comment_skip", comment_skip);
-		params.put("comment_end", getCommentSkip(comment_page, comment_numb));
 		List<FreeComment> commentList = bDao.selectCommentAll(params);
 		params.put("commentList", commentList);
-		return commentList;
+		return params;
 
 	}
 
@@ -247,8 +246,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public FreeBoard getBoard(int FreeBoard_boardname, int FreeBoard_boardno) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("tipBoard_boardname", FreeBoard_boardname);
-		params.put("tipBoard_boardno", FreeBoard_boardno);
+		params.put("freeBoard_boardname", FreeBoard_boardname);
+		params.put("freeBoard_boardno", FreeBoard_boardno);
 		return bDao.selectOneBoard(params);
 	}
 
@@ -283,6 +282,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		params.put("comment_skip", comment_skip);
 		List<FreeComment> commentList = bDao.selectCommentAll(params);
 		params.put("commentList", commentList);
+		params.put("listsize", commentList.size());
 		return params;
 
 	}
@@ -307,8 +307,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 	public int deleteComments(int freeComments_commentno, int freeComments_parent) {
 		if(freeComments_commentno == freeComments_parent) { //가장 상위 댓글
-			System.out.println(bDao.groupCount(freeComments_commentno)+"가장상위인가");
-			if(bDao.groupCount(freeComments_commentno) == 0)//대댓 없는 경우(나만 패런트넘=코멘트넘이 자신 하나만 있는 경우) 
+			if(bDao.groupCount(freeComments_commentno) == 1)//대댓 없는 경우(나만 패런트넘=코멘트넘이 자신 하나만 있는 경우) 
 			  bDao.deleteComments(freeComments_commentno);//지우기
 			else {
 			  HashMap<String, Object> params = new HashMap<String, Object>();
@@ -318,9 +317,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		  }
 			
 		}else { //대댓
-			System.out.println(bDao.selectOneComments(freeComments_parent));
 		 if(bDao.selectOneComments(freeComments_parent).getFreeComments_content() ==""
-				 && bDao.groupCount(freeComments_commentno) == 1) {//패런트가코멘트넘인 원댓 지워지고 대댓 하나뿐인 경우
+				 && bDao.groupCount(freeComments_commentno) == 2) {//패런트가코멘트넘인 원댓 지워지고 대댓 하나뿐인 경우
 		   bDao.deleteComments(freeComments_commentno);//해당댓
 		   bDao.deleteComments(freeComments_parent);//해당 원댓
 		}
@@ -335,5 +333,97 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		  params.put("freeComments_content", freeComments_content);
 		return bDao.updateComments(params);
 	}
+
+
+	/* 게시판의 좋아요 번호가 있는지 카운트 */
+	@Override
+	public int countbyLike(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		  int count = bDao.countbyLike(params);
+		    return count;
+	}
+
+	/* 좋아요 번호 등록 */
+	@Override
+	public int creatFreeLikes(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+	    int count = bDao.creatFreeLikes(params);
+	    return count;
+	}
+
+	/* 조회 */
+	@Override
+	public FreeLikes readFreeLikes(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		FreeLikes fL = bDao.readFreeLikes(params);
+	    return fL;
+	}
+	
+	
+	@Override
+	public int like_check(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		 int count = bDao.like_check(params);
+		    return count;
+	}
+
+	//해당 게시글의 라이크 카운트 업
+	@Override
+	public int FreeBoard_likeCnt_up(int boardname, int boardno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> params= new HashMap<String, Object>();
+		params.put("freeBoard_boardname", boardname);
+		params.put("freeBoard_boardno", boardno);
+		return bDao.FreeBoard_likeCnt_up(params);
+	}
+	
+	@Override
+	public int like_check_cancel(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		  int count = bDao.like_check_cancel(params);
+		    return count;
+	}
+
+	//해당 게시글의 라이크 카운트 다운
+	@Override
+	public int FreeBoard_likeCnt_down(int boardname, int boardno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> params= new HashMap<String, Object>();
+		params.put("freeBoard_boardname", boardname);
+		params.put("freeBoard_boardno", boardno);
+		return bDao.FreeBoard_likeCnt_down(params);
+	}
+	
+	
+//	@Override
+//	public int countbyLike(HashMap<String, Object> params) {
+//	    int count = tipDao.countbyLike(params);
+//	    return count;
+//	}
+	
+	/* 좋아요 번호 등록 */
+//	@Override
+//	public int createTipLikes(HashMap<String, Object> params) {
+//		// TODO Auto-generated method stub
+//	    int count = tipDao.createTipLikes(params);
+//	    return count;
+//	}
+	
+	  /**
+	   * 좋아요 체크 여부 (0 -> 1)
+	   * @param hashMap
+	   * @return
+	   */
+//	@Override
+//	public int like_check(HashMap<String, Object> params) {
+//	    int count = tipDao.like_check(params);
+//	    return count;
+//	}
+
+	 /**
+	   * 좋아요 체크 여부 (1 -> 0)
+	   * @param hashMap
+	   * @return
+	   */
 
 }

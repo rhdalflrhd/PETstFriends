@@ -5,7 +5,7 @@ import java.sql.Date;
 public class FreeBoard {
 	private int freeBoard_boardno;
 	private int freeBoard_boardname;
-	private String freeBoard_userid;
+	private String freeBoard_userId;
 	private String freeBoard_nickname;	
 	private String freeBoard_title;
 	private String freeBoard_file;
@@ -27,11 +27,11 @@ public class FreeBoard {
 	public void setFreeBoard_boardname(int freeBoard_boardname) {
 		this.freeBoard_boardname = freeBoard_boardname;
 	}
-	public String getFreeBoard_userid() {
-		return freeBoard_userid;
+	public String getFreeBoard_userId() {
+		return freeBoard_userId;
 	}
-	public void setFreeBoard_userid(String freeBoard_userid) {
-		this.freeBoard_userid = freeBoard_userid;
+	public void setFreeBoard_userid(String freeBoard_userId) {
+		this.freeBoard_userId = freeBoard_userId;
 	}
 	public String getFreeBoard_nickname() {
 		return freeBoard_nickname;
@@ -90,7 +90,7 @@ public class FreeBoard {
 	@Override
 	public String toString() {
 		return "FreeBoard [freeBoard_boardno=" + freeBoard_boardno + ", freeBoard_boardname=" + freeBoard_boardname
-				+ ", freeBoard_userid=" + freeBoard_userid + ", freeBoard_nickname=" + freeBoard_nickname
+				+ ", freeBoard_userId=" + freeBoard_userId + ", freeBoard_nickname=" + freeBoard_nickname
 				+ ", freeBoard_title=" + freeBoard_title + ", freeBoard_file=" + freeBoard_file + ", freeBoard_content="
 				+ freeBoard_content + ", freeBoard_readCount=" + freeBoard_readCount + ", freeBoard_YoutubeUrl="
 				+ freeBoard_YoutubeUrl + ", freeBoard_writeDate=" + freeBoard_writeDate + ", freeBoard_contentPic="

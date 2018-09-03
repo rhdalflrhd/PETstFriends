@@ -3,16 +3,19 @@ package controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +26,9 @@ import com.google.gson.Gson;
 
 import model.FreeBoard;
 import model.FreeComment;
+import model.FreeLikes;
+import model.TipBoard;
+import model.TipLikes;
 import service.FreeBoardServiceImpl;
 import service.UserService;
 
@@ -78,14 +84,34 @@ public class FreeBoardController {
 	@RequestMapping("selectOneBoard.do")
 	public ModelAndView SelectOneBoard(@RequestParam(required=false) HashMap<String, Object> params, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		String user_idCheck = (String) session.getAttribute("user_id");
+		mav.addObject("user_idCheck", user_idCheck);
 		mav.addAllObjects(params);
 		int freeBoard_boardname =  Integer.parseInt((String) params.get("freeBoard_boardname"));
 		int freeBoard_boardno =  Integer.parseInt((String) params.get("freeBoard_boardno"));
 		mav.addAllObjects(freeboardService.readBoard(freeBoard_boardname, freeBoard_boardno));
+		
+		HashMap<String, Object> paramForLike = new HashMap<String, Object>();
+		paramForLike.put("freeLikes_userId", user_idCheck);
+		paramForLike.put("freeLikes_boardname", freeBoard_boardname);
+		paramForLike.put("freeLikes_boardno", freeBoard_boardno);
+	    if(user_idCheck != null ) {
+		if(freeboardService.countbyLike(paramForLike)==0){
+	    	freeboardService.creatFreeLikes(paramForLike);
+	    }
+	       
+	    FreeLikes fLikes = freeboardService.readFreeLikes(paramForLike);	 // 해당유저가 해당게시판의 해당게시글에 남긴 좋아요를 갖고옴.   
+	    int like_check = 0;
+	    like_check = fLikes.getFreeLikes_likeCheck();    //좋아요 체크 값  
+	    System.out.println("해당세션유저의 라이크체크값은: "+like_check);
+	    
+	    // 해당게시판에 있는 댓글리스트도 같이 보내줘야함 ㅇㅇ 
+//	    HashMap<String, Object> paramForComment = new HashMap<String, Object>();
+//	    paramForLike.put("freeComments_boardname", freeBoard_boardname);
+//		paramForLike.put("freeComments_boardno", freeBoard_boardno);
+		mav.addObject("freeLikes_SessionuserlikeCheck", like_check);		
+	    }
 		mav.setViewName("freeboard/selectOneBoard");
-
-		
-		
 		return mav;
 	}
 	//---------------------------------------------------------------------------------------
@@ -184,7 +210,7 @@ public class FreeBoardController {
 			FreeBoard freeboard = freeboardService.getBoard(FreeBoard_boardname, FreeBoard_boardno);
 //			session.setAttribute("user_id", "testID");//지금은 유저랑 연결안해놨으니까 일단 이렇게 해놈 08.23 현재날짜 기준.
 			String user_idCheck = (String) session.getAttribute("user_id");
-			if(freeboard.getFreeBoard_userid().equals(user_idCheck)) {
+			if(freeboard.getFreeBoard_userId().equals(user_idCheck)) {
 				freeboardService.DeleteFreeBoard(FreeBoard_boardname, FreeBoard_boardno);
 			}
 			
@@ -195,11 +221,18 @@ public class FreeBoardController {
 		//댓글 리스트
 		@RequestMapping("freeCommentList.do")
 		@ResponseBody
-		public void freeCommentList(HttpServletResponse resp, int freeBoard_boardname, int freeBoard_boardno, int comment_page) {
-			List<FreeComment> freeCommentList = freeboardService.ShowCommentFreeBoard(freeBoard_boardname, freeBoard_boardno, comment_page);
+		public void freeCommentList(HttpServletResponse resp, int freeBoard_boardname, int freeBoard_boardno, int comment_page, HttpSession session) {
+			String user_id = (String) session.getAttribute("user_id");
+			HashMap<String, Object> params = freeboardService.ShowCommentFreeBoard(freeBoard_boardname, freeBoard_boardno, comment_page);
+			params.put("user_id", user_id);
+//			if(user_id == null)
+//				params.put("user_id", "");
 			Gson gson = new Gson();
 			resp.setCharacterEncoding("UTF-8");
-			String result =gson.toJson(freeCommentList);
+			List<FreeComment> freeCommentList = (List<FreeComment>) params.get("commentList");
+			String result1 =gson.toJson(freeCommentList);
+			params.put("freeCommentList", result1);
+			String result =gson.toJson(params);
 			try {
 				resp.getWriter().println(result);
 			} catch (IOException e) {
@@ -207,7 +240,8 @@ public class FreeBoardController {
 				e.printStackTrace();
 			}
 		}
-
+		
+		
 		//댓글 쓰기
 		@RequestMapping("writefreeComment.do")
 		@ResponseBody
@@ -237,4 +271,55 @@ public class FreeBoardController {
 		public int updatefreeComment(@RequestParam int freeComments_commentno, @RequestParam String freeComments_content) {
 			return freeboardService.updatefreeComment(freeComments_commentno, freeComments_content);
 		}
+
+//좋아요
+		@ResponseBody
+		@RequestMapping(value="insertLikesFreeBoard.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
+		public String insertLikesFreeBoardC(Model model, int boardname, int boardno,HttpSession session) {
+			
+			String user_idCheck = (String)session.getAttribute("user_id");
+		    JSONObject obj = new JSONObject();
+		    String mm ="";
+		    ArrayList<String> msgs = new ArrayList<String>();
+		    HashMap <String, Object> params = new HashMap<String, Object>();
+		    params.put("freeLikes_boardname", boardname);
+		    params.put("freeLikes_boardno", boardno);
+		    params.put("freeLikes_userId", user_idCheck);
+		    FreeLikes fLikes = freeboardService.readFreeLikes(params);	 //해당유저가 해당게시판의 해당게시글에 남긴 좋아요를 갖고옴.   
+		    FreeBoard fBoard = freeboardService.getBoard(boardname, boardno);
+		    
+		    int like_cnt = fBoard.getFreeBoard_LikeCount();    //게시판의 좋아요 카운트
+		    int like_check = 0;
+		    like_check = fLikes.getFreeLikes_likeCheck();    //좋아요 체크 값
+		   
+		    //해당아이디의 보드네임,보드넘버(게시글)에 남긴 좋아요가 0일시에는 Create
+		    if(freeboardService.countbyLike(params)==0){
+		    	freeboardService.creatFreeLikes(params);
+		    }
+		      
+		    if(like_check == 0) {
+		    	mm ="좋아요완료";
+		      msgs.add("좋아요!");
+		      freeboardService.like_check(params);
+		      like_check++;
+		      like_cnt++;
+		      freeboardService.FreeBoard_likeCnt_up(boardname, boardno);  //팁보드테이블, 해당게시판 해당게시글의 좋아요 갯수 +
+		    } else {
+		      msgs.add("좋아요 취소");
+		      mm ="좋아요 취소";
+		      freeboardService.like_check_cancel(params);
+		      like_check--;
+		      like_cnt--;
+		      freeboardService.FreeBoard_likeCnt_down(boardname, boardno); //팁보드테이블, 해당게시판 해당게시글의 좋아요 갯수 -
+		    }
+//		    obj.put("boardno", tLikes.getTipLikes_boardno());
+//		    obj.put("boardname", tLikes.getTipLikes_boardname());
+		    obj.put("like_check", like_check);
+		    obj.put("like_cnt", like_cnt);
+		    System.out.println(mm);
+		    obj.put("mm", mm);
+		    
+		    return obj.toJSONString();
+		}
+
 }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,6 +21,34 @@ h2{
 text-align: center; 
 background: white;
 }
+.none{ 
+display:none; 
+}
+.pointer{ 
+cursor:pointer; 
+}
+</style>
+<script type="text/javascript">
+	 function FaqToggleDetail ( id ){
+		var latestToggleObj = null;
+		var oObj = document.getElementById( id );	
+
+		if( this.latestToggleObj != null ){
+			this.latestToggleObj.className = (this.latestToggleObj.className + " none");
+		}
+		if( this.latestToggleObj == oObj ){
+			this.latestToggleObj = null;
+			return;
+		}
+		this.latestToggleObj = null;
+		if( oObj.className.indexOf( "none" ) != -1 ){
+			oObj.className = oObj.className.replace( "none", "" );			
+		}else{
+			oObj.className = (oObj.className + " none");
+		}
+		this.latestToggleObj = oObj;
+	 }
+</script>
 </style>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -44,9 +71,9 @@ background: white;
 					<div class="widget">
 						<h3>고객센터</h3>
 						<ul>
-							<li><a href="">공지사항</a></li>
-							<li><a href="">자주하는 질문</a></li>
-							<li><a href="">1:1 문의</a></li>
+							<li><a href="showNoticeList.do">공지사항</a></li>
+								<li><a href="showOftenQnAList.do">자주하는 질문</a></li>
+								<li><a href="qnA.do">1:1 문의</a></li>
 						</ul>
 					</div>
 				</div>
@@ -64,12 +91,14 @@ background: white;
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${oqList }" var="oftenQnA">
-							<tr>
+						<c:forEach items="${oqList }" var="oftenQnA" varStatus="status">
+							<tr class="pointer" onclick="FaqToggleDetail( 'row_${status.count}' )">
 								<td>${oftenQnA.oftenQnA_boardno }</td>
-								<td width="50%;"><a
-									href="showOftenQnA.do?oftenQnA_boardno=${oftenQnA.oftenQnA_boardno }">
-										${oftenQnA.oftenQnA_title }</a></td>
+								<td width="50%;">
+<%-- 								<a href="showOftenQnA.do?oftenQnA_boardno=${oftenQnA.oftenQnA_boardno }"> --%>
+										${oftenQnA.oftenQnA_title }
+<!-- 										</a> -->
+										</td>
 								<td>관리자</td>
 <%-- 								${oftenQnA.oftenQnA_adminId } --%>
 								<td>
@@ -78,19 +107,25 @@ background: white;
 								</td>
 								<td>${oftenQnA.oftenQnA_readCount }</td>
 							</tr>
+							<tr class="none" id="row_${status.count}" >
+							<td colspan="5">${oftenQnA.oftenQnA_content }
+							</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 				</div>
 			</div>
 		</div>
-	</div>
+	
 	<div class="container" style="text-align: right;">
-	<div id="writeBox"></div>
-	<c:if test="${admin_check != null}">
+	<div id="writeBox">
+<%-- 	<c:if test="${admin_check != null}"> --%>
 		<input type="button" value="글쓰기" onclick="location.href='writeOftenQnAForm.do'">
-</c:if>
+<%-- </c:if> --%>
+</div>
 	</div>	
+	</div>
 <%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

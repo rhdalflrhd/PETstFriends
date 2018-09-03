@@ -6,6 +6,7 @@ import java.util.List;
 import model.FreeBoard;
 import model.FreeComment;
 import model.FreeLikes;
+import model.TipLikes;
 
 public interface FreeBoardDao {
 	public int insertBoard(FreeBoard freeboard); //게시글쓰기
@@ -19,10 +20,44 @@ public interface FreeBoardDao {
 	public int getLastBoardno(HashMap<String, Object> params);
 	
 	//좋아요
-	public boolean insertLikes(FreeLikes FreeLikes); //좋아요 한번클릭
-	public boolean deleteLikes(int FreeBoard_boardname,int FreeBoard_boardno); //좋아요 또 클릭되면 좋아요 취소되는거
-	public FreeBoard selectOneLikes(int FreeBoard_boardname,int FreeBoard_boardno); //모였지.. 내가조아요한게시물?
-	public List<FreeBoard> selectAllLikes(int FreeBoard_boardname,String FreeLikes_id); //?? 조아요누름 게시물 전체..?
+
+	 /* 게시판의 좋아요 번호가 있는지 카운트 */
+	public int countbyLike(HashMap<String, Object> params);
+	  
+	  /* 좋아요 번호 등록 */
+	public int creatFreeLikes(HashMap<String, Object> params);
+	  
+	  /**
+	   * 좋아요 체크 여부 (0 -> 1)
+	   * @param hashMap
+	   * @return
+	   */
+	public int like_check(HashMap<String, Object> params);
+	  
+	  /**
+	   * 좋아요 체크 여부 (1 -> 0)
+	   * @param hashMap
+	   * @return
+	   */
+	public int like_check_cancel(HashMap<String, Object> params);
+	  
+	  /* 조회 */
+	public FreeLikes readFreeLikes(HashMap<String, Object> params);
+	 
+	  /* 게시판의 좋아요 삭제(보드네임과 보드넘버로) */
+	public int deletebyBoardNameBoardno(HashMap<String, Object> params);
+	  
+	  /* 회원의 좋아요 삭제 (회원 아이디로)*/
+	public int deletebyUserId(String userid);
+	
+	//해당 게시판의 게시글의 좋아요 숫자 UP.
+		public int FreeBoard_likeCnt_up(HashMap<String, Object> params);
+		
+		//해당 게시판의 게시글의 좋아요 숫자 down.
+		public int FreeBoard_likeCnt_down(HashMap<String, Object> params);
+		
+	
+	
 	
 	//댓글
 	public int getCommentCount(HashMap<String, Object> params);//댓글 개수 조회

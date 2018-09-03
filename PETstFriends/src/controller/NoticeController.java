@@ -126,7 +126,7 @@ public class NoticeController {
 	//================================================
 
 	// 다중파일업로드
-		@RequestMapping(value = "multiplePhotoUpload.do")
+		@RequestMapping(value = "multiplePhotoUpload.do", method = RequestMethod.POST)
 		public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
 			try {
 		         //파일정보

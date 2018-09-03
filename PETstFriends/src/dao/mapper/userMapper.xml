@@ -41,8 +41,8 @@
 	<insert id="insertUser" parameterType="user">
 		insert into user values(
 		0,#{user_name},#{user_id},#{user_nickname},#{user_pass},#{user_email},
-		#{user_phone},#{user_proPic},#{user_score},#{user_joinDate},
-		#{user_adminCheck},#{user_state},#{user_pan_date}, #{user_havePet}
+		#{user_phone},#{user_proPic},#{user_havePet}, #{user_score},#{user_joinDate},
+		#{user_adminCheck},#{user_state},#{user_pan_date}
 		);
 	</insert>
 
