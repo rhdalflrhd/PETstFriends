@@ -49,39 +49,39 @@ $(document).ready(function(){
 	
 $("#a").click(function (){
 	if ($("#boardname") == 2 ){
-				window.location.href = ".do?boardno=$("#boardno")";
+				window.location.href = ".do?boardno=$('#boardno')";
 }
 	
 else if ($("#boardname") == 3 ){
-		window.location.href = ".do?boardno=$("#boardno")";
+		window.location.href = ".do?boardno=$('#boardno')";
 	}
 	
 else if ($("#boardname") == 4 ){
-	window.location.href = ".do?boardno=$("#boardno")";
+	window.location.href = ".do?boardno=$('#boardno')";
 }
 
 else if ($("#boardname") == 5 ){
-	window.location.href = ".do?boardno=$("#boardno")";
+	window.location.href = ".do?boardno=$('#boardno')";
 }
 
 else if ($("#boardname") == 6 ){
-	window.location.href = ".do?boardno=$("#boardno")";
+	window.location.href = ".do?boardno=$('#boardno')";
 }
 
 else if ($("#boardname") == 7 ){
-	window.location.href = ".do?boardno=$("#boardno")";
+	window.location.href = ".do?boardno=$('#boardno')";
 }
 
 else if ($("#boardname") == 8 ){
-	window.location.href = ".do?boardno=$("#boardno")";
+	window.location.href = ".do?boardno=$('#boardno')";
 }
 
 else if ($("#boardname") == 9 ){
-	window.location.href = ".do?boardno=$("#boardno")";
+	window.location.href = ".do?boardno=$('#boardno')";
 }
 
 else if ($("#boardname") == 3 ){
-	window.location.href = ".do?boardno=$("#boardno")";
+	window.location.href = ".do?boardno=$('#boardno')";
 }
 
 

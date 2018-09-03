@@ -70,11 +70,12 @@
 				<div style="border: red;">
 					<textarea name="editor" id="editor"
 						style="width: 700px; height: 700px; background-color: white;"></textarea>
-<%-- 					${freeBoard.freeBoard.content } --%>
 					<div style="height: 10px;"></div>
 					<div align="center"></div>
 				</div>
-
+				<input type="hidden" id="freeBoard_boardname" name="freeBoard_boardname" value="${freeBoard.freeBoard_boardname }">
+<input type="hidden" id="freeBoard_boardno" name="freeBoard_boardno" value="${freeBoard.freeBoard_boardno }">
+<input type="hidden" id="freeBoard_content" name=freeBoard_content  value="${freeBoard.freeBoard_content }">
 				<input type="button" id="modifyBoard" value="수정" />
 			</form>
 		</div>

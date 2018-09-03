@@ -33,33 +33,16 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	// ------------------------------------------------------------------------------------------------
 	// 글수정
 	@Override
-	public int ModifyFreeBoard(HashMap<String, Object> params) {
-
-		FreeBoard free = new FreeBoard();
-		free.setFreeBoard_userId((String) params.get("freeBoard_userId"));
-		System.out.println((String) params.get("freeBoard_boardname") + "보드네임 서비스에잇는");
-		System.out.println((String) params.get("freeBoard_boardno") + "보드넘버 서비스에잇는");
-		System.out.println("서비스에있는 ModifyFreeBoard의 파람스에는" + params);
-		System.out.println("파람에 다 들어있는데 왜 널값이냔 말임,.?ㅡㅡ");
-		// free.setFreeBoard_boardname(Integer.parseInt((String)params.get("freeBoard_boardname")));
-		// free.setFreeBoard_boardno(Integer.parseInt((String)params.get("freeBoard_boardno")));
-
-		// params.put("freeBoard_boardname",freeBoard_boardname);
-		// params.put("freeBoard_boardno", freeBoard_boardno);
-
-		free.setFreeBoard_content((String) params.get("freeBoard_content"));
-		// free.setFreeBoard_contentPic((String) params.get("freeBoard_contentPic"));
-		free.setFreeBoard_title((String) params.get("freeBoard_title"));
-		return bDao.updateBoard(free);
-
-		// params.put("freeBoard_boardname", freeBoard.getFreeBoard_boardname());
-		// params.put("freeBoard_boardno", freeBoard.getFreeBoard_boardno());
-		// FreeBoard originBoard = bDao.selectOneBoard(params);
-		// if
-		// (originBoard.getFreeBoard_userId().equals(freeBoard.getFreeBoard_userId()))
-		// return bDao.updateBoard(freeBoard);
-		// else
-		// return 0;
+	public int ModifyFreeBoard(FreeBoard freeboard) {
+		HashMap<String, Object> params= new HashMap<String, Object>();
+		params.put("freeBoard_boardname", freeboard.getFreeBoard_boardname());
+		params.put("freeBoard_boardno", freeboard.getFreeBoard_boardno());
+		FreeBoard originboard = bDao.selectOneBoard(params);
+		if(originboard.getFreeBoard_userId().equals(freeboard.getFreeBoard_userId())) 
+			return bDao.updateBoard(freeboard);
+		else 
+			return 0;
+		
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -79,7 +62,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public HashMap<String, Object> SearchFreeBoardbyTNC(HashMap<String, Object> params, int page) {
 		// TODO Auto-generated method stub
 
-		System.out.println("SearchfreeBoard 들어옴");
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 
@@ -96,23 +78,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 		params.put("skip", getSkip(page));
 		params.put("qty", 10);
-		System.out.println("SearchFreeBoard 최종 파람:" + params.toString());
 
-		// System.out.println("겟카운트:" + tipDao.getCount(params));
 		int size = bDao.getCount(params);
 
 		result.put("dogFreeBoardList", bDao.selectBoardAll(params));
 		 result.put("dogFreeBoardCount", size);
 
-		// result.put("current", page);
-		// result.put("startPage", getStartPageS(page));
-		// result.put("endPage", getEndPageS(page));
-		// result.put("last", getLastPageS(params));
-		// params.put("skip", getSkipS(page));
-		// params.put("qty", 10);
-		// result.put("dogTipBoardList", tipDao.selectBoardPage(params));
-
-		System.out.println(params.get("FreeBoard_boardname"));
 		return result;
 	}
 
@@ -161,10 +132,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		result.put("dogFreeBoardList", bDao.selectBoardAll(params));
 		result.put("dogFreeBoardCount", size);
 
-		// System.out.println("타이틀="+params.get("freeBoard_title"));
-		System.out.println("파람에 뭐있음?" + params);
-		System.out.println(bDao.selectBoardAll(params));
-		System.out.println("리절트" + result);
 
 		return result;
 	}
@@ -238,45 +205,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	@Override
 	public FreeBoard getBoard(int freeBoard_boardname, int freeBoard_boardno) {
-		System.out.println("getBoard 서비스 들어옴");
-		System.out.println("보드네임은: " + freeBoard_boardname);
-		System.out.println("보드넘버는:" + freeBoard_boardno);
-
 		// TODO Auto-generated method stub
-		HashMap<String, Object> params = new HashMap<String, Object>();
-
-		params.put("freeBoard_boardname", freeBoard_boardname);
-		params.put("freeBoard_boardno", freeBoard_boardno);
-		// FreeBoard freeboard = bDao.selectOneBoard(params);
-
-		return bDao.selectOneBoard(params);
-	}
-
-	@Override
-	public FreeBoard readBoard(int freeBoard_boardname, int freeBoard_boardno) {
-		// TODO Auto-generated method stub
-		// 게시물 정보를 조회, 조회수 +1 추가
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("freeBoard_boardname", freeBoard_boardname);
 		params.put("freeBoard_boardno", freeBoard_boardno);
-		FreeBoard freeboard = bDao.selectOneBoard(params);
-		freeboard.setFreeBoard_readCount(freeboard.getFreeBoard_readCount()+1);
-		bDao.updateBoard(freeboard);
-		return freeboard;
+		return bDao.selectOneBoard(params);	
 
-		// HashMap<String, Object> params = new HashMap<String, Object>();
-		// FreeBoard freeBoard = bDao.selectOneBoard(params);
-		// freeBoard.setFreeBoard_readCount(freeBoard.getFreeBoard_readCount() + 1);
-		// params.put("freeBoard", freeBoard);
-		// bDao.updateBoard(freeBoard);
-		// FreeBoard b1 = bDao.selectOneBoard(params);
-		// if(freeBoard.getFreeBoard_content()==null ||
-		// freeBoard.getFreeBoard_content().equals(""))
-		// freeBoard.setFreeBoard_content("내용없음");
-		// if(freeBoard.getFreeBoard_title()==null ||
-		// freeBoard.getFreeBoard_title().equals(""))
-		// freeBoard.setFreeBoard_title("제목없음");
-		// return freeBoard;
+
+
 
 	}
 
@@ -289,15 +225,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		// 지금은 보드네임만 넣지만 유저랑 합치면 유저 아이디도 넣어야함 ㅇㅇ
 		return bDao.getLastBoardno(param);
 	}
-
-	// @Override
-	// public File getAttachFile(HashMap<String, Object> params) {
-	// // TODO Auto-generated method stub
-	// FreeBoard free = bDao.selectOneBoard(params);
-	// String fileName = free.getFreeBoard_file();
-	// String path = "C:/BitCamp/image/";
-	// return new File(path + fileName);
-	// }
 
 	@Override
 	public int writeFreeBoard(FreeBoard freeboard) {
@@ -316,6 +243,19 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public File getAttachFile(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public FreeBoard readBoard(int freeBoard_boardname, int freeBoard_boardno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("freeBoard_boardname", freeBoard_boardname);
+		params.put("freeBoard_boardno", freeBoard_boardno);
+
+		FreeBoard free = bDao.selectOneBoard(params);
+		free.setFreeBoard_readCount(free.getFreeBoard_readCount()+1);
+		bDao.updateBoard(free);
+		return free;
 	}
 
 }

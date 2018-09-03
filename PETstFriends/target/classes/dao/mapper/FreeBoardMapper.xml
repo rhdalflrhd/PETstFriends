@@ -109,17 +109,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 
-	<update id="updateBoard" parameterType="int">
+	<update id="updateBoard" parameterType="java.util.HashMap">
 		update freeBoard set
 		freeBoard_title=#{freeBoard_title},
-		freeBoard_content=#{freeBoard_content}
+		freeBoard_content=#{freeBoard_content},freeBoard_readCount=#{freeBoard_readCount}
 		where freeBoard_boardname=#{freeBoard_boardname}
-		and
-		freeBoard_boardno=#{freeBoard_boardno}
+		and freeBoard_boardno=#{freeBoard_boardno}
 
 	</update>
 
-	<delete id="deleteBoard" parameterType="int">
+	<delete id="deleteBoard" parameterType="java.util.HashMap">
 
 		delete from freeBoard
 		where freeBoard_boardname=#{freeBoard_boardname}
