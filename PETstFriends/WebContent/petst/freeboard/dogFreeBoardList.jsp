@@ -91,23 +91,23 @@
 				<td width="1250px" colspan="5" bgcolor="pink" align="center"></td>
 			</tr>
 
-			<c:forEach items="${dogFreeBoardList }" var="FreeBoard">
+			<c:forEach items="${dogFreeBoardList }" var="freeBoard">
 				<tr>
-					<td align="center">${FreeBoard.freeBoard_boardno }</td>
+					<td align="center">${freeBoard.freeBoard_boardno }</td>
 					<td align="center">
-					<a href="selectOneBoard.do?freeBoard_boardno=${FreeBoard.freeBoard_boardno }&freeBoard_boardname=${FreeBoard.freeBoard_boardname }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
-							<c:if test="${FreeBoard.freeBoard_title != null &&  FreeBoard.freeBoard_title ne '' }">
-					${FreeBoard.freeBoard_title }
+					<a href="selectOneBoard.do?freeBoard_boardno=${freeBoard.freeBoard_boardno }&freeBoard_boardname=${freeBoard.freeBoard_boardname }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
+							<c:if test="${freeBoard.freeBoard_title != null &&  freeBoard.freeBoard_title ne '' }">
+					${freeBoard.freeBoard_title }
 					</c:if>
-					 <c:if test="${FreeBoard.freeBoard_title == null || FreeBoard.freeBoard_title eq '' }">
+					 <c:if test="${freeBoard.freeBoard_title == null ||freeBoard.freeBoard_title eq '' }">
 					제목없음
 					</c:if>
 					</a></td>
-						<td align="center">${FreeBoard.freeBoard_nickname }</td>
+						<td align="center">${freeBoard.freeBoard_nickname }</td>
 					<td align="center">
-					<td align="center">${FreeBoard.freeBoard_writeDate }</td>
+					<td align="center">${freeBoard.freeBoard_writeDate }</td>
 <%--  <fmt:formatDate value="${FreeBoard.freeBoard_writeDate}" pattern="yyyy-MM-dd" /> --%>
-					<td align="center">${FreeBoard.freeBoard_readCount }</td>
+					<td align="center">${freeBoard.freeBoard_readCount }</td>
 				
 				</tr>
 			</c:forEach>
@@ -142,6 +142,7 @@
 						<a
 							href="dogFreeBoardList.do?page=${last }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[끝]</a>
 					</c:if></td>
+		
 				<td colspan="2" align="right"><input type="button" value="글쓰기"
 					style="width: 80px; height: 25px; background-color: #FFE6E6; border: 1 solid white"
 					onclick="location.href='writeDogFreeBoardForm.do'">
@@ -151,14 +152,13 @@
 					
 			</tr>
 		</table>
-		<input type="hidden" id="FreeBoard.freeBoard_boardname" name="FreeBoard.freeBoard_boardname" value=" FreeBoard.freeBoard_boardname">
+		<input type="hidden" id="freeBoard.freeBoard_boardname" name="freeBoard.freeBoard_boardname" value=" freeBoard.freeBoard_boardname">
 
 
 
 
 
 	<%@ include file="/petst/footer.jsp"%>
-	<!-- js files -->
 	<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
 	<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>

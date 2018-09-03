@@ -85,20 +85,28 @@
 			</tr>
 
 			<tr>
-				<td align="center" colspan="7" height="500">
+				<td align="center" colspan="7" height="500" width="1000">
 					${freeBoard.freeBoard_content }</td>
 			</tr>
 
 			<tr>
-				<td colspan="7" align="right"><input type="button" value="수정하기"
-					style="width: 500 font-family: 'monaco'; background-color: #FFE6E6; border: 1 solid white"
-					onclick="location.href='dogModifyFreeBoardForm.do?freeBoard_boardno=${freeBoard.freeBoard_boardno}&freeBoard_boardname=${freeBoard.freeBoard_boardname }&page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'">
-					<input type="button" value="삭제하기"
-					style="width: 500 font-family: 'monaco'; background-color: #FFE6E6; border: 1 solid white"
-					onclick="location.href='dogDeleteFreeBoard.do?freeBoard_boardno=${freeBoard.freeBoard_boardno }&freeBoard_boardname=${freeBoard.freeBoard_boardname }&page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'">
-					<input type="button" value="게시판으로"
-					style="width: 500 font-family: 'monaco'; background-color: #FFE6E6; border: 1 solid white"
-					onclick="location.href='dogFreeBoardList.do?page=${page }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}'"></td>
+											
+				<td colspan="7" align="right">
+		<c:if test="${freeBoard.freeBoard_userId eq user_idCheck}">
+						<input type="button" value="수정하기"
+							onclick="location.href='dogModifyFreeBoardForm.do?freeBoard_boardno=${freeBoard.freeBoard_boardno}&freeBoard_boardname=${freeBoard.freeBoard_boardname }'">
+
+					</c:if> <input type="button" value="목록"
+					onclick="location.href='dogFreeBoardList.do'"> <input type="button"
+					value="뒤로" onclick="history.back();" /> <c:if
+						test="${freeBoard.freeBoard_userId eq user_idCheck}">
+						<form
+							action="dogDeleteFreeBoard.do?freeBoard_boardname=${freeBoard.freeBoard_boardname}&freeBoard_boardno=${freeBoard.freeBoard_boardno}'"
+							name="removefrm" method="post">
+							<input type="button" value="삭제"  id="deleteBtn" onclick="removeCheck()" >
+						</form>
+					</c:if> 
+			</td>
 			</tr>
 
 		</table>

@@ -53,11 +53,11 @@ public class FreeBoardController {
 			params.put("keyword", keyword);
 			params.put("freeBoard_boardname", 3);
 			params.put("page", page);
-//			if (type == 0) {
+			if (type == 0) {
 				if ((startDate != null || startDate != "") && (endDate != null || endDate != "")) {
 					params.put("startdate", startDate);
 					params.put("enddate", endDate);
-//				}
+				}
 			} 
 			else if (type == 1) {
 				params.put("title", keyword);
@@ -69,8 +69,7 @@ public class FreeBoardController {
 			} else if (type == 4) {
 				params.put("nickname", keyword);
 			}
-//			FreeBoard freeboard = new FreeBoard();
-//			freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
+
 			result = freeboardService.ShowFreeBoard(params, page);
 			
 			mav.addAllObjects(result);
