@@ -141,7 +141,9 @@ public class TipBoardController {
 		mav.addAllObjects(result);
 		mav.addAllObjects(params);
 		mav.setViewName("Tipboard/dogTipBoardList");
+
 		System.out.println("보더리스트에서:" + result.toString());
+
 		return mav;		
 	}		
 	

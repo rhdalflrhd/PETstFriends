@@ -126,7 +126,8 @@
 							href="dogFreeBoardList.do?page=1&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[처음]</a>
 						<a
 							href="dogFreeBoardList.do?page=${start-1 }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[이전]</a>
-					</c:if> <c:forEach begin="${start }" end="${end }" var="i">
+					</c:if>
+					 <c:forEach begin="${start }" end="${end }" var="i">
 						<c:choose>
 							<c:when test="${i == current }">
 								[${i }]
@@ -142,15 +143,16 @@
 						<a
 							href="dogFreeBoardList.do?page=${last }&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">[끝]</a>
 					</c:if></td>
-		
-				<td colspan="2" align="right"><input type="button" value="글쓰기"
+
+			</tr>
+		</table>
+		<table>
+						<td colspan="2" align="right"><input type="button" value="글쓰기"
 					style="width: 80px; height: 25px; background-color: #FFE6E6; border: 1 solid white"
 					onclick="location.href='writeDogFreeBoardForm.do'">
 					<input type="button" value="뒤로가기"
 					style="width: 80px; height: 25px; background-color: #FFE6E6; border: 1 solid white"
 					onclick="location.href='main.do'"></td>
-					
-			</tr>
 		</table>
 		<input type="hidden" id="freeBoard.freeBoard_boardname" name="freeBoard.freeBoard_boardname" value=" freeBoard.freeBoard_boardname">
 

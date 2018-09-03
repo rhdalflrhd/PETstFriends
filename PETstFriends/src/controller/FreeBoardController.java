@@ -46,6 +46,9 @@ public class FreeBoardController {
 				@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 				@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
 
+			System.out.println("들어온 키워드는: "+keyword);
+			System.out.println("요청 타입은: "+keyword);	
+			
 			ModelAndView mav = new ModelAndView();
 			HashMap<String, Object> params = new HashMap<String, Object>();
 			HashMap<String, Object> result = null;
@@ -75,6 +78,7 @@ public class FreeBoardController {
 			mav.addAllObjects(result);
 			mav.addAllObjects(params);
 			mav.setViewName("freeboard/dogFreeBoardList");
+			System.out.println("보더리스트에서:" + result.toString());
 			return mav;		
 		}		
 

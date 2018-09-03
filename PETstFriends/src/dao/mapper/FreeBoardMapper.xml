@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectBoardAll" parameterType="java.util.HashMap"
 		resultType="freeBoard">
-		select * from freeBoard where 1 = 1 and
+	select * from freeBoard where 1 = 1 and
 		freeBoard_boardname = #{freeBoard_boardname}
 		<if test="freeBoard_title != null">
 			or freeBoard_title like '%${freeBoard_title}%' </if>
@@ -43,24 +43,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getCount" parameterType="java.util.HashMap"
 		resultType="int">
 		select count(*) from freeboard
-		where 1 = 0
+		where 1 = 1 and
+freeBoard_boardname = #{freeBoard_boardname}
 		<if test="freeBoard_title != null">
 			or freeBoard_title like '%${freeBoard_title}%'
 		</if>
 		<if test="freeBoard_content != null">
 			or freeBoard_content like '%${freeBoard_content}%'
 		</if>
-		<if test="freeBoard_name != null">
-			or freeBoard_name like '%${freeBoard_name}%'
+		<if test="freeBoard_user_Id != null">
+			or freeBoard_nickname  like '%${freeBoard_nickname}%'
 		</if>
-		<if test="freeBoard_type == 0">
-			or 1=1
-		</if>
+
 		<if test="freeBoard_startdate != null">
-			and freeBoard_writedate
+			and freeBoard_writeDate
 			between #{startdate} and #{enddate}
 		</if>
 	</select>
+	
 	<sql id="freeBoard_title">
 		<choose>
 			<when test="freeBoard_title == null or freeBoard_title != '' ">

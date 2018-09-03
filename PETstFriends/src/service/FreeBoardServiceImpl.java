@@ -116,6 +116,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public HashMap<String, Object> ShowFreeBoard(HashMap<String, Object> params, int page) {
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
+
+		
 		int getEndPage = getEndPage(page);
 		int getLastPage = getLastPage(params);
 		if (getEndPage >= getLastPage)
@@ -127,8 +129,10 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		result.put("last", getLastPage(params));
 		params.put("skip", getSkip(page));
 		params.put("qty", 10);
-
+System.out.println(getEndPage(page));
+System.out.println(getLastPage(params));
 		int size = bDao.getCount(params);
+		System.out.println( bDao.getCount(params)+"겟카운트 ");
 		result.put("dogFreeBoardList", bDao.selectBoardAll(params));
 		result.put("dogFreeBoardCount", size);
 
@@ -182,13 +186,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public int getStartPage(int page) {
 		// TODO Auto-generated method stub
-		return ((page - 1) / 10 + 1) * 10;
+		return (page - 1) / 10 * 10 + 1;
 	}
 
 	@Override
 	public int getEndPage(int page) {
 		// TODO Auto-generated method stub
-		return ((page - 1) / 10 + 1) * 10;
+		return ((page-1) / 10 + 1) * 10;
 	}
 
 	@Override
