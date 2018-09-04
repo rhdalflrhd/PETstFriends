@@ -3,6 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -35,7 +45,7 @@
 				// 입력창 크기 조절바 사용 여부
 				bUseVerticalResizer : false,
 				// 모드 탭(Editor | HTML | TEXT) 사용 여부
-				bUseModeChanger : true,
+				bUseModeChanger : false,
 			},
 			fOnAppLoad : function() {
 				//예제 코드
@@ -58,7 +68,6 @@
 </script>
 </head>
 <body>
-	<center>
 		<%@ include file="/petst/header.jsp"%>
 		<div class="wrapper">
 			<div class="main-content">
@@ -77,21 +86,31 @@
 
 					<div class="col-md-8 col-sm-8"
 						style="border-left: 1px solid gray; width: 80%; display: inline-block;">
-
-						<div
-							style="border: 1px solid red; height: 1000px; width: 45%; background-color: white;">
+	<div class="container" style="background: white;">
+		<div style="border-bottom: 2px solid brown; width: 30%;">
+		<div style="border-bottom: 5px solid #FFD232; width: 80%;">
+					<h2>자주하는 질문</h2>
+					</div>
+					</div>
+					</div>
+					<div style="height: 20px;"></div>
+					<br><br>
+					<div align="center">
 							<form action="modifyOftenQnA.do" method="post"
 								id="modifyBoardFrm" enctype="multipart/form-data">
 								<span id="title"> 제목 :</span> <input type="text"
 									id="oftenQnA_title" name="oftenQnA_title"
 									value="${oftenQnA.oftenQnA_title }"
-									style="width: 500px; height: 50px;">
+									style="width: 500px; height: 50px; color : black; cursor: text;">
 
 								<div style="height: 20px;"></div>
 								<div style="border: red;">
 									<textarea name="editor" id="editor"
-										style="width: 700px; height: 700px; background-color: white;">
+					style="width: 850px; height: 600px; background-color: white;">
 									</textarea>
+									<input type="hidden" value="${oftenQnA.oftenQnA_boardno }" name="oftenQnA_boardno">
+									<div style="height: 10px;"></div>
+									<br><br>
 									<div style="height: 10px;"></div>
 									<div align="right">
 										<input type="button" id="modifyBoard" value="등록" />
@@ -100,11 +119,11 @@
 							</form>
 						</div>
 					</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<%@ include file="/petst/footer.jsp"%>
-	</center>
 
 </body>
 </html>

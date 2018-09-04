@@ -5,9 +5,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
 	src="./naverEditor/WebContent/resources/editor/js/HuskyEZCreator.js"
@@ -86,10 +94,10 @@
 								id="insertBoardFrm" enctype="multipart/form-data">
 								<span id="title"> 제목 :</span> <input type="text"
 									id="notice_title" name="notice_title"
-									style="width: 500px; height: 50px; cursor: text;">
+									style="width: 500px; height: 50px; cursor: text; color: black;">
 
 								<div style="height: 20px;"></div>
-								<div style="border: red;">
+								<div style="border: #eeeeee;">
 									<textarea name="editor" id="editor"
 										style="width: 850px; height: 600px; background-color: white;">
 									</textarea>

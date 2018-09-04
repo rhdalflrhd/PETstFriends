@@ -11,6 +11,6 @@ public interface ReportDao {
 	public Report selectOneReport(int report_reportNo);
 	public int insertReport(Report report);
 	public int deleteReport(int report_reportNo);
-	public boolean updateReport(Report report);
+	public int updateReport(Report report);
 	
 }

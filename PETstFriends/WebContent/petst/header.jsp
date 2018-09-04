@@ -15,16 +15,16 @@
 <link rel="shortcut icon" href="assets/images/favicon.png">
 <title>header</title>
 <!-- common css -->
-<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
-	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
-    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./Boot/css/animate.min.css">
-    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
-    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
-    <link rel="stylesheet" href="./Boot/css/slicknav.css">
-    <link rel="stylesheet" href="./Boot/style.css">
-    <link rel="stylesheet" href="./Boot/css/responsive.css">
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">     -->
+<!-- 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">     -->
+<!--     <link rel="stylesheet" href="./Boot/css/bootstrap.min.css"> -->
+<!--     <link rel="stylesheet" href="./Boot/css/font-awesome.min.css"> -->
+<!--     <link rel="stylesheet" href="./Boot/css/animate.min.css"> -->
+<!--     <link rel="stylesheet" href="./Boot/css/owl.carousel.css"> -->
+<!--     <link rel="stylesheet" href="./Boot/css/owl.theme.css"> -->
+<!--     <link rel="stylesheet" href="./Boot/css/slicknav.css"> -->
+<!--     <link rel="stylesheet" href="./Boot/style.css"> -->
+<!--     <link rel="stylesheet" href="./Boot/css/responsive.css"> -->
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @import	url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
@@ -44,7 +44,7 @@ ul, li {
 	<%
 		boolean a = false;//어드민 이면 ture
 		boolean b = false;//회원 이면 true
-		if (session.getAttribute("user_id") != null && session.getAttribute("adminCheck") != null) {//아이디가 있고 어드민 있으므로 어드민
+		if (session.getAttribute("user_id") != null && session.getAttribute("admin_check") != null) {//아이디가 있고 어드민 있으므로 어드민
 			a = true;
 		} else if (session.getAttribute("user_id") != null) {
 			b = true;
@@ -152,7 +152,7 @@ ul, li {
 												class="fa fa-angle-right"></i>
 										</a>
 											<ul class="sub-menu">
-												<li><a href="#">회원관리</a></li>
+												<li><a href="showUserList.do">회원관리</a></li>
 												<li><a href="#">쪽지</a></li>
 											</ul></li>
 

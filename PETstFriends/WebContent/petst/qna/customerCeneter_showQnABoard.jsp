@@ -5,11 +5,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
+button{
+ margin: 0px 0px 0px 10px;
+  text-decoration: none;
+  border : 0;
+	background-color : #dcdcdc;
+   position: relative;
+  float: right;
+  padding: 0.438em 0.625em 0.438em 0.625em;
+ line-height: 1.125em;
+  cursor: pointer; 
+  color: white;
+
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -82,7 +103,7 @@
 			}
 		})
 		
-		$('#deleteBtn').click(function(){
+		$('.deleteBtn').click(function(){
 			var result = confirm('삭제하시겠습니까?');
 			if(result){
 				location.href='deleteQnABoard.do?qnA_boardno='+${qnA_boardno};
@@ -113,27 +134,38 @@
 
 				<div class="col-md-8 col-sm-8"
 					style="border-left: 1px solid gray; width: 80%; display: inline-block;">
-					<h2>1:1 문의</h2>
-
+					<div style="border-bottom: 2px solid brown; width: 20%;">
+						<div style="border-bottom: 5px solid #FFD232; width: 70%;">
+							<h2>1:1문의</h2>
+						</div>
+					</div>
+					<div style="height: 20px;"></div>
+						<div style="border: 1px solid #eeeeee;">
+						
 					<h2 style="text-align: center;">${qnA.qnA_title }</h2>
 					<div style="display: inline-block; height: 20px; width: 48%;">
 						작성일 : ${qnA.qnA_writeDate }</div>
-					<div style="border-bottom: 1px solid red; height: 5px;"></div>
+						<div style="display: inline-block; height: 20px; width: 48%;" align="right">
+						글쓴이 : ${qnA.qnA_userId }</div>
+					<div style="border-bottom: 1px solid #eeeeee; height: 5px;"></div>
 					<div style="height: 20px;"></div>
 					<div class="post-thumb">${qnA.qnA_content }</div>
-					<div style="border: 1px solid red;"></div>
+					<div style="border: 1px solid #eeeeee;"></div>
 				
-					<div class="leave-comment"
-						style=" width: 100%;">
+					<div class="leave-comment" style="width: 100%; border: none;">
 						<!--leave comment-->
-								<div id="replyBox">
+						<div id="replyBox">
 									<div class="form-group">
-										<div class="col-md-12">
-											<textarea class="form-control" rows="10" id="qnA_reply" style="width: 100%;"
-												name="qnA_reply"></textarea>
+										<div class="col-md-12" style="display: inline-block; width: 100%; padding:0;">
+											<textarea class="form-control" rows="5" id="qnA_reply"
+												name="qnA_reply" style="margin:0"></textarea>
 										</div>
-										<div style="width : 100%;" align="right">
-									<button type="button" id="replyBtn">답하기</button>
+										<div style="display: inline-block; width : 100%; padding: 0;">
+										<br>
+									<button type="button" id="replyBtn" style="width: 80px;">답하기</button>
+									<button class="deleteBtn">글 삭제하기</button>
+									<button onclick="location.href='showQnAList.do?page=${page }&boardname=${boardname }'
+										+'&type=${type }&keyword=${keyword }&numb=${numb }'">글 목록으로</button>
 									</div>
 									</div>
 								</div>
@@ -142,23 +174,16 @@
 								${qnA.qnA_reply }
 								</span>
 								<br>
-								<button id="deleteCom">삭제하기</button>
-								<button id="modifyCom">수정하기</button>
+								<button id="deleteCom">답변 삭제하기</button>
+								<button id="modifyCom">답변 수정하기</button>
+								<button class="deleteBtn">글 삭제하기</button>
+						<button onclick="location.href='showQnAList.do?page=${page }&boardname=${boardname }'
+							+'&type=${type }&keyword=${keyword }&numb=${numb }'">글 목록으로</button>
+							<br>
+							<br>
 							</div>
-						<div class="text-center" style="text-align: right;">
-								<input type="button" id="deleteBtn" value="삭제하기">
-								<input type="button" value="목록으로"
-									onclick="location.href='showQnAList.do?page=${page }&boardname=${boardname }&type=${type }&keyword=${keyword }&numb=${numb }'">
-							
-							<!-- 						<input type="button" value="목록으로" -->
-							<!-- 							onclick="location.href='showOftenQnAList.do'"> -->
-							<!-- 							내가쓴 문의글로 가기???? -->
-
-						</div>
-						<div style="height: 20px;"></div>
-					</div>
-
-
+							</div>
+							</div>
 				</div>
 			</div>
 		</div>

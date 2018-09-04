@@ -102,6 +102,11 @@
 	</update>
 
 
+<update id="updateScore" parameterType="user">
+		update user set user_score=#{user_score}
+		where user_id = #{user_id}
+	</update>
+	
 	<select id="selectUserPet" parameterType="String"
 		resultType="java.util.HashMap">
 		select * from User u , Pet p where u.user_id = p.user_id

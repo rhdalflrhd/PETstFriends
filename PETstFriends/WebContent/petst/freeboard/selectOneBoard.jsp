@@ -26,7 +26,6 @@
 <link rel="stylesheet" href="./Boot/css/slicknav.css">
 <link rel="stylesheet" href="./Boot/style.css">
 <link rel="stylesheet" href="./Boot/css/responsive.css">
-
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
@@ -96,7 +95,6 @@ var comment_start = ${comment_start}
 	var boardname = ${freeBoard.freeBoard_boardname};
 	var comment_finalpage = ${comment_current};
 	var comment_page = ${comment_current};
-// 	var user_idCheck = ${user_idCheck};
 	var listsize = ${listsize}%3;
 	//댓글 리스트 불러오기
 	var cPaging = function(){
@@ -118,29 +116,31 @@ var comment_start = ${comment_start}
 					if(fList[i].freeComments_commentno == fList[i].freeComments_parent){
 						commentStr +='<tr><td colspan="2" style="text-align: left;">닉네임'+fList[i].freeComments_nickname+'</td>'
 					}else{
-						commentStr +='<tr><td colspan="2" style="text-align: left;"><div style="width: 10%;display: inline-block;"></div>닉네임'
+						commentStr +='<tr><td class="reTD"></td><td><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;닉네임'
 						+fList[i].freeComments_nickname+'</td>'
 					}
-					commentStr += '<td>날짜'+fList[i].freeComments_writeDate+'</td></tr><tr style="border-bottom: 1px solid black;">';
+					commentStr += '<td class="btnTD">날짜'+fList[i].freeComments_writeDate+'</td></tr><tr">';
 					if(fList[i].freeComments_commentno == fList[i].freeComments_parent){
 						commentStr += '<td colspan="2" style="text-align: left;">';
 					}else{
-						commentStr +='<td colspan="2" style="text-align: left;"><div style="width: 10%; display: inline-block;"></div>';
+						commentStr +='<td class="reTD"></td><td>';
 					}
 					if(fList[i].freeComments_content != null){
-						commentStr +=fList[i].freeComments_content +'</td>';
+						commentStr +=fList[i].freeComments_content +'</td><td class="btnTD">';
+						if(data.user_idCheck!=null){
+							commentStr +='<button value="'+fList[i].freeComments_parent +'&'+fList[i].freeComments_nickname+'" class="reComBtn">답글</button>';
+							if(fList[i].freeComments_content !=null && fList[i].freeComments_userId==data.user_idCheck){
+								commentStr += '<button value="'+fList[i].freeComments_commentno+'" class="modifyComBtn">수정</button><button value="'
+								+fList[i].freeComments_commentno+'&'+fList[i].freeComments_parent
+								+'"class="deleteComBtn">삭제</button>';
+							}
+							}
 					}
 					else{
-						commentStr += '이미 삭제된 댓글입니다.' +'</td>';
+						commentStr += '이미 삭제된 댓글입니다.' +'</td><td class="btnTD">';
 					}
-					commentStr +='<td><button value="'+fList[i].freeComments_parent +'&'+fList[i].freeComments_nickname+'" class="reComBtn">답글</button>';
-					if(fList[i].freeComments_content !=null && fList[i].freeComments_userId==data.user_idCheck){
-						commentStr += '<button value="'+fList[i].freeComments_commentno+'" class="modifyComBtn">수정</button><button value="'
-						+fList[i].freeComments_commentno+'&'+fList[i].freeComments_parent
-						+'"class="deleteComBtn">삭제</button>';
-					}
+					
 					commentStr += '</td></tr>'
-						 
 				}
 				$('#commentTable').empty();
 				$('#commentTable').append(commentStr);
@@ -151,16 +151,16 @@ var comment_start = ${comment_start}
 				var paginStr='';
 				if(comment_start != 1){
 					paginStr += '<li><a class="pagingFun" page='+1+'>[처음]</a></li>'
-					+'<li><a class="pagingFun"page='+comment_start+1+'>[이전]</a></li>';
+					+'<li><a class="pagingFun"page='+(comment_start-1)+'>[이전]</a></li>';
 				}
 				for(var i = comment_start; i <= comment_end; i++){
 					if(i == comment_current)
-						paginStr +='<li><a page='+i+' class="pagingFun" style="background-color: yellow;">['+i+']</a></li>';
+						paginStr +='<li><a page='+i+' class="pagingFun" style="background-color: #FFD232;">['+i+']</a></li>';
 					else
 						paginStr +='<li><a page='+i+' class="pagingFun">['+i+']</a></li>';
 				}
 				if(comment_end < comment_last){
-					paginStr +='<li><a class="pagingFun" page='+comment_end+1 +'>[다음]</a></li>'
+					paginStr +='<li><a class="pagingFun" page='+(comment_end+1) +'>[다음]</a></li>'
 					+'<li><a class="pagingFun" page='+comment_last+'>[끝]</a></li>'
 				}
 				$('.pagination').empty();
@@ -186,22 +186,28 @@ var comment_start = ${comment_start}
 		var strArr = str.split('&');
 		var freeComments_parent = strArr[0];//패런트넘
 		var freeComments_nickname = '';//답글주인의 닉네임
+		
 		for(var i = 1; i<strArr.length; i++)
 			freeComments_nickname +=strArr[i];
 		var tableStr = '';
 		tableStr +='<tr><td colspan=3><div><img src="./Boot/images/comment.jpg" class="pull-left"><p align="left" style="font-size: 16px;">'
 				+'<i class="fa fa-level-up fa-rotate-90"></i> @'+freeComments_nickname
-				+ '</p><p align="left"><textarea id="rereply_content" rows="3" cols="120" name="rereply_content">@'+freeComments_nickname+'</textarea>'
-				+'</p><button class="rereply_save" name="rereply_save"	style="background-color: #CD853F; color: white;'
-				+'font-size: 15px; font-weight: bold; border: 1; border-color: #CD853F; border-radius: 5px;" value='+freeComments_parent
-				+'>댓글	등록</button></div></td></tr>';
+				+ '</p><p align="left"><textarea id="rereply_content" rows="3" cols="120" name="rereply_content"></textarea>'
+				+'</p><button class="rereply_save" name="rereply_save"'
+				+' value='+freeComments_parent+'&'+freeComments_nickname
+				+'>댓글 등록</button></div></td></tr><tr></tr>';
 		tr.after(tableStr);
 	})
 	
 	//답글 등록시
 	$(document).on('click', '.rereply_save', function(){
-		var freeComments_content = $('#rereply_content').val();//내용
-		var freeComments_parent = $(this).val();
+		var freeComments_info = $(this).val();
+		var freeArray = freeComments_info.split('&');
+		var freeComments_parent  = freeArray[0];
+		var freeComments_nickname='';
+		for(var i = 1; i <freeArray.length; i++)
+			freeComments_nickname += freeArray[i];
+		var freeComments_content = '<a>'+freeComments_nickname+'</a> '+$('#rereply_content').val();//내용
 		$.ajax({
 			type : 'GET',
 			url : 'writefreeComment.do',
@@ -241,8 +247,6 @@ var comment_start = ${comment_start}
 					comment_finalpage = comment_finalpage+1;
 					listsize= listsize%3;
 				}
-				alert(listsize+"리사");
-				alert(comment_finalpage+"파이널")
 				comment_page = comment_finalpage;
 				cPaging();
 			},
@@ -286,23 +290,43 @@ var comment_start = ${comment_start}
 		var freeComments_commentno = $(this).val();
 		var tr = $(this).parent().parent();
 		var td = tr.children();
-		var comment_content = td.eq(1).text();
-		var tableStr='';
+		var nick = '';
+		if(td.eq(0).text()==''){
+			alert('d')
+			var comment_content = td.eq(1).text();
+			var str = comment_content;
+			alert(str)
+			var strArr = str.split(' ');
+			nick =strArr[0]+' ';
+		}
+		else
+			var comment_content = td.eq(0).text();
+		nick = nick.trim();
+		comment_content = comment_content.replace(nick, "");
+		alert(nick)
+		alert(comment_content)
+		comment_content=comment_content.trim();
+		alert(comment_content)
 		tr.empty();
-		tableStr +='<td colspan=3><div><textarea class="modi_content" rows="3" cols="120" name="modi_content">'
+		var tableStr ='';
+		tableStr +='<td colspan=3><div><textarea class="modi_content" style="text-align=left;" rows="3" cols="120" name="modi_content">'
 			+comment_content+'</textarea>'
 			+'</p><button class="reply_modi" name="reply_modi"	style="background-color: #CD853F; color: white;'
 			+'font-size: 15px; font-weight: bold; border: 1; border-color: #CD853F; border-radius: 5px;"'
-			+'value="'+freeComments_commentno+'">수정하기</button></div></td>';
+			+'value="'+'<a>'+nick+'</a>'+freeComments_commentno+'">수정하기</button></div></td>';
 		tr.after(tableStr);
 	})
 	
 	//댓글 수정하기
 	$(document).on('click', '.reply_modi', function(){
-// 		alert($('.modi_content').val())
-// 		alert($(this).val())
-		var freeComments_content = $('.modi_content').val();
-		var freeComments_commentno = $(this).val();
+		var str = $(this).val();
+		var strArr = str.split('</a>');
+		var nick = strArr[0]+'</a>';
+		var freeComments_commentno=str.replace(nick,"");
+		var freeComments_parent = '';//답글주인의 닉네임
+		var freeComments_content = nick+' '+$('.modi_content').val();
+// 		alert(freeComments_content)
+// 		alert(freeComments_commentno)
 		$.ajax({
 			type : 'GET',
 			url : 'updatefreeComment.do',
@@ -323,63 +347,67 @@ var comment_start = ${comment_start}
 </script>
 
 <style type="text/css">
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@import
-	url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css')
-	;
-table {
-	width: 100%;
-	background-color: transparent;
+.rereply_save {
+	background-color: #CD853F;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+	border: 1;
+	border-color: #CD853F;
+	border-radius: 5px;
 }
-#commentTable {
-	padding: 20px;
+table{
+ border-collapse: collapse;
+width: 100%;
 }
-td {
-	/* 	border: 1px gray solid; */
-	/* 	text-align: center; */
-	padding: 20px;
+tr:nth-child(odd)  { 
+  border-top : 1px dashed gray;
+}
+tr:nth-child(1)  { 
+ border-top : none; 
+}
+th, td{
+text-align: left;
+padding : 10px;
 }
 h4 {
 	font-family: 'NanumSquareRound', sans-serif;
 }
+
 ul, li {
 	font-family: 'NanumSquareRound', sans-serif;
 }
+
 input::-ms-input-placeholder {
 	color: #CD853F;
 }
+
 input::-webkit-input-placeholder {
 	color: #CD853F;
 }
+
 input::-moz-placeholder {
 	color: #CD853F;
 }
-.
+
 .wrapper {
 	font-family: 'NanumSquareRound', sans-serif;
 }
+
 #footer {
 	font-family: 'NanumSquareRound', sans-serif;
 }
+
 .footer-widget-section {
 	font-family: 'NanumSquareRound', sans-serif;
 }
+
 .main-content {
 	position: relative;
 	left: 22%;
 	margin-left: -375px;
 	text-align: center;
 }
-/* .decoration a, input{ */
-/*     color: #FFD232; */
-/*     border: 1px solid #FFD232; */
-/*     border-radius: 5px; */
-/*     font-family: 'NanumSquareRound',sans-serif; */
-/*     font-size: 14px; */
-/*     height: 20px; */
-/*     width: 130px; */
-/*    	position:relative;  */
-/* } */
 .chooseYourDesc a {
 	color: #fff;
 	background-color: #FFD232;
@@ -394,10 +422,26 @@ input::-moz-placeholder {
 	padding: 0;
 	margin-right: 5px;
 }
+
 .chooseYourDesc a:hover {
 	color: #fff;
 	border: 1px solid #d2d2d2;
 	background-color: #d2d2d2;
+}
+.reTD{
+width: 10%;
+}
+.btnTD{
+width: 20%;
+}
+a{
+color : #BDBDBD;
+cursor: pointer;
+}
+.reComBtn, .modifyComBtn, .deleteComBtn{
+border: 0;
+/* opacity: 0.5; */
+background : #00ff0000;
 }
 </style>
 </head>
@@ -517,47 +561,49 @@ input::-moz-placeholder {
 						</div>
 
 						<br> <br>
-						<div class="bottom-comment">
-							<table id="commentTable" style="padding: 20px; text-align: left;">
+						<div class="bottom-comment" style="background-color: #FAFAFA;">
+						<div>
+						<table id="commentTable" style="border: none;">
 								<c:forEach items="${commentList }" var="comment">
-									<tr class="line">
+									<tr style="border-bottom: none;">
 										<c:if
 											test="${comment.freeComments_commentno == comment.freeComments_parent}">
 											<td colspan="2">
-												<!-- 											style="text-align: left;" -->
 												닉네임${comment.freeComments_nickname}
 											</td>
 										</c:if>
 										<c:if
 											test="${comment.freeComments_commentno != comment.freeComments_parent}">
-											<td colspan="2">
-												<div style="width: 10%; display: inline-block;"></div>
-												닉네임${comment.freeComments_nickname}
+											<td class="reTD"></td>
+											<td>
+												<div style="display: inline-block;"></div>
+												<i class="fa fa-level-up fa-rotate-90 fa-1x"></i>&nbsp;닉네임${comment.freeComments_nickname}
 											</td>
 										</c:if>
-										<td>날짜${comment.freeComments_writeDate }</td>
+										<td class="btnTD">날짜${comment.freeComments_writeDate }</td>
 									</tr>
-									<tr style="border-bottom: 1px solid black;">
+									<tr>
 										<c:if
 											test="${comment.freeComments_commentno == comment.freeComments_parent}">
 											<td colspan="2"><c:if
 													test="${comment.freeComments_content ==null}">
 											삭제된 댓글입니다.
-											</c:if> <c:if test="${comment.freeComments_content !=null}">
+											</c:if> 
+											<c:if test="${comment.freeComments_content !=null}">
 											${comment.freeComments_content }
 											</c:if></td>
 										</c:if>
 										<c:if
 											test="${comment.freeComments_commentno != comment.freeComments_parent}">
-
-											<td colspan="2"><div
-													style="width: 10%; display: inline-block;"></div>
+											<td class="reTD"></td>	
+											<td>
 												${comment.freeComments_content }</td>
 										</c:if>
-										<td>
-											<button
-												value="${comment.freeComments_parent }&${comment.freeComments_nickname}"
-												class="reComBtn">답글</button> <c:if
+										<td class="btnTD"><c:if test="${user_idCheck != null }">
+												<button
+													value="${comment.freeComments_parent }&${comment.freeComments_nickname}"
+													class="reComBtn">답글</button>
+											</c:if> <c:if
 												test="${comment.freeComments_content !=null &&
 											comment.freeComments_userId eq user_idCheck}">
 												<button value="${comment.freeComments_commentno}"
@@ -565,25 +611,23 @@ input::-moz-placeholder {
 												<button
 													value="${comment.freeComments_commentno}&${comment.freeComments_parent}"
 													class="deleteComBtn">삭제</button>
-											</c:if>
-										</td>
+											</c:if></td>
 									</tr>
 								</c:forEach>
 							</table>
-
-
-
+							</div>
 							<ul class="pagination">
 								<!-- 			스타트 엔드 페이지는 페이지값 보고!  -->
 								<c:if test="${comment_start != 1 }">
+								
 									<li><a class="pagingFun" page=1>[처음]</a></li>
-									<li><a class="pagingFun" page=${comment_start+1 }>[이전]</a></li>
+									<li><a class="pagingFun" page=${comment_start-1 }>[이전]</a></li>
 								</c:if>
 								<c:forEach begin="${comment_start }" end="${comment_end }"
 									var="i">
 									<c:choose>
 										<c:when test="${i == comment_current }">
-											<li><a style="background-color: yellow;">[${i }]</a></li>
+											<li><a style="background-color: #FFD232;">[${i }]</a></li>
 										</c:when>
 										<c:otherwise>
 											<li><a page=${i } onclick="return false;"
@@ -600,55 +644,26 @@ input::-moz-placeholder {
 							</ul>
 
 						</div>
+<div style="height: 30px;"></div>
+						<c:if test="${user_idCheck != null }">
+							<div id="testComment" class="top-comment"
+								style="border: 1px solid #eeeeee; background-color: #E1B771;">
+								<!--top comment-->
 
-						<div id="testComment" class="top-comment"
-							style="border: 1px solid #eeeeee; background-color: #E1B771;">
+								<img src="./Boot/images/comment.jpg" class="pull-left">
+								<%-- 							<h3 align="left">닉네임: ${user_idCheck}</h3> --%>
+								<p align="left" style="font-size: 16px;">닉네임:
+									${freeBoard_nickname}</p>
+								<p align="left">
+									<textarea id="reply_content" rows="3" cols="120"
+										name="reply_content" placeholder="댓글을 입력하세요."></textarea>
+								</p>
+								<button class="reply_save" name="reply_save"
+									style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px; font-weight: bold; border: 1; border-color: #CD853F; border-radius: 5px;"
+									value=0>댓글 등록</button>
 
-							<table border="1" width="1200px" id="reply_area">
-								<tr reply_type="all" style="display: none">
-									<!-- 뒤에 댓글 붙이기 쉽게 선언 -->
-									<td colspan="4"></td>
-								</tr>
-								<!-- 댓글이 들어갈 공간 -->
-								<c:forEach var="replyList" items="${replyList}"
-									varStatus="status">
-									<tr
-										reply_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>">
-										<!-- 댓글의 depth 표시 -->
-										<td width="820px"><c:if test="${replyList.depth == '1'}"> → </c:if>${replyList.reply_content}
-										</td>
-										<td width="100px">${replyList.reply_writer}</td>
-										<td width="100px"><input type="password"
-											id="reply_password_${replyList.reply_id}"
-											style="width: 100px;" maxlength="10" placeholder="패스워드" /></td>
-										<td align="center"><c:if test="${replyList.depth != '1'}">
-												<button name="reply_reply" parent_id="${replyList.reply_id}"
-													reply_id="${replyList.reply_id}">댓글</button>
-												<!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
-											</c:if>
-											<button name="reply_modify"
-												parent_id="${replyList.parent_id}"
-												r_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>"
-												reply_id="${replyList.reply_id}">수정</button>
-											<button name="reply_del"
-												r_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>"
-												reply_id="${replyList.reply_id}">삭제</button></td>
-									</tr>
-								</c:forEach>
-							</table>
-
-							<!--top comment-->
-							<img src="./Boot/images/comment.jpg" class="pull-left">
-							<%-- 							<h3 align="left">닉네임: ${user_idCheck}</h3> --%>
-							<p align="left" style="font-size: 16px;">닉네임: ${user_idCheck}</p>
-							<p align="left">
-								<textarea id="reply_content" rows="3" cols="120"
-									name="reply_content" placeholder="댓글을 입력하세요."></textarea>
-							</p>
-							<button class="reply_save" name="reply_save"
-								style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px; font-weight: bold; border: 1; border-color: #CD853F; border-radius: 5px;"
-								value=0>댓글 등록</button>
-						</div>
+							</div>
+						</c:if>
 						<!--top comment end-->
 						<br> <br>
 

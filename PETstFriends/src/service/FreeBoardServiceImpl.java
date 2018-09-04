@@ -17,6 +17,7 @@ import model.FreeBoard;
 import model.FreeComment;
 import model.FreeLikes;
 import model.TipLikes;
+import model.User;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -139,6 +140,10 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		// TODO Auto-generated method stub
 		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
 		freecomment.setFreeComments_writeDate(simple.format(new Date()));
+		String user_id = freecomment.getFreeComments_userId();
+		User user = uDao.selectUserbyId(user_id);
+		user.setUser_score(user.getUser_score()+3);
+		uDao.updateScore(user);
 		int result = bDao.insertComment(freecomment);
 		if(freecomment.getFreeComments_parent()==0) {
 			freecomment.setFreeComments_parent(freecomment.getFreeBoard_boardno());

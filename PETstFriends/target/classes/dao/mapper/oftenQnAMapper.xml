@@ -13,13 +13,13 @@ select * from  oftenqna  where oftenQnA_boardno=#{oftenQnA_boardno}
  </select>
 
 <update id="updateBoard" parameterType="oftenQnA">
-update oftenqna set oftenQnA_title = #{oftenQnA_title}, oftenQnA_content = #{oftenQnA_content}, oftenQnA_readCount = #{oftenQnA_readCount}
+update oftenqna set oftenQnA_title = #{oftenQnA_title}, oftenQnA_readCount = #{oftenQnA_readCount}, oftenQnA_content = #{oftenQnA_content}
  where oftenQnA_boardno = #{oftenQnA_boardno}
 </update>
 
 <insert id="insertBoard" parameterType="oftenQnA"   
           useGeneratedKeys="true"  keyProperty="oftenQnA_boardno">
-insert into oftenqna values (0,#{oftenQnA_title},#{oftenQnA_content},#{oftenQnA_readCount}, #{oftenQnA_adminId}, #{oftenQnA_writeDate})
+insert into oftenqna values (0,#{oftenQnA_title},#{oftenQnA_readCount},#{oftenQnA_content}, #{oftenQnA_adminId}, #{oftenQnA_writeDate})
 </insert>
 
 <delete id="deleteOftenBoard" parameterType="int">

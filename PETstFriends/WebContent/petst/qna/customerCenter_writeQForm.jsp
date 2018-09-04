@@ -3,9 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -56,7 +63,6 @@
 </script>
 </head>
 <body>
-	<center>
 		<%@ include file="/petst/header.jsp"%>
 		<div class="wrapper">
 			<div class="main-content">
@@ -75,7 +81,13 @@
 
 					<div class="col-md-8 col-sm-8"
 						style="border-left: 1px solid gray; width: 80%; display: inline-block;">
-						<div style="height: 800px; background-color: white;">
+						<div style="border-bottom: 2px solid brown; width: 30%;">
+					<div style="border-bottom: 5px solid #FFD232; width: 80%;">					
+					<h2>자주하는 질문</h2>
+					</div>
+					</div>
+					<br><br>
+						<div style="height: 800px; background-color: white;" align="center">
 							<form action="writeOftenQnA.do" method="post" id="insertBoardFrm"
 								enctype="multipart/form-data">
 								<span id="title"> 제목 :</span> <input type="text"
@@ -102,7 +114,6 @@
 			</div>
 		</div>
 		<%@ include file="/petst/footer.jsp"%>
-	</center>
 
 </body>
 </html>

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,6 +97,8 @@ public class FreeBoardController {
 		paramForLike.put("freeLikes_boardname", freeBoard_boardname);
 		paramForLike.put("freeLikes_boardno", freeBoard_boardno);
 	    if(user_idCheck != null ) {
+	   	String freeBoard_nickname = (String) userService.selectUser(user_idCheck).get("user_nickname");
+	   	mav.addObject("freeBoard_nickname", freeBoard_nickname);
 		if(freeboardService.countbyLike(paramForLike)==0){
 	    	freeboardService.creatFreeLikes(paramForLike);
 	    }
@@ -225,8 +228,7 @@ public class FreeBoardController {
 			String user_id = (String) session.getAttribute("user_id");
 			HashMap<String, Object> params = freeboardService.ShowCommentFreeBoard(freeBoard_boardname, freeBoard_boardno, comment_page);
 			params.put("user_id", user_id);
-//			if(user_id == null)
-//				params.put("user_id", "");
+			params.put("user_idCheck", user_id);
 			Gson gson = new Gson();
 			resp.setCharacterEncoding("UTF-8");
 			List<FreeComment> freeCommentList = (List<FreeComment>) params.get("commentList");

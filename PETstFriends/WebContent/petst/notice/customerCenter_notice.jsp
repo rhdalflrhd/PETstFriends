@@ -6,18 +6,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
 a {
-	color: red;
+	color: black;
 }
 
 a:hover {
-	color: brown;
+	color: gray;
 }
 </style>
 </head>
@@ -61,7 +68,7 @@ a:hover {
 							<option value="1">제목으로 검색</option>
 							<option value="2">내용으로 검색</option>
 							<option value="3">제목,내용으로 검색</option>
-						</select> <input type="text" name="keyword" style="height: 27px;">
+						</select> <input type="text" name="keyword" style="height: 27px; color: black; cursor: text;">
 						<select name="numb" style="height: 27px;">
 							<option value="10">10개씩 보기</option>
 							<option value="20">20개씩 보기</option>

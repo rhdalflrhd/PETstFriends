@@ -86,7 +86,7 @@ public class ReportServiceImpl implements ReportService {
 		Report report = new Report();
 		report.setReport_reportNo(report_reportNo);
 		report.setReport_state(report_state);
-		return 2;
+		return rDao.updateReport(report);
 	}
 
 }

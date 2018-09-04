@@ -3,10 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -45,7 +51,7 @@
 					tr.find("td").eq(4).append('<button class="cancelBtn" value="'+user_no+
 						'">정지 취소</button>');
 					}else{
-						tr.find("td").eq(3).html('');
+						tr.find("td").eq(3).html('활동중');
 						tr.find("td").eq(4).empty();
 						tr.find("td").eq(4).append('<button class="stopBtn" value="'+user_no+
 						'">영구 정지</button>');
@@ -64,21 +70,23 @@
 	<%@ include file="/petst/header.jsp"%>
 	<div class="wrapper">
 		<!--main content start-->
-		<div class="main-content" style="border-bottom: 1px solid gray;">
+		<div class="main-content" >
 			<div class="container"
-				style="background: white; border-top: 1px solid gray;">
-						<h2 style="text-align: center;">회원 정보 관리</h2>
+				style="background: white; ">
+						<h2 style="text-align: center;">회원 관리</h2>
+						<br>
+						<div align="center">
 						<form action="showUserList.do" id="showFrm">
-						<input type="text" name="keyword">
+						<input type="text" name="keyword" style="cursor: text; color: black; width: 250px; height: 27px;">
 						<select	name="numb" style="height: 27px;">
 						<option value="10">10개씩 보기</option>
 						<option value="20">20개씩 보기</option>
 						<option value="30">30개씩 보기</option>
 						</select>
-						<button id="searchBtn">검색하기</button>
+						<button id="searchBtn" style="height: 27px;">검색하기</button>
 						</form>
-						
-
+						</div>
+						<div style="height: 10px;"></div>
 						<table class="table">
 							<thead>
 								<tr>
@@ -97,9 +105,9 @@
 							<td>${user.user_id }</td>
 							<td>${user.user_email }</td>
 							<td>
-<%-- 							<c:if test="${user.user_state==0 }"> --%>
-<!-- 							영구 정지 -->
-<%-- 							</c:if> --%>
+							<c:if test="${user.user_state==0 }">
+							활동중
+							</c:if>
 							<c:if test="${user.user_state==1}">
 							영구정지됨
 							</c:if>
@@ -116,7 +124,7 @@
 							</button>
 							</c:if>
 							</td>
-							<td><input type="button" value="쪽지보내기"></td>
+							<td><button>쪽지 보내기</button></td>
 							</tr>
 							</c:forEach>
 							</tbody>
@@ -134,7 +142,7 @@
 			<c:forEach begin="${start }" end="${end }" var="i">
 				<c:choose>
 					<c:when test="${i == current }">
-						<li><a>[${i }]</a></li>
+						<li><a style="background-color: #FFD232">[${i }]</a></li>
 					</c:when>
 					<c:otherwise>
 						<li><a
