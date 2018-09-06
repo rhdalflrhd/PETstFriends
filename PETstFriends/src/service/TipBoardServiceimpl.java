@@ -32,9 +32,9 @@ public class TipBoardServiceimpl implements TipBoardService{
 		//String Userid = (String)session.getAttribute("TipBoard_userId");
 		//String Userid = dtBoard.getTipBoard_userId;                       둘 중 택 1
 		
-		//User tempUser = uDao.selectUserId(dtBoard.getTipBoard_userId)
-		//tempUser.setScore(tempUser.getUser_score()+10);
-		//UDao.updateUser(tempUser);
+//		User tempUser = uDao.selectUserId(dtBoard.getTipBoard_userId)
+//		tempUser.setScore(tempUser.getUser_score()+10);
+//		UDao.updateUser(tempUser);
 		
 	//-----------------------------글작성시 사용자 score +10점 하는 기능 처리 끝-------------------------------------------	
 		// TODO Auto-generated method stub
@@ -121,16 +121,15 @@ public class TipBoardServiceimpl implements TipBoardService{
 			result.put("end", getLastPageS(params));
 		else
 			result.put("end", getEndPageS(page));
-
 		result.put("current", page);
 		result.put("start", getStartPageS(page));
 		result.put("last", getLastPageS(params));
-		
 		params.put("skip", getSkipS(page));
 		params.put("qty", 10);	
+		
 		System.out.println("SearchTipBoardS 최종 파람:" + params.toString());
 
-//		System.out.println("겟카운트:" + tipDao.getCount(params));		
+	
 		int size = tipDao.getCount(params);				
 		
 		result.put("dogTipBoardList", tipDao.selectBoardPage(params));

@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +23,7 @@ import model.FreeBoard;
 import model.FreeComment;
 import model.FreeLikes;
 import model.Notice;
+import model.User;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -29,6 +33,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	@Autowired
 	private UserDao uDao;
+	
 
 	// ------------------------------------------------------------------------------------------------
 	// 글수정
@@ -57,11 +62,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	// ----------------------------------------------------------------------------------------------------
-	// 제목,내용,닉넴으로 검색
+	// 제목,내용,닉넴으로 검색 dog====================================================================
 	@Override
-	public HashMap<String, Object> SearchFreeBoardbyTNC(HashMap<String, Object> params, int page) {
+	public HashMap<String, Object> SearchFreeBoardbyDog(HashMap<String, Object> params, int page) {
 		// TODO Auto-generated method stub
-
+		
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 
@@ -79,6 +84,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		params.put("skip", getSkip(page));
 		params.put("qty", 10);
 
+		
 		int size = bDao.getCount(params);
 
 		result.put("dogFreeBoardList", bDao.selectBoardAll(params));
@@ -86,60 +92,194 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 		return result;
 	}
+	// 제목,내용,닉넴으로 검색cat ====================================================================
+		@Override
+		public HashMap<String, Object> SearchFreeBoardbyCat(HashMap<String, Object> params, int page) {
+			// TODO Auto-generated method stub
+			
 
-	// 제목으로 검색
-	// @Override
-	// public HashMap<String, Object> SearchFreeBoardbyTitle(HashMap<String, Object>
-	// params) {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
-	//
-	// //닉넴으로 검색
-	// @Override
-	// public HashMap<String, Object> SearchFreeBoardbyNN(HashMap<String, Object>
-	// params) {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
-	//
-	// //내용으로 검색
-	// @Override
-	// public HashMap<String, Object> SearchFreeBoardbyCon(HashMap<String, Object>
-	// params) {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
+			HashMap<String, Object> result = new HashMap<String, Object>();
+
+			int getEndPage = getEndPage(page);
+			int getLastPage = getLastPage(params);
+
+			if (getEndPage >= getLastPage)
+				result.put("end", getLastPage(params));
+			else
+				result.put("end", getEndPage(page));
+			result.put("current", page);
+			result.put("start", getStartPage(page));
+			result.put("last", getLastPage(params));
+
+			params.put("skip", getSkip(page));
+			params.put("qty", 10);
+
+			
+			int size = bDao.getCount(params);
+
+			result.put("catFreeBoardList", bDao.selectBoardAll(params));
+			 result.put("catFreeBoardCount", size);
+
+			return result;
+		}
+
+
+		// 제목,내용,닉넴으로 검색 rabbit====================================================================
+		@Override
+		public HashMap<String, Object> SearchFreeBoardbyRabbit(HashMap<String, Object> params, int page) {
+			// TODO Auto-generated method stub
+			
+
+			HashMap<String, Object> result = new HashMap<String, Object>();
+
+			int getEndPage = getEndPage(page);
+			int getLastPage = getLastPage(params);
+
+			if (getEndPage >= getLastPage)
+				result.put("end", getLastPage(params));
+			else
+				result.put("end", getEndPage(page));
+			result.put("current", page);
+			result.put("start", getStartPage(page));
+			result.put("last", getLastPage(params));
+
+			params.put("skip", getSkip(page));
+			params.put("qty", 10);
+
+			
+			int size = bDao.getCount(params);
+
+			result.put("rabbitFreeBoardList", bDao.selectBoardAll(params));
+			 result.put("rabbitFreeBoardCount", size);
+
+			return result;
+		}
+
+		// 제목,내용,닉넴으로 검색 etc====================================================================
+		@Override
+		public HashMap<String, Object> SearchFreeBoardbyEtc(HashMap<String, Object> params, int page) {
+			// TODO Auto-generated method stub
+			
+
+			HashMap<String, Object> result = new HashMap<String, Object>();
+
+			int getEndPage = getEndPage(page);
+			int getLastPage = getLastPage(params);
+
+			if (getEndPage >= getLastPage)
+				result.put("end", getLastPage(params));
+			else
+				result.put("end", getEndPage(page));
+			result.put("current", page);
+			result.put("start", getStartPage(page));
+			result.put("last", getLastPage(params));
+
+			params.put("skip", getSkip(page));
+			params.put("qty", 10);
+
+			
+			int size = bDao.getCount(params);
+
+			result.put("etcFreeBoardList", bDao.selectBoardAll(params));
+			 result.put("etcFreeBoardCount", size);
+
+			return result;
+		}
+
+
 	// -------------------------------------------------------------------------------------------------------------------
-	// 게시판 글 목록보기
+	// 게시판 글 목록보기 dog================================================================
 	@Override
-	public HashMap<String, Object> ShowFreeBoard(HashMap<String, Object> params, int page) {
+	public HashMap<String, Object> ShowFreeBoardDog(HashMap<String, Object> params, int page) {
 
-		HashMap<String, Object> result = new HashMap<String, Object>();
-
-		
+		HashMap<String, Object> result1 = new HashMap<String, Object>();
 		int getEndPage = getEndPage(page);
 		int getLastPage = getLastPage(params);
 		if (getEndPage >= getLastPage)
-			result.put("end", getLastPage(params));
+			result1.put("end", getLastPage(params));
 		else
-			result.put("end", getEndPage(page));
-		result.put("current", page);
-		result.put("start", getStartPage(page));
-		result.put("last", getLastPage(params));
+			result1.put("end", getEndPage(page));
+		result1.put("current", page);
+		result1.put("start", getStartPage(page));
+		result1.put("last", getLastPage(params));
 		params.put("skip", getSkip(page));
 		params.put("qty", 10);
-System.out.println(getEndPage(page));
-System.out.println(getLastPage(params));
+
 		int size = bDao.getCount(params);
-		System.out.println( bDao.getCount(params)+"겟카운트 ");
-		result.put("dogFreeBoardList", bDao.selectBoardAll(params));
-		result.put("dogFreeBoardCount", size);
+		result1.put("dogFreeBoardList", bDao.selectBoardAll(params)); 
 
-
-		return result;
+		result1.put("dogFreeBoardCount", size);
+		return result1;
 	}
+	// 게시판 글 목록보기 cat================================================================
+		@Override
+		public HashMap<String, Object> ShowFreeBoardCat(HashMap<String, Object> params, int page) {
 
+			HashMap<String, Object> result = new HashMap<String, Object>();
+			int getEndPage = getEndPage(page);
+			int getLastPage = getLastPage(params);
+			if (getEndPage >= getLastPage)
+				result.put("end", getLastPage(params));
+			else
+				result.put("end", getEndPage(page));
+			result.put("current", page);
+			result.put("start", getStartPage(page));
+			result.put("last", getLastPage(params));
+			params.put("skip", getSkip(page));
+			params.put("qty", 10);
+
+			int size = bDao.getCount(params);
+			result.put("catFreeBoardList", bDao.selectBoardAll(params)); 
+
+			result.put("catFreeBoardCount", size);
+			return result;
+		}
+		// 게시판 글 목록보기 rabbit================================================================
+		@Override
+		public HashMap<String, Object> ShowFreeBoardRabbit(HashMap<String, Object> params, int page) {
+
+			HashMap<String, Object> result = new HashMap<String, Object>();
+			int getEndPage = getEndPage(page);
+			int getLastPage = getLastPage(params);
+			if (getEndPage >= getLastPage)
+				result.put("end", getLastPage(params));
+			else
+				result.put("end", getEndPage(page));
+			result.put("current", page);
+			result.put("start", getStartPage(page));
+			result.put("last", getLastPage(params));
+			params.put("skip", getSkip(page));
+			params.put("qty", 10);
+
+			int size = bDao.getCount(params);
+			result.put("rabbitFreeBoardList", bDao.selectBoardAll(params)); 
+
+			result.put("rabbitFreeBoardCount", size);
+			return result;
+		}
+		// 게시판 글 목록보기 etc================================================================
+		@Override
+		public HashMap<String, Object> ShowFreeBoardEtc(HashMap<String, Object> params, int page) {
+
+			HashMap<String, Object> result1 = new HashMap<String, Object>();
+			int getEndPage = getEndPage(page);
+			int getLastPage = getLastPage(params);
+			if (getEndPage >= getLastPage)
+				result1.put("end", getLastPage(params));
+			else
+				result1.put("end", getEndPage(page));
+			result1.put("current", page);
+			result1.put("start", getStartPage(page));
+			result1.put("last", getLastPage(params));
+			params.put("skip", getSkip(page));
+			params.put("qty", 10);
+
+			int size = bDao.getCount(params);
+			result1.put("etcFreeBoardList", bDao.selectBoardAll(params)); 
+
+			result1.put("etcFreeBoardCount", size);
+			return result1;
+		}
 	// -----------------------------------------------------------------------------------------------------------------------
 
 	@Override
@@ -215,9 +355,6 @@ System.out.println(getLastPage(params));
 		params.put("freeBoard_boardno", freeBoard_boardno);
 		return bDao.selectOneBoard(params);	
 
-
-
-
 	}
 
 	@Override
@@ -233,12 +370,15 @@ System.out.println(getLastPage(params));
 	@Override
 	public int writeFreeBoard(FreeBoard freeboard) {
 		// TODO Auto-generated method stub
+		User user =uDao.selectUserbyId(freeboard.getFreeBoard_userId());
+		user.setUser_score(user.getUser_score()+10);
+		uDao.updateScore(user);
+		
 		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
 		String freeBoard_writeDate = simple.format(new Date());
 		freeboard.setFreeBoard_writeDate(freeBoard_writeDate);
 		freeboard.setFreeBoard_readCount(0);
 		freeboard.getFreeBoard_boardname();
-
 		return bDao.insertBoard(freeboard);
 
 	}
@@ -260,6 +400,31 @@ System.out.println(getLastPage(params));
 		free.setFreeBoard_readCount(free.getFreeBoard_readCount()+1);
 		bDao.updateBoard(free);
 		return free;
+	}
+
+	@Override
+	public HashMap<String, Object> selectBoardLike(HashMap<String, Object> params,int page) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> result2 = new HashMap<String, Object>();
+		int getEndPage = getEndPage(page);
+		int getLastPage = getLastPage(params);
+		if (getEndPage >= getLastPage)
+			result2.put("end", getLastPage(params));
+		else
+			result2.put("end", getEndPage(page));
+		result2.put("current", page);
+		result2.put("start", getStartPage(page));
+		result2.put("last", getLastPage(params));
+		params.put("skip", getSkip(page));
+		params.put("qty", 3);
+
+		int size = bDao.getCount(params);
+		result2.put("selectBoardLike", bDao.selectBoardLike(params)); 
+
+		result2.put("dogFreeBoardCount", size);
+
+return result2;
+	
 	}
 
 }

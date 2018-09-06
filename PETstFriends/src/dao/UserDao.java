@@ -34,6 +34,8 @@ public interface UserDao {
 	public int getLikesCount(String user_id);//d
 	public int getMymeetingCount(String user_id);//d
 	
+	//업데이트
+	   public int updateScore(User user);
 	
 	//회원관리-가은
 	public List<User> selectUserAll(HashMap<String, Object> params);//d

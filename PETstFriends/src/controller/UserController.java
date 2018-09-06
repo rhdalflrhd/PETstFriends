@@ -198,7 +198,7 @@ public class UserController {
 			@RequestMapping(value = "/FindUserIdForm.do")
 			public String FindUserIdForm() {	
 
-				return "FindUserIdForm";
+				return "user/FindUserIdForm";
 			
 			}
 

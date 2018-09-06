@@ -23,20 +23,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectBoardAll" parameterType="java.util.HashMap"
 		resultType="freeBoard">
-	select * from freeBoard where 1 = 1 and
-		freeBoard_boardname = #{freeBoard_boardname}
-		<if test="freeBoard_title != null">
-			or freeBoard_title like '%${freeBoard_title}%' </if>
-		<if test="freeBoard_cotent != null">
-			or freeBoard_content like '%${freeBoard_content}%' </if>
-		<if test="freeBoard_userId != null">
-			or freeBoard_nickname like #{freeBoard_nickname }
+	select * from freeBoard where 1 = 0
+		<if test="title != null">
+			or freeBoard_title like '%${keyword}%'
 		</if>
-		<if test="startDate != null">
-		   and writedate 
-      	  between #{startDate} and #{endDate}
+		<if test="content != null">
+			or freeBoard_content like '%${keyword}%'
 		</if>
-         order by freeBoard_boardno desc limit #{skip},#{qty}
+		<if test="nickname != null">
+			or freeBoard_nickname like '%${keyword}%'
+		</if>
+		<if test="type == 0">
+			or 1=1
+		</if>
+	
+		and freeBoard_boardname = #{freeBoard_boardname}
+		order by freeBoard_boardno desc limit #{skip},#{qty};
+	</select>
+	
+	<select id="selectBoardLike" parameterType="java.util.HashMap"
+		resultType="freeBoard">
+	select * from freeBoard where 1 = 0
+		<if test="title != null">
+			or freeBoard_title like '%${keyword}%'
+		</if>
+		<if test="content != null">
+			or freeBoard_content like '%${keyword}%'
+		</if>
+		<if test="nickname != null">
+			or freeBoard_nickname like '%${keyword}%'
+		</if>
+		<if test="type == 0">
+			or 1=1
+		</if>
+		and freeBoard_boardname = #{freeBoard_boardname}
+		order by freeBoard_LikeCount desc limit #{qty};
 	</select>
 
 

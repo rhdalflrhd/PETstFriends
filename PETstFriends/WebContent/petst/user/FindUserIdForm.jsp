@@ -30,67 +30,7 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 
-    
-     <style>
-        body {
-            color: #555;
-            background: #eeeeee;
-            margin:0;
-            padding: 0;
-            box-sizing: border-box;}
-
-        h1 {
-            padding: 50px 0;
-            font-weight: 400;
-            text-align: center;}
-
-        p {
-            margin: 0 0 20px;
-            line-height: 1.5;}
-
-        .main {
-            min-width:500px;
-            max-width: 800px;
-            padding: 50px;
-            margin: 0 auto;
-            background: #ffffff;}
-
-        section {
-            display: none;
-            padding: 20px 0 0;
-            border-top: 1px solid #ddd;}
-
-        /*라디오버튼 숨김*/
-          input {
-              display: none;}
-
-        label {
-            display: inline-block;
-            margin: 0 0 -1px;
-            padding: 15px 25px;
-            font-weight: 600;
-            text-align: center;
-            color: #bbb;
-            border: 1px solid transparent;}
-
-        label:hover {
-            color: #2e9cdf;
-            cursor: pointer;}
-
-        /*input 클릭시, label 스타일*/
-        input:checked + label {
-              color: #555;
-              border: 1px solid #ddd;
-              border-top: 2px solid #2e9cdf;
-              border-bottom: 1px solid #ffffff;}
-
-        #tab1:checked ~ #content1,
-        #tab2:checked ~ #content2,
-        #tab3:checked ~ #content3,
-        #tab4:checked ~ #content4 {
-            display: block;}
-    </style>
-	
+   
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -196,15 +136,7 @@
     <!--header section end-->
 <center>
 
-<div class="main">
-    <input id="tab1" type="radio" name="tabs" checked> <!--디폴트 메뉴-->
-    <label for="tab1"><a href="FindUserIdForm.do"> 아이디 찾기</a></label>
 
-    <input id="tab2" type="radio" name="tabs">
-    <label for="tab2"><a href="FindUserPwForm.do"> 비밀번호 찾기</a></label>
-
-
-    <section id="content1">
 <h2>이메일 인증</h2>
 		회원가입 시 등록한 이메일주소와 동일하여야 <br> 인증번호를 받을 수 있습니다. <br>
 

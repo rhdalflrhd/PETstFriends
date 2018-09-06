@@ -3,6 +3,7 @@ package controller;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.print.DocFlavor.STRING;
 import javax.servlet.http.HttpServletRequest;
@@ -39,19 +40,63 @@ public class FreeBoardController {
 	
 	//---------------------------------------------------------------------------------------
 
+//	@RequestMapping(value= "selectBoardLike.do", method=RequestMethod.GET) 		
+//	public ModelAndView selectBoardLike(Model model,@RequestParam(defaultValue = "1") int page,
+//			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
+//			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,HttpSession session) {
+//
+//		ModelAndView mav = new ModelAndView();
+//		HashMap<String, Object> params = new HashMap<String, Object>();
+//		HashMap<String, Object> result2 = null;
+//		params.put("type", type);
+//		params.put("keyword", keyword);
+//		params.put("freeBoard_boardname", 3);
+//		params.put("page", page);
+//		if (type == 0) {
+//			if ((startDate != null || startDate != "") && (endDate != null || endDate != "")) {
+//				params.put("startdate", startDate);
+//				params.put("enddate", endDate);
+//			}
+//		} 
+//		else if (type == 1) {
+//			params.put("title", keyword);
+//		} else if (type == 2) {
+//			params.put("content", keyword);
+//		} else if (type == 3) {
+//			params.put("title", keyword);
+//			params.put("content", keyword);
+//		} else if (type == 4) {
+//			params.put("nickname", keyword);
+//		}
+//
+//		System.out.println(result2+"result2");
+//		result2 = freeboardService.selectBoardLike(params, page);
+//		
+//		String user_idCheck = (String) session.getAttribute("user_id");
+//		model.addAttribute("user_idCheck", user_idCheck);
+//
+//
+//		mav.addAllObjects(result2);
+//	
+//		mav.addAllObjects(params);
+//
+//		mav.setViewName("freeboard/dogFreeBoardList");
+//
+//		return mav;		
+//	}		
+
+	
 	//---------------------------------------------------------------------------------------
 	//강아지자게
 		@RequestMapping(value= "dogFreeBoardList.do", method=RequestMethod.GET) 		
 		public ModelAndView DogFreeBoardList(Model model,@RequestParam(defaultValue = "1") int page,
 				@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-				@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+				@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,HttpSession session) {
 
-			System.out.println("들어온 키워드는: "+keyword);
-			System.out.println("요청 타입은: "+keyword);	
-			
 			ModelAndView mav = new ModelAndView();
 			HashMap<String, Object> params = new HashMap<String, Object>();
-			HashMap<String, Object> result = null;
+			HashMap<String, Object> result1= null;
+			HashMap<String, Object> result2 = null;
 			params.put("type", type);
 			params.put("keyword", keyword);
 			params.put("freeBoard_boardname", 3);
@@ -72,13 +117,21 @@ public class FreeBoardController {
 			} else if (type == 4) {
 				params.put("nickname", keyword);
 			}
-
-			result = freeboardService.ShowFreeBoard(params, page);
+			result1 = freeboardService.ShowFreeBoardDog(params, page);
+			System.out.println(result1+"result1");
+			System.out.println(result2+"result2");
+			result2 = freeboardService.selectBoardLike(params, page);
 			
-			mav.addAllObjects(result);
+			String user_idCheck = (String) session.getAttribute("user_id");
+			model.addAttribute("user_idCheck", user_idCheck);
+
+			mav.addAllObjects(result1);
+			mav.addAllObjects(result2);
+		
+			mav.addAllObjects(params);
 			mav.addAllObjects(params);
 			mav.setViewName("freeboard/dogFreeBoardList");
-			System.out.println("보더리스트에서:" + result.toString());
+
 			return mav;		
 		}		
 
@@ -87,16 +140,15 @@ public class FreeBoardController {
 			@RequestMapping(value= "catFreeBoardList.do", method=RequestMethod.GET) 		
 			public ModelAndView CatFreeBoardList(Model model,@RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-				
+					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,HttpSession session) {
 
 				ModelAndView mav = new ModelAndView();
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				HashMap<String, Object> result = null;
 				params.put("type", type);
 				params.put("keyword", keyword);
-				params.put("FreeBoard_boardname", 4);
-				
+				params.put("freeBoard_boardname", 4);
+				params.put("page", page);
 				if (type == 0) {
 					if ((startDate != null || startDate != "") && (endDate != null || endDate != "")) {
 						params.put("startdate", startDate);
@@ -113,8 +165,11 @@ public class FreeBoardController {
 				} else if (type == 4) {
 					params.put("nickname", keyword);
 				}
+				result = freeboardService.ShowFreeBoardCat(params, page);
+	
 				
-				result = freeboardService.SearchFreeBoardbyTNC(params,page);
+				String user_idCheck = (String) session.getAttribute("user_id");
+				model.addAttribute("user_idCheck", user_idCheck);
 
 				mav.addAllObjects(result);
 				mav.addAllObjects(params);
@@ -128,17 +183,16 @@ public class FreeBoardController {
 			@RequestMapping(value= "rabbitFreeBoardList.do", method=RequestMethod.GET) 		
 			public ModelAndView RabbitFreeBoardList(Model model,@RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-				
+					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,HttpSession session) {
 
-				
 				ModelAndView mav = new ModelAndView();
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				HashMap<String, Object> result = null;
 				params.put("type", type);
 				params.put("keyword", keyword);
-				params.put("FreeBoard_boardname", 5);
-				
+				params.put("freeBoard_boardname", 5);
+				params.put("page", page);
+
 				if (type == 0) {
 					if ((startDate != null || startDate != "") && (endDate != null || endDate != "")) {
 						params.put("startdate", startDate);
@@ -155,15 +209,15 @@ public class FreeBoardController {
 				} else if (type == 4) {
 					params.put("nickname", keyword);
 				}
+				result = freeboardService.ShowFreeBoardRabbit(params, page);
 				
-				result = freeboardService.SearchFreeBoardbyTNC(params,page);
-				
-				
-//				mav.addObject("DogEncycList1", EncycService.searchEncyc("다시 쓰는 개 사전", 46, 3));
+				String user_idCheck = (String) session.getAttribute("user_id");
+				model.addAttribute("user_idCheck", user_idCheck);
+
 				mav.addAllObjects(result);
 				mav.addAllObjects(params);
 				mav.setViewName("freeboard/rabbitFreeBoardList");
-//				System.out.println("보더리스트에서:" + result.toString());
+
 				return mav;		
 			}		
 			
@@ -172,16 +226,15 @@ public class FreeBoardController {
 			@RequestMapping(value= "etcFreeBoardList.do", method=RequestMethod.GET) 		
 			public ModelAndView EtcFreeBoardList(Model model,@RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-
-				
+					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,HttpSession session) {
 				ModelAndView mav = new ModelAndView();
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				HashMap<String, Object> result = null;
 				params.put("type", type);
 				params.put("keyword", keyword);
-				params.put("FreeBoard_boardname", 6);
-				
+				params.put("freeBoard_boardname", 6);
+				params.put("page", page);
+				System.out.println(type+"타입");
 				if (type == 0) {
 					if ((startDate != null || startDate != "") && (endDate != null || endDate != "")) {
 						params.put("startdate", startDate);
@@ -198,13 +251,18 @@ public class FreeBoardController {
 				} else if (type == 4) {
 					params.put("nickname", keyword);
 				}
-				
-				result = freeboardService.SearchFreeBoardbyTNC(params,page);
+
+				result = freeboardService.ShowFreeBoardEtc(params, page);
+
+				String user_idCheck = (String) session.getAttribute("user_id");
+				model.addAttribute("user_idCheck", user_idCheck);
 
 				mav.addAllObjects(result);
 				mav.addAllObjects(params);
 				mav.setViewName("freeboard/etcFreeBoardList");
 
+
+				
 				return mav;		
 			}		
 //---------------------------------------------------------------------------------------------------------
@@ -215,7 +273,6 @@ public class FreeBoardController {
 		
 		freeboardService.readBoard(freeBoard_boardname, freeBoard_boardno);
 		FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
-		System.out.println("컨트롤러 프리에는"+free);
 		String user_idCheck = (String) session.getAttribute("user_id");
 		model.addAttribute("user_idCheck", user_idCheck);
 		model.addAttribute("freeBoard", free);
@@ -225,14 +282,14 @@ public class FreeBoardController {
 	//---------------------------------------------------------------------------------------
 //게시글 쓰기 dog
 	@RequestMapping("writeDogFreeBoardForm.do")	
-	public String writeFreeBoardForm() {
+	public String writeDogFreeBoardForm() {
 
 		return "freeboard/writeDogFreeBoardForm";
 	}
 	
 
 	@RequestMapping(value = "writeDogFreeBoard.do", method = RequestMethod.POST)
-	public String writeFreeBoard(@RequestParam HashMap<String, Object> params, Model model, HttpSession session,
+	public String writeDogFreeBoard(@RequestParam HashMap<String, Object> params, Model model, HttpSession session,
 			HttpServletRequest req) {
 
 		FreeBoard freeboard = new FreeBoard();
@@ -240,7 +297,7 @@ public class FreeBoardController {
 		freeboard.setFreeBoard_userId(userid);
 		freeboard.setFreeBoard_nickname(
 				(String) userService.selectUser((String) session.getAttribute("user_id")).get("user_nickname"));
-		System.out.println((String) userService.selectUser((String) session.getAttribute("user_id")).get("user_nickname"));
+
 
 		freeboard.setFreeBoard_content((String) params.get("editor"));
 		freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
@@ -252,14 +309,100 @@ public class FreeBoardController {
 
 		return "redirect:dogFreeBoardList.do?boardname=" + boardname + "&boardno=" + boardno;
 	}
+	//게시글 쓰기 cat============================================================================================
+	
+		@RequestMapping("writeCatFreeBoardForm.do")	
+		public String writeCatFreeBoardForm() {
+
+			return "freeboard/writeCatFreeBoardForm";
+		}
 		
+
+		@RequestMapping(value = "writeCatFreeBoard.do", method = RequestMethod.POST)
+		public String writeCatFreeBoard(@RequestParam HashMap<String, Object> params, Model model, HttpSession session,
+				HttpServletRequest req) {
+
+			FreeBoard freeboard = new FreeBoard();
+			String userid = (String) session.getAttribute("user_id");
+			freeboard.setFreeBoard_userId(userid);
+			freeboard.setFreeBoard_nickname(
+					(String) userService.selectUser((String) session.getAttribute("user_id")).get("user_nickname"));
+
+
+			freeboard.setFreeBoard_content((String) params.get("editor"));
+			freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
+			freeboard.setFreeBoard_boardname(4);
+			freeboardService.writeFreeBoard(freeboard);
+			int boardname = freeboard.getFreeBoard_boardname();
+			int boardno = freeboardService.getLastBoardno(boardname, userid);
+
+
+			return "redirect:catFreeBoardList.do?boardname=" + boardname + "&boardno=" + boardno;
+		}
+		//게시글 쓰기 Rabbit===========================================================================================
+		@RequestMapping("writeRabbitFreeBoardForm.do")	
+		public String writeRabbitFreeBoardForm() {
+
+			return "freeboard/writeRabbitFreeBoardForm";
+		}
 		
-		//------------------------------------------------------------------------------------------------------------------------------
-//게시글 수정
+
+		@RequestMapping(value = "writeRabbitFreeBoard.do", method = RequestMethod.POST)
+		public String writeRabbitFreeBoard(@RequestParam HashMap<String, Object> params, Model model, HttpSession session,
+				HttpServletRequest req) {
+
+			FreeBoard freeboard = new FreeBoard();
+			String userid = (String) session.getAttribute("user_id");
+			freeboard.setFreeBoard_userId(userid);
+			freeboard.setFreeBoard_nickname(
+					(String) userService.selectUser((String) session.getAttribute("user_id")).get("user_nickname"));
+
+
+			freeboard.setFreeBoard_content((String) params.get("editor"));
+			freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
+			freeboard.setFreeBoard_boardname(5);
+			freeboardService.writeFreeBoard(freeboard);
+			int boardname = freeboard.getFreeBoard_boardname();
+			int boardno = freeboardService.getLastBoardno(boardname, userid);
+
+
+			return "redirect:rabbitFreeBoardList.do?boardname=" + boardname + "&boardno=" + boardno;
+		}
+		//게시글 쓰기 etc============================================================================================
+		@RequestMapping("writeEtcFreeBoardForm.do")	
+		public String writeEtcFreeBoardForm() {
+
+			return "freeboard/writeEtcFreeBoardForm";
+		}
+		
+
+		@RequestMapping(value = "writeEtcFreeBoard.do", method = RequestMethod.POST)
+		public String writeEtcFreeBoard(@RequestParam HashMap<String, Object> params, Model model, HttpSession session,
+				HttpServletRequest req) {
+
+			FreeBoard freeboard = new FreeBoard();
+			String userid = (String) session.getAttribute("user_id");
+			freeboard.setFreeBoard_userId(userid);
+			freeboard.setFreeBoard_nickname(
+					(String) userService.selectUser((String) session.getAttribute("user_id")).get("user_nickname"));
+
+
+			freeboard.setFreeBoard_content((String) params.get("editor"));
+			freeboard.setFreeBoard_title((String) params.get("freeBoard_title"));
+			freeboard.setFreeBoard_boardname(6);
+			freeboardService.writeFreeBoard(freeboard);
+			int boardname = freeboard.getFreeBoard_boardname();
+			int boardno = freeboardService.getLastBoardno(boardname, userid);
+
+
+			return "redirect:etcFreeBoardList.do?boardname=" + boardname + "&boardno=" + boardno;
+		}
+		
+
+//게시글 수정dog===============================================================================
 		
 		@RequestMapping("dogModifyFreeBoardForm.do")
 		public String dogModifyFreeBoardForm(Model model,int freeBoard_boardno,int freeBoard_boardname ,HttpSession session) {
-			System.out.println("강아지 프리보드 게시글 수정 컨트롤러 들어옴");
 			FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
 			model.addAttribute("freeBoard", free);
 			return "freeboard/dogModifyFreeBoardForm";
@@ -284,12 +427,118 @@ public class FreeBoardController {
 			return "redirect:selectOneBoard.do?freeBoard_boardname="+boardname+"&freeBoard_boardno="+boardno;
 
 		}
-		//------------------------------------------------------------------------------------------------------------------------------
-//게시글 삭제
+		//게시글 수정cat===============================================================================
+		
+				@RequestMapping("catModifyFreeBoardForm.do")
+				public String catModifyFreeBoardForm(Model model,int freeBoard_boardno,int freeBoard_boardname ,HttpSession session) {
+					FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+					model.addAttribute("freeBoard", free);
+					return "freeboard/catModifyFreeBoardForm";
+
+				}	
+				
+
+				@RequestMapping(value="catModifyFreeBoard.do",method=RequestMethod.POST)
+				public String catModifyFreeBoard(@RequestParam HashMap<String, Object> params, HttpSession session, Model model) {
+				
+					String freeBoard_boardname1 = (String)params.get("freeBoard_boardname");
+					int freeBoard_boardname = Integer.parseInt(freeBoard_boardname1);
+					String freeBoard_boardno1 = (String)params.get("freeBoard_boardno");
+					int freeBoard_boardno = Integer.parseInt(freeBoard_boardno1);
+					FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+
+					free.setFreeBoard_title((String)params.get("freeBoard_title"));
+					free.setFreeBoard_content((String)params.get("editor"));
+					freeboardService.ModifyFreeBoard(free);
+					String boardname = (String) params.get("freeBoard_boardname");
+					String boardno = (String) params.get("freeBoard_boardno");		
+					return "redirect:selectOneBoard.do?freeBoard_boardname="+boardname+"&freeBoard_boardno="+boardno;
+
+				}
+				//게시글 수정rabbit===============================================================================
+				
+				@RequestMapping("rabbitModifyFreeBoardForm.do")
+				public String rabbitModifyFreeBoardForm(Model model,int freeBoard_boardno,int freeBoard_boardname ,HttpSession session) {
+					FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+					model.addAttribute("freeBoard", free);
+					return "freeboard/rabbitModifyFreeBoardForm";
+
+				}	
+				
+
+				@RequestMapping(value="rabbitModifyFreeBoard.do",method=RequestMethod.POST)
+				public String rabbitModifyFreeBoard(@RequestParam HashMap<String, Object> params, HttpSession session, Model model) {
+				
+					String freeBoard_boardname1 = (String)params.get("freeBoard_boardname");
+					int freeBoard_boardname = Integer.parseInt(freeBoard_boardname1);
+					String freeBoard_boardno1 = (String)params.get("freeBoard_boardno");
+					int freeBoard_boardno = Integer.parseInt(freeBoard_boardno1);
+					FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+
+					free.setFreeBoard_title((String)params.get("freeBoard_title"));
+					free.setFreeBoard_content((String)params.get("editor"));
+					freeboardService.ModifyFreeBoard(free);
+					String boardname = (String) params.get("freeBoard_boardname");
+					String boardno = (String) params.get("freeBoard_boardno");		
+					return "redirect:selectOneBoard.do?freeBoard_boardname="+boardname+"&freeBoard_boardno="+boardno;
+
+				}
+				//게시글 수정etc===============================================================================
+				
+				@RequestMapping("etcModifyFreeBoardForm.do")
+				public String etcModifyFreeBoardForm(Model model,int freeBoard_boardno,int freeBoard_boardname ,HttpSession session) {
+					FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+					model.addAttribute("freeBoard", free);
+					return "freeboard/etcModifyFreeBoardForm";
+
+				}	
+				
+
+				@RequestMapping(value="etcModifyFreeBoard.do",method=RequestMethod.POST)
+				public String etcModifyFreeBoard(@RequestParam HashMap<String, Object> params, HttpSession session, Model model) {
+				
+					String freeBoard_boardname1 = (String)params.get("freeBoard_boardname");
+					int freeBoard_boardname = Integer.parseInt(freeBoard_boardname1);
+					String freeBoard_boardno1 = (String)params.get("freeBoard_boardno");
+					int freeBoard_boardno = Integer.parseInt(freeBoard_boardno1);
+					FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+
+					free.setFreeBoard_title((String)params.get("freeBoard_title"));
+					free.setFreeBoard_content((String)params.get("editor"));
+					freeboardService.ModifyFreeBoard(free);
+					String boardname = (String) params.get("freeBoard_boardname");
+					String boardno = (String) params.get("freeBoard_boardno");		
+					return "redirect:selectOneBoard.do?freeBoard_boardname="+boardname+"&freeBoard_boardno="+boardno;
+
+				}
+		
+//게시글 삭제 dog===============================================================================
 		@RequestMapping("dogDeleteFreeBoard.do")
-		public String DeleteFreeBoard(Model model, int freeBoard_boardname, int freeBoard_boardno,HttpSession session) {
+		public String dogDeleteFreeBoard(Model model, int freeBoard_boardname, int freeBoard_boardno,HttpSession session) {
 				freeboardService.DeleteFreeBoard(freeBoard_boardname, freeBoard_boardno);
 			return "redirect:dogFreeBoardList.do";
 		}
+		//게시글 삭제 cat===============================================================================
+				@RequestMapping("catDeleteFreeBoard.do")
+				public String catDeleteFreeBoard(Model model, int freeBoard_boardname, int freeBoard_boardno,HttpSession session) {
+						freeboardService.DeleteFreeBoard(freeBoard_boardname, freeBoard_boardno);
+					return "redirect:catFreeBoardList.do";
+				}
+				//게시글 삭제 rabbit===============================================================================
+				@RequestMapping("rabbitDeleteFreeBoard.do")
+				public String rabbitDeleteFreeBoard(Model model, int freeBoard_boardname, int freeBoard_boardno,HttpSession session) {
+						freeboardService.DeleteFreeBoard(freeBoard_boardname, freeBoard_boardno);
+					return "redirect:rabbitFreeBoardList.do";
+				}
+				//게시글 삭제 etc===============================================================================
+				@RequestMapping("etcDeleteFreeBoard.do")
+				public String etcDeleteFreeBoard(Model model, int freeBoard_boardname, int freeBoard_boardno,HttpSession session) {
+						freeboardService.DeleteFreeBoard(freeBoard_boardname, freeBoard_boardno);
+					return "redirect:etcFreeBoardList.do";
+				}
+		
+		
+		
+		
 
 }
