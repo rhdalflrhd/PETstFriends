@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.MsgDao" >
+<insert id="insertMsg" parameterType="msg">
+insert into Msg values(#{msg_no}, #{msg_ReceiverId}, #{msg_title},#{msg_contents}, #{msg_sendDate});
+</insert>
+<delete id="deleteMsg" parameterType="int">
+delete from Msg where msg_no = #{msg_no};
+</delete>
+<select id="selectOneMsg" parameterType="int" resultType="msg">
+select*from Msg where msg_no = #{msg_no};
+</select>
+<select id="selectMsgAll" parameterType="String" resultType="msg">
+select*from Msg where msg_ReceiverId = #{msg_ReceiverId};
+</select>
+
+</mapper>

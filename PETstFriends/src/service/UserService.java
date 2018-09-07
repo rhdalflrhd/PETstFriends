@@ -1,14 +1,19 @@
 package service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import model.Pet;
 import model.QnA;
 import model.User;
 
 public interface UserService {
-	public boolean joinUser(HashMap<String, Object> params);
+	public boolean joinUser(MultipartHttpServletRequest multi);
+	public boolean joinUserPet(HashMap<String, Object> params);
 	public boolean joinNaverUser(HashMap<String, Object> params);
 	public boolean getUserbyNn(String user_nickname);
 	public boolean getUserbyId(String user_id);
@@ -19,18 +24,18 @@ public interface UserService {
 	public String getUserFindbyId(HashMap<String, Object> params);
 	public boolean getUserFindbyPw(HashMap<String, Object> params);
 	public HashMap<String, Object> showUserList(HashMap<String, Object> params);
-	public int stopUser(String user_id, int stopdate);
+	public int stopUser(int user_no, int stopdate);
 	
-	public void deletePet(String pet_name);
+	public void deletePet(int pet_no);   //	★  9월6일자 변경된 부분(소현)★ 
 	public int updateUser(HashMap<String, Object> params);
 	public boolean updatePet(HashMap<String, Object> params);
 	public boolean insertPet(HashMap<String, Object> params);
-	public boolean deleteUser(String user_id, String user_pass);
-	public HashMap<String, Object> selectUserPet(String user_id);
-	public boolean getUserPass(String user_pass);
-	public HashMap<String, Object> selectUser(String user_id);
+	public void deleteUser(String user_id);
+//	public HashMap<String, Object> selectUserPet(String user_id);<!--★  9월6일 이거 없애주세요★(소현) -->
+	public String getUserPass(String user_id); //9월 7일
+	public User selectUser(String user_id);//체크요망
 	public List<Pet> selectPetAll(String user_id);
-	public QnA viewmyInquiry(int qnA_boardno);
+//	public QnA viewmyInquiry(int qnA_boardno);   ★ 이거는 지워야하는 함수★ ! 
 	public HashMap<String, Object> myInquiry(HashMap<String, Object> params, String user_id, int page);
 	public HashMap<String, Object> myWrites(String user_id, int page, HashMap<String, Object> params);
 	public HashMap<String, Object> selectmyLikes(HashMap<String, Object> params, String user_id, int page);
@@ -42,4 +47,7 @@ public interface UserService {
 	public int getMyMeetingLastPage(String user_id);
 	public int getMyLikesLastPage(String user_id);
 	public int getSkip(int page);
+	public File getAttachFile(String user_id); //★  9월6일자 추가된 부분(소현)★ 
+	public int updateUserPropic(MultipartHttpServletRequest multi);//★  9월6일자 추가된 부분(소현)★ 
+	public int deletePetAll(String user_id);//★  9월6일자 추가된 부분(소현)★ 
 }

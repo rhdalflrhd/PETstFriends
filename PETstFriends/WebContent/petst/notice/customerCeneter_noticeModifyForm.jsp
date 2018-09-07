@@ -4,6 +4,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="Rubel Miah">
+
+<!-- favicon icon -->
+<link rel="shortcut icon" href="./Boot/images/favicon.png">
+
+<title> </title>
+<!-- common css -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
 	src="./naverEditor/WebContent/resources/editor/js/HuskyEZCreator.js"
@@ -68,8 +87,21 @@
 				</div></div>
 			</form>
 		</div>
-		    <%@ include file="/petst/footer.jsp"%>
-	</center>
 
+	</center>
+	<%@ include file="/petst/footer.jsp"%>
+
+	<!-- js files -->
+	<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+	<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+	<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+	<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 </body>
 </html>

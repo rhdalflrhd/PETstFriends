@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Rubel Miah">
     <!-- favicon icon -->
-    <link rel="shortcut icon" href="./assets/images/favicon.png">
+    <link rel="shortcut icon" href="./Boots/images/favicon.png">
 
 <title>로그인</title>
 
@@ -141,7 +141,6 @@ $(document).ready(function() {
 				+ '<option value="3">중성화</option>'
 				+ '</select></td>'
 				+ '<td><input type="text" class="pet_age"></td>'
-				+ '<td><input type="file" class="pet_file"></td>'
 				+ '<td class="removePet"><i class="fa fa-minus-square"></i></td>'
 				+ '</tr>')
 			}
@@ -258,13 +257,13 @@ $(function () {
 
 			$('#joinBtn').click(function() { //회원가입 //가입 조건 전체 확인
 			if ($('#user_idResult').html()=='사용가능한 id입니다.' && $('#user_nicknameResult').html()=='사용가능한 닉네임입니다.' && $('.user_havePet').is(':checked')) {
-				if ($('.user_havePet :checked').val() == 1) {
-					$('#petTable_tbody tr').each(function() {
+				if ($('input[name="user_havePet"]:checked').val() == 1) {
+// 					$('#petTable_tbody tr').each(function() {
 						if (!($('.pet_name').val() == '') && !($('.pet_species').val() == 0) && !($('.pet_gender').val() == 0))
 							joinFun();
 						else
 							alert('필수 입력조건을 확인해주세요.1');
-					})
+// 					})
 				}
 				else
 					joinFun();
@@ -273,188 +272,327 @@ $(function () {
 				alert('필수 입력조건을 확인해주세요2');
 			return false;
 		});
-		var joinFun = function() {
-			var petArr = new Array();
-			if ($('.user_havePet').val() == 1) {
-				$('#petTable_tbody tr').each(function() {
-					var cellItem = $(this).find(":input");
-					var petObj = new Object();
-					petObj.pet_name = cellItem.eq(0).val();
-					petObj.pet_species = cellItem.eq(1).val();
-					petObj.pet_gender = cellItem.eq(2).val();
-					petObj.pet_age = cellItem.eq(3).val();
-					petObj.pet_file = cellItem.eq(4).val();
-					petArr.push(petObj);
+	
+			var joinFun = function() {
+				var petArr = new Array();
+				if ($('input[name="user_havePet"]:checked').val() == 1) {
+					$('#petTable_tbody tr').each(function() {
+						var cellItem = $(this).find(":input");
+						var petObj = new Object();
+						petObj.pet_name = cellItem.eq(0).val();
+						petObj.pet_species = cellItem.eq(1).val();
+						petObj.pet_gender = cellItem.eq(2).val();
+						petObj.pet_age = cellItem.eq(3).val();
+						petArr.push(petObj);
+					})
+				}
+				 var formData = new FormData($("#joinForm")[0]);//여기서부터 밑에 에이작스 다 수정????????????
+				$.ajax({
+					type : 'post',
+					url : 'joinUser.do',
+					contentType: false,
+					processData: false,
+					cache: false,
+					data : formData,
+					success : function(data) {
+						alert('유저성공');
+//	 					window.location.href="loginForm.do";
+						$.ajax({
+							type : 'post',
+							url : 'joinUserPet.do',
+							data : 
+							{
+								"jsonData" : JSON.stringify(petArr),
+							},
+							success : function(data) {
+								alert('펫성공');
+								window.location.href = "main.do";
+							},
+							error : function(xhrReq, status, error) {
+								alert(error)
+					}
+				})
+
+
+					},
+					 error: function(jqXHR, exception) {
+					        if (jqXHR.status === 0) {
+					            alert('Not connect.\n Verify Network.');
+					        }
+					        else if (jqXHR.status == 400) {
+					            alert('Server understood the request, but request content was invalid. [400]');
+					        }
+					        else if (jqXHR.status == 401) {
+					            alert('Unauthorized access. [401]');
+					        }
+					        else if (jqXHR.status == 403) {
+					            alert('Forbidden resource can not be accessed. [403]');
+					        }
+					        else if (jqXHR.status == 404) {
+					            alert('Requested page not found. [404]');
+					        }
+					        else if (jqXHR.status == 500) {
+					            alert('Internal server error. [500]');
+					         
+
+					        }
+					        else if (jqXHR.status == 503) {
+					            alert('Service unavailable. [503]');
+					        }
+					        else if (exception === 'parsererror') {
+					            alert('Requested JSON parse failed. [Failed]');
+					        }
+					        else if (exception === 'timeout') {
+					            alert('Time out error. [Timeout]');
+					        }
+					        else if (exception === 'abort') {
+					            alert('Ajax request aborted. [Aborted]');
+					        }
+					        else {
+					            alert('Uncaught Error.n' + jqXHR.responseText);
+					        }
+					 }
 				})
 			}
-			$.ajax({
-				type : 'post',
-				url : 'joinUser.do',
-				data : {
-					"jsonData" : JSON.stringify(petArr),
-					"user_id":$('#user_id').val(),
-					"user_pass":$('#user_pass').val(),
-					"user_name":$('#user_name').val(),
-					"user_nickname":$('#user_nickname').val(),
-					"user_email":$('#user_email').val(),
-					"user_phone":$('#user_phone').val(),
-					"user_havePet":$('.user_havePet:checked').val(),
-					"user_contentPic":$('#user_contentPic').val()
-				},
-				success : function(data) {
-					alert('성공');
-					window.location.href="loginForm.do";
-				},
-				 error: function(jqXHR, exception) {
-				        if (jqXHR.status === 0) {
-				            alert('Not connect.\n Verify Network.');
-				        }
-				        else if (jqXHR.status == 400) {
-				            alert('Server understood the request, but request content was invalid. [400]');
-				        }
-				        else if (jqXHR.status == 401) {
-				            alert('Unauthorized access. [401]');
-				        }
-				        else if (jqXHR.status == 403) {
-				            alert('Forbidden resource can not be accessed. [403]');
-				        }
-				        else if (jqXHR.status == 404) {
-				            alert('Requested page not found. [404]');
-				        }
-				        else if (jqXHR.status == 500) {
-				            alert('Internal server error. [500]');
-				         
-
-				        }
-				        else if (jqXHR.status == 503) {
-				            alert('Service unavailable. [503]');
-				        }
-				        else if (exception === 'parsererror') {
-				            alert('Requested JSON parse failed. [Failed]');
-				        }
-				        else if (exception === 'timeout') {
-				            alert('Time out error. [Timeout]');
-				        }
-				        else if (exception === 'abort') {
-				            alert('Ajax request aborted. [Aborted]');
-				        }
-				        else {
-				            alert('Uncaught Error.n' + jqXHR.responseText);
-				        }
-				 }
-			})
-		}
 
 });//ready
 	
-	
-	
-	
+$(function() {
+	$("#user_proPic").on('change', function() {
+		readURL(this);
+		 document.getElementById('pre').style.display="none";
+	});
+});
+
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			$('#blah').attr('src', e.target.result);
+			 document.getElementById('pre').style.display="inline";
+		}
+		
+	reader.readAsDataURL(input.files[0]);
+	}
+}
+
+
 	
 </script>
+
+
+<style type="text/css">
+ 
+   .main-content{ 
+ 	position:relative; 
+ 	left:10%;  
+ 	margin-left:-375px; 
+text-align:center;
+ } 
+/*  .btntable{ */
+
+/*  top:30%;  */
+/*   left:43%;  */
+/* margin :auto; */
+
+/* } */
+.left{
+
+  float: left;
+  width: 30%;
+}
+.right {
+
+  float: right;
+  width: 40%;
+}
+.center{
+  float: left;
+  width: 30%;
+}
+th, td{
+padding: 5px;
+margin: 0px;
+}
+th{
+text-align: center;
+}
+select{
+height: 27px;
+width: 150px;
+}
+</style>
 </head>
 <body>
 <!--        <header id="header"> -->
          <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
-    <div class="wrapper">
-    			<div class="container">
-				<div class="row">  
-	<center>
-		<h1>
-			<b><font color="gray">회원가입*는 필수 입력 칸 입니다.</font></b>
-		</h1>
-<!-- <h4> -->
-<!-- 		*는 필수 입력 칸 입니다. -->
-<!-- </h4> -->
+	
 
+<center>
+		<h1>
+			<b><font color="gray">회원가입</font></b>
+		</h1>
+
+		*는 필수 입력 칸 입니다.
 
 			<b><font color="gray">${msg }</font></b>
+			</center>	
 <!-- ------------------------------------------------------------------------------------------------------ -->
+<div class="wrapper">
+<div class="main-content">
+        <div class="container">
+            <div class="row">
+	<form id="joinForm" enctype="multipart/form-data">	
+		<div class = "left">
+	
+	
+			<div class="form-group">
 			
-			<table id="user_table">
-				<tr>
-					<td>아이디 *</td>
-					<td><input type="text" id="user_id" name="user_id">
-				<span id='user_idResult'></span>
-						<input type="hidden" value="uncheck" id="user_idChecked">
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호 *</td>
-					<td><input type="password" id="user_pass" name="user_pass"> <span
-						id='user_passResult'></span></td>
-				</tr>
-				<tr>
-					<td>비밀번호 확인 *</td>
-					<td><input type="password" id="user_pass2" name="user_pass2">
-					<span
-						id='user_passResult2'></span>
-						<font name="user_pwcheck" size="2" color="red"></font> </td>
-						    
-
-				</tr>
-				<tr>
-					<td>이름 *</td>
-					<td><input type="text" id="user_name" name="user_name">
-					<span id='user_nameResult'></span></td>
-				</tr>
-				<tr>
-					<td>닉네임 *</td>
-					<td><input type="text" id="user_nickname" name="user_nickname">
-						<span id='user_nicknameResult'></span><input
-						type="hidden" value="uncheck" id="user_nicknameChecked"></td>
-				</tr>
-				<tr>
-					<td>이메일 *</td>
-					<td><input type = "text"   name  = "user_email"   id ="user_email">
-						<button type="button" id="auth_btn">인증하기</button>
-						 <span id = "email"></span><br>
-						
-						</tr>
-						<tr>
-						<td>인증번호 *</td>
-						<td><input type="text" id="user_authNum" name="user_authNum" >
-							<button type="button" id="auth_btn2">확인</button>
-							 <span id = "lab1"></span>
-						</td>
-						</tr>
-						
-				<tr>
-					<td>프사</td>
-					<td><input type="text" id="user_contentPic" name="user_contentPic"> <span
-						id='user_contentPicResult'></span> <input type="hidden"
-						value="uncheck" id="user_contentPicChecked"></td>
-				</tr>
-
-
-				<tr>
-					<td>전화번호</td>
-					<td><input type="text" id="user_phone" name="user_phone">
-					<span id='user_phoneResult'></span>
-					</td>
-				</tr>
-				<tr>
-					<td>반려동물 *</td>
-				<td><input type="radio" name="user_havePet"
-					class="user_havePet" value="1">있음 <input type="radio"
-					name="user_havePet" class="user_havePet" value="0">없음</td>
-				</tr>
-				</table>
+			
+					<label for="inputid" class="control-label col-xs-3">프사</label>	
+				<div class="col-xs-8">
+				<div>
+				<input type="file" id="user_proPic" name="user_proPic" class="form-control">
+				</div>
+				<div id="pre" style="display: none;">
+				 <img id="blah" src="#" alt="your image" width=" 200px" height="200px"/> 
+				 </div>
+		</div></div><br><br>
+	</div> 
+<!-- 	       left끛-->
+	
+	
+	
+	
+	
+	<div class = "center">
+				 
+				  <div class="form-group">
+					 <label for="inputid" class="control-label col-xs-3">이름 *</label>	
+					  <div class="col-xs-8">
+					<input type="text" id="user_name" name="user_name" class="form-control" >
+					
+					<span id='user_nameResult'></span>
+				</div> </div> <br><br>
+		
+	
+		
+			    	  <div class="form-group">
+				         <label for="inputid" class="control-label col-xs-3">아이디*</label>	
+				      <div class="col-xs-8">
+                <input type="text" class="form-control" id="user_id" name="user_id"> 
+	                 <span id='user_idResult'></span></div><input type="hidden" value="uncheck" id="user_idChecked">
+	  </div><br><br>
+	
+			
+	      	
+				<div class="form-group">
+				<label for="inputid" class="control-label col-xs-3">닉네임 *</label>	
+					<div class="col-xs-8">
+					<input type="text" id="user_nickname" name="user_nickname" class="form-control" >
 				
+						<span id='user_nicknameResult'></span><input
+						type="hidden" value="uncheck" id="user_nicknameChecked">
+						</div></div><br><br>
+				
+				
+								
+		
+				
+				
+				<div class="form-group">
+							<label for="inputid" class="control-label col-xs-3">전화번호</label>
+				<div class="col-xs-8">
+					<input type="text" id="user_phone" name="user_phone" class="form-control">
+				
+					<span id='user_phoneResult'></span>
+					</div></div><br><br>
+				
+					<div class="form-group">
+   
+				 	<label for="inputpet" class="control-label col-xs-3">반려동물*</label>
+				<div class="col-xs-8">
+				 <div class="radio">
+				<label><input type="radio" name="user_havePet" class="user_havePet" value="1">있음 </label>
+					<label><input type="radio" name="user_havePet" class="user_havePet" value="0">없음</label>
+				<br><br><br><br>
+				
+				 </div>
+            </div>
+        </div>
+					
+					
+					</div>
+<!-- 					center 끝 -->
+		
+				
+				<div class = "right">
+				
+				
+				
+				   <div class="form-group">
+			 <label for="inputid" class="control-label col-xs-3">비밀번호*</label>	
+			<div class="col-xs-8">
+					<input type="password" id="user_pass" name="user_pass" class="form-control" > 
+				<span id='user_passResult'></span>
+			</div> </div><br><br>
+			
+			
+			
+		 <div class="form-group">
+				<label for="inputid" class="control-label col-xs-3">비밀번호 확인*</label>	
+				<div class="col-xs-8">
+					<input type="password" id="user_pass2" name="user_pass2"  class="form-control" >
+			<span id='user_passResult2'></span><font name="user_pwcheck" size="2" color="red"></font></div>
+				</div><br><br>
+			
+			
+			<div class="form-group">
+					<label for="inputid" class="control-label col-xs-3">이메일*</label>	
+						<div class="col-xs-8">
+					<input type = "text"   name  = "user_email"   id ="user_email" class="form-control" ><span id = "user_emailResult"></span></div>
+						<div class="col-xs-1">
+					<button type="button" id="auth_btn" class="btn btn-warning btn-xs">인증하기</button></div>
+				
+					
+						 </div><br><br>
+						 
+						
+					
+		
+		 <div class="form-group">
+					<label for="inputid" class="control-label col-xs-3">인증번호*</label>	
+					<div class="col-xs-8">
+						<input type="text" id="user_authNum" name="user_authNum" class="form-control" ><span id = "lab1"></span></div>
+							<div class="col-xs-1">
+						<button type="button" id="auth_btn2" class="btn btn-warning btn-xs">확인</button></div>
+						
+						</div><br>
+		
+		</div>
+<!-- 		right끝 -->
+				</form>  
+<!-- 				form위치 수정함???????? -->
+		</div>
+<!-- 		row끝 -->
+			
+			
+		<div class="project-details">
 <!-- ------------------------------------------------------------------------------------------------------ -->
-				<table id="petTable" style="display: none">
+				
+				<table id="petTable" style="display: none;">
 			<thead>
 			<tr>
 					<td colspan="5" align="right" class="addPet">반려동물 추가<i
 						class="fa fa-plus-square"></i></td>
 				</tr>
 				<tr>
-					<th>이름 *</th>
-					<th>종 *</th>
-					<th>성별 *</th>
-					<th>나이</th>
-					<th>사진</th>
+					<th width="150px;">이름 *</th>
+					<th width="150px;">종 *</th>
+					<th width="150px;">성별 *</th>
+					<th width="150px;">나이</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -476,46 +614,58 @@ $(function () {
 							<option value="3">중성화</option>
 					</select></td>
 					<td><input type="text" class="pet_age"></td>
-					<td><input type="file" class="pet_file"></td>
+<!-- 					<td><img id="blah" src="#" alt="your image" width=" 100px" height="100px"/></td> -->
 					<td class="removePet"></td>
 				</tr>
 			</tbody>
 		</table>
-		
+<br>
+	</div>	
+<!-- 	project-details끝 -->
 <!-- ------------------------------------------------------------------------------------------------------ -->
+			<center>
+		
 				<table>
+			
 				<tr>
-					<td style="height: 3px"></td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center">
+					<td >
 						<button id=joinBtn
-							style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white">가입하기</button>
+						class="btn btn-warning btn-xs">가입하기</button>
 						<input type="reset" value="다시입력"
-						style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white">
+						class="btn btn-warning btn-xs">
 						<button onclick="location.href='main.do'"
-						style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white">취소</button>
+						class="btn btn-warning btn-xs">취소</button>
 						
 					</td>
 				</tr>
+			
 			</table>
-
-	</center>
-	</div>
-	</div>
+		
+</center>
 </div>
+<!-- container -->
+</div>
+<!-- main-content -->
+</div>
+<!-- wrapper -->
 
-	   <%@ include file="/petst/footer.jsp" %>	
-	<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./assets/js/smoothscroll.js"></script>
-<script type="text/javascript" src="./assets/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="./assets/js/imagesloaded.pkgd.js"></script>
-<script type="text/javascript" src="./assets/js/isotope.2.2.2min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.stickit.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.slicknav.js"></script>
-<script type="text/javascript" src="./assets/js/scripts.js"></script>
+
+	<!-- <footer> -->
+   <%@ include file="/petst/footer.jsp" %>
+    <!--footer end-->
+
+
+		
+<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 </body>
 </html>

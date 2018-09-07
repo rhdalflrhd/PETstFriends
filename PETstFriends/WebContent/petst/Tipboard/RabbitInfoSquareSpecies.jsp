@@ -85,65 +85,75 @@ font-family: 'NanumSquareRound',sans-serif;
 			</font>	<br><br><br>
 			</div>
 				<div style="background: rgba(109, 45, 0, 0.5); border: 1px solid #eeeeee; border-radius: 25px;" align="center">
-					<p>
-						<br> <input type="text"
-							placeholder="&nbsp;&nbsp;&nbsp;&nbsp;찾으실 종명을 검색하세요-"
-							id="scrollMsg" name="scrollMsg"
-							style="background-color: white; color: #CD853F; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 50px; width: 700px; border: 1; border-color: #CD853F; border-radius: 25px;">
-						<input type="button" value="검색" class="ScrollCheck"
-							style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 50px; width: 80px; border: 1; border-color: #CD853F; border-radius: 25px;">
-					</p>
+<!-- ★					<p> -->
+<!-- 						<br> <input type="text" -->
+<!-- 							placeholder="&nbsp;&nbsp;&nbsp;&nbsp;찾으실 종명을 검색하세요-" -->
+<!-- 							id="scrollMsg" name="scrollMsg" -->
+<!-- 							style="background-color: white; color: #CD853F; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 50px; width: 700px; border: 1; border-color: #CD853F; border-radius: 25px;"> -->
+<!-- 						<input type="button" value="검색" class="ScrollCheck" -->
+<!-- 							style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 50px; width: 80px; border: 1; border-color: #CD853F; border-radius: 25px;"> -->
+<!-- 					</p> -->
 					
         <div class="portfolio"><!--begin portfolio items RabbitEncycList1-->
 				<c:forEach items="${RabbitEncycList1 }" var="e" varStatus="i">
-					<div id="${e.encyc_title}" class="portfolio-item"
-						style="width: 260px; height: 380px; border: 1px #F2F2F2 solid; border-radius: 5px;">
-						<div style=" height: 200px;">
-						<c:if test="${empty e.encyc_thumbnail}">
-<!-- 							<h1> -->
-<!-- 								<font color="#F2F2F2" style="font-family: Georgia;">No-image</font> -->
-<!-- 							</h1> -->
-								<img src="./Boot/images/nothumnails.jpg"
-									alt="ocean" width="250px" height="200px">
-						</c:if>
-						<c:if test="${not empty e.encyc_thumbnail}">
-							<img src="${e.encyc_thumbnail}" width="250px" height="200px">
-						</c:if>
-						</div>
-						<div class="form-group">
-						<div class="col-md-4" style="text-align: left; height: 40px;">
-								<h5>
-									<font
-										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
-										제목 </font>
-								</h5>
-							</div>
-						<div class="col-md-8" style="text-align: left; height: 40px;">
-								<h5>
-									<font
-										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
-										${e.encyc_title}</font>
-								</h5>
-							</div>
-						</div>
-						<div style="display: inline-block; width: 250px; height: 100px; padding-left: none; text-align: left; border: 1px #F2F2F2 solid;border-radius: 5px;">
-						
-							<h5>
-								<font style="font-family: 'NanumSquareRound', sans-serif;color: #8B5927;">
-									${e.encyc_description} </font>
-							</h5>						
-						</div>
-						<div class="img-overlay">
-							<div class="portfolio-text">
-								<h4><font style="font-family: 'NanumSquareRound', sans-serif;"> ${e.encyc_title}</font></h4>
-								<a 
-									onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>
-							</div>
-						</div>
 
-					</div>
-				</c:forEach>
+							<c:if test="${i.count ne 91}">
+								<div id="${e.encyc_title}" class="portfolio-item"
+									style="width: 260px; height: 380px; border: 1px #F2F2F2 solid; border-radius: 5px;">
+									<div style="height: 200px;">
+										<c:if test="${empty e.encyc_thumbnail}">
+											<!-- 							<h1> -->
+											<!-- 								<font color="#F2F2F2" style="font-family: Georgia;">No-image</font> -->
+											<!-- 							</h1> -->
+											<img src="./Boot/images/nothumnails.jpg" alt="ocean"
+												width="250px" height="200px">
+										</c:if>
+										<c:if test="${not empty e.encyc_thumbnail}">
+											<img src="${e.encyc_thumbnail}" width="250px" height="200px">
+										</c:if>
+									</div>
+									<div class="form-group">
+										<div class="col-md-4" style="text-align: left; height: 40px;">
+											<h5>
+												<font
+													style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+													제목 </font>
+											</h5>
+										</div>
+										<div class="col-md-8" style="text-align: left; height: 40px;">
+											<h5>
+												<font
+													style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+												${i.count}	${e.encyc_title}</font>
+											</h5>
+										</div>
+									</div>
+									<div
+										style="display: inline-block; width: 250px; height: 100px; padding-left: none; text-align: left; border: 1px #F2F2F2 solid; border-radius: 5px;">
+
+										<h5>
+											<font
+												style="font-family: 'NanumSquareRound', sans-serif; color: #8B5927;">
+												${e.encyc_description} </font>
+										</h5>
+									</div>
+									<div class="img-overlay">
+										<div class="portfolio-text">
+											<h4>
+												<font style="font-family: 'NanumSquareRound', sans-serif;">
+													${e.encyc_title}</font>
+											</h4>
+											<a
+												onclick="window.open('${e.encyc_link}','new','width=700, height=700, toolbar =no, menubar =no, lacation= no, resizable=no, scrollbars=yes, status=no, top='+((window.screen.height-700)/2)+',left='+((window.screen.width-700)/2));">click</a>
+										</div>
+									</div>
+
+								</div>
+							</c:if>
+
+						</c:forEach>
 				<c:forEach items="${RabbitEncycList2 }" var="e" varStatus="i">
+				<c:if test="${i.count ne 85 and i.count ne 6}">
 					<div id="${e.encyc_title}" class="portfolio-item"
 						style="width: 260px; height: 380px; border: 1px #F2F2F2 solid; border-radius: 5px;">
 						<div style=" height: 200px;">
@@ -190,6 +200,7 @@ font-family: 'NanumSquareRound',sans-serif;
 						</div>
 
 					</div>
+					</c:if>
 				</c:forEach>   
         </div><!--End portfolio item-->
         

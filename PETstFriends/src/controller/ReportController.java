@@ -90,6 +90,7 @@ public class ReportController {
 	public int updateReportState(@RequestParam int report_reportNo, @RequestParam int report_state) {
 		return rService.updateReport(report_reportNo, report_state);
 	}
+	
 	@RequestMapping("uu.do")
 	public void uu(@RequestParam HashMap<String, Object> params) {
 		System.out.println("보드네임2");

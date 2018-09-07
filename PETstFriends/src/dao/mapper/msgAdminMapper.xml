@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.MsgAdminDao" >
+<insert id="insertMsgAdimin" parameterType="msg">
+insert into Msgadmin values(#{msg_no}, #{msg_ReceiverId}, #{msg_title},#{msg_contents}, #{msg_sendDate});
+</insert>
+<delete id="deleteMsgAdimin" parameterType="int">
+delete from Msgadmin where msg_no = #{msg_no};
+</delete>
+<select id="selectOneMsgAdimin" parameterType="int" resultType="msg">
+select*from Msgadmin where msg_no = #{msg_no};
+</select>
+<select id="selectMsgAllAdimin" parameterType="java.util.HashMap" resultType="msg">
+select*from Msgadmin
+		<if test="msg_ReceiverId != null">
+		    where msg_ReceiverId like'%${msg_ReceiverId}%'
+		</if>
+order by msg_no desc;
+</select>
+
+</mapper>

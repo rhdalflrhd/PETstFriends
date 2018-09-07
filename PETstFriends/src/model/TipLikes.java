@@ -10,6 +10,7 @@ public class TipLikes {
 	private String tipLikes_userId;
 	private int tipLikes_likeCheck;
 	private Date tipLikes_date;
+	
 	public int getTipLikes_likeno() {
 		return tipLikes_likeno;
 	}

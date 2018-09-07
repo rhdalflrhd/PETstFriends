@@ -28,7 +28,7 @@ public class OftenQnAServiceImpl implements OftenQnAService{
 		// TODO Auto-generated method stub
 		OftenQnA oftenQnA = oqDao.selectOneBoard(oftenQnA_boardno);
 		oftenQnA.setOftenQnA_readCount(oftenQnA.getOftenQnA_readCount()+1);
-		oqDao.updateBoard(oftenQnA);
+//		oqDao.updateBoard(oftenQnA);//조회수 필요없을듯
 		return oqDao.selectOneBoard(oftenQnA_boardno);
 	}
 

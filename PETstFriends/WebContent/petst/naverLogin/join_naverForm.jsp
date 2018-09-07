@@ -8,18 +8,40 @@
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>네이버 회원가입</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
 <style type="text/css">
 h, td, tr, input, select, FORM {
 	font-family: 고딕;
 	font-size: 1em;
 	border-radius: 5px;
 }
+   .main-content{ 
+ 	position:relative; 
+ 	left:30%;  
+ 	margin-left:-375px; 
+    text-align:center;
+ } 
+ 
+.project-details{
 
-#userTable {
-	border: 1px solid rgba(36, 228, 172, 0.29);
-	border-spacing: 15px;
+	position:relative; 
+ 	left:12%;  
+ 	margin-left:-375px; 
+    text-align:center;
+
+
 }
+
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -149,7 +171,7 @@ h, td, tr, input, select, FORM {
 				},
 				success : function(data) {
 					alert('성공');
-					window.location.href = "main.jsp";
+					window.location.href = "main.do";
 				},
 				error : function(xhrReq, status, error) {
 					alert(error)
@@ -160,32 +182,54 @@ h, td, tr, input, select, FORM {
 </script>
 </head>
 <body>
-	<center>
-	<header id="header">
+
+	
+         <%@ include file="/petst/header.jsp" %>
+<center>
 		<h1>회원가입</h1>
-<!-- 		<form name="joinForm" id="joinForm"> -->
+
 			*는 필수 입력 칸입니다.
-
-			<table id="userTable" boder="" bgcolor="#cdfdee" cellspacing="1">
-				<tr>
-					<td>닉네임 *</td>
-					<td><input type="text" id="user_nickname" name="user_nickname">
-						<span id="idCheck">중복결과 여부</span></td>
-				</tr>
-				<tr>
-					<td>휴대폰</td>
-					<td><input type="text" id="user_phone"> <span
-						id="phoneCheck"></span></td>
-				</tr>
-				<tr>
-					<td>반려동물 *</td>
-					<td><input type="radio" name="user_havePet"
-						class="user_havePet" value="1">있음 <input type="radio"
-						name="user_havePet" class="user_havePet" value="0">없음</td>
-				</tr>
-			</table>
-
-
+			</center>
+<div class="wrapper">
+<div class="main-content">
+        <div class="container">
+            <div class="row">
+			
+			<div class="form-group">
+				<label for="inputid" class="control-label col-xs-1">닉네임 *</label>	
+					<div class="col-xs-4">
+					<input type="text" id="user_nickname" name="user_nickname" class="form-control" >
+			         <span id='idCheck'></span></div>
+			
+			</div>
+						<br><br>
+				
+				<div class="form-group">
+				<label for="inputid" class="control-label col-xs-1">전화번호</label>
+				<div class="col-xs-4">
+				<input type="text" id="user_phone" name="user_phone" class="form-control" placeholder ="'010-1234-5678' 형식으로 입력해주세요.">
+				<span id='phoneCheck"'></span>
+				</div></div><br><br>
+			
+					<div class="form-group">
+   
+				 	<label for="inputpet" class="control-label col-xs-1">반려동물*</label>
+				<div class="col-xs-4">
+				 <div class="radio">
+				<label><input type="radio" name="user_havePet" class="user_havePet" value="1">있음 </label>
+					<label><input type="radio" name="user_havePet" class="user_havePet" value="0">없음</label>
+				<br><br><br>
+				
+				 </div>
+            
+            </div>
+  </div>
+  
+  </div>
+  </div>
+  </div>
+		
+		<div class="project-details">
 			<table id="petTable" style="display: none">
 				<thead>
 					<tr>
@@ -225,10 +269,38 @@ h, td, tr, input, select, FORM {
 				</tbody>
 			</table>
 			<br>
-			<button onclick="location.href='login.do'">취소</button>
-			<button id="joinBtn">가입하기</button>
-<!-- 		</form> -->
-		</header>
-	</center>
+		    <br>
+		    <br>
+		    <br>
+
+		
+		
+		
+			<button onclick="location.href='login.do'" 	class="btn btn-warning btn-xs">취소</button>
+			<button id="joinBtn" 	class="btn btn-warning btn-xs">가입하기</button>
+
+		
+
+
+
+	</div>
+</div>
+   <%@ include file="/petst/footer.jsp" %>
+
+
+
+
+<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="./Boot/js/scripts.js"></script>
+
 </body>
 </html>

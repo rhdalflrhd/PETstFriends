@@ -5,9 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 </style>
@@ -32,25 +39,31 @@
 </script>
 </head>
 <body>
-	<%@ include file="/petst/header.jsp"%>
+<%@ include file="/petst/header.jsp"%>
 	<div class="wrapper">
 		<div class="main-content">
 			<div class="container" style="background: white;">
 				<div class="col-md-4 col-sm-5"
 					style="display: inline-block; width: 20%;">
 					<div class="widget">
-						<h3>공지사항</h3>
+						<h3>고객센터</h3>
 						<ul>
-							<li><a href="">공지사항</a></li>
-							<li><a href="">자주하는 질문</a></li>
-							<li><a href="">1:1 문의</a></li>
+							<li><a href="showNoticeList.do">공지사항</a></li>
+							<li><a href="showOftenQnAList.do">자주하는 질문</a></li>
+							<li><a href="qnA.do">1:1 문의</a></li>
 						</ul>
 					</div>
 				</div>
-				<div class="leave-comment"
-					style="display: inline-block; width: 75%;">
-					<!--leave comment-->
-					<h2>1:1 문의</h2>
+
+				<div class="col-md-8 col-sm-8"
+					style="border-left: 1px solid gray; width: 80%; display: inline-block;">
+					<div style="border-bottom: 2px solid brown; width: 20%;">
+					<div style="border-bottom: 5px solid #FFD232; width: 70%;">
+					<h2>1:1문의</h2>
+					</div>
+					</div>
+					<div style="height: 20px;"></div>
+	
 					<form class="form-horizontal contact-form" role="form"
 						id="writeForm" method="post" action="writeQnA.do">
 						<div>
@@ -63,20 +76,25 @@
 								<option value="5">기타문의</option>
 							</select>
 						</div>
+						<br><br>
 						<div class="form-group">
 							<div class="col-md-12">
-								제목 <input type="text" class="form-control" id="qnA_title"
-									name="qnA_title" placeholder="제목을 입력해주세요.">
+								<br><input type="text" class="form-control" id="qnA_title"
+									name="qnA_title" placeholder="제목을 입력해주세요." style="cursor: text;">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-12">
 								내용
-								<textarea class="form-control" rows="6" id="qnA_content"
+								<textarea class="form-control" rows="15" id="qnA_content"
 									name="qnA_content"></textarea>
 							</div>
 						</div>
-						<button type="button" id="writeBtn">문의하기</button>
+						<br>
+						<div align="right" style="height: 30px;">
+						<br><input type="button" value="문의하기" id="writeBtn">
+						</div>
+<!-- 						<button type="button" id="writeBtn">문의하기</button> -->
 					</form>
 				</div>
 				<!--end leave comment-->
@@ -85,5 +103,6 @@
 			</div>
 		</div>
 	</div>
+	<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

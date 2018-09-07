@@ -13,14 +13,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <!-- common css -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/animate.min.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.css">
-<link rel="stylesheet" href="assets/css/owl.theme.css">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="assets/css/responsive.css">
-
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <!-- HTML5 shim and Respond.js IE9 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>
@@ -59,23 +61,23 @@ $('#deleteBtn').click(function(){
 <%@ include file="/petst/header.jsp"%>
 	<div class="wrapper">
 		<!--main content start-->
-		<div class="main-content" style="border-bottom: 1px solid gray;">
-			<div class="container" style="background: white; border-left: 1px solid gray; border-top: 1px solid gray;">
-				<div class="row">
-
-					<div style="width: 20%; display: inline-block; float: left;">
-						<div>
-							<div>
-							<h4>고객센터</h4>
-							<div class="sub">공지사항</div>
-							<div class="sub">자주하는 질문</div>
-							<div class="sub">1:1문의</div>
-							</div>
-						</div>
+		<div class="wrapper">
+		<div class="main-content">
+			<div class="container" style="background: white;">
+				<div class="col-md-4 col-sm-5"
+					style="display: inline-block; width: 20%;">
+					<div class="widget">
+						<h3>고객센터</h3>
+						<ul>
+							<li><a href="showNoticeList.do">공지사항</a></li>
+							<li><a href="showOftenQnAList.do">자주하는 질문</a></li>
+							<li><a href="qnA.do">1:1 문의</a></li>
+						</ul>
 					</div>
+				</div>
 
-
-					<div class="col-md-8 col-sm-8" style="border-left: 1px solid gray; width: 80%; display: inline-block;">
+				<div class="col-md-8 col-sm-8"
+					style="border-left: 1px solid gray; width: 80%; display: inline-block;">
 						<h2 style="text-align: center;">
 							${oftenQnA.oftenQnA_title }
 						</h2>

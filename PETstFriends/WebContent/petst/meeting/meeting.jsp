@@ -1,15 +1,33 @@
-<%@page import="model.MeetingBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="shortcut icon" href="assets/images/favicon.png">
-<title>Insert title here</title>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Rubel Miah">
+
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="./Boot/images/favicon.png">
     
+	<title>미팅</title>
+	   
+	    <!-- common css -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
+   <link  rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>    
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
@@ -235,10 +253,8 @@ h2 {
     bottom: 50px;
     z-index: 999;
 }
-
 </style>
-
-
+</head>
 <body>
 <%@ include file="/petst/header.jsp"%>
 	<h2>펫프 모여라 게시판</h2>
@@ -271,7 +287,8 @@ h2 {
 
 </div>
 	</center>
-	<%@ include file="/petst/footer.jsp"%>
+<%@ include file="/petst/footer.jsp"%>
+
 <!-- js files -->
 <script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
 <script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
@@ -284,6 +301,7 @@ h2 {
 <script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
 <script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
 <script type="text/javascript" src="./Boot/js/scripts.js"></script>
-	
+
+
 </body>
 </html>

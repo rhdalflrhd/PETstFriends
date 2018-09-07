@@ -3,12 +3,23 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet" />
-<link rel="stylesheet" href="./Boot/style.css">
+	<link rel="stylesheet" href="./Boot/style.css">
 <style>
 .empty {
 	width: 10%;
@@ -18,7 +29,7 @@
 
 #all {
 	/* position: relative; */
-	width: 60%;
+	width: 57%;
 	height: 600px;
 	display: inline-block;
 }
@@ -30,19 +41,18 @@
 }
 
 #hospitalReview {
-	display: none;
-	width: 20%;
+	width: 23%;
 	height: 600px;
 	position: absolute;
 	background-color: white;
+	display: inline-block;
 }
 
-#reviewList {
-	overflow: auto;
-	width: 100%;
-	height: 400px;
+#reviewList{
+overflow:auto;
+width: 100%; 
+height: 400px;
 }
-
 .map_wrap, .map_wrap * {
 	margin: 0;
 	padding: 0;
@@ -74,7 +84,7 @@
 	background: rgba(255, 255, 255, 0.7);
 	z-index: 1;
 	font-size: 10px;
-	border-radius: 10px;
+/* 	border-radius: 10px; */
 }
 
 .bg_white {
@@ -235,101 +245,104 @@ input[type="text"] {
 }
 
 .reviewBoard {
-	border-bottom: 1px solid black;
-}
+	border-bottom: 1px solid black; 
+} 
 
-#submitBtn {
-	display: inline-block;
-	color: brown;
-	font-size: 35px;
-	cursor: pointer;
+#submitBtn{
+display: inline-block; 
+color: brown; 
+font-size: 35px; 
+cursor: pointer;
 }
 
 button {
-	border-radius: 20%;
-	padding: 5px 10px;
-	font-size: 10px;
-	border: 1px solid #4CAF50;
-	background-color: white;
+border-radius: 20%;
+padding: 5px 10px;
+font-size: 15px;
+border: 1px solid orange; 
+background-color: white; 
 }
-/* body { */
-/* /*     background: url("assets/images/pattern/test5.png"); */
-*
-/
-/*     background: url("images/test5.png"); */
-/*     font-family: 'Merriweather', serif; */
-/*     color: #444444; */
-/*     font-size: 14px; */
-/*     font-weight: 400; */
-/*     text-rendering: optimizeLegibility; */
-/*     -webkit-font-smoothing: antialiased; */
-/* } */
+.deleteBtn, .modifyFormBtn{
+border-radius: 20%;
+padding: 3px;
+font-size: 15px;
+border: 1px solid orange; 
+background-color: white; 
+}
+
 </style>
 <title>Insert title here</title>
 </head>
 <body>
-	<header id="header"> <!-- <div style="border: 1px solid red;"> -->
-	<%@ include file="/petst/header.jsp"%> <!-- </div> -->
-	</header>
+
+	<%@ include file="/petst/header.jsp"%>
+
+
 	<div style="height: 50px;"></div>
 	<div class="option" align="center">
-
-		<div>
-			<input type="text" value="지역을 입력하세요." id="keyword" size="20"
-				style="height: 40px; color: black; width: 300px; cursor: text;">
-			<div id="submitBtn">
-				<i class="fa fa-search" onclick="searchPlaces()"></i>
+		
+			<div>
+			
+				<input type="text" id="keyword"   value = "종로구" size="20" style="inline-block; 
+				height: 40px; color :saddlebrown; width: 300px; cursor: text;" >
+				<div id="submitBtn"><i class="fa fa-search" onclick="searchPlaces()"></i></div>
+				
 			</div>
-
-		</div>
-
+	
 	</div>
 	<div style="height: 50px;"></div>
 	<div id="box">
 		<div class="empty"></div>
-		<div id="all" style="border: 1px solid black">
+		<div id="all" style="border: 1px solid orange" >
 			<div class="map_wrap">
 				<div id="map"
 					style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 
 				<div id="menu_wrap" class="bg_white">
-
 					<hr>
 					<ul id="placesList"></ul>
 					<div id="pagination"></div>
 				</div>
 			</div>
 		</div>
-
-
-
+		
 		<div id="hospitalReview">
-			<div style="border: 1px solid black">
-				<span class="hospitalName"
-					style="font-size: 20px; font-weight: bold;"><i
-					class="fa fa-hospital"></i></span>
-				<div style="width: 70%; height: 2px; border: 2px solid gray;"></div>
-				<div style="height: 5px;"></div>
-				<input type="hidden" class="hspitalName"> <input
-					type="hidden" id="hospitalX"> <input type="hidden"
-					id="hospitalY">
-
-				<div id="reviewList">
-					<div class="reviewBoard">
-						닉네임 <br> 후기글
+		<div style="border: 1px solid orange; ">
+			<span class="hospitalName" style="font-size: 20px; font-weight: bold; color :saddlebrown;">병원명<i class="fa fa-hospital"></i></span>
+			<div style="width: 70%; height : 2px; border: 2px solid #5F5F5F"></div>
+			<div style="height : 5px; "></div>
+			<input type="hidden" class="hospitalName">
+			<input type="hidden" id="hospitalX">
+			<input type="hidden" id="hospitalY">
+								
+			<div id="reviewList">
+					<div class="reviewBoard" style = " position: relative; padding: 0px;background: ivory;
+					moz-border-radius: 10px; color:saddlebrown;">
+					<div style="width: 90%; padding: 10px; border-bottom: 1px solid #eeeeee;" align="left">
+					<div><i class="fa fa-paw" style="font-size : 20px; color : red;"></i>
+					유저닉네임</div>
+					<br>
+					<div class="place_onereview">
+					플레이스 리뷰 <br>
 					</div>
-				</div>
-
+					<br>
+					<div align="right"><button class="deleteBtn">삭제</button>
+					<button class="modifyFormBtn" >수정</button>
+					<div style="height : 5px">
+					</div>
+					</div>
+					</div>
+					</div>
+									
+		</div>
+			<div id="writeReview" align="center" style="background-color: orange;">
+			<div style="height: 5px;"></div>
+			<div>
+				<textarea id="writeText" rows="4" cols="35" style="height: 125px; color:saddlebrown;">후기를 작성해주세요.</textarea>
 			</div>
-			<div id="writeReview" align="center"
-				style="background-color: orange;">
-				<div style="height: 5px;"></div>
-				<div>
-					<textarea id="writeText" rows="4" cols="35" style="height: 125px;">후기를 작성해주세요.</textarea>
-				</div>
-				<div align="right">
-					<button id="writeBtn">작성</button>
-				</div>
+			<div align="right">
+				<button id="writeBtn" style="color:saddlebrown;">작성</button>
+			</div>
 			</div>
 
 		</div>
@@ -361,17 +374,17 @@ button {
 		var infowindow = new daum.maps.InfoWindow({
 			zIndex : 1
 		});
+		
 	
 		//키워드로 장소를 검색합니다
 		
 		window.onload = function(){
 			var submit = document.createElement('submitBtn');
 			submit.onclick=function(){
-				alert('dd')
 				searchPlaces();
 			}	
 		}
-		
+		searchPlaces();
 		//키워드 검색을 요청하는 함수입니다
 		function searchPlaces() {
 			var keyword = document.getElementById('keyword').value + '동물병원';
@@ -387,15 +400,18 @@ button {
 	
 		//장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 		function placesSearchCB(data, status, pagination) {
+			
 			if (status === daum.maps.services.Status.OK) {
-	
+				
 				// 정상적으로 검색이 완료됐으면
 				// 검색 목록과 마커를 표출합니다
 				displayPlaces(data);
-	
+				
 				// 페이지 번호를 표출합니다
 				displayPagination(pagination);
-	
+				$(document).ready(function() {
+					$('#placeReview1').trigger("click");//페이지 넘길때마다 바뀜???
+				});
 			} else if (status === daum.maps.services.Status.ZERO_RESULT) {
 	
 				alert('검색 결과가 존재하지 않습니다.');
@@ -407,6 +423,8 @@ button {
 				return;
 	
 			}
+			
+			
 		}
 	
 		//검색 결과 목록과 마커를 표출하는 함수입니다
@@ -422,7 +440,7 @@ button {
 	
 			// 지도에 표시되고 있는 마커를 제거합니다
 			removeMarker();
-	
+			
 			for (var i = 0; i < places.length; i++) {
 	
 				// 마커를 생성하고 지도에 표시합니다
@@ -483,12 +501,17 @@ button {
 			itemStr += '  <span class="tel">' + places.phone + '</span>';
 			itemStr += '<a href=' + places.place_url + ' target="_blank">상세보기</a>';
 			var placesValue = places.x + '/' + places.y + '/' + places.place_name;
+			if(index==0){
+				itemStr += '<button id="placeReview1" value=' + placesValue + '>펫프 리뷰보기</button>' +
+				'</div>';
+			}else{
 			itemStr += '<button class="placeReview" value=' + placesValue + '>펫프 리뷰보기</button>' +
 				'</div>';
+			}
 			el.innerHTML = itemStr;
 			el.className = 'item';
-	
 			return el;
+			
 		}
 	
 		//마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
@@ -576,18 +599,28 @@ button {
 	<script type="text/javascript">
 
 		$(document).ready(function() {
-			var sessionId = <%=session.getAttribute("user_id")%>;
+
+			
+			var sessionId = '<%=session.getAttribute("user_id") %>';
 			$(document).on('click', '.placeReview', function() {
+				reviewFun($(this).val());
+			});
+			$(document).on('click', '#placeReview1', function() {
+				reviewFun($(this).val());
+			});
+			
+			var reviewFun = function(place_inform){
 				$('.hospitalName').empty();
 				$('#hospitalX').empty();
 				$('#hospitalY').empty();
 				$('#reviewList').empty();
 				$('#writeText').val('후기를 작성해주세요.');
-				var place_info = $(this).val(); //토크나이저로 분리하기
+				var place_info = place_inform; //토크나이저로 분리하기
 				var placeArray = place_info.split('/');
 				$('#hospitalReview').css('display', 'inline-block');
 				$('#hospitalX').val(placeArray[0]);
 				$('#hospitalY').val(placeArray[1]);
+				$('.hospitalName').val(placeArray[2]);
 				$('.hospitalName').append(placeArray[2]);
 				$.ajax({
 					type : 'GET',
@@ -600,10 +633,10 @@ button {
 						var placeStr = '';
 						for (var i in data) {
 							var place_review =data[i].place_review.replace(/(?:\r\n|\r|\n)/g, '<br />');
-							placeStr += '<div class="reviewBoard"><div><div>'
-							+'<i class="fa fa-paw" style="font-size : 20px; color : red"></i>'
+							placeStr += '<div class="reviewBoard" style = " position: relative; width: 310px; height: 120px;padding: 0px;background: ivory;-webkit-border-radius: 10px;-moz-border-radius: 10px; border-radius: 10px; color:saddlebrown;"><div><div>'
+							+'<i class="fa fa-paw" style="font-size : 20px; color : red;"></i> '
 							+data[i].place_usernickname+'</div><br><div class="place_onereview">'
-							+ place_review +'<br></div>';
+							+ place_review +'<br></div><br>';
 							if(sessionId==data[i].place_userid){
 								placeStr += '<div align="right"><button class="deleteBtn" value='+data[i].place_no+'>삭제</button>'
 									+'<button class="modifyFormBtn" value="'+data[i].place_no+'/'+data[i].place_review+'">수정</button>'
@@ -619,7 +652,7 @@ button {
 						alert(error)
 					}
 				});
-			});
+			}
 	
 			$('#writeText').on('keyup', function() {
 				if ($(this).val().length > 100) { //몇자 제한으로 할지 정하기??????????????
@@ -653,7 +686,7 @@ button {
 							var placeStr='';
 							$('#writeText').val('후기를 작성해주세요.');
 							
-							placeStr += '<div class="reviewBoard"><div><div>'
+							placeStr += '<div class="reviewBoard" style = " position: relative; width: 310px; height: 120px;padding: 0px;background: ivory;-webkit-border-radius: 10px;-moz-border-radius: 10px; border-radius: 10px; color:saddlebrown;"><div><div>'
 							+'<i class="fa fa-paw" style="font-size : 20px; color : red"></i>'
 							+data.place_usernickname+'</div><br><div class="place_onereview">'+
 							place_review.replace(/(?:\r\n|\r|\n)/g, '<br />') +'<br></div><div align="right">'
@@ -766,9 +799,22 @@ button {
 				if($(this).val()=='')
 					$(this).val('지역을 입력하세요.')
 			})
+			$(document).ready(function() {
+				$('#placeReview1').trigger("click");//맨처음만 호출되고 끝
+			});
 		});
 	</script>
-	<footer> <%@ include file="/petst/footer.jsp"%>
-	</footer>
+	<%@ include file="/petst/footer.jsp"%>
+		<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+	<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+	<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+	<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 </body>
 </html>

@@ -12,14 +12,14 @@
 <!-- common css -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
-<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
-<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
-<link rel="stylesheet" href="./Boot/css/animate.min.css">
-<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
-<link rel="stylesheet" href="./Boot/css/owl.theme.css">
-<link rel="stylesheet" href="./Boot/css/slicknav.css">
-<link rel="stylesheet" href="./Boot/style.css">
-<link rel="stylesheet" href="./Boot/css/responsive.css">
+<!-- <link rel="stylesheet" href="./Boot/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="./Boot/css/font-awesome.min.css"> -->
+<!-- <link rel="stylesheet" href="./Boot/css/animate.min.css"> -->
+<!-- <link rel="stylesheet" href="./Boot/css/owl.carousel.css"> -->
+<!-- <link rel="stylesheet" href="./Boot/css/owl.theme.css"> -->
+<!-- <link rel="stylesheet" href="./Boot/css/slicknav.css"> -->
+<!-- <link rel="stylesheet" href="./Boot/style.css"> -->
+<!-- <link rel="stylesheet" href="./Boot/css/responsive.css"> -->
 
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -49,8 +49,9 @@ h3 {
 					<div class="col-md-4">
 						<div class="footer-widget">
 							<div class="about-me-img">
-								<h3>ABOUT SITE</h3>
-								<img src="./Boot/images/UUU.png" alt="ocean">
+								<h3 style="font-weight: bold;">&nbsp;ABOUT SITE</h3>
+								<a href="main.do">
+								<img src="./Boot/images/UUU.png" alt="ocean"></a>
 							</div>
 
 							<div>This site is a community of comapnion You can get
@@ -63,7 +64,7 @@ h3 {
 					<div class="col-md-4">
 						<div class="footer-widget">
 							<div class="about-me-img">
-								<h3>CONTACT US</h3>
+								<h3 style="font-weight: bold;">&nbsp;CONTACT US</h3>
 								<div>
 									서울 특별시 종로구 PETstFriends<br> Tel . 02. 000. 0000 월-금(10:00
 									- 19:00)<br> Email. bitcamp@petstfriends.co.kr
@@ -90,8 +91,7 @@ h3 {
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        &copy; 2015 <a href="">Ocean</a>, Designed by <a href="">ShapedTheme</a> & Powered by <a
-                            href="">WordPress</a>
+                        &copy; 2018 <a href="main.do">PETstFriends</a>, All rights reserved.
                     </div>
                     <div class="col-md-6">
                         <a href="" class="back-to-top">Back to Top</a>

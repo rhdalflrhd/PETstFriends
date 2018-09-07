@@ -3,99 +3,100 @@ package model;
 import java.sql.Date;
 
 public class FreeBoard {
-	private int FreeBoard_boardno;
-	private int FreeBoard_boardname;
-	private String FreeBoard_userid;
-	private String FreeBoard_nickname;	
-	private String FreeBoard_title;
-	private String FreeBoard_file;
-	private String FreeBoard_content;
-	private int FreeBoard_readCount;
-	private String FreeBoard_YoutubeUrl;
-	private Date FreeBoard_WriteDate;
-	private String FreeBoard_contentPic;
-	private int FreeBoard_LikeCount;
+	private int freeBoard_boardno;
+	private int freeBoard_boardname;
+	private String freeBoard_userId;
+	private String freeBoard_nickname;	
+	private String freeBoard_title;
+	private String freeBoard_file;
+	private String freeBoard_content;
+	private int freeBoard_readCount;
+	private String freeBoard_YoutubeUrl;
+	private Date freeBoard_writeDate;
+	private String freeBoard_contentPic;
+	private int freeBoard_LikeCount;
 	public int getFreeBoard_boardno() {
-		return FreeBoard_boardno;
+		return freeBoard_boardno;
 	}
 	public void setFreeBoard_boardno(int freeBoard_boardno) {
-		FreeBoard_boardno = freeBoard_boardno;
+		this.freeBoard_boardno = freeBoard_boardno;
 	}
 	public int getFreeBoard_boardname() {
-		return FreeBoard_boardname;
+		return freeBoard_boardname;
 	}
 	public void setFreeBoard_boardname(int freeBoard_boardname) {
-		FreeBoard_boardname = freeBoard_boardname;
+		this.freeBoard_boardname = freeBoard_boardname;
 	}
-	public String getFreeBoard_userid() {
-		return FreeBoard_userid;
+	public String getFreeBoard_userId() {
+		return freeBoard_userId;
 	}
-	public void setFreeBoard_userid(String freeBoard_userid) {
-		FreeBoard_userid = freeBoard_userid;
+	public void setFreeBoard_userid(String freeBoard_userId) {
+		this.freeBoard_userId = freeBoard_userId;
 	}
 	public String getFreeBoard_nickname() {
-		return FreeBoard_nickname;
+		return freeBoard_nickname;
 	}
 	public void setFreeBoard_nickname(String freeBoard_nickname) {
-		FreeBoard_nickname = freeBoard_nickname;
+		this.freeBoard_nickname = freeBoard_nickname;
 	}
 	public String getFreeBoard_title() {
-		return FreeBoard_title;
+		return freeBoard_title;
 	}
 	public void setFreeBoard_title(String freeBoard_title) {
-		FreeBoard_title = freeBoard_title;
+		this.freeBoard_title = freeBoard_title;
 	}
 	public String getFreeBoard_file() {
-		return FreeBoard_file;
+		return freeBoard_file;
 	}
 	public void setFreeBoard_file(String freeBoard_file) {
-		FreeBoard_file = freeBoard_file;
+		this.freeBoard_file = freeBoard_file;
 	}
 	public String getFreeBoard_content() {
-		return FreeBoard_content;
+		return freeBoard_content;
 	}
 	public void setFreeBoard_content(String freeBoard_content) {
-		FreeBoard_content = freeBoard_content;
+		this.freeBoard_content = freeBoard_content;
 	}
 	public int getFreeBoard_readCount() {
-		return FreeBoard_readCount;
+		return freeBoard_readCount;
 	}
 	public void setFreeBoard_readCount(int freeBoard_readCount) {
-		FreeBoard_readCount = freeBoard_readCount;
+		this.freeBoard_readCount = freeBoard_readCount;
 	}
 	public String getFreeBoard_YoutubeUrl() {
-		return FreeBoard_YoutubeUrl;
+		return freeBoard_YoutubeUrl;
 	}
 	public void setFreeBoard_YoutubeUrl(String freeBoard_YoutubeUrl) {
-		FreeBoard_YoutubeUrl = freeBoard_YoutubeUrl;
+		this.freeBoard_YoutubeUrl = freeBoard_YoutubeUrl;
 	}
-	public Date getFreeBoard_WriteDate() {
-		return FreeBoard_WriteDate;
+	public Date getFreeBoard_writeDate() {
+		return freeBoard_writeDate;
 	}
-	public void setFreeBoard_WriteDate(Date freeBoard_WriteDate) {
-		FreeBoard_WriteDate = freeBoard_WriteDate;
+	public void setFreeBoard_writeDate(Date freeBoard_WriteDate) {
+		this.freeBoard_writeDate = freeBoard_WriteDate;
 	}
 	public String getFreeBoard_contentPic() {
-		return FreeBoard_contentPic;
+		return freeBoard_contentPic;
 	}
 	public void setFreeBoard_contentPic(String freeBoard_contentPic) {
-		FreeBoard_contentPic = freeBoard_contentPic;
+		this.freeBoard_contentPic = freeBoard_contentPic;
 	}
 	public int getFreeBoard_LikeCount() {
-		return FreeBoard_LikeCount;
+		return freeBoard_LikeCount;
 	}
 	public void setFreeBoard_LikeCount(int freeBoard_LikeCount) {
-		FreeBoard_LikeCount = freeBoard_LikeCount;
+		this.freeBoard_LikeCount = freeBoard_LikeCount;
 	}
 	@Override
 	public String toString() {
-		return "FreeBoard [FreeBoard_boardno=" + FreeBoard_boardno + ", FreeBoard_boardname=" + FreeBoard_boardname
-				+ ", FreeBoard_userid=" + FreeBoard_userid + ", FreeBoard_nickname=" + FreeBoard_nickname
-				+ ", FreeBoard_title=" + FreeBoard_title + ", FreeBoard_file=" + FreeBoard_file + ", FreeBoard_content="
-				+ FreeBoard_content + ", FreeBoard_readCount=" + FreeBoard_readCount + ", FreeBoard_YoutubeUrl="
-				+ FreeBoard_YoutubeUrl + ", FreeBoard_WriteDate=" + FreeBoard_WriteDate + ", FreeBoard_contentPic="
-				+ FreeBoard_contentPic + ", FreeBoard_LikeCount=" + FreeBoard_LikeCount + "]";
+		return "FreeBoard [freeBoard_boardno=" + freeBoard_boardno + ", freeBoard_boardname=" + freeBoard_boardname
+				+ ", freeBoard_userId=" + freeBoard_userId + ", freeBoard_nickname=" + freeBoard_nickname
+				+ ", freeBoard_title=" + freeBoard_title + ", freeBoard_file=" + freeBoard_file + ", freeBoard_content="
+				+ freeBoard_content + ", freeBoard_readCount=" + freeBoard_readCount + ", freeBoard_YoutubeUrl="
+				+ freeBoard_YoutubeUrl + ", freeBoard_writeDate=" + freeBoard_writeDate + ", freeBoard_contentPic="
+				+ freeBoard_contentPic + ", freeBoard_LikeCount=" + freeBoard_LikeCount + "]";
 	}
+	
 	
 
 

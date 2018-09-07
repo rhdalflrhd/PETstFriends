@@ -8,9 +8,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -61,9 +68,9 @@
 					"report_state" : report_state
 				},
 				success : function(data) {
-					tr.find("td").eq(4).html(state);  
-					tr.find("td").eq(5).empty();
-					tr.find("td").eq(5).append(btnStr);
+					tr.find("td").eq(5).html(state);  
+					tr.find("td").eq(6).empty();
+					tr.find("td").eq(6).append(btnStr);
 				},
 				error : function(xhrReq, status, error) {
 					alert(error)
@@ -99,15 +106,16 @@
 	<div class="wrapper">
 		<div class="main-content">
 			<div class="container" style="background: white;">
+			<div>
 				<form action="showReportList.do" style="text-align: center;"
 					id="listForm">
-					<input type="text" name="keyword" style="height: 27px;"
+					<input type="text" name="keyword" style="height: 34px; width: 250px; cursor: text; color: black;"
 						placeholder="아이디를 입력해주세요."> <select name="numb"
-						style="height: 27px;">
+						style="height: 34px;">
 						<option value="10">10개씩 보기</option>
 						<option value="20">20개씩 보기</option>
 						<option value="30">30개씩 보기</option>
-					</select> <select name="boardname" style="height: 27px;">
+					</select> <select name="boardname" style="height: 34px;">
 						<option value="0">게시판선택</option>
 						<option value="2">모임게시판</option>
 						<option value="3">개 자유게시판</option>
@@ -119,8 +127,8 @@
 						<option value="9">토끼 팁게시판</option>
 					</select> <input type="submit" value="검색하기">
 				</form>
-
-
+			</div>
+			<br>
 				<table class="table">
 					<thead>
 						<tr>
@@ -139,17 +147,20 @@
 							<td><input type="checkbox" value="${report.report_reportNo }" name="report_reportNo"></td>
 								<td>${report.report_reportNo }</td>
 								<td width="30%;">${report.report_reportReason }</td>
-								<td width="15%;"><c:if
-										test="${report.report_boardname==2 }">
-										<c:set value="uu.do?boardno=${report.report_boardno }"
+								<td width="15%;">
+								<c:if test="${report.report_boardname==2 }">
+										<c:set value="meetingview.do?boardno=${report.report_boardno }"
 											var="path"></c:set>
-									</c:if> <c:if test="${report.report_boardname==2 }">
-										<c:set value="uu.do?boardno=${report.report_boardno }"
+									</c:if> 
+								<c:if test="${report.report_boardname>=3 && report.report_boardname<=6 }">
+										<c:set value="selectOneBoard.do?boardno=${report.report_boardno }"
 											var="path"></c:set>
-									</c:if> <c:if test="${report.report_boardname==1 }">
-										<c:set value="ud.do?boardno=${report.report_boardno }"
+									</c:if> 
+									
+								<c:if test="${report.report_boardname>=7 && report.report_boardname<=9 }">
+										<c:set value="ReadTipBoard.do?boardno=${report.report_boardno }"
 											var="path"></c:set>
-									</c:if> <a onclick="window.open('${path}','width=#', 'height=#');"
+								</c:if> <a onclick="window.open('${path}','width=#', 'height=#');"
 									style="cursor: pointer;"> 해당 게시글로 가기</a></td>
 								<!-- 								경로정해지면 하기???????? -->
 								<td><c:set var="str1" value="${report.report_date }" />
@@ -200,7 +211,7 @@
 			<c:forEach begin="${start }" end="${end }" var="i">
 				<c:choose>
 					<c:when test="${i == current }">
-						<li><a>[${i }]</a></li>
+						<li><a style="background-color: #FFD232">[${i }]</a></li>
 					</c:when>
 					<c:otherwise>
 						<li><a

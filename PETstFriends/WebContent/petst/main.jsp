@@ -10,12 +10,12 @@
     <meta name="author" content="ShapedTheme">
 
     <!-- favicon icon -->
-    <link rel="shortcut icon" href="assets/images/favicon.png">
+    <link rel="shortcut icon" href="./Boot/images/favicon.png">
 
     <title>Main</title>
 
     <!-- common css -->
-   	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
     <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
     <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
     <link rel="stylesheet" href="./Boot/css/animate.min.css">
@@ -44,11 +44,11 @@
                 <div class="col-md-12">
                     <div class="home-carousel">
                         <div class="home-slider">
-                            <img src="assets/images/PETstFriends.jpg" alt="">
+                            <img src="./Boot/images/PETstFriends.jpg" alt="">
 
                         </div>
                         <div class="home-slider">
-                            <img src="assets/images/home-2.jpg" alt="">
+                            <img src="./Boot/images/home-2.jpg" alt="">
 
                             <div class="home-overlay text-center">
                                 <p>November 21, 2015 | Lifestyle</p>
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="home-slider">
-                            <img src="assets/images/home-3.jpg" alt="">
+                            <img src="./Boot/images/home-3.jpg" alt="">
 
                             <div class="home-overlay text-center">
                                 <p>November 21, 2015 | Lifestyle</p>
@@ -86,7 +86,7 @@
                 <div class="col-md-4">
                     <div class="single-promo-box">
                         <a href="about-us-1.html">
-                            <img src="assets/images/promo-box.png" alt="">
+                            <img src="./Boot/images/promo-box.png" alt="">
 
                             <div class="overlay">
 
@@ -100,7 +100,7 @@
                 <div class="col-md-4">
                     <div class="single-promo-box">
                         <a href="portfolio.html">
-                            <img src="assets/images/promo-box.png" alt="">
+                            <img src="./Boot/images/promo-box.png" alt="">
 
                             <div class="overlay">
 
@@ -114,7 +114,7 @@
                 <div class="col-md-4">
                     <div class="single-promo-box">
                         <a href="portfolio.html">
-                            <img src="assets/images/promo-box.png" alt="">
+                            <img src="./Boot/images/promo-box.png" alt="">
 
                             <div class="overlay">
 
@@ -136,17 +136,16 @@
 
 <!-- js files -->
 
-<script type="text/javascript" src="assets/js/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/js/smoothscroll.js"></script>
-<script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="assets/js/imagesloaded.pkgd.js"></script>
-<script type="text/javascript" src="assets/js/isotope.2.2.2min.js"></script>
-<script type="text/javascript" src="assets/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="assets/js/jquery.stickit.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery.slicknav.js"></script>
-<script type="text/javascript" src="assets/js/scripts.js"></script>
-
+<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 </body>
 </html>

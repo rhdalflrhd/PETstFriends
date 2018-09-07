@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 .empty {
@@ -13,20 +21,17 @@
 	height: 600px;
 	display: inline-block;
 }
-
 #all {
 	/* position: relative; */
 	width: 60%;
 	height: 600px;
 	display: inline-block;
 }
-
 #box {
 	/* position: relative; */
 	width: 100%;
 	height: 600px;
 }
-
 #hospitalReview {
 	display: none;
 	width: 20%;
@@ -34,7 +39,6 @@
 	position: absolute;
 	background-color: white;
 }
-
 #reviewList{
 overflow:auto;
 width: 100%; 
@@ -46,19 +50,16 @@ height: 400px;
 	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
 	font-size: 13px;
 }
-
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active {
 	color: #000;
 	text-decoration: none;
 }
-
 .map_wrap {
 	position: relative;
 	width: 100%;
 	height: 600px;
 	text-align: left;
 }
-
 #menu_wrap {
 	position: absolute;
 	top: 0;
@@ -73,11 +74,9 @@ height: 400px;
 	font-size: 10px;
 	border-radius: 10px;
 }
-
 .bg_white {
 	background: #fff;
 }
-
 #menu_wrap hr {
 	display: block;
 	height: 1px;
@@ -85,19 +84,15 @@ height: 400px;
 	border-top: 2px solid #5F5F5F;
 	margin: 3px 0;
 }
-
 #menu_wrap .option p {
 	margin: 10px 0;
 }
-
 #menu_wrap .option button {
 	margin-left: 5px;
 }
-
 #placesList li {
 	list-style: none;
 }
-
 #placesList .item {
 	position: relative;
 	border-bottom: 1px solid #888;
@@ -105,37 +100,30 @@ height: 400px;
 	cursor: pointer;
 	min-height: 65px;
 }
-
 #placesList .item span {
 	display: block;
 	margin-top: 4px;
 }
-
 #placesList .item h5, #placesList .item .info {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
 }
-
 #placesList .item .info {
 	padding: 10px 0 10px 55px;
 }
-
 #placesList .info .gray {
 	color: #8a8a8a;
 }
-
 #placesList .info .jibun {
 	padding-left: 26px;
 	background:
 		url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
 		no-repeat;
 }
-
 #placesList .info .tel {
 	color: #009900;
 }
-
 #placesList .item .markerbg {
 	float: left;
 	position: absolute;
@@ -146,131 +134,107 @@ height: 400px;
 		url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
 		no-repeat;
 }
-
 #placesList .item .marker_1 {
 	background-position: 0 -10px;
 }
-
 #placesList .item .marker_2 {
 	background-position: 0 -56px;
 }
-
 #placesList .item .marker_3 {
 	background-position: 0 -102px
 }
-
 #placesList .item .marker_4 {
 	background-position: 0 -148px;
 }
-
 #placesList .item .marker_5 {
 	background-position: 0 -194px;
 }
-
 #placesList .item .marker_6 {
 	background-position: 0 -240px;
 }
-
 #placesList .item .marker_7 {
 	background-position: 0 -286px;
 }
-
 #placesList .item .marker_8 {
 	background-position: 0 -332px;
 }
-
 #placesList .item .marker_9 {
 	background-position: 0 -378px;
 }
-
 #placesList .item .marker_10 {
 	background-position: 0 -423px;
 }
-
 #placesList .item .marker_11 {
 	background-position: 0 -470px;
 }
-
 #placesList .item .marker_12 {
 	background-position: 0 -516px;
 }
-
 #placesList .item .marker_13 {
 	background-position: 0 -562px;
 }
-
 #placesList .item .marker_14 {
 	background-position: 0 -608px;
 }
-
 #placesList .item .marker_15 {
 	background-position: 0 -654px;
 }
-
 #pagination {
 	margin: 10px auto;
 	text-align: center;
 }
-
 #pagination a {
 	margin-right: 10px;
 }
-
 #pagination .on {
 	font-weight: bold;
 	cursor: default;
 	color: #777;
 }
-
 input[type="text"] {
 	font-size: 24px;
 }
-
 #keyword {
 	border-radius: 10px;
 	border: 1px solid brown;
 }
-
 .reviewBoard {
 	border-bottom: 1px solid black; 
 } 
-
 #submitBtn{
 display: inline-block; 
 color: brown; 
 font-size: 35px; 
 cursor: pointer;
 }
-
 button {
 border-radius: 20%;
 padding: 5px 10px;
-font-size: 7px;
-border: 1px solid #4CAF50; 
+font-size: 15px;
+border: 1px solid orange; 
 background-color: white; 
+color:saddlebrown;
 }
-
 ul {
     list-style:none;
 /*     margin:0; */
 /*     padding:0; */
 text-align: center;
 }
-
 .placeCate {
     display: inline-block;
 		position: relative;
     text-align : center;
-    font-family: 'Merriweather', serif;
+/*     font-family: 'Merriweather', serif; */
 		font-size: 14px;
 		font-weight: 700;
-		line-height: 64px;
+		line-height: 50px;
 		padding: 0 22px;
 	letter-spacing: 0.5px; 
 		color: #666666;
 		cursor: pointer;
+		   border-radius: 20%;
 }
-
 </style>
 <title>Insert title here</title>
 </head>
@@ -278,10 +242,11 @@ text-align: center;
 	<%@ include file="/petst/header.jsp"%>
 	<div style="height: 50px;"></div>
 	<div>
-	<div class="option" align="center" style="width: 60%; height : 200px; margin:0 auto;">
+	<div class="option" align="center" style="width: 60%; height : 200px; margin:0 auto; border: 1px solid orange; border-radius: 2em; ">
+		
 		<div>
-		<ul>
-		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 애견카페')">애견카페</li>
+		<ul >
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 애견카페')" style ="background:#FFEE58;">애견카페</li>
 		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 고양이카페')">애묘카페</li>
 		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물용품')">반려동물용품</li>
 		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 펫샵')">펫샵</li>
@@ -289,19 +254,22 @@ text-align: center;
 		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물 호텔')">호텔</li>
 		</ul>
 		</div>
+		<br>
 		<div style="height: 4px;"></div>
 			<div>
-			<input type="text" value="지역을 입력하세요." id="keyword" size="20" style="inline-block; 
-				height: 40px; color: black; width: 300px; cursor: text;">
+			<input type="text" value="종로구" id="keyword" size="20" style="inline-block; 
+				height: 40px; color: saddlebrown; width: 300px; cursor: text;">
 				<div id="submitBtn"><i class="fa fa-search" onclick="searchPlaces()"></i></div>
 			</div>
 	</div>
 	
+	
 	</div>
+	<br>
 <!-- 	<div style="height: 50px;"></div> -->
 	<div id="box">
 		<div class="empty"></div>
-		<div id="all" style="border: 1px solid black">
+		<div id="all" style="border: 1px solid orange;">
 			<div class="map_wrap">
 				<div id="map"
 					style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
@@ -318,9 +286,9 @@ text-align: center;
 		
 		
 		<div id="hospitalReview">
-		<div style="border: 1px solid black">
-			<span class="hospitalName" style="font-size: 20px; font-weight: bold;"><i class="fa fa-hospital"></i></span>
-			<div style="width: 70%; height : 2px; border: 2px solid gray;"></div>
+		<div style="border: 1px solid orange;  border-top-right-radius: 2em;">
+			<span class="hospitalName" style="font-size: 20px; font-weight: bold; color:saddlebrown"><i class="fa fa-hospital"></i></span>
+			<div style="width: 70%; height : 2px; border: 2px solid orange;"></div>
 			<div style="height : 5px; "></div>
 			<input type="hidden" class="hspitalName">
 			<input type="hidden" id="hospitalX">
@@ -336,7 +304,7 @@ text-align: center;
 			<div id="writeReview" align="center" style="background-color: orange;">
 			<div style="height: 5px;"></div>
 			<div>
-				<textarea id="writeText" rows="4" cols="35" style="height: 125px;">후기를 작성해주세요.</textarea>
+				<textarea id="writeText" rows="4" cols="35" style="height: 125px; color:saddlebrown;">후기를 작성해주세요.</textarea>
 			</div>
 			<div align="right">
 				<button id="writeBtn">작성</button>
@@ -381,6 +349,7 @@ text-align: center;
 				searchPlaces();
 			}	
 		}
+		
 		var keyword1 ='';
 		function selectPlaces(key){
 			keyword1 = key;
@@ -393,6 +362,8 @@ text-align: center;
 			obj.style.background = '#FFEE58';
 		}
 		
+		selectPlaces('애견카페');
+		searchPlaces();
 		
 		//키워드 검색을 요청하는 함수입니다
 		function searchPlaces() {
@@ -596,9 +567,8 @@ text-align: center;
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f1c0b41584169b831e7cbe95bc02ea06"></script>
 
 	<script type="text/javascript">
-
 		$(document).ready(function() {
-			var sessionId = <%=session.getAttribute("user_id") %>;
+			var sessionId = '<%=session.getAttribute("user_id") %>';
 			$(document).on('click', '.placeReview', function() {
 				$('.hospitalName').empty();
 				$('#hospitalX').empty();
@@ -610,6 +580,7 @@ text-align: center;
 				$('#hospitalReview').css('display', 'inline-block');
 				$('#hospitalX').val(placeArray[0]);
 				$('#hospitalY').val(placeArray[1]);
+				$('.hospitalName').val(placeArray[2]);
 				$('.hospitalName').append(placeArray[2]);
 				$.ajax({
 					type : 'GET',
@@ -622,7 +593,7 @@ text-align: center;
 						var placeStr = '';
 						for (var i in data) {
 							var place_review =data[i].place_review.replace(/(?:\r\n|\r|\n)/g, '<br />');
-							placeStr += '<div class="reviewBoard"><div><div>'
+							placeStr += '<div class="reviewBoard" style = " color:saddlebrown;  position: relative; width: 310px; height: 120px;padding: 0px;background: ivory;-webkit-border-radius: 10px;-moz-border-radius: 10px; border-radius: 10px;"><div><div>'
 							+'<i class="fa fa-paw" style="font-size : 20px; color : red"></i>'
 							+data[i].place_usernickname+'</div><br><div class="place_onereview">'
 							+ place_review +'<br></div>';
@@ -791,5 +762,16 @@ text-align: center;
 		});
 	</script>
 	<%@ include file="/petst/footer.jsp"%>
+		<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+	<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+	<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+	<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 </body>
 </html>

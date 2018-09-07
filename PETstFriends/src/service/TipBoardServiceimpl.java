@@ -1,11 +1,9 @@
 package service;
-import model.TipBoard;
-import model.TipComments;
-import model.TipLikes;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import dao.ITipBoardDao;
 import dao.UserDao;
+import model.TipBoard;
+import model.TipComments;
+import model.TipLikes;
 import model.User;
 
 @Service
@@ -43,14 +44,11 @@ public class TipBoardServiceimpl implements TipBoardService{
 		System.out.println("writeTipBoard 서비스로 들어옴");
 		//여기서 해야하는 역할. 1. 게시글작성
 		//					2. 사용자 score 10점 추가.
-		
-
-		//String Userid = (String)session.getAttribute("TipBoard_userId");
-		//String Userid = dtBoard.getTipBoard_userId;                       둘 중 택 1
-		
-		//User tempUser = uDao.selectUserId(dtBoard.getTipBoard_userId)
-		//tempUser.setScore(tempUser.getUser_score()+10);
-		//UDao.updateUser(tempUser);fs
+				
+		User tempUser = uDao.selectUserbyId(dtBoard.getTipBoard_userId());
+		System.out.println("맵퍼작동하나 확인해보자:  " +tempUser);
+		tempUser.setUser_score(tempUser.getUser_score()+10);	
+		uDao.updateScore(tempUser);
 		
 	//-----------------------------글작성시 사용자 score +10점 하는 기능 처리 끝-------------------------------------------	
 		// TODO Auto-generated method stub
@@ -158,7 +156,7 @@ public class TipBoardServiceimpl implements TipBoardService{
 		// TODO Auto-generated method stub
 		System.out.println("SearchTipBoardS 들어옴");
 		System.out.println("게시판은"+params.get("tipBoard_boardname"));
-//		System.out.println(params.get("tipBoard_title"));
+
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
@@ -174,35 +172,19 @@ public class TipBoardServiceimpl implements TipBoardService{
 		result.put("current", page);
 		result.put("start", getStartPageS(page));
 		result.put("last", getLastPageS(params));
-//		params. d
 		params.put("skip", getSkipS(page));
-		params.put("qty", 10);	
-		System.out.println("SearchTipBoardS 최종 파람:" + params.toString());
-
-//		System.out.println("겟카운트:" + tipDao.getCount(params));		
+		params.put("qty", 10);		
 		int size = tipDao.getCount(params);
 		System.out.println("size is :"+size);
-		 System.out.println("다오넣기전 확인용1 "+params.get("tipBoard_boardname"));
-		 int tName = (Integer)params.get("tipBoard_boardname");
-		 System.out.println("tName은"+tName);
+		System.out.println("다오넣기전 확인용1 "+params.get("tipBoard_boardname"));
+		int tName = (Integer)params.get("tipBoard_boardname");
+		System.out.println("tName은"+tName);
+			 
+		System.out.println("다오넣기전 확인용2  "+params.get("tipBoard_boardname"));
 		
-//		 	params.replace("tipBoard_boardname", 8); v
-//		 
-		 System.out.println("다오넣기전 확인용2  "+params.get("tipBoard_boardname"));
-		
-		 result.put("TipBoardList", tipDao.selectBoardPage(params));
-		System.out.println("팁다오결과물확인"+tipDao.selectBoardPage(params));
+		result.put("TipBoardList", tipDao.selectBoardPage(params));
 		result.put("TipBoardCount", size);
-		
-		
-//		result.put("current", page);
-//		result.put("startPage", getStartPageS(page));
-//		result.put("endPage", getEndPageS(page));
-//		result.put("last", getLastPageS(params));	
-//		params.put("skip", getSkipS(page));
-//		params.put("qty", 10);		
-//		result.put("dogTipBoardList", tipDao.selectBoardPage(params));	
-
+	
 		System.out.println(params.get("tipBoard_boardname"));
 		return result;
 	}
@@ -258,7 +240,7 @@ public class TipBoardServiceimpl implements TipBoardService{
 		// TODO Auto-generated method stub
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("tipBoard_boardname", boardname);
-		//지금은 보드네임만 넣지만 유저랑 합치면 유저 아이디도 넣어야함 ㅇㅇ
+		param.put("tipBoard_userId", user_Id);
 		return tipDao.getLastBoardno(param);
 	}
 	
@@ -280,86 +262,6 @@ public class TipBoardServiceimpl implements TipBoardService{
 		return tipDao.TipBoard_likeCnt_down(params);
 	}
 
-	
-	//==============================팁보드 코멘트 서비스============================================	
-	
-	
-	@Override
-	public int writeTipComments(HashMap<String, Object> param) {
-		// TODO Auto-generated method stub
-	     return tipDao.insertTipComments(param);
-	}
-
-	@Override
-	public List<TipComments> getTipCommentsList(HashMap<String, Object> param) {
-		// TODO Auto-generated method stub
-		 
-        List<TipComments> TipCommentsList = tipDao.selectAllTipcomments(param);
- 
-       
-        //msyql 에서 계층적 쿼리가 어려우니 여기서 그냥 해결하자
- 
-        //부모
-        List<TipComments> TipCommentsListParent = new ArrayList<TipComments>();
-        //자식
-        List<TipComments> TipCommentsListChild = new ArrayList<TipComments>();
-        //통합
-        List<TipComments> newTipCommentsList = new ArrayList<TipComments>();
- 
-        //1.부모와 자식 분리
-        for(TipComments tComment: TipCommentsList){
-            if(tComment.getTipComments_depth().equals("0")){
-            	TipCommentsListParent.add(tComment);
-            }else{
-            	TipCommentsListChild.add(tComment);
-            }
-        }
- 
-        //2.부모를 돌린다.
-        for(TipComments tipCommentsParent: TipCommentsListParent){
-            //2-1. 부모는 무조건 넣는다.
-        	newTipCommentsList.add(tipCommentsParent);
-            //3.자식을 돌린다.
-            for(TipComments tipCommentsChild: TipCommentsListChild){
-                //3-1. 부모의 자식인 것들만 넣는다.
-                if(tipCommentsParent.getTipComments_commentno().equals(tipCommentsChild.getTipComments_groupno())){
-                	newTipCommentsList.add(tipCommentsChild);
-                }
- 
-            }
- 
-        }
- 
-        //정리한 list return
-        return newTipCommentsList;
-	}
-
-	@Override
-	public int deleteTipComments(HashMap<String, Object> param) {
-		// TODO Auto-generated method stub		
-        
-		if(param.get("r_type").equals("main")) {
-            //부모부터 하위 다 지움
-            return tipDao.deleteTipCommentsAll(param);
-        }else {
-            //자기 자신만 지움
-            return tipDao.deleteTipComments(param);
-        }
-	}
-
-	@Override
-	public boolean updateTipComments(HashMap<String, Object> param) {
-		// TODO Auto-generated method stub
-		 return tipDao.updateTipComments(param);
-	}
-	
-	@Override
-	public HashMap<String, Object> getBoardListPage(HashMap<String, Object> params, int page) {
-		// TODO Auto-generated method stub
-		return null;
-	}	
-	
-	
 	//==============================팁보드 좋아요 서비스===========================================	
 	 
 	
@@ -425,5 +327,121 @@ public class TipBoardServiceimpl implements TipBoardService{
 	    return count;
 	}
 
-	//=========================================================================	
+	
+	//==============================팁보드 코멘트 서비스============================================
+
+	@Override
+	public int writeCommentTipBoard(TipComments tipComments) {
+		// TODO Auto-generated method stub
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+		tipComments.setTipComments_writeDate(simple.format(new Date()));
+		String user_id = tipComments.getTipComments_userId();
+		User user = uDao.selectUserbyId(user_id);
+		user.setUser_score(user.getUser_score()+3);
+		uDao.updateScore(user);
+		int result = tipDao.insertComment(tipComments);
+		if(tipComments.getTipComments_parent()==0) {
+			tipComments.setTipComments_parent(tipComments.getTipComments_boardno());
+			tipComments.setTipComments_commentno(tipComments.getTipComments_boardno());
+			result = tipDao.updateCommentParent(tipComments);
+		}
+		return result;
+	}
+	
+	@Override
+	public HashMap<String, Object> ShowCommentTipBoard(int tipComments_boardname, int tipComments_boardno, int comment_page) {
+		// TODO Auto-generated method stub
+		int comment_numb = 3;
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("tipComments_boardname", tipComments_boardname);
+		params.put("tipComments_boardno", tipComments_boardno);
+		params.put("comment_page", comment_page);
+		params.put("comment_numb", comment_numb);
+		 params.put("comment_current",comment_page);
+		 params.put("comment_start", getStartCommentPage(comment_page, comment_numb));
+		 if(getEndCommentPage(comment_page) > getLastCommentPage(params))
+		 params.put("comment_end", getLastCommentPage(params));
+		 else
+		 params.put("comment_end", getEndCommentPage(comment_page));
+		 params.put("comment_last", getLastCommentPage(params));
+		int comment_skip = getCommentSkip(comment_page, comment_numb);
+		params.put("comment_skip", comment_skip);
+		List<TipComments> commentList = tipDao.selectCommentAll(params);
+		params.put("commentList", commentList);
+		return params;
+
+	}	
+	
+	public int deleteComments(int tipComments_commentno, int tipComments_parent) {
+		if(tipComments_commentno == tipComments_parent) { //가장 상위 댓글
+			if(tipDao.groupCount(tipComments_commentno) == 1)//대댓 없는 경우(나만 패런트넘=코멘트넘이 자신 하나만 있는 경우) 
+				tipDao.deleteComments(tipComments_commentno);//지우기
+			else {
+			  HashMap<String, Object> params = new HashMap<String, Object>();
+			  params.put("tipComments_commentno", tipComments_commentno);
+			  params.put("tipBoard_content", "");
+			  tipDao.updateComments(params);//대댓있는경우 빈칸  
+		  }
+			
+		}else { //대댓
+		 if(tipDao.selectOneComments(tipComments_parent).getTipComments_content() ==""
+				 && tipDao.groupCount(tipComments_commentno) == 2) {//패런트가코멘트넘인 원댓 지워지고 대댓 하나뿐인 경우
+			 tipDao.deleteComments(tipComments_commentno);//해당댓
+			 tipDao.deleteComments(tipComments_parent);//해당 원댓
+		}
+		 else //원댓 안지워지거나 대댓이 여러개인경우
+			 tipDao.deleteComments(tipComments_commentno);
+		}
+		return tipComments_parent;
+	}
+	
+	public int updateTipComment(int tipComments_commentno, String tipComments_content) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		  params.put("tipComments_commentno", tipComments_commentno);
+		  params.put("tipComments_contentt", tipComments_content);
+		return tipDao.updateComments(params);
+	}
+	
+	public int getStartCommentPage(int comment_page, int numb) { // 시작페이지
+		return (comment_page - 1) / 10 * 10 + 1;
+	}
+
+	public int getEndCommentPage(int comment_page) { // 마지막 페이지
+		return ((comment_page - 1) / 10 + 1) * 10;
+	}
+
+	public int getLastCommentPage(HashMap<String, Object> params) {// 목록의 끝 번호
+		int comment_numb = Integer.parseInt(String.valueOf(params.get("comment_numb")));
+		return (tipDao.getCommentCount(params) - 1) / comment_numb + 1;
+	}
+
+	public int getCommentSkip(int comment_page, int comment_numb) {// 앞에 지나간 갯수
+		return (comment_page - 1) * comment_numb;
+	}
+
+	public HashMap<String, Object> readCommentBoard(int tipComments_boardname, int tipComments_boardno){
+		HashMap<String, Object> params = new HashMap<String, Object>();
+
+		int comment_numb = 3;
+		params.put("tipComments_boardname", tipComments_boardname);
+		params.put("tipComments_boardno", tipComments_boardno);
+		params.put("comment_numb", comment_numb);
+		int comment_page = getLastCommentPage(params);// 댓글마지막 페이지 
+		params.put("comment_page", comment_page);
+		params.put("comment_current", comment_page);
+		params.put("comment_start", getStartCommentPage(comment_page, comment_numb));
+		params.put("comment_last",getLastCommentPage(params));
+		if (getEndCommentPage(comment_page) > getLastCommentPage(params))
+			params.put("comment_end", getLastCommentPage(params));
+		else
+			params.put("comment_end", getEndCommentPage(comment_page));
+		int comment_skip = getCommentSkip(comment_page, comment_numb);
+		params.put("comment_skip", comment_skip);
+		List<TipComments> TipCommentList = tipDao.selectCommentAll(params);
+		System.out.println("첫 댓글 출력 시작:"+TipCommentList);
+		params.put("commentList", TipCommentList);
+		params.put("listsize", TipCommentList.size());
+		params.put("seryun", "세륜");
+		return params;
+	}
 }

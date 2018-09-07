@@ -14,14 +14,16 @@
     
 <title>로그인</title>
 
-  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.min.css">
-    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="./assets/css/owl.theme.css">
-    <link rel="stylesheet" href="./assets/css/slicknav.css">
-   
-    <link rel="stylesheet" href="./assets/css/responsive.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
     
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -94,6 +96,52 @@
 	<script type="text/javascript">
 $(document).ready(function() {
 
+
+		// 쿠키값을 가져온다.
+
+		var cookie_user_id = getLogin();
+
+
+
+		/**
+
+		* 쿠키값이 존재하면 id에 쿠키에서 가져온 id를 할당한 뒤
+
+		* 체크박스를 체크상태로 변경
+
+		*/
+
+		if(cookie_user_id != "") {
+
+		$("#user_id").val(cookie_user_id);
+
+		$("#cb_saveId").attr("checked", true);
+
+		}
+
+
+
+		// 아이디 저장 체크시
+
+		$("#cb_saveId").on("click", function(){
+			
+			var _this = this;
+			var isRemember;
+			
+			if(_this.is(":checked")){
+				isRemember = confirm("이 PC에 로그인 정보를 저장하시겠습니까?");
+
+						if(!isRemember)    
+
+						$(_this).attr("checked", false);
+				
+			}
+
+		});
+
+
+	
+
 	$('#loginBtn').click(function() {
 
 		$.ajax({
@@ -105,8 +153,17 @@ $(document).ready(function() {
 			},
 			success : function(result) {
 				if (result == true) {
-					alert("로그인성공");
 					window.location.href = "main.do";
+					if($("#cb_saveId").is(":checked")){ // 저장 체크시
+
+						saveLogin($("#user_id").val());
+
+						}else{ // 체크 해제시는 공백
+
+						saveLogin("");
+
+						}
+
 				} else {
 					alert("로그인실패");
 				}
@@ -119,9 +176,101 @@ $(document).ready(function() {
 
 
 	}) //로그인버튼
+	
+
+	/**
+
+	* saveLogin
+
+	* 로그인 정보 저장
+
+	* @param id
+
+	*/
+
+	function saveLogin(user_id) {
+
+	if(user_id != "") {
+
+	// userid 쿠키에 id 값을 7일간 저장
+
+	setSave("user_id", user_id, 7);
+
+	}else{
+
+	// userid 쿠키 삭제
+
+	setSave("user_id",user_id, -1);
+
+	}
+
+	}
 
 
 
+	/**
+
+	* setSave
+
+	* Cookie에 user_id를 저장
+
+	* @param name
+
+	* @param value
+
+	* @param expiredays
+
+	*/
+
+	function setSave(name, value, expiredays) {
+
+		var today = new Date();
+
+		today.setDate( today.getDate() + expiredays );
+
+		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + today.toGMTString() + ";"
+
+	}
+
+
+
+	/**
+
+	* getLogin
+
+	* 쿠키값을 가져온다.
+
+	* @returns {String}
+
+	*/
+
+	function getLogin() {
+
+	// userid 쿠키에서 id 값을 가져온다.
+
+	var cook = document.cookie + ";";
+
+	var idx = cook.indexOf("user_id", 0);
+
+	var val = "";
+
+
+
+	if(idx != -1) {
+
+	cook = cook.substring(idx, cook.length);
+
+	begin = cook.indexOf("=", 0) + 1;
+
+	end = cook.indexOf(";", begin);
+
+	val = unescape(cook.substring(begin, end));
+
+	}
+
+	return val;
+
+	}
 
 }) //레디
 
@@ -129,13 +278,13 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<%@ include file="/petst/header.jsp"%>
-<div class="wrapper">    
+         <%@ include file="/petst/header.jsp" %>
+    
 <div class="login-form">
 
         <h2 class="text-center">로그인</h2>		
         
-         <div class="form-group">
+               <div class="form-group">
         	<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                 <input type="text" class="form-control" name="user_id" id="user_id"  placeholder="Id" required="required">
@@ -151,7 +300,7 @@ $(document).ready(function() {
             <button class="btn btn-success btn-block login-btn" id=loginBtn >로그인</button>
         </div>
         <div class="clearfix">
-            <label class="pull-left checkbox-inline"><input type="checkbox"> ID저장</label>
+            <label class="pull-left checkbox-inline"><input type="checkbox" id="cb_saveId"> ID저장</label>
                <div class="hint-text small">
             <a href="FindUserPwForm.do" class="pull-right text-success">비밀번호 찾기</a><a href="#" class="pull-right text-success">│</a> <a href="FindUserIdForm.do" class="pull-right text-success">아이디 찾기</a>
 </div>
@@ -190,6 +339,23 @@ $(document).ready(function() {
 <br><br>
 <!-- <footer> -->
    <%@ include file="/petst/footer.jsp" %>
-    <!--footer end-->		
+    <!--footer end-->
+
+
+		
+<!-- js files -->
+<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="./Boot/js/scripts.js"></script>
+
+
 </body>
 </html>

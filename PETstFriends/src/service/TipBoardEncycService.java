@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -45,17 +46,12 @@ public class TipBoardEncycService {
 			BufferedReader br = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 
 			String data = "";
-//			String msg = br.readLine();
-//			while (!msg.contains("호랑이!")) {
-//				data += msg;
-//			}
 			
 			String msg = null;
 			while ((msg = br.readLine()) != null) {
 				data += msg;
 			}
-//		 	System.out.println("들어온 반려동물 정보 확인");
-//			System.out.println(data);
+			
 			parser.setInput(new StringReader(data));
 			int eventType = parser.getEventType();
 			encyc e = null;
@@ -135,6 +131,53 @@ public class TipBoardEncycService {
 
 		return list;
 
+	}
+	
+	public List<encyc> onlyforRabbitWebParsing() throws MalformedURLException, IOException {
+		List<encyc> RabbitWebParsingList = new ArrayList<encyc>();
+		encyc rabbitTip=null;
+		
+		for(long i=835;i<946;i++) {	
+	 
+			if(i==844 || i==852 || i==862 || i==874 || i==882||  i==895 || i==909 || i==922 || i==931 || i==940) {
+
+				
+			}else {	
+				String target = "https://terms.naver.com/entry.nhn?docId=1978" + i + "&categoryId=42885&cid=42885";
+				HttpURLConnection con = (HttpURLConnection) new URL(target).openConnection();
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+				String temp;
+				String title = "";
+				String imageUrl = "";
+				String description = "";
+				rabbitTip = new encyc();
+				
+				while ((temp = br.readLine()) != null) {
+
+					rabbitTip.setEncyc_link(target);
+					if (temp.contains("<meta property=\"og:title\" content=\"")) {
+						title = temp.split("<meta property=\"og:title\" content=\"")[1].split("\">")[0];
+						rabbitTip.setEncyc_title(title);
+					}
+
+					if (temp.contains("<meta property=\"og:description\" content=\"")) {
+						description = temp.split("<meta property=\"og:description\" content=\"")[1].split("\">")[0];
+						rabbitTip.setEncyc_description(description);
+					}
+
+					if (temp.contains("<meta property=\"og:image\" content=\"")) {
+						imageUrl = temp.split("<meta property=\"og:image\" content=\"")[1].split("\">")[0];
+						rabbitTip.setEncyc_thumbnail(imageUrl);
+					}
+
+				}
+
+				RabbitWebParsingList.add(rabbitTip);
+				con.disconnect();
+				br.close();
+			}
+		}
+		return RabbitWebParsingList;
 	}
 
 }

@@ -37,7 +37,7 @@ public interface TipBoardService {
 	
 	public TipBoard getBoardS(int boardname, int boardno);
 	
-	public HashMap<String, Object> getBoardListPage(HashMap<String, Object> params, int page);	
+//	public HashMap<String, Object> getBoardListPage(HashMap<String, Object> params, int page);	
 	
 	//첨부파일 갖다주는 기능 추가
 	public File getAttachFileS(int boardname, int boardno);
@@ -50,19 +50,24 @@ public interface TipBoardService {
 	
 	//==============================팁보드 코멘트 서비스============================================	
 	
-	//해당 게시글에 댓글 작성
-	public int writeTipComments(HashMap<String, Object> param);
-    
-	//해당 게시글에있는 댓글리스트 불러오기
-	public List<TipComments> getTipCommentsList(HashMap<String, Object> param);
-    
-	//해당 게시글에있는 댓글 삭제
-	public int deleteTipComments(HashMap<String, Object> param); 
-   
-	//해당 게시글에 있는 댓글 수정
-	public boolean updateTipComments(HashMap<String, Object> param);
+	public HashMap<String, Object> ShowCommentTipBoard(int tipComments_boardname, int tipComments_boardno, int comment_page); //코멘트 보기
+
+	public int writeCommentTipBoard(TipComments tipComments); // 댓글쓰기
+
+	public int deleteComments(int tipComments_commentno, int tipComments_parent);
+
+	public int updateTipComment(int tipComments_commentno, String tipComments_content);
+
+	public int getStartCommentPage(int comment_page, int numb);
+
+	public int getEndCommentPage(int comment_page); 
+
+	public int getLastCommentPage(HashMap<String, Object> params);
+
+	public int getCommentSkip(int comment_page, int comment_numb);
 	
-    
+	public HashMap<String, Object> readCommentBoard(int tipComments_boardname, int tipComments_boardno);
+	
     //==============================팁보드 좋아요 서비스===========================================	
 	
 	 /* 게시판의 좋아요 번호가 있는지 카운트 */

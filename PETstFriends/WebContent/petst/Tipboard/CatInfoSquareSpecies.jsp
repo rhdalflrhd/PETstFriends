@@ -91,13 +91,13 @@ font-family: 'NanumSquareRound',sans-serif;
 				<div
 					style="background: rgba(109, 45, 0, 0.5); border: 1px solid #eeeeee; border-radius: 25px;"
 					align="center">
-					<p>
-						<br> <input type="text" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;찾으실 종명을 검색하세요-"
-							id="scrollMsg" name="scrollMsg"
-							style="background-color: white; color: #CD853F; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 50px; width: 700px; border: 1; border-color: #CD853F; border-radius: 25px;">
-						<input type="button" value="검색" class="ScrollCheck"
-							style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 50px; width: 80px; border: 1; border-color: #CD853F; border-radius: 25px;">
-					</p>
+<!-- 	★					<p> -->
+<!-- 						<br> <input type="text" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;찾으실 종명을 검색하세요-" -->
+<!-- 							id="scrollMsg" name="scrollMsg" -->
+<!-- 							style="background-color: white; color: #CD853F; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 50px; width: 700px; border: 1; border-color: #CD853F; border-radius: 25px;"> -->
+<!-- 						<input type="button" value="검색" class="ScrollCheck" -->
+<!-- 							style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 50px; width: 80px; border: 1; border-color: #CD853F; border-radius: 25px;"> -->
+<!-- 					</p> -->
 
 
 					<div class="portfolio">

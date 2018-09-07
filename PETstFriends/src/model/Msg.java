@@ -1,13 +1,11 @@
 package model;
 
-import java.util.Date;
-
 public class Msg {
 	int msg_no;
 	String msg_ReceiverId;
 	String msg_title;
 	String msg_contents;
-	Date msg_sendDate;
+	String msg_sendDate;
 	public int getMsg_no() {
 		return msg_no;
 	}
@@ -32,10 +30,11 @@ public class Msg {
 	public void setMsg_contents(String msg_contents) {
 		this.msg_contents = msg_contents;
 	}
-	public Date getMsg_sendDate() {
+
+	public String getMsg_sendDate() {
 		return msg_sendDate;
 	}
-	public void setMsg_sendDate(Date msg_sendDate) {
+	public void setMsg_sendDate(String msg_sendDate) {
 		this.msg_sendDate = msg_sendDate;
 	}
 	@Override
