@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.ReviewCommentDao">
+<insert id="insertReviewComment" parameterType="ReviewComment">
+insert into reviewComment values(#{boardname}, #{meeting_boardno}, #{reviewno}, #{reviewComment_commentno}, #{reviewComment_nickname}, #{reviewComment_content}, 
+#{reviewComment_userId}, #{reviewComment_writeDate});
+</insert>
+<update id="updateReviewComment" parameterType="ReviewComment">
+update reviewComment set reviewComment_nickname=#{reviewComment_nickname}, reviewComment_content=#{reviewComment_content}, 
+reviewComment_commentno=#{reviewComment_commentno}, reviewComment_writeDate=#{reviewComment_writeDate} 
+where meeting_boardno=#{meeting_boardno} and reviewno=#{reviewno} and reviewComment_commentno=#{reviewComment_commentno};
+</update>
+<delete id="deleteReviewComment" parameterType="java.util.HashMap">
+delete from reviewComment where meeting_boardno=#{meeting_boardno} and reviewno=#{reviewno} and  reviewComment_commentno=#{reviewComment_commentno};
+</delete>
+<select id="selectReviewCommentOne" parameterType="java.util.HashMap" resultType="ReviewComment">
+select*from reviewComment where meeting_boardno=#{meeting_boardno} and reviewno=#{reviewno} and  reviewComment_commentno=#{reviewComment_commentno};
+</select>
+<select id="selectReviewCommentAll" parameterType="java.util.HashMap" resultType="ReviewComment">
+select*from reviewComment where meeting_boardno=#{meeting_boardno} and reviewno=#{reviewno};
+</select>
+<select id="getReviewCommentCount" parameterType="java.util.HashMap" resultType="ReviewComment">
+select*from reviewComment where meeting_boardno=#{meeting_boardno} and reviewno=#{reviewno} order by reviewComment_commentno desc limit 1;
+</select>
+<select id="getReviewCommentCount2" parameterType="java.util.HashMap" resultType="int">
+select count(*)from reviewComment where meeting_boardno=#{meeting_boardno} and reviewno=#{reviewno};
+</select>
+</mapper>

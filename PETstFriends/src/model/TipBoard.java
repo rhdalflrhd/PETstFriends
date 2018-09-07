@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class TipBoard {
-
+//
 	private int tipBoard_boardname;
 	private int tipBoard_boardno;
 	private String tipBoard_userId;

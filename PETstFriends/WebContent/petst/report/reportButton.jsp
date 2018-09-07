@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Insertd</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,13 +17,24 @@
 	margin: 20px;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$('#btn').click(function(){
+// 		window.location = 'writeReportForm.do?report_boardname=2&report_boardno=3&report_userId="dd"'
+		$('#myModal').modal();
+	});
+});
+  </script>
 </head>
 <body>
 	<div class="bs-example">
 		<!-- Button HTML (to Trigger Modal) -->
 		<a href="writeReportForm.do?report_boardname=2&report_boardno=3&report_userId='dd'"
 		 class="btn btn-lg btn-primary"	data-toggle="modal" data-target="#myModal">신고하기1</a>
-
 		<!-- Modal HTML -->
 		<div id="myModal" class="modal fade">
 			<div class="modal-dialog" style="background: white;">

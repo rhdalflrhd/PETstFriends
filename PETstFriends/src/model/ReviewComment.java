@@ -1,16 +1,14 @@
 package model;
 
-import java.util.Date;
-
 public class ReviewComment {
 	int boardname;
-	int Meeting_boardno;
+	int meeting_boardno;
 	int reviewno;
 	int reviewComment_commentno;
 	String reviewComment_nickname;
 	String reviewComment_content;
 	String reviewComment_userId;
-	Date reviewComment_writeDate;
+	String reviewComment_writeDate;
 	public int getBoardname() {
 		return boardname;
 	}
@@ -18,11 +16,12 @@ public class ReviewComment {
 		this.boardname = boardname;
 	}
 	
+
 	public int getMeeting_boardno() {
-		return Meeting_boardno;
+		return meeting_boardno;
 	}
 	public void setMeeting_boardno(int meeting_boardno) {
-		Meeting_boardno = meeting_boardno;
+		this.meeting_boardno = meeting_boardno;
 	}
 	public int getReviewno() {
 		return reviewno;
@@ -54,15 +53,16 @@ public class ReviewComment {
 	public void setReviewComment_userId(String reviewComment_userId) {
 		this.reviewComment_userId = reviewComment_userId;
 	}
-	public Date getReviewComment_writeDate() {
+
+	public String getReviewComment_writeDate() {
 		return reviewComment_writeDate;
 	}
-	public void setReviewComment_writeDate(Date reviewComment_writeDate) {
+	public void setReviewComment_writeDate(String reviewComment_writeDate) {
 		this.reviewComment_writeDate = reviewComment_writeDate;
 	}
 	@Override
 	public String toString() {
-		return "ReviewComment [boardname=" + boardname + ", Meeting_boardno=" + Meeting_boardno + ", reviewno="
+		return "ReviewComment [boardname=" + boardname + ", meeting_boardno=" + meeting_boardno + ", reviewno="
 				+ reviewno + ", reviewComment_commentno=" + reviewComment_commentno + ", reviewComment_nickname="
 				+ reviewComment_nickname + ", reviewComment_content=" + reviewComment_content
 				+ ", reviewComment_userId=" + reviewComment_userId + ", reviewComment_writeDate="

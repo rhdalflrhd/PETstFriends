@@ -6,7 +6,6 @@ import java.util.List;
 import model.FreeBoard;
 import model.FreeComment;
 import model.FreeLikes;
-import model.TipLikes;
 
 public interface FreeBoardDao {
 	public int insertBoard(FreeBoard freeboard); //게시글쓰기
@@ -18,6 +17,10 @@ public interface FreeBoardDao {
 	public int getCount(HashMap<String, Object> params); // 게시물 레코드 갯수 조회.. 이게 모였지
 	
 	public int getLastBoardno(HashMap<String, Object> params);
+	
+	public List<FreeBoard> selectBoardLike(HashMap<String, Object> params); //좋아요 게시글 3개 ★★★여기요★★★
+	
+	
 	
 	//좋아요
 

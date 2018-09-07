@@ -1,8 +1,11 @@
 package controller;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,11 +27,13 @@ import com.google.gson.Gson;
 
 import dao.ITipBoardDao;
 import dao.UserDao;
-import model.Board;
 import model.TipBoard;
 import model.TipLikes;
+import model.TipComments;
+import model.User;
 import service.TipBoardEncycService;
 import service.TipBoardService;
+import service.UserServiceImpl;
 
 @Controller
 public class TipBoardController {
@@ -38,10 +43,16 @@ public class TipBoardController {
 
 	@Autowired
 	private TipBoardEncycService EncycService;
-	private static UserDao uDao;
+	
+	
+	@Autowired
+	private UserDao uDao;
+	
+	@Autowired
+	UserServiceImpl userService;
 	
 	public static Gson gson = new Gson();		
-	// Spring MVC 컨트롤러에서 사용할 수 있는 반환유형의 종류
+	// Spring MVC 컨트롤러에서 사용할 수 있는 반환유형의 종류  dd
 	// 데이터와 페이지 정보가 둘 다 있는 경우	= ModelAndView
 	// 데이터에 대한 정보만 있는 경우   		=  Model or Map(해쉬맵. 키값과 밸류값으로 넘어감)
 	// 페이지에 대한 정보만 있는경우    		=   String
@@ -97,34 +108,57 @@ public class TipBoardController {
 	}
 	
 	//===========================펫프정보- 꿀TIP게시판==========================================================================================	
-	
-	//---------------------------강아지 꿀TIP게시판---------------------------------------------------------------------------------------------
-	
-	//----강아지 TIp정보 게시판목록
-	@RequestMapping(value= "dogTipBoardList.do", method=RequestMethod.GET) 		
-	public ModelAndView dogTipBoardList(Model model,@RequestParam(defaultValue = "1") int page,
+		
+	//---TIp정보 게시판목록
+	@RequestMapping(value= "TipBoardList.do", method=RequestMethod.GET) 		
+	public ModelAndView TipBoardList(Model model,@RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,  @RequestParam(defaultValue = "0") int tipBoard_boardname, HttpSession session) throws MalformedURLException, IOException {
 		
+		System.out.println(tipBoard_boardname + ": 꿀 Tip정보 요청(개7고양이8토끼9)");
+		System.out.println("들어온 키워드는: " + keyword);
+		System.out.println("요청 타입은: " + type);
 
-		System.out.println("강아지 꿀 Tip정보 요청");
-		System.out.println("들어온 키워드는: "+keyword);
-		System.out.println("요청 타입은: "+keyword);	
+		String user_idCheck = (String)session.getAttribute("user_id");
+		System.out.println("현재 접속자는?: "+user_idCheck);
 		
+		String check = String.valueOf(tipBoard_boardname);
+		int sendboardName = 0;
+		
+		if (check.equals("0")) {
+			sendboardName = 7;
+		} else {
+			sendboardName = tipBoard_boardname;
+		}
+		
+		//해당게시판에 게시글이 0개일시, 최초 dummy용 fake게시글 하나 생성. 이럴려면 User table에 fakeDummyID이 있어야함 반드시.
+		if (tipService.TipboardNullcheck(sendboardName) == 0) {
+
+			TipBoard dtboard = new TipBoard();
+			String WriteUserid = "fakeDummyID";
+			dtboard.setTipBoard_boardname(sendboardName);
+			dtboard.setTipBoard_userId(WriteUserid);
+			dtboard.setTipBoard_nickname("fakeDummynickname");
+			dtboard.setTipBoard_title("fakeDummy게시글");
+			dtboard.setTipBoard_content("이 게시글은 fakeDummy 게시글이 0개일시 최초 생성되는 가짜게시글이다.");
+			MultipartFile contentPic = null;
+			tipService.writeTipBoardS(dtboard, contentPic);
+			System.out.println("해당게시판에 게시글이 0개일시, 최초 dummy용 fake게시글 하나 생성하는 쿼리실행됨");
+		}
+
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		HashMap<String, Object> result = null;
 		params.put("type", type);
 		params.put("keyword", keyword);
-		params.put("tipBoard_boardname", 7);
+		params.put("tipBoard_boardname", sendboardName);
 		
 		if (type == 0) {
 			if ((startDate != null || startDate != "") && (endDate != null || endDate != "")) {
 				params.put("startdate", startDate);
 				params.put("enddate", endDate);
 			}
-		} 
-		else if (type == 1) {
+		} else if (type == 1) {
 			params.put("title", keyword);
 		} else if (type == 2) {
 			params.put("content", keyword);
@@ -137,160 +171,253 @@ public class TipBoardController {
 		
 		result = tipService.SearchTipBoardS(params, page);
 		
-		
-		mav.addObject("DogEncycList1", EncycService.searchEncyc("다시 쓰는 개 사전", 46, 3));
+		if(sendboardName==7) {
+			mav.addObject("EncycList1", EncycService.searchEncyc("다시 쓰는 개 사전", 46, 3));	
+			System.out.println("강아지 팁정보 확인");
+
+		}else if (sendboardName==8) {
+			
+			mav.addObject("EncycList1", EncycService.searchEncyc("다시 쓰는 고양이 사전", 49, 2));
+			System.out.println("고양이 팁정보 확인");
+			System.out.println(EncycService.searchEncyc("다시 쓰는 고양이 사전", 2, 2));
+		}else if(sendboardName==9) {
+			
+			mav.addObject("EncycList9", EncycService.onlyforRabbitWebParsing());
+			System.out.println("토끼 팁정보 확인");
+		}
+//		user_idCheck
+		mav.addObject("user_idCheck", user_idCheck);
 		mav.addAllObjects(result);
 		mav.addAllObjects(params);
-		mav.setViewName("Tipboard/dogTipBoardList");
-		System.out.println("보더리스트에서:" + result.toString());
+		mav.setViewName("Tipboard/TipBoardList");
 		return mav;		
 	}		
 	
-	//----강아지 TIp정보 게시판 글쓰기 폼	
-	@RequestMapping("DogWriteTipBoardForm.do")	
-	public String DogWriteTipBoardFormC(Model model, HttpSession session) {
-		String id = (String)session.getAttribute("TipBoard_userId");
-		//유저서비스에서 UserService의 getUserbyId함수 이용해서, USer user변수에 담고,
-		//그, user의 getUser_nickname해서 얻은 닉네임값을 String nickName이라는 변수에담음
-		//지금은 아직 USer랑 연결안했으니까 아래와같이 임의로 만듦.
-		String nickName = "user컨트롤러 연결전 닉네임";
-		model.addAttribute("nickName", nickName);	
-		return "Tipboard/DogWriteTipBoardForm";
-	}
-	
-	
-	//---------------------------------------강아지 TIp정보 게시판 글쓰기 실행
-	@RequestMapping("DogWriteTipBoard.do")		
-	public String DogWriteTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params,
-@RequestParam(value="tipBoard_contentPic", required=false) MultipartFile contentPic) {
-		System.out.println("들어옴");
-		System.out.println(contentPic);
-		
-		TipBoard dtboard = new TipBoard();
-//		String user_id = (String)session.getAttribute("user_id");
-		String WriteUserid = "tesID";  		// 지금은 USer랑 연결안했으니까 현재 내가 DB에 넣은 유저멤버들중 임의의 ID 지정하겠음
-		dtboard.setTipBoard_boardname(7);		// 강아지 TIP게시판 보드네임은 숫자 7로 구분함 ( 팁개=7, 팁고양이=8 팁토끼=9)
-//												    보드넘버는 오토인크리트먼트, 작성일도 curdate로 넣을거임
-		dtboard.setTipBoard_userId(WriteUserid);
-//      dtboard.setTipBoard_nickname(uDao.selectUserId(WriteUserid));uDao
-		dtboard.setTipBoard_nickname("test");	//지금은 USer랑 연결안했으니까 임의의 nickname 지정하겠음
-		dtboard.setTipBoard_title((String) params.get("tipBoard_title"));
-		dtboard.setTipBoard_file((String) params.get("tipBoard_file"));
-		dtboard.setTipBoard_content((String) params.get("editor"));	
-		//아직 조회수 없음
-		dtboard.setTipBoard_YoutubeUrl((String) params.get("tipBoard_YoutubeUrl"));
-		//아직 좋아요 수 없음
-	
-		tipService.writeTipBoardS(dtboard, contentPic);
-		int boardname = dtboard.getTipBoard_boardname();
-		int boardno = tipService.getLastBoardno(boardname, WriteUserid);// 유저와 합친후에는 WriteUserid말고 세션에서 갖고온 user_id넣어야함 ㅇㅇ
-		System.out.println("보드넘버는= " +boardno);
-		
-		return "redirect:DogReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
-	}
 
-	//-----------------------------------------강아지 TIp정보 게시판 글 한개 읽기.
-	@RequestMapping("DogReadTipBoard.do")
-	public String DogReadTipBoardC(Model model, int boardname, int boardno, HttpSession session) {
+	//-----------------------------------------  TIp정보 게시판 글 한개 읽기.
+	@RequestMapping("ReadTipBoard.do")
+	public String ReadTipBoardC(Model model, int boardname, int boardno, HttpSession session) {
+		String user_idCheck = (String)session.getAttribute("user_id");
+		System.out.println("접속된 id는= "+user_idCheck);
 		
-		
-		System.out.println("DogReadTipBoard.do 들어옴");
+		System.out.println("ReadTipBoard.do 들어옴");
 		System.out.println("해당게시판넘버(개7고양이8토끼9)= "+boardname);
 		System.out.println("해당게시글 넘버= "+boardno);
-		tipService.ReadTipBoardS(boardname, boardno);
-		TipBoard tb = tipService.getBoardS(boardname, boardno);
-		System.out.println("해당게시글 row전체내용= "+tb);
-		System.out.println("해당게시글의 닉네임은= "+tb.getTipBoard_nickname());
-
-		session.setAttribute("user_id", "tesID");
 		
-		String user_idCheck = (String) session.getAttribute("user_id");
-		System.out.println("접속된 id는= "+user_idCheck);
+		tipService.ReadTipBoardS(boardname, boardno);		   //조회수 증가
+		TipBoard tb = tipService.getBoardS(boardname, boardno);//글 한개 갖고옴
+
+		System.out.println("해당게시글의 닉네임은= "+tb.getTipBoard_nickname());
 		
 		HashMap<String, Object> paramForLike = new HashMap<String, Object>();
 		paramForLike.put("tipLikes_boardname", boardname);
 		paramForLike.put("tipLikes_boardno", boardno);
 		paramForLike.put("tipLikes_userId", user_idCheck);
 		
-	    if(tipService.countbyLike(paramForLike)==0){
-	    	tipService.createTipLikes(paramForLike);
-	    }
-	     
-	    TipLikes tLikes = tipService.readTipLikes(paramForLike);	 // 해당유저가 해당게시판의 해당게시글에 남긴 좋아요를 갖고옴.   
-	    int like_check = 0;
-	    like_check = tLikes.getTipLikes_likeCheck();    //좋아요 체크 값  
-	    System.out.println("해당세션유저의 라이크체크값은: "+like_check);
-	  
-	    // 해당게시판에 있는 댓글리스트도 같이 보내줘야함 ㅇㅇ 
-	    HashMap<String, Object> paramForComment = new HashMap<String, Object>();
-	    paramForLike.put("tipComments_boardname", boardname);
-		paramForLike.put("tipComments_boardno", boardno);
-		model.addAttribute("replyList", tipService.getTipCommentsList(paramForComment));
+		if (session.getAttribute("user_id") != null) {
+			if (tipService.countbyLike(paramForLike) == 0) {
+				tipService.createTipLikes(paramForLike);
+			}
+		}
 		
+	    TipLikes tLikes = tipService.readTipLikes(paramForLike);	 // 해당유저가 해당게시판의 해당게시글에 남긴 좋아요를 갖고옴.   
+	    System.out.println("라이크첵 : "+tLikes);
+	  
+	    int like_check = 0;
+
+	    
+		if (tLikes != null) {
+		    like_check = tLikes.getTipLikes_likeCheck();    //좋아요 체크 값  
+		    System.out.println("해당세션유저의 라이크체크값은: "+like_check);
+		}
+	  	    
+		HashMap<String, Object> paramforuser = new HashMap<String, Object>();
+		paramforuser.put("user_id", user_idCheck);
+		User tempuser = uDao.selectUserbyId2(paramforuser);
+		System.out.println("템프유저는?"+tempuser);
+		
+
+		String usernn = "";
+		
+		if(tempuser ==null) {
+			usernn ="비회원";
+		}else {
+			usernn = tempuser.getUser_nickname();
+		}
+		
+	    model.addAttribute("user_nickname", usernn);	    
 	    model.addAttribute("user_idCheck", user_idCheck);
 		model.addAttribute("tipLikes_SessionuserlikeCheck", like_check);
 		model.addAttribute("tipboard", tb);
-		
-		return "Tipboard/DogReadTipBoard";
+		System.out.println("tipboard 파람 확인 :"+tb);
+		model.addAttribute("tipComment", tipService.readCommentBoard(boardname, boardno));
+		System.out.println("코멘트 파람 확인 :"+tipService.readCommentBoard(boardname, boardno));
+		return "Tipboard/ReadTipBoard";
 	}
 	
-	//------------------------------------------------------강아지 TIp정보 게시판 글 한 개 수정폼 제공
-	@RequestMapping("DogModifyFormTipBoard.do")
-	public String DogModifyFormTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
-		System.out.println("강아지 꿀TIp 게시글 수정 컨트롤러 들어옴");
+	//------------------------------------------- TIp정보 게시판 글쓰기 폼	
+	@RequestMapping("WriteTipBoardForm.do")	
+	public String WriteTipBoardFormC(Model model, HttpSession session, int tipBoard_boardname) {
+		System.out.println("WriteTipBoardForm.do 들어옴");
+		String id = (String)session.getAttribute("user_id");
+		System.out.println("접속된 유저 아이디는 :"+id);
+		HashMap<String, Object> paramforuser = new HashMap<String, Object>();
+		paramforuser.put("user_id", id);
+		User tempuser = uDao.selectUserbyId2(paramforuser);
+
+		
+		//유저서비스에서 UserService의 getUserbyId함수 이용해서, USer user변수에 담고, f
+		//그, user의 getUser_nickname해서 얻은 닉네임값을 String nickName이라는 변수에담음
+		//지금은 아직 USer랑 연결안했으니까 아래와같이 임의로 만듦.
+		String nickName = tempuser.getUser_nickname();
+		model.addAttribute("tipBoard_boardname", tipBoard_boardname);
+		model.addAttribute("id", id);
+		model.addAttribute("nickName", nickName);	
+		return "Tipboard/WriteTipBoardForm";
+	}
+	
+	
+	//--------------------------------------- TIp정보 게시판 글쓰기 실행
+	@RequestMapping("WriteTipBoard.do")		
+	public String WriteTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params,
+@RequestParam(value="tipBoard_contentPic", required=false) MultipartFile contentPic) {
+		System.out.println("WriteTipBoard.do 들어옴");
+		System.out.println(contentPic);
+		
+		TipBoard dtboard = new TipBoard();
+
+		String WriteUserid = (String)session.getAttribute("user_id");
+
+		String tName = (String)params.get("tipBoard_boardname");
+		int Tipboardname = Integer.parseInt(tName);
+		
+		dtboard.setTipBoard_boardname(Tipboardname);
+		dtboard.setTipBoard_userId(WriteUserid);
+		dtboard.setTipBoard_nickname((String) params.get("tipBoard_nickname"));		
+		dtboard.setTipBoard_title((String) params.get("tipBoard_title"));
+		dtboard.setTipBoard_file((String) params.get("tipBoard_file"));
+		dtboard.setTipBoard_content((String) params.get("editor"));	
+		dtboard.setTipBoard_YoutubeUrl((String) params.get("tipBoard_YoutubeUrl"));
+		
+		tipService.writeTipBoardS(dtboard, contentPic);
+		int boardname = dtboard.getTipBoard_boardname();
+		int boardno = tipService.getLastBoardno(boardname, WriteUserid);
+		System.out.println("보드넘버는= " +boardno);
+		
+		return "redirect:ReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
+	}
+
+	//------------------------------------------------------ TIp정보 게시판 글 한 개 수정폼 제공
+	@RequestMapping("ModifyFormTipBoard.do")
+	public String ModifyFormTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
+		System.out.println("TIp정보 게시판 글 한 개 수정폼 제공 들어옴");
 		TipBoard tb = tipService.getBoardS(boardname, boardno);
 		model.addAttribute("tipboard", tb);
-		return "Tipboard/DogModifyFormTipBoard";
+		return "Tipboard/ModifyFormTipBoard";
 	}	
 	
-	//------------------------------------------------------강아지 TIp정보 게시판 글 한 개 수정 실행!
-	@RequestMapping("DogModifyTipBoard.do")
-	public String DogModifyTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params) {
-		System.out.println("강아지 TIp정보 게시판 글 한 개 수정, 들어옴");
-
-		String tipBoard_boardnameS = (String)params.get("tipBoard_boardname");
-		int tipBoard_boardname = Integer.parseInt(tipBoard_boardnameS);
+	//------------------------------------------------------ TIp정보 게시판 글 한 개 수정 실행!
+	@RequestMapping("ModifyTipBoard.do")
+	public String ModifyTipBoardC(HttpSession session, @RequestParam HashMap<String, Object> params,
+			@RequestParam(value="tipBoard_contentPic", required=false) MultipartFile contentPic){
 		
-		String tipBoard_boardnoS = (String)params.get("tipBoard_boardno");
-		int tipBoard_boardno = Integer.parseInt(tipBoard_boardnoS);
+		String WriteUserid = (String)session.getAttribute("user_id");
+
+		System.out.println("TIp정보 게시판 글 한 개 수정, 들어옴");
+		System.out.println("컨텐츠 픽은: "+contentPic);
+		System.out.println(params);
+		System.out.println("해당글의 작성자는: "+(String)params.get("tipBoard_userId") );
+		System.out.println("현재접속자는: "+WriteUserid);
+		
+		String boardname =(String)params.get("tipBoard_boardname");
+		String boardno =(String)params.get("tipBoard_boardno");
+	
+		int tipBoard_boardname = Integer.parseInt(boardname);
+		int tipBoard_boardno = Integer.parseInt(boardno);
 		
 		TipBoard tb = tipService.getBoardS(tipBoard_boardname,tipBoard_boardno);
-
+		System.out.println("지금 tb변수로 끄집어온 글의 작성자는: "+tb.getTipBoard_userId());
 		tb.setTipBoard_title((String) params.get("tipBoard_title"));
-		tb.setTipBoard_file((String) params.get("tipBoard_file"));
 		tb.setTipBoard_content((String) params.get("editor"));
 		tb.setTipBoard_contentPic((String) params.get("tipBoard_contentPic"));
 		tb.setTipBoard_YoutubeUrl((String) params.get("tipBoard_YoutubeUrl"));
-		tipService.ModifyTipBoardS(tb);
-		String boardname =(String)params.get("tipBoard_boardname");
-		String boardno =(String)params.get("tipBoard_boardno");
-		
-		return "redirect:DogReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
+			
+		if(WriteUserid.equals((String)params.get("tipBoard_userId"))) {
+			tipService.ModifyTipBoardS(tb,contentPic);		
+			return "redirect:ReadTipBoard.do?boardname="+boardname+"&boardno="+boardno;
+		}else {			
+			return "redirect:ModifyFormTipBoard.do?boardname="+boardname+"&boardno="+boardno;
+		}
+
 	}
 	
 	
-	//------------------------------------------------------강아지 TIp정보 게시판 글 한 개 삭제 실행!!	
+	//------------------------------------------------------TIp정보 게시판 글 한 개 삭제 실행!!	!
 //	@ResponseBody
-	@RequestMapping("dogDeleteTipBoard.do")
+	@RequestMapping("DeleteTipBoard.do")
 	public String DogDeleteTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
-		System.out.println("dogDeleteTipBoard.do 컨트롤러 들어옴");
+		System.out.println("DeleteTipBoard.do 컨트롤러 들어옴");
+		System.out.println("boardname: "+boardname);
+		System.out.println("boardno: "+boardno);
 		TipBoard tb = tipService.getBoardS(boardname, boardno);
-		session.setAttribute("user_id", "testID");//지금은 유저랑 연결안해놨으니까 일단 이렇게 해놈 08.23 현재날짜 기준.
 		String user_idCheck = (String) session.getAttribute("user_id");
 		if(tb.getTipBoard_userId().equals(user_idCheck)) {
 			tipService.DeleteTipBoardS(boardname, boardno);
 		}
 		
-		return "redirect:dogTipBoardList.do";
+		return "redirect:TipBoardList.do";
 	}
+
+//------------------------------------0905 게시글 하나 읽는 페이지에서 작성자 아이디 클릭해서 나오는 메뉴중,
+//-----------------------------------------해당 회원이 작성한 전체 게시글 보기 페이지로 이동.
+	@RequestMapping(value = "CertainMemberWrites.do", method = RequestMethod.GET) 
+	public ModelAndView CertainMemberWrites(Model model, String memberid,
+			@RequestParam(defaultValue = "1") int page,	@RequestParam(required = false) String keyword,
+			@RequestParam(defaultValue = "0") int type, @RequestParam(required = false) String startDate,
+			@RequestParam(required = false) String endDate) {
+		
+		System.out.println("해당 회원이 작성한 전체 게시글 보기 컨트롤러들어옴");
+		System.out.println("작성자의 id는 :" + memberid);
+		
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		params.put("keyword", keyword);
+		params.put("page", page);
+		if (startDate != null && endDate != null
+				&& !(startDate.equals("") || startDate.equals("0") || startDate.equals("null"))
+				&& !(endDate.equals("") || endDate.equals("null") || endDate.equals("0"))) {
+			params.put("startDate", startDate);
+			params.put("endDate", endDate);
+		}
+		if (type == 1) {
+			params.put("title", keyword);
+		} else if (type == 2) {
+			params.put("content", keyword);
+		} else if (type == 3) {
+			params.put("title", keyword);
+			params.put("content", keyword);
+		} else if (type == 4) {
+			params.put("name", keyword);
+		}
+				
+		HashMap<String, Object> result = userService.myWrites(memberid, page, params);
+        System.out.println(result);
+		mav.addAllObjects(result);
+		mav.addAllObjects(params);
+		mav.addObject("ThatmemberId", memberid);
+		mav.setViewName("Tipboard/CertainMemberWrites");
+		return mav;
+
+	}
+	
 
 	//--------------------------------------------------------TIpboard 공통좋아요--------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value="InsertLikesTipBoard.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String InsertLikesTipBoardC(Model model, int boardname, int boardno,HttpSession session) {
 		
-		System.out.println("dogInsertLikesTipBoard.do 컨트롤러 들어옴");
-		session.setAttribute("user_id", "tesID");// 지금은 USer랑 안합쳤으니 일단 이렇게 하겠음 ㅇㅇ
+		System.out.println("InsertLikesTipBoard.do 컨트롤러 들어옴");
 		String user_idCheck = (String)session.getAttribute("user_id");
 	    JSONObject obj = new JSONObject();
 	    String mm ="";
@@ -336,90 +463,64 @@ public class TipBoardController {
 	    
 	    return obj.toJSONString();
 	}
-	
+
 	//=============================================TIpboard 공통 댓글 쿼리 시작=====================================================
 	
-    //-------------------------------------AJAX 호출 (댓글 등록)
-	@RequestMapping(value="TipboardwriteTipComments.do", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
-    @ResponseBody
-    public Object TipboardwriteTipCommentsC(@RequestParam HashMap<String, Object> param) {
- 
-        //리턴값
-		HashMap<String, Object> SendingResult = new HashMap<String, Object>();
+	
+	//댓글 리스트
+	@RequestMapping("tipCommentsList.do")
+	@ResponseBody
+	public void freeCommentList(HttpServletResponse resp, int tipComments_boardname, int tipComments_boardno, int comment_page, HttpSession session) {
+		String user_id = (String) session.getAttribute("user_id");
+		HashMap<String, Object> params = tipService.ShowCommentTipBoard(tipComments_boardname, tipComments_boardno, comment_page);
+		params.put("user_id", user_id);
+		params.put("user_idCheck", user_id);
+		Gson gson = new Gson();
+		resp.setCharacterEncoding("UTF-8");
+		List<TipComments> TipCommentList = (List<TipComments>)params.get("commentList");
+		System.out.println("tipCommentsList.do의 댓글 출력: "+TipCommentList);
+		String result1 =gson.toJson(TipCommentList);
+		params.put("TipCommentList", result1);
+		String result =gson.toJson(params);
+		try {
+			resp.getWriter().println(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	//댓글 쓰기
+	@RequestMapping("writeTipComment.do")
+	@ResponseBody
+	public int writeTipComment(@RequestParam(defaultValue = "0") int tipComments_parent, @RequestParam int tipComments_boardname,
+			@RequestParam String tipComments_content, @RequestParam int tipComments_boardno, HttpSession session) {
+		TipComments tipcom = new TipComments();
+		String tipComments_userId = (String) session.getAttribute("user_id");
+		String tipComments_nickname = (String) userService.selectUser(tipComments_userId).getUser_nickname();
+		tipcom.setTipComments_boardname(tipComments_boardname);
+		tipcom.setTipComments_boardno(tipComments_boardno);
+		tipcom.setTipComments_content(tipComments_content);
+		tipcom.setTipComments_nickname(tipComments_nickname);
+		tipcom.setTipComments_parent(tipComments_parent);
+		tipcom.setTipComments_userId(tipComments_userId);
+		return tipService.writeCommentTipBoard(tipcom);
+		
+	}
+	//댓글삭제
+	@RequestMapping("deleteTipComment.do")
+	@ResponseBody
+	public int deletefreeComment(@RequestParam int tipComments_commentno, @RequestParam int tipComments_parent) {
+		return tipService.deleteComments(tipComments_commentno, tipComments_parent);
+	}
+	
+	//댓글 수정
+	@RequestMapping("updateTipComment.do")
+	@ResponseBody
+	public int updatefreeComment(@RequestParam int tipComments_commentno, @RequestParam String tipComments_content) {
+		return tipService.updateTipComment(tipComments_commentno, tipComments_content);
+	}
 
-        //정보입력
-        int result = tipService.writeTipComments(param);
- 
-        if(result>0){
-        	SendingResult.put("code", "OK");
-        	SendingResult.put("reply_id", param.get("reply_id"));
-        	SendingResult.put("parent_id", param.get("parent_id"));
-        	SendingResult.put("message", "등록에 성공 하였습니다.");
-        }else{
-        	SendingResult.put("code", "FAIL");
-        	SendingResult.put("message", "등록에 실패 하였습니다.");
-        }
- 
-        return SendingResult;
- 
-    }
- 
-	//-------------------------------------AJAX 호출 (댓글 삭제)
-    @RequestMapping(value="/board/reply/del", method=RequestMethod.POST)
-    @ResponseBody
-    public Object boardReplyDel(@RequestParam HashMap<String, Object> param) {
- 
-        //리턴값
-    	HashMap<String, Object> SendingResult = new HashMap<String, Object>();
-        
-        //정보입력
-        int result = tipService.deleteTipComments(param);
- 
-        if(result>0){
-        	SendingResult.put("code", "OK");
-        }else{
-        	SendingResult.put("code", "FAIL");
-        	SendingResult.put("message", "삭제에 실패했습니다. 패스워드를 확인해주세요.");
-        }
- 
-        return SendingResult;
- 
-    }
-	
-
-  //-------------------------------------AJAX 호출 (댓글 수정)
-    @RequestMapping(value="/board/reply/update", method=RequestMethod.POST)
-    @ResponseBody
-    public Object boardReplyUpdate(@RequestParam HashMap<String, Object> param) {
- 
-        //리턴값
-    	HashMap<String, Object> SendingResult = new HashMap<String, Object>();
- 
-        System.out.println(param);
- 
-        //정보입력
-        boolean check = tipService.updateTipComments(param);
- 
-        if(check){
-        	SendingResult.put("code", "OK");
-        	SendingResult.put("reply_id", param.get("reply_id"));
-        	SendingResult.put("message", "수정에 성공 하였습니다.");
-        }else{
-        	SendingResult.put("code", "FAIL");
-        	SendingResult.put("message", "수정에 실패 하였습니다.");
-        }
- 
-        return SendingResult;
- 
-    }
-	
-	
-	
-//	@RequestMapping("InfoSquareSpecies.do")
-//	public String InfoSquareSpecies(Model model) {
-//		System.out.println("모든종류 백과사전 요청");
-//		return "Tipboard/InfoSquareSpecies";
-//	}
-//		
 
 }

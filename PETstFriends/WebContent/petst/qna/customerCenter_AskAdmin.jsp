@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>1:1문의 관리자</title>
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
 <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
@@ -21,6 +21,17 @@
 <link rel="stylesheet" href="./Boot/style.css">
 <link rel="stylesheet" href="./Boot/css/responsive.css">
 <style type="text/css">
+input[type="submit"] {
+   margin: 5px 5px 6px;
+  text-decoration: none;
+  border : 0;
+	background-color : #dcdcdc;
+   position: relative;
+  padding: 0.438em 0.625em 0.438em 0.625em;
+ line-height: 1.125em;
+  cursor: pointer; 
+  color: white;
+}
 </style>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"

@@ -3,13 +3,14 @@ package model;
 import java.util.Date;
 
 public class TipLikes {
-
+	//
 	private int tipLikes_likeno;
 	private int tipLikes_boardname;
 	private int tipLikes_boardno;
 	private String tipLikes_userId;
 	private int tipLikes_likeCheck;
 	private Date tipLikes_date;
+	
 	public int getTipLikes_likeno() {
 		return tipLikes_likeno;
 	}

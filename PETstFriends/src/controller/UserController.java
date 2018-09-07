@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -57,9 +58,15 @@ public class UserController {
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean login(String user_id, String user_pass) {
+	public boolean login(HttpSession session, String user_id, String user_pass) {
 
 		if (userService.loginUser(user_id, user_pass)) {
+			session.setAttribute("user_id", user_id);
+			//추가요====
+			if(userService.selectUser(user_id).getUser_adminCheck()==1) {
+				session.setAttribute("adminCheck", 1);
+			}
+			//여기까지????
 			return true;
 		} else {
 			return false;
@@ -79,12 +86,24 @@ public class UserController {
 		return "user/joinUserForm";
 	}
 
-	// 회원가입
+	// 회원가입 수정함??????
 	@RequestMapping(value = "/joinUser.do", method = RequestMethod.POST)
 	@ResponseBody
-	public void join(@RequestParam HashMap<String, Object> params, HttpServletResponse resp) {
+	public void join(MultipartHttpServletRequest multi, HttpServletResponse resp, HttpSession session) {
 		resp.setContentType("text/html; charset=UTF-8");
-		userService.joinUser(params);
+		userService.joinUser(multi);
+		session.setAttribute("id", multi.getParameter("user_id"));
+	}
+	//회원가입 펫 수정함??????
+	@RequestMapping(value = "/joinUserPet.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void joinPet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp, HttpSession session) {
+		resp.setContentType("text/html; charset=UTF-8");
+		System.out.println(session.getAttribute("id"));
+		String user_id = (String) session.getAttribute("id");
+		params.put("user_id", user_id);
+		userService.joinUserPet(params);
+		session.removeAttribute("id");
 	}
 
 	// ----------------------------------------------------------------------------------------
@@ -255,6 +274,7 @@ public class UserController {
 			@RequestMapping(value = "/ChangeUserPw.do", method = RequestMethod.POST)
 			@ResponseBody
 			public void ChangeUserPw(@RequestParam HashMap<String, Object> params,HttpServletResponse resp,HttpServletRequest req,HttpSession session) {
+				System.out.println("ChangeUserPw.do 들어옴");
 				resp.setContentType("text/html; charset=UTF-8");
 				String user_id =req.getParameter("user_id");
 				params.put("user_id", user_id); 
@@ -262,42 +282,56 @@ public class UserController {
 				
 			}
 	
+			
 			@RequestMapping("userPwCheck.do")              // 나의 정보 수정 클릭하면 비번체크하는 폼으로 보내주기
 			public String UserPwCheck(HttpSession session, Model model) {
-
+				System.out.println("userPwCheck.do 들어옴");
+				String user_id = (String)session.getAttribute("user_id");
+				String user_pass = (String) userService.selectUser(user_id).getUser_pass();
+				model.addAttribute("user_pass", user_pass);
+				model.addAttribute("user_id", user_id);
 				return "user/myInFo_PWCheck";
 
 			}
 			
-			
 			@RequestMapping("usermain.do")            // 메인 
 			public String Useramin(HttpSession session, Model model) {
-
+				System.out.println("usermain.do 들어옴");
 				return "user/main";
 
 			}
 			
-			@RequestMapping("getUserId.do")     // 비번확인 후 마이페이지 보내줌 (아직 비번체크x 해야됨 )                                      
-			public String UserUpdateForm(HttpSession session, Model model, String user_pass) {
-					 String user_id = (String)session.getAttribute("user_id");
-//					 if (user_pass.equals(userService.getUserPass(user_pass))) {
-//						 HashMap<String, Object> params = new HashMap<String, Object>();
-							model.addAttribute("params", userService.selectUser(user_id));
-							return "user/myInFo_Modification";
-//					 }
-			//	
-//					 else {
-//						return "user/myInFo_PWCheck";
-//					 }
-				}
-			
-			
-			@RequestMapping(value = "/petList.do")                      // 펫 리스트 보여주기
-			@ResponseBody
-			public void petList(HttpServletRequest req, HttpServletResponse resp) {
 
+//			@RequestMapping("getUserId.do") // ★ 9월6일자 변경사항★(소현) 비번확인 후 마이페이지 보내줌
+//			public String UserUpdateForm(HttpServletRequest req, HttpServletResponse resp, Model model,
+//					@RequestParam String user_id, @RequestParam String user_pass) {
+//
+//				if (userService.selectUser(user_id).getUser_pass().equals(user_pass)) {
+//
+//					model.addAttribute("params", userService.selectUser(user_id));
+//
+//					return "user/myInFo_Modification";
+//				} else
+//
+//					return "user/myInFo_PWCheck";
+//			}
+
+			@RequestMapping("getUserId.do")     // 비번확인 후 마이페이지 보내줌 (아직 비번체크x 해야됨 )                                      
+			public String UserUpdateForm(@RequestParam String user_id, HttpServletResponse resp, Model model) {
+						System.out.println("getUserId.do 들어옴");
+				model.addAttribute(userService.selectUser(user_id));
+				System.out.println("getUserId.do확인용: "+userService.selectUser(user_id));
+//				model.addAttribute("params", userService.selectUser(user_id));
+						return "user/myInFo_Modification" ;		
+				}
+						
+			
+			@RequestMapping(value = "/petList.do") // ★ 9월6일자 변경사항★(소현) // 펫 리스트 보여주기
+			@ResponseBody
+			public void petList(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+				String user_id = (String) session.getAttribute("user_id");
 				resp.setContentType("text/html; charset=UTF-8");
-				List<Pet> arr = userService.selectPetAll("sohyun");
+				List<Pet> arr = userService.selectPetAll(user_id);
 
 				Gson gson = new Gson();
 
@@ -306,7 +340,7 @@ public class UserController {
 						String result = gson.toJson("0");
 						resp.getWriter().println(result);
 					} else {
-						String result = gson.toJson(userService.selectPetAll("sohyun"));
+						String result = gson.toJson(userService.selectPetAll(user_id));
 						resp.getWriter().println(result);
 					}
 				} catch (IOException e) {
@@ -330,36 +364,41 @@ public class UserController {
 
 			}
 			
-			@RequestMapping(value = "/passCheck.do") // 비밀번호 일치 검사
+			@RequestMapping(value = "/passCheck.do") // 비밀번호 일치 검사    9월7일 !꼭
 			@ResponseBody
-			public boolean getUserPw(HttpServletRequest req, HttpServletResponse resp) {
+			public boolean getUserPw(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+				System.out.println("passCheck.do 들어옴");
+				String user_id = (String) session.getAttribute("user_id");
 				resp.setContentType("text/html; charset=UTF-8");
 				String user_pass = req.getParameter("user_pass");
-				boolean result = userService.getUserPass(user_pass);
-				user_pass = req.getParameter("user_pass");
+				String userpassCheck = userService.getUserPass(user_id);
+				System.out.println("맵퍼로부터 넘어온 비밀번호 확인: " +userpassCheck);
+				boolean result;
+				if(user_pass.equals(userpassCheck)) {
+					result = false; //펄스여야 비밀번호 일치임 ㅇㅇ
+				}else {
+					result = true;
+				}
 				return result;
 
 			}
 			
-			@RequestMapping(value = "/insertPet.do") // 내정보수정에서 수정하기 누르면 회원수정/펫 추가/ 펫 수정
+			@RequestMapping(value = "/insertPet.do", method = RequestMethod.POST) // ★ 9월6일자 변경사항★(소현) 내정보수정에서 수정하기 누르면 회원수정/펫																			// 추가/ 펫 수정
 			@ResponseBody
 			public String updatePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
 					HttpServletRequest req, HttpSession session) {
-				System.out.println("insertPet.do로 들어옴");
 				resp.setContentType("text/html; charset=UTF-8");
 				resp.setContentType("application/json");
-
-				String user_id = "sohyun";
+				String user_id = (String) session.getAttribute("user_id");
+				System.out.println(user_id + "유저아이디");
 				params.put("user_id", user_id);
-				System.out.println(params);
 				userService.updateUser(params);
-				
+
 				String jsonStr = (String) params.get("jsonData");
-		        JsonParser parser = new JsonParser();
+				JsonParser parser = new JsonParser();
 				JsonElement element = parser.parse(jsonStr);
 				JsonArray jArray = element.getAsJsonArray();
 				JsonObject jOb = new JsonObject();
-
 				for (int i = 0; i < jArray.size(); i++) {
 					int petno[] = new int[jArray.size()];
 
@@ -377,55 +416,62 @@ public class UserController {
 					}
 
 				}
+
+				if (Integer.parseInt((String) params.get("user_havePet")) == 0)
+					userService.deletePetAll(user_id);
 				String msg = "";
 				return msg;
 			}
 			
-			@RequestMapping("deleteUserForm.do") // 탈퇴하기 누르면 비번확인폼으로이동
-			public String userDeleteForm() {
-
+			@RequestMapping("deleteUserForm.do") // ★ 9월6일자 변경사항★(소현) 탈퇴하기 누르면 비번확인폼으로이동
+			public String userDeleteForm(HttpSession session, Model model) {
+				System.out.println("deleteUserForm.do 들어옴");
+				String user_id = (String) session.getAttribute("user_id");
+				model.addAttribute("user_id", user_id);
 				return "user/myInFo_MembershipDelete";
 			}
-			@RequestMapping(value = "/deleteUser.do")// 탈퇴전비밀번호 일치 검사 (비번체크해서 삭제해야되는데 아직 안됨)
-			@ResponseBody 
-			public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+			
+			@RequestMapping(value = "/deleteUser.do") // ★ 9월6일자 변경사항★(소현) 탈퇴전비밀번호 일치 검사
+			@ResponseBody
+			public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session,
+					@RequestParam String user_id, @RequestParam String user_pass) {
+				System.out.println("deleteUser.do 들어옴");
 				resp.setContentType("text/html; charset=UTF-8");
-				String user_pass = req.getParameter("user_pass");
-				String user_id = req.getParameter("user_id");
-				String user_idch = (String) session.getAttribute("user_id");
 
-				if (user_id.equals(user_idch)) {
-					userService.deleteUser(user_idch, user_pass);
+				if (userService.selectUser(user_id).getUser_pass().equals(user_pass)) {
+					System.out.println(userService.selectUser(user_id).getUser_pass());
+					userService.deleteUser(user_id);
+					return true;
 				}
-				boolean result = userService.getUserPass(user_pass);
-				user_pass = req.getParameter("user_pass");
-				return result;
 
+				else
+					return false;
 			}
 			
-			@RequestMapping(value = "/deletePet.do") // 마이페이지에서 펫 삭제하기
+			
+			@RequestMapping(value = "/deletePet.do") // ★ 9월6일자 변경사항★(소현) 마이페이지에서 펫 삭제하기
 			@ResponseBody
 			public String deletePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
 					HttpServletRequest req, HttpSession session) {
-
+				System.out.println("deletePet.do 들어옴");
 				resp.setContentType("text/html; charset=UTF-8");
-				String pet_name =req.getParameter("pet_name");
-				System.out.println(pet_name);
-				params.put("pet_name", pet_name);
+				int pet_no = Integer.parseInt(req.getParameter("pet_no"));
+				params.put("pet_no", pet_no);
 
-				userService.deletePet(pet_name);
+				userService.deletePet(pet_no);
 
 				String msg = "";
 				return msg;
 
 			}
 			
-			
-			@RequestMapping(value = "myWritesList.do", method = RequestMethod.GET)  // 내가 쓴 게시글 
+			@RequestMapping(value = "myWritesList.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 쓴 게시글
 			public ModelAndView myWrites(Model model, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-
+					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
+					HttpSession session) {
+				System.out.println("myWritesList.do 들어옴");
+				String user_id = (String) session.getAttribute("user_id");
 				ModelAndView mav = new ModelAndView();
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				params.put("type", type);
@@ -448,8 +494,8 @@ public class UserController {
 					params.put("name", keyword);
 				}
 
-				HashMap<String, Object> result = userService.myWrites("sohyun", page, params);
-		        System.out.println(result);
+				HashMap<String, Object> result = userService.myWrites(user_id, page, params);
+				System.out.println(result);
 				mav.addAllObjects(result);
 				mav.addAllObjects(params);
 				mav.setViewName("user/myInfo_MyWrites");
@@ -457,20 +503,19 @@ public class UserController {
 
 			}
 
-
-			
-			@RequestMapping(value = "myinquiry.do",method = RequestMethod.GET)        // 내가 문의한 글                                 
-			public  ModelAndView MyInquiry(Model model, @RequestParam(defaultValue = "1") int page,
+			@RequestMapping(value = "myinquiry.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 문의한 글
+			public ModelAndView MyInquiry(Model model, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-				// String user_id = (String)session.getAttribute("user_id");
-				
+					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
+					HttpSession session) {
+				System.out.println("myinquiry.do 들어옴");
+				String user_id = (String) session.getAttribute("user_id");
 				ModelAndView mav = new ModelAndView();
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				params.put("type", type);
 				params.put("keyword", keyword);
 				params.put("page", page);
-				params.put("user_id", "sohyun");
+				params.put("user_id", user_id );
 				if (startDate != null && endDate != null
 						&& !(startDate.equals("") || startDate.equals("0") || startDate.equals("null"))
 						&& !(endDate.equals("") || endDate.equals("null") || endDate.equals("0"))) {
@@ -487,9 +532,8 @@ public class UserController {
 				} else if (type == 4) {
 					params.put("name", keyword);
 				}
-		   
-				HashMap<String, Object> result = userService.myInquiry(params,"sohyun", page);
-		  
+
+				HashMap<String, Object> result = userService.myInquiry(params, user_id, page);
 
 				mav.addAllObjects(result);
 				mav.addAllObjects(params);
@@ -497,24 +541,22 @@ public class UserController {
 				System.out.println(mav);
 				return mav;
 
-				
-
 			}
 
-			
-			
-			@RequestMapping(value = "myLikesList.do",method = RequestMethod.GET)      // 내가 좋아요 한 글                               
-			public  ModelAndView MyLikes(Model model, @RequestParam(defaultValue = "1") int page,
+			@RequestMapping(value = "myLikesList.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 좋아요 한 글
+			public ModelAndView MyLikes(Model model, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-				// String user_id = (String)session.getAttribute("user_id");
-				
+					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
+					HttpSession session) {
+				System.out.println("myLikesList.do 들어옴");
+				String user_id = (String) session.getAttribute("user_id");
+
 				ModelAndView mav = new ModelAndView();
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				params.put("type", type);
 				params.put("keyword", keyword);
 				params.put("page", page);
-				params.put("user_id", "sohyun");
+				params.put("user_id", user_id);
 				if (startDate != null && endDate != null
 						&& !(startDate.equals("") || startDate.equals("0") || startDate.equals("null"))
 						&& !(endDate.equals("") || endDate.equals("null") || endDate.equals("0"))) {
@@ -525,16 +567,16 @@ public class UserController {
 					params.put("title", keyword);
 				} else if (type == 2) {
 					params.put("content", keyword);
-					
+
 				} else if (type == 3) {
 					params.put("title", keyword);
 					params.put("content", keyword);
 				} else if (type == 4) {
 					params.put("name", keyword);
 				}
-		   
-				HashMap<String, Object> result = userService.selectmyLikes(params, "sohyun", page);
-		       System.out.println(result);
+
+				HashMap<String, Object> result = userService.selectmyLikes(params, user_id, page);
+				System.out.println(result);
 
 				mav.addAllObjects(result);
 				mav.addAllObjects(params);
@@ -542,23 +584,22 @@ public class UserController {
 				System.out.println(mav);
 				return mav;
 
-				
-
 			}
-			
-			
-			@RequestMapping(value = "myMeetingApply.do",method = RequestMethod.GET)            //  내가 참여한 모임 
-			public  ModelAndView MyMeetingApply(Model model, @RequestParam(defaultValue = "1") int page,
+
+			@RequestMapping(value = "myMeetingApply.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 참여한 모임
+			public ModelAndView MyMeetingApply(Model model, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-				// String user_id = (String)session.getAttribute("user_id");
-				
+					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
+					HttpSession session) {
+				System.out.println("myMeetingApply.do 들어옴");
+				String user_id = (String) session.getAttribute("user_id");
+
 				ModelAndView mav = new ModelAndView();
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				params.put("type", type);
 				params.put("keyword", keyword);
 				params.put("page", page);
-				params.put("user_id", "sohyun");
+				params.put("user_id", user_id);
 				if (startDate != null && endDate != null
 						&& !(startDate.equals("") || startDate.equals("0") || startDate.equals("null"))
 						&& !(endDate.equals("") || endDate.equals("null") || endDate.equals("0"))) {
@@ -569,16 +610,15 @@ public class UserController {
 					params.put("title", keyword);
 				} else if (type == 2) {
 					params.put("content", keyword);
-					
+
 				} else if (type == 3) {
 					params.put("title", keyword);
 					params.put("content", keyword);
 				} else if (type == 4) {
 					params.put("name", keyword);
 				}
-		   
-				HashMap<String, Object> result = userService.selectMyMeetingApply(params, "sohyun", page);
-		       
+
+				HashMap<String, Object> result = userService.selectMyMeetingApply(params, user_id, page);
 
 				mav.addAllObjects(result);
 				mav.addAllObjects(params);
@@ -586,34 +626,39 @@ public class UserController {
 				System.out.println(mav);
 				return mav;
 
-				
+	}
 
-			}
-			
-		     
-			@RequestMapping(value = "/view.do" ,method = RequestMethod.GET)    // 내가 쓴 문의글에서 제목 클릭하면 해당 게시글 보여주기 
-			public String view(Model model, @RequestParam int qnA_boardno, @RequestParam(defaultValue = "1") int page,
-					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
-				SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
-				String date = simple.format(userService.viewmyInquiry(qnA_boardno).getQnA_writeDate());
-				model.addAttribute("date", date);
-				model.addAttribute("qna", userService.viewmyInquiry(qnA_boardno));
-				model.addAttribute("qnA_boardno", qnA_boardno);
-				model.addAttribute("type", type);
-				model.addAttribute("keyword", keyword);
-				model.addAttribute("page", page);
-				model.addAttribute("startDate", startDate);
-				model.addAttribute("endDate", endDate);
-				System.out.println(model.addAttribute("qna", userService.viewmyInquiry(qnA_boardno)));
-				
-				return "user/view";
+	@RequestMapping(value = "/allview.do", method = RequestMethod.GET) // ★ 9월6일자 추가사항★(소현) 마이페이지 글목록에서 제목 클릭 시 게시글로
+	// 넘어가는 함수
+	public String view2(Model model, @RequestParam int boardno, @RequestParam int boardname) {
+		System.out.println("allview.do 들어옴");
+		System.out.println("보드네임" + boardname);
+		System.out.println("보드넘버" + boardno);
 
+		if (boardname == 3 || boardname == 4 || boardname == 5 || boardname == 6) {
+			model.addAttribute("boardname", boardname);
+			model.addAttribute("boardno", boardno);
+
+			return "redirect:selectOneBoard.do";
+		} else if (boardname == 2) {
+
+//			model.addAttribute("meeting_boardname", boardname);
+//			model.addAttribute("meeting_boardno", boardno);
+			return "redirect:meetingview.do?meeting_boardno="+boardno;
+		} else if (boardname == 7 || boardname == 8 || boardname == 9) {
+			model.addAttribute("boardname", boardname);
+			model.addAttribute("boardno", boardno);
+
+			return "redirect:ReadTipBoard.do";
 		}
-			
-			
-	// 회원관리
 
+		else
+			return "";
+
+	}
+
+	// 회원관리
+	//수정함??????????
 	@RequestMapping("showUserList.do")
 	public ModelAndView showUserList(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "10") int numb, @RequestParam(required = false) String keyword) {
@@ -621,7 +666,7 @@ public class UserController {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("page", page);
 		params.put("numb", numb);
-		if(keyword != null)
+		if (keyword != null)
 			params.put("keyword", keyword);
 		HashMap<String, Object> result = userService.showUserList(params);
 		mav.addAllObjects(params);
@@ -630,22 +675,43 @@ public class UserController {
 		return mav;
 
 	}
-
+	
+	//수정함???
 	@RequestMapping("stopUser.do")
 	@ResponseBody
-	public int stopUser(int user_no, @RequestParam int stopdate) {
-		System.out.println("옴");
+	public int stopUser(int user_no, @RequestParam(defaultValue = "10") int stopdate) {
 		return userService.stopUser(user_no, stopdate);
 	}
 
-//	@RequestMapping("stopCancelUser.do")
-//	public int stopCancelUser(String user_id, @RequestParam(defaultValue = "1") int stopdate) {
-//		return userService.stopUser(user_id, stopdate);
-//	}
+	//수정함??
+	@RequestMapping("stopCancelUser.do")
+	@ResponseBody
+	public int stopCancelUser(int user_no, @RequestParam(defaultValue = "1") int stopdate) {
+		return userService.stopUser(user_no, stopdate);
+	}
 	
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
+		System.out.println("logout.do 들어옴");	
 		session.removeAttribute("user_id");
 		return "redirect:main.do";
+	}
+	
+	@RequestMapping("downloadPropic.do") // ★ 9월6일자 추가사항★(소현)
+	public View download(String user_id) {
+		System.out.println("downloadPropic.do 들어옴");	
+		View view = new DownloadView(userService.getAttachFile(user_id));
+		return view;
+	}
+
+	@RequestMapping(value = "updatePropic.do", method = RequestMethod.POST) // ★ 9월6일자 추가사항★(소현)
+	@ResponseBody
+	public void updatePropic(MultipartHttpServletRequest multi, HttpServletResponse resp, HttpSession session) {
+		System.out.println("updatePropic.do 들어옴");
+		resp.setContentType("text/html; charset=UTF-8");
+		String user_id = multi.getParameter("user_id");
+		System.out.println(user_id + "유저아이디");
+		userService.updateUserPropic(multi);
+		session.setAttribute("id", multi.getParameter("user_id"));
 	}
 }

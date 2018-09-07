@@ -17,13 +17,16 @@
 <title>About M</title>
 
 <!-- common css -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/animate.min.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.css">
-<link rel="stylesheet" href="assets/css/owl.theme.css">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="assets/css/responsive.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
 
 <!-- HTML5 shim and Respond.js IE9 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -42,6 +45,18 @@ h4 {
 	text-align: center;
 	font-size: 30px;
 	background: white;
+}
+input[type="button"] {
+   margin: 5px 5px 6px;
+  text-decoration: none;
+  border : 0;
+	background-color : #dcdcdc;
+   position: relative;
+  float: right;
+  padding: 0.438em 0.625em 0.438em 0.625em;
+ line-height: 1.125em;
+  cursor: pointer; 
+  color: white;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -93,13 +108,13 @@ $('#deleteBtn').click(function(){
 					<div
 						style="display: inline-block; height: 20px; width: 48%; text-align: right;">
 						조회수 : ${noticeBoard.notice_readCount }</div>
-					<div style="border-bottom: 1px solid red; height: 5px;"></div>
+					<div style="border-bottom: 1px solid #eeeeee; height: 5px;"></div>
 					<div style="height: 20px;"></div>
 					<div class="post-thumb">${noticeBoard.notice_content }</div>
 
 
 					<div class="text-center" style="text-align: right;">
-						<c:if test="${admin_check != null}">
+						<c:if test="${adminCheck != null}">
 							<input type="button" id="deleteBtn" value="삭제하기">
 							<input type="button" value="수정하기"
 								onclick="location.href='modifyNoticeBoardForm.do?notice_boardno=${noticeBoard.notice_boardno }&page=${page }&type=${type }&keyword=${keyword }&numb=${numb }'">

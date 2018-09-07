@@ -27,7 +27,8 @@ public class QnAController {
 	
 	@RequestMapping("qnA.do")
 	public String qnA(HttpSession session) {
-		if(session.getAttribute("admin_check")==null)
+		//여기 바꿈????
+		if(session.getAttribute("adminCheck")==null)
 			return "redirect:writeQnAForm.do";
 		else
 			return "redirect:showQnAList.do";

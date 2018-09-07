@@ -4,18 +4,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>말머리 추가 삭제</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Boot/css/animate.min.css">
+<link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+<link rel="stylesheet" href="./Boot/css/owl.theme.css">
+<link rel="stylesheet" href="./Boot/css/slicknav.css">
+<link rel="stylesheet" href="./Boot/style.css">
+<link rel="stylesheet" href="./Boot/css/responsive.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
 <!-- common css -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/animate.min.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.css">
-<link rel="stylesheet" href="assets/css/owl.theme.css">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="assets/css/responsive.css">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 
 <script type="text/javascript">
@@ -73,56 +78,67 @@ $('#newmal_name').click(function(){
 })
 });
 </script>
+<style type="text/css">
+
+.main-content {
+	position: relative;
+	left: 22%;
+	margin-left: -375px;
+	text-align: center;
+}
+
+  .bs-example{
+    	margin: 20px;
+    }
+    
+/*     .row{ */
+    
+/*     height:500px; */
+/*     width: 500px; */
+    
+    
+/*     } */
+</style>
+
 </head>
 <body>
 	<%@ include file="/petst/header.jsp"%>
-	<div class="wrapper">
+<div class="wrapper">
 		<!--main content start-->
-		<div class="main-content" style="border-bottom: 1px solid gray;">
-			<div class="container"
-				style="background: white; border-left: 1px solid gray; border-top: 1px solid gray;">
+		<div class="main-content" >
+			<div class="container" >
 				<div class="row">
-
-					<div style="width: 20%; display: inline-block; float: left;">
-						<div>
-							<div>
-								<h4>고객센터</h4>
-								<div class="sub">공지사항</div>
-								<div class="sub">자주하는 질문</div>
-								<div class="sub">1:1문의</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-8 col-sm-8"
-						style="border-left: 1px solid gray; width: 80%; display: inline-block;">
+<div class="col-md-8 col-sm-8" style = "height: 500px; width: 800px; ">
 
 						<h2 style="text-align: center;">말머리 추가 삭제</h2>
 
-						<div style="border-bottom: 1px solid red; height: 5px;"></div>
+						<div style="border-bottom: 1px solid orange; height: 5px;"></div>
 						<div style="height: 20px;"></div>
 						<table class="table">
 						<tr>
 						<td>현재 말머리 목록</td>
-						<td id="mals">
+						<td id="mals" style="width: 475px;">
+						
 						<c:forEach items="${malList }" var="mal">
-						<span class="mal">
+						<span class="mal" >
 						<input type="radio" name="radioValue" value="${mal.mal_no }">
 						${mal.mal_malname }
 						</span>
+						
 						</c:forEach>
 						</td>
-						<td><button id="deleteBtn">삭제</button></td>
+						<td><button id="deleteBtn" class="btn btn-warning btn-xs">삭제</button></td>
 						</tr>
 						<tr>
 						<td>추가할 말머리</td>
 						<td colspan="2"><input type="text" id="newmal_name" value="추가할 말머리를 입력하세요."
-						style="width: 500px;"><button id="addBtn">추가</button></td>
+						style="width: 475px; height:38px;"><button id="addBtn" class="btn btn-warning btn-xs">추가</button></td>
 						</tr>
-						</table>
-
-
-						
+						</table><br><br>
+						 <div style="border-bottom: 1px solid orange; height: 5px;"></div>
+<br><br><br><br>
+                    
+					
 						<div style="height: 20px;"></div>
 					</div>
 
@@ -134,6 +150,18 @@ $('#newmal_name').click(function(){
 
 
 	</div>
-<%@ include file="/petst/footer.jsp"%>
+	<%@ include file="/petst/footer.jsp"%>
+	<!-- js files -->
+	<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+	<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+	<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+	<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 </body>
 </html>

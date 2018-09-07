@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 public class MeetingComment {
 	int boardname;
 	int meeting_boardno;
@@ -9,7 +7,7 @@ public class MeetingComment {
 	String meetingComment_nickname;
 	String meetingComment_content;
 	String meetingComment_userId;
-	Date meetingComment_writeDate;
+	String meetingComment_writeDate;
 	public int getBoardname() {
 		return boardname;
 	}
@@ -46,10 +44,11 @@ public class MeetingComment {
 	public void setMeetingComment_userId(String meetingComment_userId) {
 		this.meetingComment_userId = meetingComment_userId;
 	}
-	public Date getMeetingComment_writeDate() {
+
+	public String getMeetingComment_writeDate() {
 		return meetingComment_writeDate;
 	}
-	public void setMeetingComment_writeDate(Date meetingComment_writeDate) {
+	public void setMeetingComment_writeDate(String meetingComment_writeDate) {
 		this.meetingComment_writeDate = meetingComment_writeDate;
 	}
 	@Override

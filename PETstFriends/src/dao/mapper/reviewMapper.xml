@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.ReviewDao">
+<insert id="insertReview" parameterType="MeetingBoardReview">
+insert into meetingReview values(#{boardname}, #{meeting_boardno}, #{meetingReview_no}, #{meetingReview_title}, 
+#{meetingReview_pic}, #{meetingReview_content},#{meetingReview_userid}, #{meetingReview_writeDate}, #{meetingReview_nickname});
+</insert>
+<update id="updateReview" parameterType="MeetingBoardReview">
+update meetingReview set meetingReview_title=#{meetingReview_title}, meetingReview_pic=#{meetingReview_pic}, meetingReview_content=#{meetingReview_content},
+meetingReview_writeDate=#{meetingReview_writeDate}, meetingReview_nickname=#{meetingReview_nickname}
+where meeting_boardno=#{meeting_boardno} and meetingReview_no=#{meetingReview_no};
+</update>
+<delete id="deleteReview" parameterType="java.util.HashMap">
+delete from meetingReview where meeting_boardno=#{meeting_boardno} and meetingReview_no=#{meetingReview_no};
+</delete>
+<select id="selectOneReview" parameterType="java.util.HashMap" resultType="MeetingBoardReview">
+select*from meetingReview where meeting_boardno=#{meeting_boardno} and meetingReview_no=#{meetingReview_no};
+</select>
+<select id="selectReviewAll" parameterType="int" resultType="MeetingBoardReview">
+select*from meetingReview where meeting_boardno=#{meeting_boardno} order by meetingReview_no desc;
+</select>
+<select id="getReviewCount2" parameterType="int" resultType="int">
+select count(*)from meetingReview where meeting_boardno=#{meeting_boardno};
+</select>
+<select id="getReviewCount" parameterType="int" resultType="MeetingBoardReview">
+select*from meetingReview where meeting_boardno=#{meeting_boardno} order by meetingReview_no desc limit 1;
+</select>
+
+</mapper>

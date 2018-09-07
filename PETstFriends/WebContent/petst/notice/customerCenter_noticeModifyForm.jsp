@@ -14,7 +14,21 @@
 <link rel="stylesheet" href="./Boot/style.css">
 <link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script src="https://code.jquery.com/jquery-latest.js"></script>\
+<style type="text/css">
+input[type="button"] {
+   margin: 5px 5px 6px;
+  text-decoration: none;
+  border : 0;
+	background-color : #dcdcdc;
+   position: relative;
+  float: right;
+  padding: 0.438em 0.625em 0.438em 0.625em;
+ line-height: 1.125em;
+  cursor: pointer; 
+  color: white;
+}
+</style>
 <script type="text/javascript"
 	src="./naverEditor/WebContent/resources/editor/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
@@ -54,7 +68,7 @@
 		});
 	});
 </script>
-<title>Insert title here</title>
+<title>공지사항 수정하기</title>
 </head>
 <body>
 		<%@ include file="/petst/header.jsp"%>

@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="./Boot/style.css">
 <link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>공지사항</title>
 <style type="text/css">
 a {
 	color: black;
@@ -26,15 +26,24 @@ a {
 a:hover {
 	color: gray;
 }
+#searchBtn{
+   margin: 5px 5px 6px;
+  text-decoration: none;
+  border : 0;
+	background-color : #dcdcdc;
+   position: relative;
+/*   float: right; */
+  padding: 0.438em 0.625em 0.438em 0.625em;
+ line-height: 1.125em;
+  cursor: pointer; 
+  color: white;
+}
 </style>
 </head>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-	$(document).ready(function() {});
-</script>
 
 <body>
 	<header> <%@ include file="/petst/header.jsp"%>
@@ -73,7 +82,7 @@ a:hover {
 							<option value="10">10개씩 보기</option>
 							<option value="20">20개씩 보기</option>
 							<option value="30">30개씩 보기</option>
-						</select> <input type="submit" value="검색하기">
+						</select> <input id="searchBtn" type="submit" value="검색하기">
 
 					</form>
 					<table class="table">
@@ -143,9 +152,6 @@ a:hover {
 			</div>
 		</div>
 	</div>
-
-
-
 	<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

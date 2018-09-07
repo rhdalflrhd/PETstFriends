@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="./Boot/style.css">
 <link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>자주하는 질문 수정</title>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
 	src="./naverEditor/WebContent/resources/editor/js/HuskyEZCreator.js"
@@ -28,6 +28,18 @@
 	padding: 0 22px;
 	letter-spacing: 0.5px;
 	color: #666666;
+}
+input[type="button"] {
+   margin: 5px 5px 6px;
+  text-decoration: none;
+  border : 0;
+	background-color : #dcdcdc;
+   position: relative;
+  float: right;
+  padding: 0.438em 0.625em 0.438em 0.625em;
+ line-height: 1.125em;
+  cursor: pointer; 
+  color: white;
 }
 </style>
 <script type="text/javascript">

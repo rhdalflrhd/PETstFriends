@@ -17,14 +17,17 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>내가 작성한 글 </title>
 
-  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.min.css">
-    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="./assets/css/owl.theme.css">
-    <link rel="stylesheet" href="./assets/css/slicknav.css">
-    <link rel="stylesheet" href="./assets/style.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
+<!-- common css -->
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
     
 
 </head>
@@ -45,49 +48,8 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	
-$("#a").click(function (){
-	if ($("#boardname") == 2 ){
-				window.location.href = ".do?boardno=$('#boardno')";
-}
-	
-else if ($("#boardname") == 3 ){
-		window.location.href = ".do?boardno=$('#boardno')";
-	}
-	
-else if ($("#boardname") == 4 ){
-	window.location.href = ".do?boardno=$('#boardno')";
-}
-
-else if ($("#boardname") == 5 ){
-	window.location.href = ".do?boardno=$('#boardno')";
-}
-
-else if ($("#boardname") == 6 ){
-	window.location.href = ".do?boardno=$('#boardno')";
-}
-
-else if ($("#boardname") == 7 ){
-	window.location.href = ".do?boardno=$('#boardno')";
-}
-
-else if ($("#boardname") == 8 ){
-	window.location.href = ".do?boardno=$('#boardno')";
-}
-
-else if ($("#boardname") == 9 ){
-	window.location.href = ".do?boardno=$('#boardno')";
-}
-
-else if ($("#boardname") == 3 ){
-	window.location.href = ".do?boardno=$('#boardno')";
-}
 
 
-});
-
-});
 
 </script>
 <style type="text/css">
@@ -96,7 +58,11 @@ else if ($("#boardname") == 3 ){
     	
     }
 
- 
+ .nav  {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
 <body>
 
@@ -107,8 +73,8 @@ else if ($("#boardname") == 3 ){
 <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
 <div class="bs-example">
-	<ul class="nav nav-tabs navbar-right" >
-        <li><a href="getUserId.do">내정보수정</a></li>
+	<ul class="nav nav-tabs navbar-" >
+        <li><a href="userPwCheck.do">내정보수정</a></li>
         <li class="active"><a href="myWritesList.do">내가쓴게시글</a></li>
         <li ><a href="myinquiry.do">내가문의한글</a></li>
          <li><a href="myLikesList.do">내가좋아요한글</a></li>
@@ -130,8 +96,8 @@ else if ($("#boardname") == 3 ){
 
 <div class="memberout-wrap"  style="border: none; height: 850px; width: 850px;" >
 
-
-<div class = "container">
+<center>
+<div class = "container"></div>
 		<table class = "table table-board">
 		
 
@@ -144,29 +110,30 @@ else if ($("#boardname") == 3 ){
 				
 	</tr>
 	<tr>
-				<td width="1250px" colspan="5" bgcolor="yellow"></td>
+				<td width="1250px" colspan="5" bgcolor="#FFD700""></td>
 			</tr>
 
 <c:forEach items="${myWriteList}" var="write">
 				<tr>
 								<td>
-		<c:if test="${empty write.title}"><a id= "a" >제목없음</a></c:if>
-		<c:if test="${not empty  write.title}"><a id= "a"  ><input type="hidden" value = "${write.boardname}" id = "boardname">
+		<c:if test="${empty write.title}"><a href="allview.do?boardno=${write.boardno }&boardname=${write.boardname}">제목없음</a></c:if>
+		<c:if test="${not empty  write.title}"><a href="allview.do?boardno=${write.boardno }&boardname=${write.boardname}"">${ write.title }</a></c:if>	
+		<input type="hidden" value = "${write.boardname}" id = "boardname">
 		<input type="hidden" value = "${write.boardno}"  id = "boardno">
-		${ write.title }</a></c:if>	
+		
 					</td>
-				
+
 					<td align="center">${write.userId }</td>
 					<td align="center">
 					<fmt:parseDate value ="${write.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
-					<fmt:formatDate value="${wriedate }" pattern="yyyy-MM-dd" /></td>
+					<fmt:formatDate value="${wriedate}" pattern="yyyy-MM-dd" /></td>
 							
 				
 				</tr>
 </c:forEach>
 			
 			<tr>
-				<td width="1250px" colspan="5" bgcolor="yellow"></td>
+				<td width="1250px" colspan="5" bgcolor="#FFD700"></td>
 			</tr>
 			
 			<tr>
@@ -202,17 +169,17 @@ else if ($("#boardname") == 3 ){
 <!--   <footer id="footer"> -->
 <%@ include file="/petst/footer.jsp" %>
     <!--footer end-->
-	<script type="text/javascript" src="./assets/js/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./assets/js/smoothscroll.js"></script>
-<script type="text/javascript" src="./assets/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="./assets/js/imagesloaded.pkgd.js"></script>
-<script type="text/javascript" src="./assets/js/isotope.2.2.2min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.stickit.min.js"></script>
-<script type="text/javascript" src="./assets/js/jquery.slicknav.js"></script>
-<script type="text/javascript" src="./assets/js/scripts.js"></script>
+<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 
 
 </body>

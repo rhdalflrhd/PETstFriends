@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>신고글 보기</title>
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
 <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
@@ -19,6 +19,21 @@
 <link rel="stylesheet" href="./Boot/style.css">
 <link rel="stylesheet" href="./Boot/css/responsive.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+button, input[type="button"],input[type="submit"] {
+   margin: 5px 5px 6px;
+  text-decoration: none;
+  border : 0;
+	background-color : #dcdcdc;
+   position: relative;
+   height : 32px;
+  padding: 0.438em 0.625em 0.438em 0.625em;
+ line-height: 1.125em;
+  cursor: pointer; 
+  color: white;
+}
+</style>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
@@ -147,17 +162,20 @@
 							<td><input type="checkbox" value="${report.report_reportNo }" name="report_reportNo"></td>
 								<td>${report.report_reportNo }</td>
 								<td width="30%;">${report.report_reportReason }</td>
-								<td width="15%;"><c:if
-										test="${report.report_boardname==2 }">
-										<c:set value="uu.do?boardno=${report.report_boardno }"
+								<td width="15%;">
+								<c:if test="${report.report_boardname==2 }">
+										<c:set value="meetingview.do?boardno=${report.report_boardno }"
 											var="path"></c:set>
-									</c:if> <c:if test="${report.report_boardname==2 }">
-										<c:set value="uu.do?boardno=${report.report_boardno }"
+									</c:if> 
+								<c:if test="${report.report_boardname>=3 && report.report_boardname<=6 }">
+										<c:set value="selectOneBoard.do?boardno=${report.report_boardno }"
 											var="path"></c:set>
-									</c:if> <c:if test="${report.report_boardname==1 }">
-										<c:set value="ud.do?boardno=${report.report_boardno }"
+									</c:if> 
+									
+								<c:if test="${report.report_boardname>=7 && report.report_boardname<=9 }">
+										<c:set value="ReadTipBoard.do?boardno=${report.report_boardno }"
 											var="path"></c:set>
-									</c:if> <a onclick="window.open('${path}','width=#', 'height=#');"
+								</c:if> <a onclick="window.open('${path}','width=#', 'height=#');"
 									style="cursor: pointer;"> 해당 게시글로 가기</a></td>
 								<!-- 								경로정해지면 하기???????? -->
 								<td><c:set var="str1" value="${report.report_date }" />

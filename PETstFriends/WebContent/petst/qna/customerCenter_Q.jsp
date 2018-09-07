@@ -34,7 +34,7 @@ display:none;
 .pointer{ 
 cursor:pointer; 
 }
-button {
+#writeBoard, button {
    margin: 5px 5px 6px;
   text-decoration: none;
   border : 0;
@@ -68,7 +68,7 @@ button {
 		this.latestToggleObj = oObj;
 	 }
 </script>
-<title>Insert title here</title>
+<title>자주하는 질문</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
@@ -154,14 +154,15 @@ $('.deleteBtn').click(function(){
 					</tbody>
 				</table>
 				</div>
+				<c:if test="${adminCheck != null}"> 
+				<input type="button" value="글쓰기" id="writeBoard" onclick="location.href='writeOftenQnAForm.do'">
+			</c:if> 
 			</div>
 		</div>
 	<div style="height: 20px;"></div>
 	<div class="container" style="text-align: right;">
 	<div id="writeBox">
-<%-- 	<c:if test="${admin_check != null}"> --%>
-		<input type="button" value="글쓰기" onclick="location.href='writeOftenQnAForm.do'">
-<%-- </c:if> --%>
+	
 </div>
 	</div>	
 	</div>

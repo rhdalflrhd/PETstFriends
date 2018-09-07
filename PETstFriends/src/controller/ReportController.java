@@ -54,6 +54,7 @@ public class ReportController {
 	
 	@RequestMapping("writeReportForm.do")
 	public String writeReportForm(@RequestParam int report_boardname, @RequestParam int report_boardno, @RequestParam String report_userId, Model model) {
+		System.out.println("롸이트 한번들어오나");
 		model.addAttribute("report_boardname", report_boardname);
 		model.addAttribute("report_boardno", report_boardno);
 		model.addAttribute("report_userId", report_userId);

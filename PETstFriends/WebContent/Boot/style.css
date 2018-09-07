@@ -5,7 +5,7 @@ Project:   Ocean -
 Build:     Bootstrap 3 +
 Author:    ShapedTheme
 
--------------------------------------------------------------------*/
+-------------------------------------------------------------------d*/
 
 
 /*------------------------------------------------------------------
@@ -57,31 +57,31 @@ body {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 }
-::-webkit-scrollbar {
-  width: 15px;
-  height: 15px;
-  border: 3px solid #fff;
-}
-::-webkit-scrollbar-button:start:decrement,
-::-webkit-scrollbar-button:end:increment {
-  display: block;
-  height: 5px;
-  background: #fff;
-}
-::-webkit-scrollbar-track {
-/*   background: #FCF4DB; */
-  background: #F9F8F2;
-  -webkit-border-radius: 10px;
-  border-radius:10px;
-}
-::-webkit-scrollbar-thumb {
-  height: 50px;
-  width: 50px;
-/*   background: rgba(0,0,0,.2); */
-  background: #E1B771;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
-}
+/* ::-webkit-scrollbar { */
+/*   width: 15px; */
+/*   height: 15px; */
+/*   border: 3px solid #fff; */
+/* } */
+/* ::-webkit-scrollbar-button:start:decrement, */
+/* ::-webkit-scrollbar-button:end:increment { */
+/*   display: block; */
+/*   height: 5px; */
+/*   background: #fff; */
+/* } */
+/* ::-webkit-scrollbar-track { */
+/* /*   background: #FCF4DB; */ */
+/*   background: #F9F8F2; */
+/*   -webkit-border-radius: 10px; */
+
+/* } */
+/* ::-webkit-scrollbar-thumb { */
+/*   height: 50px; */
+/*   width: 50px; */
+/* /*   background: rgba(0,0,0,.2); */ */
+/*   background: #E1B771; */
+/*   -webkit-border-radius: 8px; */
+
+/* } */
 
 a:active,
 a:focus {
@@ -107,8 +107,6 @@ a,
 a:hover,
 .btn,
 .btn:hover,
-input.form-control:focus,
-textarea.form-control:focus,
 #footer-instagram .item .overlay {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -116,14 +114,14 @@ textarea.form-control:focus,
     transition: all 0.3s;
 }
 
-input[type="text"],
+
 input[type="email"] {
     border: 1px solid #eeeeee;
     padding: 8px 15px;
     font-style: italic;
 }
 
-input[type="text"]:focus,
+
 input[type="email"]:focus {
     border-color: #FFD232;
     outline: none;
@@ -171,6 +169,7 @@ h6 {
 .table {
     display: table;
 }
+
 .table-cell {
     display: table-cell;
 }
@@ -890,8 +889,6 @@ a.more-about-me:hover {
     background-color: #FFD232;
     border-color: #FFD232;
 }
-
-.news-letter input[type="text"],
 .news-letter input[type="email"] {
     width: 100%;
     margin-bottom: 14px;
@@ -1390,22 +1387,21 @@ a.more-about-me:hover {
     font-weight: 700;
 }
 
-.leave-comment input,
-.leave-comment textarea {
-    background-color: #FAFAFA;
-    color: #999999;
-    border-radius: 0;
-    font-size: 14px;
-    line-height: 28px;
-    padding: 20px;
-}
+/* .leave-comment input, */
+/* .leave-comment textarea { */
+/*     background-color: #FAFAFA; */
+/*     color: #999999; */
+/*     border-radius: 0; */
+/*     font-size: 14px; */
+/*     line-height: 28px; */
+/*     padding: 20px; */
+/* } */
 
-.leave-comment input[type="text"] + input[type="email"] {
+.leave-comment input[type="email"] {
     border: 1px solid #eeeeee;
     font-style: italic;
 }
 
-input[type="text"]:focus,
 input[type="email"]:focus,
 textarea {
     border-color: #eee;
@@ -1484,7 +1480,7 @@ a.send-btn:hover {
 }
 
 .img-overlay h4,
-.img-overlay a,input {
+.img-overlay a {
     color: #fff;
 /*     text-transform: uppercase; */
     letter-spacing: 0.5px;
@@ -1494,7 +1490,7 @@ a.send-btn:hover {
     margin-top: -20px;
 }
 
-.img-overlay a,input {
+.img-overlay a {
     color: #fff;
 /*     height: 35px; */
     width: 100px;
