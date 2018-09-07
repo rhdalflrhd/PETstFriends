@@ -38,9 +38,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	
 		and freeBoard_boardname = #{freeBoard_boardname}
-		order by freeBoard_boardno desc limit #{skip},#{qty};
+		order by freeBoard_boardno desc limit #{skip},#{qty}; 
 	</select>
 	
+<!-- 	★★★여기요 추가★★★ -->
 	<select id="selectBoardLike" parameterType="java.util.HashMap"
 		resultType="freeBoard">
 	select * from freeBoard where 1 = 0
@@ -59,6 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and freeBoard_boardname = #{freeBoard_boardname}
 		order by freeBoard_LikeCount desc limit #{qty};
 	</select>
+<!-- 	★★★여기까지★★★ -->
 
 
 	<select id="getCount" parameterType="java.util.HashMap"

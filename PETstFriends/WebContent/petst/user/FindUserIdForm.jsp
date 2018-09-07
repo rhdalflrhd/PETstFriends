@@ -129,77 +129,98 @@
 
 	}) //레디
 </script>
+<style type="text/css">
+    .bs-example{
+    	margin: 10px;
+    }
+    .nav{
+/*     display: table; */
+    margin-left: auto;
+    margin-right: auto;
+    
+    }
+
+ 
+</style>
 </head>
 <body>
-<!--        <header id="header"> -->
          <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
-<center>
+    	<div class="wrapper">
+		<div class="container">
+		<br>
+				<div style="border-bottom: 2px solid brown; width: 25%;">
+               <div style="border-bottom: 5px solid #FFD232; width: 70%;">
+               <h2>아이디 찾기</h2>
+               </div>
+               </div>
+               <br>
+    <center>
 
+<div class="container1" style="display: inline-block; width:80%; height:550px;">
+	    <div class="bs-example"  style=" border: 1px solid gray; border-top: none;">
+	<ul class="nav nav-tabs navbar-" >
+        <li  class="active" style="width: 50%"><a href="FindUserIdForm.do">아이디 찾기</a></li>
+        <li style="width: 50%"><a href="FindUserPwForm.do">비밀번호 찾기</a></li>
+	</ul>
 
-<h2>이메일 인증</h2>
-		회원가입 시 등록한 이메일주소와 동일하여야 <br> 인증번호를 받을 수 있습니다. <br>
-
-
-		<table>
+<br>
+<div class="container2" style="display: inline-table;width: 80%; height: 350px;">
+<div class="container3" style="display: inline-block; width: 68%; height: 100px;">
+<h2 align="left">이메일 인증</h2> <h5 align="left"> 회원가입 시 등록한 이메일주소와 동일하여야 <br> 인증번호를 받을 수 있습니다.</h5>
+</div>
+<br><br>
+	<table class="table"  style="width: 50%; " align="center">
 			<tr>
-				<td>이름</td>
-				<td><input type="text" id="user_name" name="user_name"></td>
+				<td align="right">* 이름&nbsp; </td>
+				<td><input type="text"  id="user_name" name="user_name"  style="width: 90%"></td>
 			</tr>
 			<tr>
-				<td>이메일 *</td>
-				<td><input type="text" name="user_email" id="user_email">
-					<button type="button" id="auth_btn">인증하기</button> <span id="email"></span><br>
+				<td align="right">* 이메일</td>
+				<td><input type="text" name="user_email" id="user_email"  style="width:60%">
+					<button type="button" id="auth_btn" style="width:30%">인증하기</button> <span id="email"></span><br>
 					</td>
 			</tr>
 			<tr>
-				<td>인증번호 *</td>
-				<td><input type="text" id="user_authNum" name="user_authNum">
-					<button type="button" id="auth_btn2">확인</button> <span id="lab1"></span>
+				<td align="right">* 인증번호</td>
+				<td><input type="text" id="user_authNum" name="user_authNum"  style="width: 40%">
+					<button type="button" id="auth_btn2"  style="width:50%" >확인</button> <span id="lab1"></span>
 				</td>
-			</tr>
-
+				</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
 
 		</table>
-			<table>
+		<table>
 			<tr>
-				<td style="height: 3px"></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center">
 
 					<button id=findIdBtn
-						style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white">확인</button>
+						style="width: 80px; height: 28px;  border: 1 solid white">확인</button>
 				</td>
-				<span id="user_idList"></span>
-							</tr>
+			</tr>
 		</table>
-		<br><br>
-    </section>
-
-<!--     <section id="content2"> -->
-<!--         <p>tab menu2의 내용</p> -->
-<!--     </section> -->
-
-
-
-
-
-		
-
-
-
-
-		<!-- //---------------------------------------------------------------------------------- -->
+		</div>
+		</div>
+</div>
 
 
 
 	</center>
+			</div>
+		<!-- container끝 -->
+	</div>
+	<!-- wrapper끝 -->
 	<!-- <footer> -->
    <%@ include file="/petst/footer.jsp" %>
     <!--footer end-->
 
-
+</div>
 		
 <!-- js files -->
 <script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>

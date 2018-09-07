@@ -28,7 +28,7 @@ public interface FreeBoardService {
 
 //----------------------------------------------------------------게시판목록------------------------------------------------------------------
 	
-	public  HashMap<String, Object> selectBoardLike(HashMap<String, Object> params,int page); //좋아요 높은 글 3개
+	public  HashMap<String, Object> selectBoardLike(HashMap<String, Object> params,int page); //좋아요 높은 글 3개 ★★★여기요★★★
 	public HashMap<String, Object> ShowFreeBoardDog(HashMap<String, Object> params,int page);//dog게시판 목록
 	public HashMap<String, Object> ShowFreeBoardCat(HashMap<String, Object> params,int page);//cat게시판 목록
 	public HashMap<String, Object> ShowFreeBoardRabbit(HashMap<String, Object> params,int page);//rabbit게시판 목록

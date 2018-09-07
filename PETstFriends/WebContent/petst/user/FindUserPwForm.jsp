@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Rubel Miah">
-    <!-- favicon icon -->
-    <link rel="shortcut icon" href="./assets/images/favicon.png">
+     <link rel="shortcut icon" href="./assets/images/favicon.png">
+      <link rel="shortcut icon" href="./assets/images/favicon.png">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <title>로그인</title>
 
@@ -124,60 +129,100 @@
 
 	}) //레디
 </script>
+<style type="text/css">
+    .bs-example{
+    	margin: 10px;
+    }
+    .nav{
+/*     display: table; */
+    margin-left: auto;
+    margin-right: auto;
+
+    
+    }
+ 
+</style>
 </head>
 <body>
          <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
-	<center>
-		<h2>이메일 인증</h2>
-		회원가입 시 등록한 이메일주소와 동일하여야 <br> 인증번호를 받을 수 있습니다. <br>
+    	<div class="wrapper">
+		<div class="container">
+		<br>
+				<div style="border-bottom: 2px solid brown; width: 25%;">
+               <div style="border-bottom: 5px solid #FFD232; width: 70%;">
+               <h2>비밀번호 찾기</h2>
+               </div>
+               </div>
+               <br>
+    <center>
 
+<div class="container1" style="display: inline-block; width:80%; height:550px;">
+	    <div class="bs-example" style=" border: 1px solid gray; height: 500px;">
+	<ul class="nav nav-tabs navbar-" >
+        <li style="width: 50%"><a href="FindUserIdForm.do">아이디 찾기</a></li>
+        <li   class="active" style="width: 50%; "><a href="FindUserPwForm.do">비밀번호 찾기</a></li>
+	</ul>
 
+<br>
+<div class="container2" style="display: inline-table;width: 80%; height: 350px;">
+<div class="container3" style="display: inline-block; width: 68%; height: 100px;">
+<h2 align="left">이메일 인증</h2> <h5 align="left"> 회원가입 시 등록한 이메일주소와 동일하여야 <br> 인증번호를 받을 수 있습니다.</h5>
+</div>
+<br><br>
+	<table class="table"  style="width: 50%; " align="center">
 
-		<table>
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" id="user_id" name="user_id"> <span
+				<tr>
+				<td align="right">아이디 *</td>
+				<td><input type="text" style="width: 90%"  id="user_id" name="user_id"> <span
 					id='user_idResult'></span> <input type="hidden" value="uncheck"
-					id="user_idChecked"></td>
+					id="user_idChecked"> <br> </td>
 			</tr>
 			<tr>
-				<td>이름</td>
-				<td><input type="text" id="user_name" name="user_name">
-					<span id='user_idResult'></span> <input type="hidden"
-					value="uncheck" id="user_idChecked"></td>
-			</tr>
-
-			<tr>
-				<td>이메일 *</td>
-				<td><input type="text" name="user_email" id="user_email">
-					<button type="button" id="auth_btn">인증하기</button> <span id="email"></span><br>
+				<td align="right">이름 *  &nbsp; </td>
+				<td><input type="text"  id="user_name" name="user_name"  style="width: 90%"></td>
 			</tr>
 			<tr>
-				<td>인증번호 *</td>
-				<td><input type="text" id="user_authNum" name="user_authNum">
-					<button type="button" id="auth_btn2">확인</button> <span id="lab1"></span>
+				<td align="right"> 이메일 *</td>
+				<td><input type="text" name="user_email" id="user_email"  style="width:60%">
+					<button type="button" id="auth_btn" style="width: 30%">인증하기</button> <span id="email"></span><br>
+					</td>
+			</tr>
+			<tr>
+				<td align="right">인증번호 *</td>
+				<td><input type="text" id="user_authNum" name="user_authNum"  style="width: 40%">
+					<button type="button" id="auth_btn2"  style="width: 50%">확인</button> <span id="lab1"></span>
 				</td>
-			</tr>
+				</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
 
 		</table>
-
 		<table>
 			<tr>
-				<td style="height: 3px"></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center">
 
 					<button id=findPwBtn
-						style="width: 80px; height: 28px; background-color: #FFE6E6; border: 1 solid white">확인</button>
+						style="width: 80px; height: 28px;  border: 1 solid white">확인</button>
 				</td>
 			</tr>
 		</table>
-    </section>
-		
+		</div>
+		</div>
+</div>
+
+
 
 	</center>
+			</div>
+		<!-- container끝 -->
+	</div>
+	<!-- wrapper끝 -->
 	<!-- <footer> -->
    <%@ include file="/petst/footer.jsp" %>
     <!--footer end-->

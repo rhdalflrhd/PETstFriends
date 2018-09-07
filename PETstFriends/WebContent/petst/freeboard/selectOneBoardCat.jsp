@@ -37,7 +37,7 @@
 			var result = confirm('삭제하시겠습니까?');
 			if (result == true) {
 				alert("성공적으로 삭제되었습니다.")
-				location.href = 'dogDeleteFreeBoard.do?freeBoard_boardno=' + $
+				location.href = 'catDeleteFreeBoard.do?freeBoard_boardno=' + $
 				{
 					freeBoard_boardno
 				}
@@ -84,16 +84,16 @@
 				<td colspan="7" align="right"><br>
 		<c:if test="${freeBoard.freeBoard_userId eq user_idCheck}">
 						<input type="button" style="color: black;" value="수정하기"
-							onclick="location.href='dogModifyFreeBoardForm.do?freeBoard_boardno=${freeBoard.freeBoard_boardno}&freeBoard_boardname=${freeBoard.freeBoard_boardname }'">
+							onclick="location.href='catModifyFreeBoardForm.do?freeBoard_boardno=${freeBoard.freeBoard_boardno}&freeBoard_boardname=${freeBoard.freeBoard_boardname }'">
 
 					</c:if> <input type="button"  style="color: black;" value="목록"
-					onclick="location.href='dogFreeBoardList.do'"> 
+					onclick="location.href='catFreeBoardList.do'"> 
 					<input type="button"  style="color: black;"
 					value="뒤로" onclick="history.back();" />
 					 <c:if
  						test="${freeBoard.freeBoard_userId eq user_idCheck}">
 						<form
- 							action="dogDeleteFreeBoard.do?freeBoard_boardname=${freeBoard.freeBoard_boardname}&freeBoard_boardno=${freeBoard.freeBoard_boardno}'" 
+ 							action="catDeleteFreeBoard.do?freeBoard_boardname=${freeBoard.freeBoard_boardname}&freeBoard_boardno=${freeBoard.freeBoard_boardno}'" 
  							name="removefrm" method="post"> 
 						<input type="button" style="color: black;"  value="삭제"  id="deleteBtn" onclick="removeCheck()" > 
 						</form>

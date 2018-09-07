@@ -39,14 +39,22 @@
 <!--        <header id="header"> -->
          <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
+    	<div class="wrapper">
+		<div class="container">
+		<br>
+<!-- 		게시글 3개 -->
+		<div style="border-bottom: 2px solid brown; width: 22%;">
+               <div style="border-bottom: 5px solid #FFD232; width: 70%;">
+               <h2>ID 확인</h2>
+               </div>
+               </div>
 	<center>
-		<h1>
-			<b><font color="gray">ID확인</font></b>
-		</h1>
 
+
+<div style="border: 1px solid red; width: 500px; height: 300px;">
 		<h2>${user_name }회원님</h2>
 		아이디: ${user_id } (가입일 : ${user_joinDate })
-		
+		</div>
 		
 		
 		

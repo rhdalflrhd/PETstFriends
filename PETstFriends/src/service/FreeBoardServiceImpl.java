@@ -401,7 +401,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		bDao.updateBoard(free);
 		return free;
 	}
-
+//★★★여기요★★★=============================================================================
 	@Override
 	public HashMap<String, Object> selectBoardLike(HashMap<String, Object> params,int page) {
 		// TODO Auto-generated method stub
@@ -426,5 +426,5 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 return result2;
 	
 	}
-
+//==============================================================================================
 }

@@ -37,66 +37,20 @@ public class FreeBoardController {
 	@Autowired
 	UserService userService;
 	
-	
-	//---------------------------------------------------------------------------------------
-
-//	@RequestMapping(value= "selectBoardLike.do", method=RequestMethod.GET) 		
-//	public ModelAndView selectBoardLike(Model model,@RequestParam(defaultValue = "1") int page,
-//			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
-//			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,HttpSession session) {
-//
-//		ModelAndView mav = new ModelAndView();
-//		HashMap<String, Object> params = new HashMap<String, Object>();
-//		HashMap<String, Object> result2 = null;
-//		params.put("type", type);
-//		params.put("keyword", keyword);
-//		params.put("freeBoard_boardname", 3);
-//		params.put("page", page);
-//		if (type == 0) {
-//			if ((startDate != null || startDate != "") && (endDate != null || endDate != "")) {
-//				params.put("startdate", startDate);
-//				params.put("enddate", endDate);
-//			}
-//		} 
-//		else if (type == 1) {
-//			params.put("title", keyword);
-//		} else if (type == 2) {
-//			params.put("content", keyword);
-//		} else if (type == 3) {
-//			params.put("title", keyword);
-//			params.put("content", keyword);
-//		} else if (type == 4) {
-//			params.put("nickname", keyword);
-//		}
-//
-//		System.out.println(result2+"result2");
-//		result2 = freeboardService.selectBoardLike(params, page);
-//		
-//		String user_idCheck = (String) session.getAttribute("user_id");
-//		model.addAttribute("user_idCheck", user_idCheck);
-//
-//
-//		mav.addAllObjects(result2);
-//	
-//		mav.addAllObjects(params);
-//
-//		mav.setViewName("freeboard/dogFreeBoardList");
-//
-//		return mav;		
-//	}		
 
 	
 	//---------------------------------------------------------------------------------------
-	//강아지자게
+	//강아지자게 
 		@RequestMapping(value= "dogFreeBoardList.do", method=RequestMethod.GET) 		
 		public ModelAndView DogFreeBoardList(Model model,@RequestParam(defaultValue = "1") int page,
 				@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 				@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,HttpSession session) {
 
 			ModelAndView mav = new ModelAndView();
+
 			HashMap<String, Object> params = new HashMap<String, Object>();
-			HashMap<String, Object> result1= null;
-			HashMap<String, Object> result2 = null;
+			HashMap<String, Object> result1= null; //★★★여기요★★★
+			HashMap<String, Object> result2 = null;  //★★★여기요★★★
 			params.put("type", type);
 			params.put("keyword", keyword);
 			params.put("freeBoard_boardname", 3);
@@ -117,22 +71,20 @@ public class FreeBoardController {
 			} else if (type == 4) {
 				params.put("nickname", keyword);
 			}
-			result1 = freeboardService.ShowFreeBoardDog(params, page);
-			System.out.println(result1+"result1");
-			System.out.println(result2+"result2");
-			result2 = freeboardService.selectBoardLike(params, page);
+			result1 = freeboardService.ShowFreeBoardDog(params, page); //★★★여기요★★★
+			result2 = freeboardService.selectBoardLike(params, page); //★★★여기요★★★
 			
 			String user_idCheck = (String) session.getAttribute("user_id");
 			model.addAttribute("user_idCheck", user_idCheck);
 
-			mav.addAllObjects(result1);
-			mav.addAllObjects(result2);
+			mav.addAllObjects(result1);//★★★여기요★★★
+			mav.addAllObjects(result2); //★★★여기요★★★
 		
-			mav.addAllObjects(params);
-			mav.addAllObjects(params);
+			mav.addAllObjects(params); //★★★여기요★★★
+//			mav.addAllObjects(params); //★★★여기요★★★ 하나만 넣어도 되겟지,,.? 일단 이렇게용
 			mav.setViewName("freeboard/dogFreeBoardList");
 
-			return mav;		
+			return mav;
 		}		
 
 		//-----------------------------------------------------------------------------------------
@@ -266,7 +218,7 @@ public class FreeBoardController {
 				return mav;		
 			}		
 //---------------------------------------------------------------------------------------------------------
-	//게시물 한개 보기 
+	//게시물 한개 보기 -dog
 	@RequestMapping("selectOneBoard.do")
 	public String SelectOneBoard(Model model, HttpSession session,@RequestParam HashMap<String, Object> params, int freeBoard_boardname, int freeBoard_boardno ) {
 
@@ -279,6 +231,48 @@ public class FreeBoardController {
 		return "freeboard/selectOneBoard";
 
 	}
+	//---------------------------------------------------------------------------------------------------------
+		//게시물 한개 보기 -cat
+		@RequestMapping("selectOneBoardCat.do")
+		public String selectOneBoardCat(Model model, HttpSession session,@RequestParam HashMap<String, Object> params, int freeBoard_boardname, int freeBoard_boardno ) {
+
+			
+			freeboardService.readBoard(freeBoard_boardname, freeBoard_boardno);
+			FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+			String user_idCheck = (String) session.getAttribute("user_id");
+			model.addAttribute("user_idCheck", user_idCheck);
+			model.addAttribute("freeBoard", free);
+			return "freeboard/selectOneBoardCat";
+
+		}
+		//---------------------------------------------------------------------------------------------------------
+		//게시물 한개 보기 -rabbit
+		@RequestMapping("selectOneBoardRabbit.do")
+		public String selectOneBoardRabbit(Model model, HttpSession session,@RequestParam HashMap<String, Object> params, int freeBoard_boardname, int freeBoard_boardno ) {
+
+			
+			freeboardService.readBoard(freeBoard_boardname, freeBoard_boardno);
+			FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+			String user_idCheck = (String) session.getAttribute("user_id");
+			model.addAttribute("user_idCheck", user_idCheck);
+			model.addAttribute("freeBoard", free);
+			return "freeboard/selectOneBoardRabbit";
+
+		}
+		//---------------------------------------------------------------------------------------------------------
+		//게시물 한개 보기 -etc
+		@RequestMapping("selectOneBoardEtc.do")
+		public String SelectOneBoardEtc(Model model, HttpSession session,@RequestParam HashMap<String, Object> params, int freeBoard_boardname, int freeBoard_boardno ) {
+
+			
+			freeboardService.readBoard(freeBoard_boardname, freeBoard_boardno);
+			FreeBoard free = freeboardService.getBoard(freeBoard_boardname, freeBoard_boardno);
+			String user_idCheck = (String) session.getAttribute("user_id");
+			model.addAttribute("user_idCheck", user_idCheck);
+			model.addAttribute("freeBoard", free);
+			return "freeboard/selectOneBoardEtc";
+
+		}
 	//---------------------------------------------------------------------------------------
 //게시글 쓰기 dog
 	@RequestMapping("writeDogFreeBoardForm.do")	

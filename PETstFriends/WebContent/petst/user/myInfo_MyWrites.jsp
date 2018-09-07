@@ -194,7 +194,7 @@ else if ($("#boardname") == 3 ){
 				
 		
 		</table>	
-
+</div>
 </div>
 
 </center>

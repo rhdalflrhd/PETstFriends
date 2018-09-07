@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +17,7 @@
 <!-- favicon icon -->
 <link rel="shortcut icon" href="./Boot/images/favicon.png">
 
-<title>rabbit-square</title>
+<title>Dog-square</title>
 
 <!-- common css -->
 <link rel="stylesheet" type="text/css"
@@ -31,9 +35,7 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-$(document).ready(function(){
- 
-});
+
 </script>
 
 <style type="text/css">
@@ -114,16 +116,58 @@ input::-moz-placeholder {
 	<div class="wrapper">
 		<div class="container">
 		<br>
-		<div style="border-bottom: 2px solid brown; width: 20%;">
+<!-- 		게시글 3개 -->
+		<div style="border-bottom: 2px solid brown; width: 22%;">
                <div style="border-bottom: 5px solid #FFD232; width: 70%;">
-               <h2>토끼 광장</h2>
+               <h2><font style="font-size: 30px;">♥</font> BEST 3 <font style="font-size: 30px;">♥</font></h2>
                </div>
                </div>
+		<div>
+		<div class="portfolio">
+				<!--begin portfolio items-->
+				<c:forEach items="${selectBoardLike }"  var="freeBoard">
+					<div class="portfolio-item"
+						style="width: 300px; height: 300px; border-radius: 5px; border: 1px solid red;">
+						<div style=" height: 200px;">
+
+								<div style="width=200px; border: 1px solid black;">
+									${freeBoard.freeBoard_content}</div>
+							</div>
+						<div align="center" class="form-group">
+						<div class="col-md-4" align="center" style="text-align: left; height: 40px; border: 1px solid red;">
+								<h5>
+									<font
+										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+										</font>
+								</h5>
+							</div>
+						<div class="col-md-8" style="text-align: left; height: 200px;">
+<!-- 								<h5> -->
+<!-- 									<font -->
+<!-- 										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;"> -->
+<%-- 										${freeBoard.freeBoard_title}</font> --%>
+<!-- 								</h5> -->
+							</div>
+						</div>
+<!-- 						마우스올리면 오버레이~~ -->
+						<div class="img-overlay">
+							<div class="portfolio-text">
+								<h4><font style="font-family: 'NanumSquareRound', sans-serif;"> <font style="font-size: 20px; ">♥</font>${freeBoard.freeBoard_LikeCount }</font></h4>
+								<a 
+									href="selectOneBoardRabbit.do?freeBoard_boardno=${freeBoard.freeBoard_boardno }&freeBoard_boardname=${freeBoard.freeBoard_boardname }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">click</a>
+							</div>
+						</div>
+					</div>
+					</c:forEach>
+		</div>
 		
 
-			<!-- ========================================================어떤 회원이 작성한 게시글 모두보기 시작===================================================-->
-<!-- 			<div style="background: rgba(244, 159, 0, 0.7); border: 1px solid #eeeeee; border-radius: 25px; width: 1200px;"> -->
-
+		</div>
+		<div style="border-bottom: 2px solid brown; width: 22%;">
+               <div style="border-bottom: 5px solid #FFD232; width: 70%;">
+               <h2>토끼광장</h2>
+               </div>
+               </div>
 				<article> 
 				<table class="table" style="text-align: right:;">
 					<thead align="center" style="text-align: right:;">

@@ -214,10 +214,10 @@ public class UserController {
 				}
 			}
 			
-			
+			//0907 04:23 수정======================= String으로 바꾸고 리턴 추가 ~
 			@RequestMapping(value = "/FindUserIdConfirmForm.do")
 			
-			public void FindUserIdConfirmForm(@RequestParam String user_id, Model model) {	
+			public String FindUserIdConfirmForm(@RequestParam String user_id, Model model) {	
 
 				User user = userDao.selectUserbyId(user_id);
 				
@@ -225,7 +225,7 @@ public class UserController {
 				model.addAttribute("user_name", user.getUser_name());
 				model.addAttribute("user_joinDate", user.getUser_joinDate());
 					
-				
+				return "user/FindUserIdConfirmForm";
 			}
 			
 			

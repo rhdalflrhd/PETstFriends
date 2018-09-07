@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,9 +35,7 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-$(document).ready(function(){
- 
-});
+
 </script>
 
 <style type="text/css">
@@ -102,6 +104,18 @@ input::-moz-placeholder {
 .wrapper {
 	font-family: 'NanumSquareRound', sans-serif;
 }
+button {
+   margin: 5px 5px 6px;
+  text-decoration: none;
+  border : 0;
+   background-color : #dcdcdc;
+   position: relative;
+  float: right;
+  padding: 0.438em 0.625em 0.438em 0.625em;
+ line-height: 1.125em;
+  cursor: pointer; 
+  color: white;
+}
 
 
 
@@ -120,67 +134,62 @@ input::-moz-placeholder {
                <h2><font style="font-size: 30px;">♥</font> BEST 3 <font style="font-size: 30px;">♥</font></h2>
                </div>
                </div>
-               <br>
 		<div>
-		<table class="table" style="text-align: right:;">
-					<thead align="center" style="text-align: right:;">
-						<tr>
-							<th>글 번호</th>
-							<th>제 목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>조회수</th>
-												<th><font style="font-size: 20px; ">♥</font></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${selectBoardLike}" var="freeBoard">
-							<tr>
-								<td>${freeBoard.freeBoard_boardno }</td>
-								<td><a
-									href="selectOneBoard.do?freeBoard_boardno=${freeBoard.freeBoard_boardno }&freeBoard_boardname=${freeBoard.freeBoard_boardname }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
-										<c:if
-											test="${freeBoard.freeBoard_title != null &&  freeBoard.freeBoard_title ne '' }">
-					${freeBoard.freeBoard_title }
-					</c:if> <c:if
-											test="${freeBoard.freeBoard_title == null ||freeBoard.freeBoard_title eq '' }">
-					제목없음
-					</c:if>
-								</a></td>
-								<td>${freeBoard.freeBoard_nickname }</td>
-								<td>${freeBoard.freeBoard_writeDate }</td>
-								<%--  <fmt:formatDate value="${FreeBoard.freeBoard_writeDate}" pattern="yyyy-MM-dd" /> --%>
-								<td>${freeBoard.freeBoard_readCount }</td>
-									<td>${freeBoard.freeBoard_LikeCount }</td>
+		<div class="portfolio">
+				<!--begin portfolio items-->
+				<c:forEach items="${selectBoardLike }"  var="freeBoard">
+					<div class="portfolio-item"
+						style="width: 300px; height: 300px; border-radius: 5px; border: 1px solid red;">
+						<div style=" height: 200px;">
 
-							</tr>
-
-						</c:forEach>
-					</tbody>
-				</table>
+								<div style="width=200px; border: 1px solid black;">
+									${freeBoard.freeBoard_content}</div>
+							</div>
+						<div align="center" class="form-group">
+						<div class="col-md-4" align="center" style="text-align: left; height: 40px; border: 1px solid red;">
+								<h5>
+									<font
+										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;">
+										</font>
+								</h5>
+							</div>
+						<div class="col-md-8" style="text-align: left; height: 200px;">
+<!-- 								<h5> -->
+<!-- 									<font -->
+<!-- 										style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; color: #8B5927;"> -->
+<%-- 										${freeBoard.freeBoard_title}</font> --%>
+<!-- 								</h5> -->
+							</div>
+						</div>
+<!-- 						마우스올리면 오버레이~~ -->
+						<div class="img-overlay">
+							<div class="portfolio-text">
+								<h4><font style="font-family: 'NanumSquareRound', sans-serif;"> <font style="font-size: 20px; ">♥</font>${freeBoard.freeBoard_LikeCount }</font></h4>
+								<a 
+									href="selectOneBoard.do?freeBoard_boardno=${freeBoard.freeBoard_boardno }&freeBoard_boardname=${freeBoard.freeBoard_boardname }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">click</a>
+							</div>
+						</div>
+					</div>
+					</c:forEach>
+		</div>
 		
+
 		</div>
 <!-- 		게시글 3개 -->
-		
-		<div style="border-bottom: 2px solid brown; width: 20%;">
+		<div style="border-bottom: 2px solid brown; width: 22%;">
                <div style="border-bottom: 5px solid #FFD232; width: 70%;">
-               <h2>강아지 광장</h2>
+               <h2>강아지광장</h2>
                </div>
                </div>
-		
-
-			<!-- ========================================================어떤 회원이 작성한 게시글 모두보기 시작===================================================-->
-<!-- 			<div style="background: rgba(244, 159, 0, 0.7); border: 1px solid #eeeeee; border-radius: 25px; width: 1200px;"> -->
-
 				<article> 
 				<table class="table" style="text-align: right:;">
 					<thead align="center" style="text-align: right:;">
 						<tr>
-							<th>글 번호</th>
-							<th>제 목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>조회수</th>
+							<th style="width: 100px">글 번호</th>
+							<th  style="width: 600px;">제 목</th>
+							<th  style="width: 100px">작성자</th>
+							<th  style="width: 100px">작성일</th>
+							<th  style="width: 100px">조회수</th>
 	<th><font style="font-size: 20px; ">♥</font></th>
 						</tr>
 					</thead>
@@ -188,7 +197,7 @@ input::-moz-placeholder {
 						<c:forEach items="${dogFreeBoardList}" var="freeBoard">
 							<tr>
 								<td>${freeBoard.freeBoard_boardno }</td>
-								<td><a
+								<td style="text-align: left;"><a
 									href="selectOneBoard.do?freeBoard_boardno=${freeBoard.freeBoard_boardno }&freeBoard_boardname=${freeBoard.freeBoard_boardname }&page=${current}&type=${type }&keyword=${keyword }&startDate=${startDate}&endDate=${endDate}">
 										<c:if
 											test="${freeBoard.freeBoard_title != null &&  freeBoard.freeBoard_title ne '' }">
@@ -213,7 +222,7 @@ input::-moz-placeholder {
 				<div class="numbers" align="center">
 									<div align="right">
 						<c:if test="${user_idCheck !=null }">
-							<input type="button" value="글쓰기"  style="background-color: #EBC680"
+							<input type="button" id="aaa"  value="글쓰기"  style="background-color: #EBC680"
 								onclick="location.href='writeDogFreeBoardForm.do'">
 							<input type="button" value="뒤로가기"   style="background-color: #EBC680"
 								onclick="location.href='main.do'">
@@ -254,8 +263,7 @@ input::-moz-placeholder {
 
 									<form action="dogFreeBoardList.do">
 		
-<!-- 		여기부터 수정 -->
-					
+
 							<div>
 									<select name="type" style="height: 26px;">
 											<option value="0">검색어 선택</option>
@@ -267,9 +275,9 @@ input::-moz-placeholder {
 
 
 									<input type="text" name="keyword"
-										style="height: 26px;"></td>
+										style="height: 26px;">
 
-									<input type="submit" value="검색하기"   style="background-color: #EBC680">
+									<input type="submit" value="검색"   style="background-color: #EBC680; text-align: center;border-radius:3px">
 	</div>
 					</form>
 				</div>
@@ -295,7 +303,6 @@ input::-moz-placeholder {
 		<!-- container끝 -->
 	</div>
 	<!-- wrapper끝 -->
-
 	<%@ include file="/petst/footer.jsp"%>
 
 	<!-- js files -->
