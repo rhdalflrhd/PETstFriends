@@ -407,6 +407,7 @@ public class TipBoardController {
 		mav.addAllObjects(params);
 		mav.addObject("ThatmemberId", memberid);
 		mav.setViewName("Tipboard/CertainMemberWrites");
+		System.out.println("나가나 보자");
 		return mav;
 
 	}

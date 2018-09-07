@@ -271,12 +271,12 @@ tr a:hover {
 								<div style="height: 285px;">
 									<c:if test="${empty tipboard.tipBoard_file}">
 										<img src="./Boot/images/tipBoardNonImageCondition.png"
-											alt="ocean" height="280px">
+											alt="ocean" height="280px" width="315px">
 									</c:if>
 									<c:if test="${not empty tipboard.tipBoard_file}">
 										<img
 											src="download.do?boardname=${tipBoard_boardname}&boardno=${tipboard.tipBoard_boardno}"
-											height="280px">
+											height="280px" width="315px">
 										<br>
 									</c:if>
 								</div>

@@ -1,14 +1,10 @@
 package service;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import dao.ApplyDao;
 import dao.MeetingBoardDao;
@@ -27,7 +23,6 @@ import model.ReviewComment;
 @Service
 public class MeetingServiceImpl implements MeetingService{
 
-	
 	@Autowired
 	private MeetingBoardDao meetingBoardDao;
 	@Autowired
@@ -85,9 +80,7 @@ public class MeetingServiceImpl implements MeetingService{
 	@Override
 	public boolean insertApply(MeetingBoardApply mApply) {
 		// TODO Auto-generated method stub
-		System.out.println("1");
 		applyDao.insertApply(mApply);
-		System.out.println("2");
 		return true;
 	}
 	@Override
@@ -99,6 +92,12 @@ public class MeetingServiceImpl implements MeetingService{
 		applyDao.deleteApply(params);
 		return true;
 	}
+	
+	@Override
+	public boolean deleteApply2(int meeting_boardno) {
+		// TODO Auto-generated method stub
+		return applyDao.deleteApply2(meeting_boardno);
+	}
 	@Override
 	public List<MeetingBoardApply> selectApply(String meetingBoardApply_userId) {
 		// TODO Auto-generated method stub
@@ -108,6 +107,18 @@ public class MeetingServiceImpl implements MeetingService{
 	public List<MeetingBoardApply> showApply(int meeting_boardno) {
 		// TODO Auto-generated method stub
 		return applyDao.selectAllApply(meeting_boardno);
+	}
+	
+	@Override
+	public List<MeetingBoardApply> showApply2() {
+		// TODO Auto-generated method stub
+		return applyDao.selectAllApply2();
+	}
+	
+	@Override
+	public MeetingBoardApply showApplycount(int meeting_boardno) {
+		// TODO Auto-generated method stub
+		return applyDao.selectcount(meeting_boardno);
 	}
 	@Override
 	public boolean commentWriteMeetingBoard(MeetingComment mComment) {
@@ -143,6 +154,19 @@ public class MeetingServiceImpl implements MeetingService{
 		// TODO Auto-generated method stub
 		return meetingCommentDao.selectCommentAll(meeting_boardno);
 	}
+	
+	
+	@Override
+	public MeetingComment getCommentCount(int meeting_boardno) {
+		// TODO Auto-generated method stub
+		return meetingCommentDao.getCommentCount(meeting_boardno);
+	}
+	@Override
+	public int getCommentCount2(int meeting_boardno) {
+		// TODO Auto-generated method stub
+		return meetingCommentDao.getCommentCount2(meeting_boardno);
+	}
+	
 	@Override
 	public boolean writeReview(MeetingBoardReview mReview) {
 		// TODO Auto-generated method stub
@@ -230,6 +254,22 @@ public class MeetingServiceImpl implements MeetingService{
 		return reviewCommentDao.selectReviewCommentAll(param);
 	}
 	@Override
+	public ReviewComment getReviewCommentCount(int meeting_boardno, int reviewno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewno", reviewno);
+		return reviewCommentDao.getReviewCommentCount(param);
+	}
+	@Override
+	public int getReviewCommentCount2(int meeting_boardno, int reviewno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewno", reviewno);
+		return reviewCommentDao.getReviewCommentCount2(param);
+	}
+	@Override
 	public boolean insertReviewLikes(MeetingLikes rLikes) {
 		// TODO Auto-generated method stub
 		reviewLikesDao.insertReviewLikes(rLikes);
@@ -244,9 +284,19 @@ public class MeetingServiceImpl implements MeetingService{
 		param.put("reviewno", reviewno);
 		param.put("meetingLikes_userId", meetingLikes_userId);
 		reviewLikesDao.deleteReviewLikes(param);
-		return false;
+		return true;
 	}
 	
+	
+	@Override
+	public boolean deleteReviewLikes2(int meeting_boardno, int reviewno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewno", reviewno);
+		reviewLikesDao.deleteReviewLikes(param);
+		return true;
+	}
 	@Override
 	public List<MeetingLikes> selectAllReviewLikes(int meeting_boardno, int reviewno, String meetingLikes_userId) {
 		// TODO Auto-generated method stub
@@ -256,76 +306,51 @@ public class MeetingServiceImpl implements MeetingService{
 		param.put("meetingLikes_userId", meetingLikes_userId);
 		return reviewLikesDao.selectAllReviewLikes(param);
 	}
+	
 	@Override
-	public int getReviewLikesCount(int meeting_boardno, int reviewno) {
+	public List<MeetingLikes> selectAllReviewLikes2() {
+		// TODO Auto-generated method stub
+		return reviewLikesDao.selectAllReviewLikes2();
+	}
+	@Override
+	public MeetingLikes selectcount(int meeting_boardno, int reviewno) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("meeting_boardno", meeting_boardno);
+		param.put("reviewno", reviewno);	
+		return reviewLikesDao.selectcount(param);
+	}
+	@Override
+	public int getStartPage(int page) {
+		// TODO Auto-generated method stub
+		return (page - 1) / 10 * 10 + 1;
+	}
+	@Override
+	public int getEndPage(int page) {
+		// TODO Auto-generated method stub
+		return (page-1)/10 * 10+10;
+	}
+	@Override
+	public int getSkip(int page) {
+		// TODO Auto-generated method stub
+		return (page - 1) * 10;
+	}
+	@Override
+	public int getLastPage(int meeting_boardno) {
+		// TODO Auto-generated method stub
+		return (meetingCommentDao.getCommentCount2(meeting_boardno) - 1 ) / 10 + 1;
+	}
+	public int getLastPageReviewcomment(int meeting_boardno, int reviewno) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("meeting_boardno", meeting_boardno);
 		param.put("reviewno", reviewno);
-		
-		return reviewLikesDao.getReviewLikesCount(param);
+		return (reviewCommentDao.getReviewCommentCount2(param) - 1 ) / 10 + 1;
 	}
-	@Override
-	public HashMap<String, Object> getMeetingBoardListPage(HashMap<String, Object> param, int meetingPage) {
+	public int getLastPageReview(int meeting_boardno) {
 		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("current", meetingPage);
-		result.put("start", getMeetingBoardStartPage(meetingPage)); 
-		result.put("end", getMeetingBoardEndPage(meetingPage));
-		result.put("last", getMeetingBoardLastPage(meetingPage));
-		
-		param.put("skip", getMeetingBoardSkip(meetingPage));
-		param.put("qty", 10);
-		
-		return result;
+		return (reviewDao.getReviewCount2(meeting_boardno) - 1 ) / 10 + 1;
 	}
-	@Override
-	public int getMeetingBoardStartPage(int meetingPage) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getMeetingBoardEndPage(int meetingPage) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getMeetingBoardLastPage(int meetingPage) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getMeetingBoardSkip(int meetingPage) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getReviewListPage(int reviewPage) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getReviewStartPage(int reviewPage) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getReviewEndPage(int reviewPage) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getReviewLastPage(int reviewPage) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getReviewSkip(int reviewPage) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	  
 
 	
 }

@@ -13,7 +13,7 @@
 <!-- favicon icon -->
 <link rel="shortcut icon" href="./Boot/images/favicon.png">
 
-<title>${ThatmemberId}회원님이 작성한 게시글</title>
+<title>${ThatmemberId}회원님이 작성한 게시글 ㅎ</title>
 
 <!-- common css -->
 <link rel="stylesheet" type="text/css"
@@ -154,7 +154,8 @@ input::-moz-placeholder {
 											</c:if>
 										</td>															
 										<td>
-										<fmt:formatDate value="${write.writeDate}" pattern="yyyy-MM-dd" />
+										${write.writeDate}
+<%-- 										<fmt:formatDate value="${write.writeDate}" pattern="yyyy-MM-dd" /> --%>
 										</td>
 									</tr>
 								</c:forEach>

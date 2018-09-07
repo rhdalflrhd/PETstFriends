@@ -33,6 +33,14 @@
 	background:;
 	margin: -50px 0 0 -50px;
 }
+body{
+
+font-family: 'NanumSquareRound', sans-serif;
+font-weight: bold; 
+
+
+				
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -68,14 +76,16 @@ $(document).ready(function(){
 		<br>
 		<p>
 		<center>
-			<div class="memberout-wrap"
-				style="border: 1px solid orange; height: 850px; width: 850px;">
+			<div 
+				style="background: rgba(255, 255, 255, 0.8); border: 1px solid #eeeeee;  height: 350px; width: 850px; border-radius: 25px;">
 
-				<div class="layer">
-					<div class="header">
-
+				<div >
+					<div  style="color: #8B5927; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold;">
+<br><br><br>
 						<p>
-							<strong>회원님!</strong><br /> 회원님의 안전한 정보보호를 위해 비밀번호를 입력해주시기 바랍니다.
+							<strong>${user_id } 회원님!</strong><br /> 
+							회원님의 안전한 정보보호를 위해<br>
+							 비밀번호를 입력해주시기 바랍니다.
 						</p>
 					</div>
 					<div class="article">
@@ -83,13 +93,13 @@ $(document).ready(function(){
 							<form action="getUserId.do" id="getUserIdFrm">
 							<input type="hidden" value="${user_id }" name="user_id">
 							</form>
-							비밀번호: <input type="password" id="user_pass" name="user_pass" />
+							비밀번호: <input type="password" id="user_pass" name="user_pass" style="border-radius: 5px;" />
 							<button id="pwcheckBtn"
-								style="width: 50px; height: 28px; background-color: #FFD232; border: 1 solid white">확인</button>
+								style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; width: 50px; height: 28px; border: 1; border-color: #CD853F; border-radius: 5px;">확인</button>
 
 							<input type="button" value="취소"
 								onclick="location.href='usermain.do'"
-								style="width: 50px; height: 28px; background-color: #FFD232; border: 1 solid white">
+								style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; width: 50px; height: 28px; border: 1; border-color: #CD853F; border-radius: 5px;">
 							
 						</div>
 					</div>

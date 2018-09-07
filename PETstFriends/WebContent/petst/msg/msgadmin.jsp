@@ -202,8 +202,8 @@ $(document).on('click', '#current', function(event) {
 					"<tr><td width=\"1100px\" height=\"30px\">");
 			if(data.start !=1){
 						$('#msgtablepage>tbody:last').append(
-						"<a id=\"startbtn\">[처음]</a>"+
-						"<a id=\"startbtn2\">[이전]</a>");
+								"<imput style=\"cursor: pointer;\" type=\"text\" id=\"current\" value=\""+1+"\">[처음]</a>"+
+								"<imput style=\"cursor: pointer;\" type=\"text\" id=\"current\" value=\""+data.start-1+"\">[이전]</a>");
 					}
 			for(var i = data.start; i <data.end;i++){
 				if(i<=data.last){
@@ -265,7 +265,7 @@ $(document).on('click', '#msgSendbutton', function(event) {
 			"msg_contents" : msg_contents
 		},
 		success : function(data){
-			location.reload();
+			alert('전송 성공')
 		},
 		error : function(request){
 			alert("에러 : "+request.status);

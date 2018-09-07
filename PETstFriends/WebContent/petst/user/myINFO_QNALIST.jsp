@@ -129,9 +129,11 @@
 				
 					<td align="center">${qnA.qnA_userId }</td>
 					<td align="center">
-						<fmt:parseDate value ="${qnA.qnA_writeDate}" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
-					<fmt:formatDate value="${wriedate }"
-							pattern="yyyy-MM-dd" /></td>
+<%-- 						<FMT:PARSEDATE VALUE ="${QNA.QNA_WRITEDATE}" VAR = "WRIEDATE" PATTERN = "YYYYMMDD" ></FMT:PARSEDATE> --%>
+<%-- 					<FMT:FORMATDATE VALUE="${WRIEDATE }" --%>
+<!-- 							PATTERN="YYYY-MM-DD" /> -->
+${qnA.qnA_writeDate}
+							</td>
 							
 				
 				</tr>

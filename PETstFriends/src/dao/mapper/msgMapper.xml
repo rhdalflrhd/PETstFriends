@@ -14,7 +14,7 @@ delete from Msg where msg_no = #{msg_no};
 select*from Msg where msg_no = #{msg_no};
 </select>
 <select id="selectMsgAll" parameterType="String" resultType="msg">
-select*from Msg where msg_ReceiverId = #{msg_ReceiverId};
+select*from Msg where msg_ReceiverId = #{msg_ReceiverId} order by msg_no desc;;
 </select>
 
 </mapper>

@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<title>내가 좋아요한 글  </title>
+<title>내가 좋아요한 글  gg</title>
 
  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
@@ -123,11 +123,10 @@
 				
 					<td align="center">${like.userId }</td>
 					<td align="center">
-					<fmt:parseDate value ="${like.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
-					<fmt:formatDate value="${wriedate }"
-							pattern="yyyy-MM-dd" /></td>
-							
-				
+<%-- 					<fmt:parseDate value ="${like.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate> --%>
+<%-- 					<fmt:formatDate value="${wriedate }" pattern="yyyy-MM-dd" /></td> --%>
+<%-- 					<fmt:formatDate value="${like.writeDate}" pattern="yyyy년 MM월 dd일" />							 --%>
+				${like.writeDate}</td>
 				</tr>
 </c:forEach>
 			

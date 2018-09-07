@@ -21,6 +21,9 @@
 	rel="stylesheet" />
 	<link rel="stylesheet" href="./Boot/style.css">
 <style>
+body{
+font-family: 'NanumSquareRound', sans-serif;
+}
 .empty {
 	width: 10%;
 	height: 600px;
@@ -44,7 +47,7 @@
 	width: 23%;
 	height: 600px;
 	position: absolute;
-	background-color: white;
+/* 	background-color: white; */
 	display: inline-block;
 }
 
@@ -282,18 +285,18 @@ background-color: white;
 	<div class="option" align="center">
 		
 			<div>
-			
-				<input type="text" id="keyword"   value = "종로구" size="20" style="inline-block; 
-				height: 40px; color :saddlebrown; width: 300px; cursor: text;" >
+		
+				<input type="text" id="keyword"   value = "종로구" size="20" 
+				style="inline-block; background-color: white; color: #CD853F; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 50px; width: 700px; border: 1px solid #CD853F; border-radius: 25px;cursor: text;" >
 				<div id="submitBtn"><i class="fa fa-search" onclick="searchPlaces()"></i></div>
 				
 			</div>
 	
 	</div>
 	<div style="height: 50px;"></div>
-	<div id="box">
+	<div id="box" >
 		<div class="empty"></div>
-		<div id="all" style="border: 1px solid orange" >
+		<div id="all" style="border: 1px solid #eeeeee;background: rgba(255, 255, 255, 0.8);border-radius: 5px;" >
 			<div class="map_wrap">
 				<div id="map"
 					style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
@@ -307,7 +310,8 @@ background-color: white;
 		</div>
 		
 		<div id="hospitalReview">
-		<div style="border: 1px solid orange; ">
+		<div style="border: 1px solid #eeeeee;background: rgba(255, 255, 255, 0.7);border-radius: 5px;">
+		<br>
 			<span class="hospitalName" style="font-size: 20px; font-weight: bold; color :saddlebrown;">병원명<i class="fa fa-hospital"></i></span>
 			<div style="width: 70%; height : 2px; border: 2px solid #5F5F5F"></div>
 			<div style="height : 5px; "></div>
@@ -335,10 +339,10 @@ background-color: white;
 					</div>
 									
 		</div>
-			<div id="writeReview" align="center" style="background-color: orange;">
+			<div id="writeReview" align="center" style="background-color: #eeeeee;">
 			<div style="height: 5px;"></div>
 			<div>
-				<textarea id="writeText" rows="4" cols="35" style="height: 125px; color:saddlebrown;">후기를 작성해주세요.</textarea>
+				<textarea id="writeText" rows="3" cols="35" style="height: 125px; color:saddlebrown;">후기를 작성해주세요.</textarea>
 			</div>
 			<div align="right">
 				<button id="writeBtn" style="color:saddlebrown;">작성</button>
@@ -346,11 +350,11 @@ background-color: white;
 			</div>
 
 		</div>
-		<div class="empty"></div>
+<!-- 		<div class="empty"></div> -->
 	</div>
-	<div style="height: 50px;"></div>
+<!-- 	<div style="height: 50px;"></div> -->
 
-
+</div>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f1c0b41584169b831e7cbe95bc02ea06&libraries=services">
 </script>

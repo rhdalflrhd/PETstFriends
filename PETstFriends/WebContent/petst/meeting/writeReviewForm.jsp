@@ -5,21 +5,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>펫프 모여라 후기 글쓰기</title>
 </head>
 <body>
-<script type="text/javascript" src="js/naverEditor.js"></script>
+	<%@ include file="/petst/header.jsp" %>
+		<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
+<script type="text/javascript" src="naverEditor/js/naverEditor.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
-<table style="margin: auto; width: 1000px;"><tr><td height="100px;" style="font-size: 20px; padding-left: 50px;">
+<script src="naverEditor/WebContent/resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<center>
+<font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; font-size: 50px; color:#8B5927;">
+펫프 모여라 후기 글쓰기
+        </font></center><br>
+
+
+<table border="1" bordercolor="#CD853F" style="margin: auto; width: 1000px;"><tr><td height="100px;" style="font-size: 20px; padding-left: 50px; background-color:white; color:#CD853F; border:1; border-color:#CD853F; border-radius:5px;">
 <input type="hidden" id="meeting_boardno" value="${meeting_boardno }">
-제목 : <input type="text" id="title"style="width:600px; height:20px; padding-left: 100px;">
+제목 : <input type="text" id="title"style="width:600px; height:30px; padding-left: 20px; font-size: 20px; background-color:white; color:#CD853F; border:1; border-color:#CD853F; border-radius:5px;">
 </td></tr>
 <tr><td>
 	<textarea name="ir1" id="ir1" rows="10" cols="100" style="width:100%; height:400px; display:none;"></textarea>
 	<p align="center">
-		<input type="button" onclick="setDefaultFont();" style="font-size: 14pt" value="취소"/>
-		<input type="button" onclick="submitContents(this);" style="font-size: 14pt" value="작성 완료" />
+		<input type="button" style="height: 40px; background-color: #CD853F; border: none; padding: 5px 10px;
+ 									 border-radius: 5px; color: white; font-size: 25px" onclick="location.href='meetingview.do?meeting_boardno=${meeting_boardno }&trigger=1'" style="font-size: 14pt" value="취소"/>
+		<input type="button" style="height: 40px; background-color: #CD853F; border: none; padding: 5px 10px;
+ 									 border-radius: 5px; color: white; font-size: 25px" onclick="submitContents(this);" style="font-size: 14pt" value="작성 완료" />
 	</p>
 </td></tr></table>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -37,7 +55,7 @@ var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
 	elPlaceHolder: "ir1",
-	sSkinURI: "resources/editor/SmartEditor2Skin.html",	
+	sSkinURI: "naverEditor/WebContent/resources/editor/SmartEditor2Skin.html",	
 	htParams : {
 		bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 		bUseVerticalResizer : false,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -73,7 +91,7 @@ function submitContents(elClickedObj) {
 				"meeting_boardno" : boardno
 			},
 			success : function(data){
-				window.location.href="http://localhost:8080/PETstFriends/reviewView.do?meeting_boardno="+data.MeetingBoardReview[0].meeting_boardno+"&&meetingReview_no="+data.MeetingBoardReview[0].meetingReview_no
+				window.location.href="http://localhost:8080/PETstFriends/reviewView.do?meeting_boardno="+data.boardno+"&meetingReview_no="+data.reviewno
 						
 			},
 			error : function(request){
@@ -82,5 +100,6 @@ function submitContents(elClickedObj) {
 		})
 }
 </script>
+<%@ include file="/petst/footer.jsp"%>
 </body>
 </html>

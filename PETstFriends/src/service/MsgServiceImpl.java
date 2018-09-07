@@ -81,6 +81,11 @@ public class MsgServiceImpl implements MsgService{
 		param.put("msg_ReceiverId", null);
 		return (msgAdminDao.selectMsgAllAdimin(param).size() - 1 ) / 10 + 1;
 	}
+	@Override
+	public int getMsgLastPage(String msg_ReceiverId) {
+		// TODO Auto-generated method stub
+		return (msgDao.selectMsgAll(msg_ReceiverId).size() - 1 ) / 10 + 1;
+	}
 	
 	
 }

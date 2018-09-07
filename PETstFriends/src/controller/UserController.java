@@ -637,9 +637,9 @@ public class UserController {
 			return "redirect:selectOneBoard.do";
 		} else if (boardname == 2) {
 
-			model.addAttribute("meeting_boardname", boardname);
-			model.addAttribute("meeting_boardno", boardno);
-			return "redirect:selectMBC.do";
+//			model.addAttribute("meeting_boardname", boardname);
+//			model.addAttribute("meeting_boardno", boardno);
+			return "redirect:meetingview.do?meeting_boardno="+boardno;
 		} else if (boardname == 7 || boardname == 8 || boardname == 9) {
 			model.addAttribute("boardname", boardname);
 			model.addAttribute("boardno", boardno);

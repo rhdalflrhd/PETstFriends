@@ -68,6 +68,7 @@ public class ReportController {
 	@RequestMapping(value="writeReport.do", method = RequestMethod.POST)
 	@ResponseBody
 	public int writeReport(@RequestParam HashMap<String, Object> params) {
+		System.out.println("writeReport.do 들어옴");
 		Report report = new Report();
 		report.setReport_boardname(Integer.parseInt(String.valueOf(params.get("report_boardname"))));
 		report.setReport_boardno(Integer.parseInt(String.valueOf(params.get("report_boardno"))));

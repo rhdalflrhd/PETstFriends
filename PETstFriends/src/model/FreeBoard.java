@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Date;
-
 public class FreeBoard {
 	private int freeBoard_boardno;
 	private int freeBoard_boardname;
@@ -12,9 +10,18 @@ public class FreeBoard {
 	private String freeBoard_content;
 	private int freeBoard_readCount;
 	private String freeBoard_YoutubeUrl;
-	private Date freeBoard_writeDate;
+	private String freeBoard_writeDate;
 	private String freeBoard_contentPic;
 	private int freeBoard_LikeCount;
+	@Override
+	public String toString() {
+		return "FreeBoard [freeBoard_boardno=" + freeBoard_boardno + ", freeBoard_boardname=" + freeBoard_boardname
+				+ ", freeBoard_userId=" + freeBoard_userId + ", freeBoard_nickname=" + freeBoard_nickname
+				+ ", freeBoard_title=" + freeBoard_title + ", freeBoard_file=" + freeBoard_file + ", freeBoard_content="
+				+ freeBoard_content + ", freeBoard_readCount=" + freeBoard_readCount + ", freeBoard_YoutubeUrl="
+				+ freeBoard_YoutubeUrl + ", freeBoard_writeDate=" + freeBoard_writeDate + ", freeBoard_contentPic="
+				+ freeBoard_contentPic + ", freeBoard_LikeCount=" + freeBoard_LikeCount + "]";
+	}
 	public int getFreeBoard_boardno() {
 		return freeBoard_boardno;
 	}
@@ -30,7 +37,7 @@ public class FreeBoard {
 	public String getFreeBoard_userId() {
 		return freeBoard_userId;
 	}
-	public void setFreeBoard_userid(String freeBoard_userId) {
+	public void setFreeBoard_userId(String freeBoard_userId) {
 		this.freeBoard_userId = freeBoard_userId;
 	}
 	public String getFreeBoard_nickname() {
@@ -69,11 +76,11 @@ public class FreeBoard {
 	public void setFreeBoard_YoutubeUrl(String freeBoard_YoutubeUrl) {
 		this.freeBoard_YoutubeUrl = freeBoard_YoutubeUrl;
 	}
-	public Date getFreeBoard_writeDate() {
+	public String getFreeBoard_writeDate() {
 		return freeBoard_writeDate;
 	}
-	public void setFreeBoard_writeDate(Date freeBoard_WriteDate) {
-		this.freeBoard_writeDate = freeBoard_WriteDate;
+	public void setFreeBoard_writeDate(String freeBoard_writeDate) {
+		this.freeBoard_writeDate = freeBoard_writeDate;
 	}
 	public String getFreeBoard_contentPic() {
 		return freeBoard_contentPic;
@@ -87,20 +94,6 @@ public class FreeBoard {
 	public void setFreeBoard_LikeCount(int freeBoard_LikeCount) {
 		this.freeBoard_LikeCount = freeBoard_LikeCount;
 	}
-	@Override
-	public String toString() {
-		return "FreeBoard [freeBoard_boardno=" + freeBoard_boardno + ", freeBoard_boardname=" + freeBoard_boardname
-				+ ", freeBoard_userId=" + freeBoard_userId + ", freeBoard_nickname=" + freeBoard_nickname
-				+ ", freeBoard_title=" + freeBoard_title + ", freeBoard_file=" + freeBoard_file + ", freeBoard_content="
-				+ freeBoard_content + ", freeBoard_readCount=" + freeBoard_readCount + ", freeBoard_YoutubeUrl="
-				+ freeBoard_YoutubeUrl + ", freeBoard_writeDate=" + freeBoard_writeDate + ", freeBoard_contentPic="
-				+ freeBoard_contentPic + ", freeBoard_LikeCount=" + freeBoard_LikeCount + "]";
-	}
-	
-	
-
-
-	
 	
 	
 }

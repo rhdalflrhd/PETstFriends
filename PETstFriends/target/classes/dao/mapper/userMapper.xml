@@ -236,7 +236,7 @@
       UNION
         select mb.meetingReview_no from meetingReview mb ,
       meetingLikes ml where
-      mb.mb.meetingReview_no = ml.reviewno and
+      mb.meetingReview_no = ml.reviewno and
       ml.meetingLikes_userId= #{user_id}
 
       ) cnt;

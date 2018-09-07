@@ -9,13 +9,12 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Rubel Miah">
-     <link rel="shortcut icon" href="./assets/images/favicon.png">
-      <link rel="shortcut icon" href="./assets/images/favicon.png">
+    <link rel="shortcut icon" href="./Boot/images/favicon.png">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<title>내가 작성한 글 </title>
+<title>내가 작성한 글 ㄹㄹ</title>
 
 <!-- common css -->
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
@@ -125,10 +124,11 @@
 
 					<td align="center">${write.userId }</td>
 					<td align="center">
-					<fmt:parseDate value ="${write.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
-					<fmt:formatDate value="${wriedate }" pattern="yyyy-MM-dd" /></td>
-							
-				
+<%-- 					<fmt:parseDate value ="${write.writeDate }" var = "wriedate" pattern = "yyyy-mm-dd" ></fmt:parseDate> --%>
+<%-- 					<fmt:formatDate value="${wriedate }" pattern="yyyy-MM-dd" /></td> --%>
+<%-- 					<fmt:formatDate value="${write.writeDate }" pattern="yyyy-MM-dd" /></td>
+							 --%>
+				${write.writeDate }</td>
 				</tr>
 </c:forEach>
 			

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import model.Board;
 import model.FreeBoard;
 import model.FreeComment;
 import model.FreeLikes;
@@ -35,14 +34,6 @@ public interface FreeBoardService {
 	public HashMap<String, Object> ShowFreeBoardEtc(HashMap<String, Object> params,int page);//etc게시판 목록
 
 	
-	
-	public int writeCommentFreeBoard(FreeComment freecomment); // 댓글쓰기
-	public int CommentModifyFreeBoard(FreeComment freecomment); //댓글 수정
-	public int CommentDeleteFreeBoard(int freeBoard_boardname,int freeBoard_boardno,int freeComments_commentno); //댓글삭제
-	public List<FreeComment> ShowCommentFreeBoard(int freeBoard_boardname, int freeBoard_boardno); //코멘트 보기
-	public boolean insertLikesFreeBoard(FreeLikes freeLikes); //좋아요
-	public boolean deleteLikesFreeBoard(int freeBoard_boardname, int freeBoard_boardno); //좋아요취소
-
 
 	public int getStartPage(int page); //처음페이지 1페이지
 
@@ -54,8 +45,29 @@ public interface FreeBoardService {
 	
 	public FreeBoard getBoard(int freeBoard_boardname,int freeBoard_boardno); 
 	
-	public FreeBoard readBoard(int freeBoard_boardname, int freeBoard_boardno);
 	public int getLastBoardno(int freeBoard_boardname,String user_id);
 	public File getAttachFile(HashMap<String, Object> params);
+	//==================댓글
+	public int getStartCommentPage(int comment_page, int numb);
+	public int getEndCommentPage(int comment_page);
+	public int getLastCommentPage(HashMap<String, Object> params);
+	public int getCommentSkip(int comment_page, int comment_numb);
+	public HashMap<String, Object> ShowCommentFreeBoard(int freeBoard_boardname, int freeBoard_boardno, int comment_page);
+	public int writeCommentFreeBoard(FreeComment freecomment);
+	public int deleteComments(int freeComments_commentno, int freeComments_parent);
+	public int updatefreeComment(int freeComments_commentno, String freeComments_content);
 	
+	
+	//게시글하나
+	HashMap<String, Object> readBoard(int freeBoard_boardname, int freeBoard_boardno);
+	public int countbyLike(HashMap<String, Object> params);
+	public int creatFreeLikes(HashMap<String, Object> params);
+
+	public FreeLikes readFreeLikes(HashMap<String, Object> params);
+	public int like_check(HashMap<String, Object> params);
+	public int FreeBoard_likeCnt_up(int boardname, int boardno);
+	public int like_check_cancel(HashMap<String, Object> params);
+	public int FreeBoard_likeCnt_down(int boardname, int boardno);
+	
+
 }

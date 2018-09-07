@@ -11,11 +11,19 @@ insert into meetingBoardApply values(#{boardname}, #{meeting_boardno}, #{meeting
 <delete id="deleteApply" parameterType="java.util.HashMap">
 delete from meetingBoardApply where meeting_boardno=#{meeting_boardno} and meetingBoardApply_userId=#{meetingBoardApply_userId};
 </delete>
-<select id="selectOneApply">
+<delete id="deleteApply2" parameterType="int">
+delete from meetingBoardApply where meeting_boardno=#{meeting_boardno};
+</delete>
+<select id="selectOneApply" resultType="MeetingBoardApply">
 select*from meetingBoardApply where meetingBoardApply_userId=#{meetingBoardApply_userId};
 </select>
-<select id="selectAllApply">
+<select id="selectAllApply" parameterType="int" resultType="MeetingBoardApply">
 select*from meetingBoardApply where meeting_boardno = #{meeting_boardno};
 </select>
-
+<select id="selectAllApply2" resultType="MeetingBoardApply">
+select*from meetingBoardApply order by meetingBoardApply_count desc;
+</select>
+<select id="selectcount" parameterType="int" resultType="MeetingBoardApply">
+select*from meetingBoardApply where meeting_boardno = #{meeting_boardno} order by meetingBoardApply_count desc limit 1; 
+</select>
 </mapper>

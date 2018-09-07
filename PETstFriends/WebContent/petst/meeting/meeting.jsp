@@ -1,21 +1,19 @@
+<%@page import="model.MeetingBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Rubel Miah">
-
-    <!-- favicon icon -->
-    <link rel="shortcut icon" href="./Boot/images/favicon.png">
+<link rel="shortcut icon" href="assets/images/favicon.png">
+<title>펫프 모여라 게시판</title>
+<%@ include file="/petst/header.jsp" %>
+</head>
     
-	<title>미팅</title>
-	   
-	    <!-- common css -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
     <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
     <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
@@ -25,13 +23,6 @@
     <link rel="stylesheet" href="./Boot/css/slicknav.css">
     <link rel="stylesheet" href="./Boot/style.css">
     <link rel="stylesheet" href="./Boot/css/responsive.css">
-   <link  rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>    
-<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
-	
 	
 <script type="text/javascript">
 $(document).ready(function() {
@@ -57,12 +48,6 @@ $(document).ready(function() {
 			stop=9;
 		for(var io = 1; io<10; io++){
 			var proPic=data.meetingBoard[number[io]].meetingBoard_proPic;
-            var nu = data.meetingBoard[number[io]].meetingBoard_place.length;
-            if(nu>12){
-            	nu="...";
-            }else{
-            	nu="";
-            }
 			if(proPic==null){
 				proPic=1;
 			}
@@ -72,27 +57,33 @@ $(document).ready(function() {
 			if(io!=1&&io%3==1){
 			 	$('#listTable>tbody:last').append("</tr></td></tr><tr>");
 			}
-			 
+			var spilt = data.meetingBoard[number[io]].meetingBoard_place.split('/');
+			var place1 = spilt[0];
+			var place2 = spilt[1]; 
 			$('#listTable>tbody:last').append(
 					//사진크기 400 / 350
-				 "<td><table width=\"400\" height=\"370\">"+ 
-				 "<tr><td colspan=\"4\" style=\"cursor:pointer\" onclick=\"document.location.href='meetingview.do?meeting_boardno="+
-							data.meetingBoard[number[io]].meeting_boardno+
-							"'\"><img src=\"assets/images/"+proPic+"\" width=\"400\" height=\"350\"></td></tr>"+
-							"<tr><td height=\"40\ width=\"170\" style=\"cursor:pointer\" onclick=\"document.location.href='meetingview.do?meeting_boardno="+data.meetingBoard[number[io]].meeting_boardno+"'\">"+
-							data.meetingBoard[number[io]].meetingBoard_title+"</td>"+
-// 							제목 23자 제한 걸어야함
-							"<td width=\"100\">"+data.meetingBoard[number[io]].meetingBoard_place.substring(0,12)+nu+"</th><td width=\"50\">"+
-		 		            "모임일</td><td>"+
-		 		            data.meetingBoard[number[io]].meetingBoard_startMeetingDate.substring(0,10)+"</td></td></tr>"+
-							"</table></td>");
+				 "<td><table>"+ 
+				 "<tr><td><div class=\"portfolio-item development\"><img src=\"img/"+proPic+"\"><div class=\"img-overlay\"><div class=\"portfolio-text\">"+
+		                    "<h4  style=\"color: white; text-align: left; padding-left: 30px\">모&nbsp임&nbsp명 : "+data.meetingBoard[number[io]].meetingBoard_title+
+		                    "<br><br>모임 장소 : "+place1+"<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
+		                    +place2+"<br><br>모&nbsp임&nbsp일 : "+data.meetingBoard[number[io]].meetingBoard_startMeetingDate.substring(0,10)+
+		                    "</h4><a href=\"meetingview.do?meeting_boardno="+data.meetingBoard[number[io]].meeting_boardno+"\">click</a></div></div></div></td></tr></table></td>");				
+// 							제목 23자 제한 걸어야함						
+				
 		} 
-// 		"<img src="\"assets/images/"+proPic+"\" width=\"400\" height=\"350\">"
+
 		},
 		error : function(request){
 			alert("에러 : "+request.status);
 		}
 	})
+	$('#keyword').keydown(function(key){
+		if(key.keyCode ==13){
+			var a = $('#keyword').val();
+			alert(a)
+			$('#search').trigger('click');
+		}
+	});
 	$('#search').click(function(){
 		stop=0;
         $('html, body').animate({
@@ -113,12 +104,7 @@ $(document).ready(function() {
 				contentType : "application/json; charset=UTF-8",
 				success : function(data){
 				       var number = [];
-				       var nu = data.meetingBoard[number[io]].meetingBoard_place.length;
-			            if(nu>12){
-			            	nu="...";
-			            }else{
-			            	nu="";
-			            }
+	
 					for(var num = 0; num<data.meetingBoard.length;num++){
 						number[num+1]=num;
 					}
@@ -134,20 +120,18 @@ $(document).ready(function() {
 						if(io!=1&&io%3==1){
 						 	$('#listTable>tbody:last').append("</tr></td></tr><tr>");
 						}
-						 
+						var spilt = data.meetingBoard[number[io]].meetingBoard_place.split('/');
+						var place1 = spilt[0];
+						var place2 = spilt[1];  
 						$('#listTable>tbody:last').append(
-								//사진크기 400 / 350
-							 "<td><table width=\"400\" height=\"370\">"+ 
-							 "<tr><th colspan=\"4\" style=\"cursor:pointer\" onclick=\"document.location.href='test.jsp?"+
-										data.meetingBoard[number[io]].meeting_boardno+
-										"'\"><img src=\"assets/images/"+proPic+"\" width=\"400\" height=\"350\"></td></tr>"+
-										"<tr><td height=\"40\ width=\"170\" style=\"cursor:pointer\" onclick=\"document.location.href='meetingview.do?meeting_boardno="+data.meetingBoard[number[io]].meeting_boardno+"'\">"+
-										data.meetingBoard[number[io]].meetingBoard_title+"</td>"+
-//			 							제목 23자 제한 걸어야함
-										"<td width=\"100\">"+data.meetingBoard[number[io]].meetingBoard_place.substring(0,12)+nu+"</td><td width=\"50\">"+
-					 		            "모임일</td><td>"+
-					 		            data.meetingBoard[number[io]].meetingBoard_startMeetingDate.substring(0,10)+"</td></td></tr>"+
-										"</table></td>");
+								//사진크기 400 / 350		
+												 "<td><table>"+ 
+						 "<tr><td><div class=\"portfolio-item development\"><img src=\"img/"+proPic+"\"><div class=\"img-overlay\"><div class=\"portfolio-text\">"+
+		                    "<h4  style=\"color: white; text-align: left; padding-left: 30px\">모&nbsp&nbsp 임&nbsp&nbsp 명 : "+data.meetingBoard[number[io]].meetingBoard_title+
+		                    "<br><br>모임&nbsp 장소 : "+place1+"<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
+		                    +place2+"<br><br>모&nbsp&nbsp 임&nbsp&nbsp 일 : "+data.meetingBoard[number[io]].meetingBoard_startMeetingDate.substring(0,10)+
+		                    "</h4><a href=\"meetingview.do?meeting_boardno="+data.meetingBoard[number[io]].meeting_boardno+"\">click</a></div></div></div></td></tr></table></td>");
+						
 					} 
 					  
 				},
@@ -170,7 +154,7 @@ $(window).scroll(function(){
 	            $('#MOVE_TOP_BTN').fadeOut();
 	           }
 
-		if($(window).scrollTop()+$(window).height()>$(document).height()-100&&stop==9){
+		if($(window).scrollTop()+$(window).height()>$(document).height()-150&&stop==9){
 			$.ajax({
 				type : "get",
 				url : "showMBC.do",
@@ -205,20 +189,17 @@ $(window).scroll(function(){
 					if(io!=1&&io%3==1){
 					 	$('#listTable>tbody:last').append("</tr></td></tr><tr>");
 					}
-					 
+					var spilt = data.meetingBoard[number[io]].meetingBoard_place.split('/');
+					var place1 = spilt[0];
+					var place2 = spilt[1]; 
 					$('#listTable>tbody:last').append(
 							//사진크기 400 / 350
-						 "<td><table width=\"400\" height=\"370\">"+ 
-						 "<tr><th colspan=\"4\" style=\"cursor:pointer\" onclick=\"document.location.href='meetingview.do?meeting_boardno="+
-									data.meetingBoard[number[io]].meeting_boardno+
-									"'\"><img src=\"assets/images/"+proPic+"\" width=\"400\" height=\"350\"></td></tr>"+
-									"<tr><td height=\"40\ width=\"170\" style=\"cursor:pointer\" onclick=\"document.location.href='meetingview.do?meeting_boardno="+data.meetingBoard[number[io]].meeting_boardno+"'\">"+
-									data.meetingBoard[number[io]].meetingBoard_title+"</td>"+
-//		 							제목 23자 제한 걸어야함
-									"<td width=\"100\">"+data.meetingBoard[number[io]].meetingBoard_place.substring(0,12)+nu+"</td><td width=\"50\">"+
-				 		            "모임일</td><td>"+
-				 		            data.meetingBoard[number[io]].meetingBoard_startMeetingDate.substring(0,10)+"</td></td></tr>"+
-									"</table></td>");
+						 "<td><table>"+ 
+						 "<tr><td><div class=\"portfolio-item development\"><img src=\"img/"+proPic+"\"><div class=\"img-overlay\"><div class=\"portfolio-text\">"+
+		                    "<h4  style=\"color: white; text-align: left; padding-left: 30px\">모&nbsp&nbsp 임&nbsp&nbsp 명 : "+data.meetingBoard[number[io]].meetingBoard_title+
+		                    "<br><br>모임&nbsp 장소 : "+place1+"<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
+		                    +place2+"<br><br>모&nbsp&nbsp 임&nbsp&nbsp 일 : "+data.meetingBoard[number[io]].meetingBoard_startMeetingDate.substring(0,10)+
+		                    "</h4><a href=\"meetingview.do?meeting_boardno="+data.meetingBoard[number[io]].meeting_boardno+"\">click</a></div></div></div></td></tr></table></td>");
 				} 
 					  
 				},
@@ -230,54 +211,77 @@ $(window).scroll(function(){
 		})
 </script>
 <style type="text/css">
-select {
-    width: 100px;
-    height: 25px;
-    padding-left: 5px;  
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+
+article {
+	-webkit-flex: 3;
+	-ms-flex: 3;
+	flex: 3;
+	background-color: #white;
 }
-#keyword {
-    width: 220px;
-    height: 20px;
-    padding-left: 5px;  
+
+th {
+	border: none;
+	color: white;
 }
-tr {
+th, td {
 	text-align: center;
 }
 
-h2 {
-	text-align: center
+tr a:hover {
+	color: #FF5050;
 }
-#MOVE_TOP_BTN {
-    position: fixed;
-    right: 6%;
-    bottom: 50px;
-    z-index: 999;
+
+.button {
+	float: right;
 }
-</style>
-</head>
+
+h4,ul,li{
+font-family: 'NanumSquareRound',sans-serif;
+}
+input::-ms-input-placeholder { color: #CD853F; }
+input::-webkit-input-placeholder { color: #CD853F; } 
+input::-moz-placeholder { color: #CD853F; }
+
+</style>	
+
+
 <body>
-<%@ include file="/petst/header.jsp"%>
-	<h2>펫프 모여라 게시판</h2>
-<div align="right"  style="width: 88.7%; position: fixed">
-	<select id="type" style="">
+<h4 style="text-align: left; padding-left: 30px; color: white;" ></h4>
+<center>
+        <font style="font-family: 'NanumSquareRound',sans-serif; font-weight: bold; font-size: 50px; color:#8B5927;">
+펫프 모여라 게시판
+        </font>
+
+        &nbsp;<input type="button" value="글쓰기" onclick="location.href='writeForm.do'" style= "background-color:#CD853F; color:white; font-family: 'NanumSquareRound',sans-serif; font-size: 15px !important; font-weight:bold; height:40px; width: 80px; border:1; border-color:#CD853F; border-radius: 25px;" >
+                </center>
+        <br><br>
+        
+	<select id="type" style="padding-left:5px; position: fixed; height:28px; right: 412px; bottom: 90px; z-index: 2;
+	border:2; border-color:#CD853F; border-radius:5px; width: 90px; padding: 5px;">
 	<option value="1">제목</option>
 	<option value="2">내용</option>
 	<option value="3">제목+내용</option>
 	<option value="4">글쓴이</option>
 	</select>
-	<input type="text" id = "keyword">
-	<input type="button" id = "search" value="검색">
-	</div>
-	
-<center>
-<div style="width: 80%">
 
-	<input type="button" id="MOVE_TOP_BTN" value="TOP">
+	<input type="text" id="keyword" style="width: 300px; position: fixed; right: 110px; height:25px; bottom: 90px; z-index: 1;
+	background-color:white; color:#CD853F; font-family: 'NanumSquareRound',sans-serif; padding: 4px; border:1; 
+	border-color:#CD853F; border-radius: 5px;">
+	<button id = "search" style="position: fixed; height:25px; right: 60px; bottom: 90px; background-color: #CD853F; border: none; padding: 5px 10px;
+									 border-radius: 5px; color: white;">검색</button>
+	<button id="MOVE_TOP_BTN" style="position: fixed; right: 100px; bottom: 50px; background-color: #CD853F; border: none;
+									 border-radius: 5px; color: white;">TOP</button>
+<center>
+<div style="width: 80%" align="center">
+
+
 
 					<table id="listTable" width="100%">
 				 <tr valign="top">
 				    <td colspan="3">
-				     <table width="1200"> 
+				     <table width="1000"> 
 				      <tr><td></td></tr></table>
 				      		<tbody></tbody>
 
@@ -286,9 +290,10 @@ h2 {
 
 
 </div>
-	</center>
-<%@ include file="/petst/footer.jsp"%>
 
+	</center>
+
+<%@ include file="/petst/footer.jsp"%>
 <!-- js files -->
 <script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
 <script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
@@ -301,7 +306,5 @@ h2 {
 <script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
 <script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
 <script type="text/javascript" src="./Boot/js/scripts.js"></script>
-
-
 </body>
 </html>

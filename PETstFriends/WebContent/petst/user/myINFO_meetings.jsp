@@ -122,11 +122,11 @@
 				
 					<td align="center">${like.userId }</td>
 					<td align="center">
-					<fmt:parseDate value ="${like.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
-					<fmt:formatDate value="${wriedate }"
-							pattern="yyyy-MM-dd" /></td>
-							
-				
+<%-- 					<fmt:parseDate value ="${like.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate> --%>
+<%-- 					<fmt:formatDate value="${wriedate }" --%>
+<%-- 							pattern="yyyy-MM-dd" /></td> --%>
+						${like.writeDate }	
+				</td> 
 				</tr>
 </c:forEach>
 			
