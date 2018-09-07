@@ -381,14 +381,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(String user_id) { // 회원삭제 ★9월6일자 변경된 부분★
+	public void deleteUser(String user_id) { // 
 
 		udao.deleteUser(user_id);
 
 	}
 
 	@Override
-	public void deletePet(int pet_no) { // 펫 삭제 ★9월6일자 변경된 부분★
+	public void deletePet(int pet_no) { //
 
 		udao.deletePet(pet_no);
 
@@ -436,7 +436,7 @@ public class UserServiceImpl implements UserService {
 		return (udao.getLikesCount(user_id) - 1) / 10 + 1;
 	}
 
-	@Override // ★ 9월6일 변경된 함수★(소현)
+	@Override 
 	public HashMap<String, Object> myInquiry(HashMap<String, Object> params, String user_id, int page) { // 내가 쓴 문의글
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -468,7 +468,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	@Override // ★ 9월6일 변경된 함수★(소현)
+	@Override 
 	public HashMap<String, Object> myWrites(String user_id, int page, HashMap<String, Object> params) { // 내가 쓴 게시글
 		HashMap<String, Object> result = new HashMap<String, Object>();
 
@@ -496,7 +496,7 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
-	@Override // ★ 9월6일 변경된 함수★(소현)
+	@Override // 
 	public HashMap<String, Object> selectmyLikes(HashMap<String, Object> params, String user_id, int page) { // 내가 좋아요한
 																												// 글
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -525,7 +525,7 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
-	@Override // ★ 9월6일 변경된 함수★(소현)
+	@Override // 
 	public HashMap<String, Object> selectMyMeetingApply(HashMap<String, Object> params, String user_id, int page) { // 내가
 																													// 참여한
 																													// 모임
@@ -555,7 +555,7 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
-	@Override // ★ 9월6일 추가된 함수★(소현)
+	@Override
 	public File getAttachFile(String user_id) {
 		// TODO Auto-generated method stub
 		String fileName = udao.selectUserbyId(user_id).getUser_proPic();
@@ -563,7 +563,7 @@ public class UserServiceImpl implements UserService {
 		return new File(path + fileName);
 	}
 
-	@Override // ★ 9월6일 추가된 함수★(소현)
+	@Override 
 	public int updateUserPropic(MultipartHttpServletRequest multi) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		System.out.println((String) multi.getParameter("user_id") + "유저아이디 멀티");
@@ -594,8 +594,14 @@ public class UserServiceImpl implements UserService {
 		return udao.updatePropic(params);
 	}
 
-	public int deletePetAll(String user_id) { // ★ 9월6일 추가된 함수★(소현)
+	public int deletePetAll(String user_id) { // 
 		return udao.deletePetAll(user_id);
+	}
+
+	@Override
+	public HashMap<String, Object> getUser(String user_id) {    // ★ 9월7일 추가된 함수★(소현)
+		// TODO Auto-generated method stub 
+		return udao.selectUser(user_id);
 	}
 
 }

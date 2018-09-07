@@ -297,31 +297,17 @@ public class UserController {
 			}
 			
 
-//			@RequestMapping("getUserId.do") // ★ 9월6일자 변경사항★(소현) 비번확인 후 마이페이지 보내줌
-//			public String UserUpdateForm(HttpServletRequest req, HttpServletResponse resp, Model model,
-//					@RequestParam String user_id, @RequestParam String user_pass) {
-//
-//				if (userService.selectUser(user_id).getUser_pass().equals(user_pass)) {
-//
-//					model.addAttribute("params", userService.selectUser(user_id));
-//
-//					return "user/myInFo_Modification";
-//				} else
-//
-//					return "user/myInFo_PWCheck";
-//			}
 
 			@RequestMapping("getUserId.do")     // 비번확인 후 마이페이지 보내줌 (아직 비번체크x 해야됨 )                                      
 			public String UserUpdateForm(@RequestParam String user_id, HttpServletResponse resp, Model model) {
 						System.out.println("getUserId.do 들어옴");
-				model.addAttribute(userService.selectUser(user_id));
-				System.out.println("getUserId.do확인용: "+userService.selectUser(user_id));
-//				model.addAttribute("params", userService.selectUser(user_id));
+
+				model.addAttribute("params", userService.getUser(user_id));
 						return "user/myInFo_Modification" ;		
 				}
 						
 			
-			@RequestMapping(value = "/petList.do") // ★ 9월6일자 변경사항★(소현) // 펫 리스트 보여주기
+			@RequestMapping(value = "/petList.do") 
 			@ResponseBody
 			public void petList(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 				String user_id = (String) session.getAttribute("user_id");
@@ -378,7 +364,7 @@ public class UserController {
 
 			}
 			
-			@RequestMapping(value = "/insertPet.do", method = RequestMethod.POST) // ★ 9월6일자 변경사항★(소현) 내정보수정에서 수정하기 누르면 회원수정/펫																			// 추가/ 펫 수정
+			@RequestMapping(value = "/insertPet.do", method = RequestMethod.POST) // 내정보수정에서 수정하기 누르면 회원수정/펫																			// 추가/ 펫 수정
 			@ResponseBody
 			public String updatePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
 					HttpServletRequest req, HttpSession session) {
@@ -418,7 +404,7 @@ public class UserController {
 				return msg;
 			}
 			
-			@RequestMapping("deleteUserForm.do") // ★ 9월6일자 변경사항★(소현) 탈퇴하기 누르면 비번확인폼으로이동
+			@RequestMapping("deleteUserForm.do") // (소현) 탈퇴하기 누르면 비번확인폼으로이동
 			public String userDeleteForm(HttpSession session, Model model) {
 				System.out.println("deleteUserForm.do 들어옴");
 				String user_id = (String) session.getAttribute("user_id");
@@ -426,7 +412,7 @@ public class UserController {
 				return "user/myInFo_MembershipDelete";
 			}
 			
-			@RequestMapping(value = "/deleteUser.do") // ★ 9월6일자 변경사항★(소현) 탈퇴전비밀번호 일치 검사
+			@RequestMapping(value = "/deleteUser.do") // (소현) 탈퇴전비밀번호 일치 검사
 			@ResponseBody
 			public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session,
 					@RequestParam String user_id, @RequestParam String user_pass) {
@@ -444,7 +430,7 @@ public class UserController {
 			}
 			
 			
-			@RequestMapping(value = "/deletePet.do") // ★ 9월6일자 변경사항★(소현) 마이페이지에서 펫 삭제하기
+			@RequestMapping(value = "/deletePet.do") // (소현) 마이페이지에서 펫 삭제하기
 			@ResponseBody
 			public String deletePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
 					HttpServletRequest req, HttpSession session) {
@@ -460,7 +446,7 @@ public class UserController {
 
 			}
 			
-			@RequestMapping(value = "myWritesList.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 쓴 게시글
+			@RequestMapping(value = "myWritesList.do", method = RequestMethod.GET) // (소현) 내가 쓴 게시글
 			public ModelAndView myWrites(Model model, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
@@ -498,7 +484,7 @@ public class UserController {
 
 			}
 
-			@RequestMapping(value = "myinquiry.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 문의한 글
+			@RequestMapping(value = "myinquiry.do", method = RequestMethod.GET) // (소현) 내가 문의한 글
 			public ModelAndView MyInquiry(Model model, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
@@ -538,7 +524,7 @@ public class UserController {
 
 			}
 
-			@RequestMapping(value = "myLikesList.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 좋아요 한 글
+			@RequestMapping(value = "myLikesList.do", method = RequestMethod.GET) // (소현) 내가 좋아요 한 글
 			public ModelAndView MyLikes(Model model, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
@@ -581,7 +567,7 @@ public class UserController {
 
 			}
 
-			@RequestMapping(value = "myMeetingApply.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 참여한 모임
+			@RequestMapping(value = "myMeetingApply.do", method = RequestMethod.GET) // (소현) 내가 참여한 모임
 			public ModelAndView MyMeetingApply(Model model, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
@@ -623,7 +609,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/allview.do", method = RequestMethod.GET) // ★ 9월6일자 추가사항★(소현) 마이페이지 글목록에서 제목 클릭 시 게시글로
+	@RequestMapping(value = "/allview.do", method = RequestMethod.GET) // (소현) 마이페이지 글목록에서 제목 클릭 시 게시글로
 	// 넘어가는 함수
 	public String view2(Model model, @RequestParam int boardno, @RequestParam int boardname) {
 		System.out.println("allview.do 들어옴");
@@ -631,15 +617,16 @@ public class UserController {
 		System.out.println("보드넘버" + boardno);
 
 		if (boardname == 3 || boardname == 4 || boardname == 5 || boardname == 6) {
-			model.addAttribute("boardname", boardname);
-			model.addAttribute("boardno", boardno);
+			model.addAttribute("freeBoard_boardname", boardname);
+			model.addAttribute("freeBoard_boardno", boardno);
 
 			return "redirect:selectOneBoard.do";
 		} else if (boardname == 2) {
 
-			model.addAttribute("meeting_boardname", boardname);
-			model.addAttribute("meeting_boardno", boardno);
-			return "redirect:selectMBC.do";
+//			model.addAttribute("meeting_boardname", boardname);
+//			model.addAttribute("meeting_boardno", boardno);
+			return "redirect:meetingview.do?meeting_boardno="+boardno;
+	
 		} else if (boardname == 7 || boardname == 8 || boardname == 9) {
 			model.addAttribute("boardname", boardname);
 			model.addAttribute("boardno", boardno);
@@ -691,14 +678,14 @@ public class UserController {
 		return "redirect:main.do";
 	}
 	
-	@RequestMapping("downloadPropic.do") // ★ 9월6일자 추가사항★(소현)
+	@RequestMapping("downloadPropic.do") // 
 	public View download(String user_id) {
 		System.out.println("downloadPropic.do 들어옴");	
 		View view = new DownloadView(userService.getAttachFile(user_id));
 		return view;
 	}
 
-	@RequestMapping(value = "updatePropic.do", method = RequestMethod.POST) // ★ 9월6일자 추가사항★(소현)
+	@RequestMapping(value = "updatePropic.do", method = RequestMethod.POST) 
 	@ResponseBody
 	public void updatePropic(MultipartHttpServletRequest multi, HttpServletResponse resp, HttpSession session) {
 		System.out.println("updatePropic.do 들어옴");

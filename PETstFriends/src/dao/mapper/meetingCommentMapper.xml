@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.MeetingCommentDao">
+<insert id="insertComment" parameterType="MeetingComment">
+insert into meetingComment values(#{boardname}, #{meeting_boardno}, #{meetingComment_commentno}, 
+#{meetingComment_nickname}, #{meetingComment_content}, #{meetingComment_userId}, #{meetingComment_writeDate});
+</insert>
+<update id="updateComment" parameterType="MeetingComment">
+update meetingComment set meetingComment_nickname=#{meetingComment_nickname}, meetingComment_content=#{meetingComment_content}, 
+meetingComment_writeDate=#{meetingComment_writeDate} 
+where meeting_boardno=#{meeting_boardno} and meetingComment_commentno=#{meetingComment_commentno};
+</update>
+<delete id="deleteComment" parameterType="java.util.HashMap">
+delete from meetingComment where meeting_boardno=#{meeting_boardno} and meetingComment_commentno=#{meetingComment_commentno};
+</delete>
+<select id="selectCommentOne" parameterType="java.util.HashMap" resultType="MeetingComment">
+select*from meetingComment where meeting_boardno=#{meeting_boardno} and  meetingComment_commentno=#{meetingComment_commentno};
+</select>
+<select id="selectCommentAll" parameterType="int" resultType="MeetingComment">
+select*from meetingComment where meeting_boardno=#{meeting_boardno}
+</select>
+<select id="getCommentCount" parameterType="int" resultType="MeetingComment">
+select*from meetingComment where meeting_boardno=#{meeting_boardno} order by meetingComment_commentno desc limit 1;
+</select>
+<select id="getCommentCount2" parameterType="int" resultType="int">
+select count(*)from meetingComment where meeting_boardno=#{meeting_boardno};
+</select>
+
+
+</mapper>

@@ -125,8 +125,11 @@
 
 					<td align="center">${write.userId }</td>
 					<td align="center">
-					<fmt:parseDate value ="${write.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
-					<fmt:formatDate value="${wriedate }" pattern="yyyy-MM-dd" /></td>
+<%-- 					<fmt:parseDate value ="${write.writeDate }" var = "wriedate" pattern = "yyyyMMdd" ></fmt:parseDate> --%>
+<%-- 					<fmt:formatDate value="${write.writeDate }" pattern=" yyyy-MM-dd" /> --%>
+					
+					${write.writeDate }
+					</td>
 							
 				
 				</tr>

@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="./Boot/css/responsive.css">
     
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
@@ -129,9 +130,10 @@
 				
 					<td align="center">${qnA.qnA_userId }</td>
 					<td align="center">
-						<fmt:parseDate value ="${qnA.qnA_writeDate}" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
-					<fmt:formatDate value="${wriedate }"
-							pattern="yyyy-MM-dd" /></td>
+<%-- 						<fmt:parseDate value ="${qnA.qnA_writeDate}" var ="wriedate" pattern = "yyyyMMdd" ></fmt:parseDate> --%>
+<%-- 					<fmt:formatDate value="${qnA.qnA_writeDate}" pattern="yyyy-MM-dd" /> --%>
+					${qnA.qnA_writeDate}
+					</td>
 							
 				
 				</tr>

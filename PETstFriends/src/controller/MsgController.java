@@ -22,8 +22,12 @@ public class MsgController {
 	private MsgServiceImpl msgServiceImpl;
 	
 	@RequestMapping("msgAdmin.do")
-	public String meeting() {
+	public String msgAdmin() {
 		return "msg/msgadmin";
+	}
+	@RequestMapping("msguser.do")
+	public String msg() {
+		return "msg/msguser";
 	}
 	@RequestMapping("sendMsg.do")
 	@ResponseBody
@@ -38,8 +42,13 @@ public class MsgController {
 		return "msg/msgadmin";
 	}
 	@RequestMapping("deleteMsg.do")
-	public void deleteMsg(@RequestParam int msg_no) {
+	@ResponseBody
+	public HashMap<String, Object> deleteMsg(@RequestParam int msg_no) {
 		msgServiceImpl.deleteMsg(msg_no);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("deleteMsg", "성공");
+		JSONObject deleteMsg = new JSONObject(result);
+		return deleteMsg;
 	}
 	@RequestMapping("showMsg.do")
 	@ResponseBody
@@ -52,9 +61,16 @@ public class MsgController {
 	}
 	@RequestMapping("showMsgList.do")
 	@ResponseBody
-	public HashMap<String, Object> showMsgList(@RequestParam String msg_ReceiverId) {
+	public HashMap<String, Object> showMsgList(
+			@RequestParam(defaultValue = "1") int page) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
+		String msg_ReceiverId = "msg_ReceiverId";//세션 id 
 		result.put("showMsgList", msgServiceImpl.showMsgList(msg_ReceiverId));
+		result.put("current", page);
+		result.put("start", msgServiceImpl.getStartPage(page));
+		result.put("end", msgServiceImpl.getEndPage(page));
+		result.put("last", msgServiceImpl.getMsgLastPage(msg_ReceiverId));
+		result.put("skip",msgServiceImpl.getSkip(page));
 		JSONObject showMsgList = new JSONObject(result);
 		return showMsgList;
 	}

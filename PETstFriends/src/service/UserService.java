@@ -26,16 +26,16 @@ public interface UserService {
 	public HashMap<String, Object> showUserList(HashMap<String, Object> params);
 	public int stopUser(int user_no, int stopdate);
 	
-	public void deletePet(int pet_no);   //	★  9월6일자 변경된 부분(소현)★ 
+	public void deletePet(int pet_no);   
 	public int updateUser(HashMap<String, Object> params);
 	public boolean updatePet(HashMap<String, Object> params);
 	public boolean insertPet(HashMap<String, Object> params);
 	public void deleteUser(String user_id);
-//	public HashMap<String, Object> selectUserPet(String user_id);<!--★  9월6일 이거 없애주세요★(소현) -->
+
 	public String getUserPass(String user_id); //9월 7일
 	public User selectUser(String user_id);//체크요망
 	public List<Pet> selectPetAll(String user_id);
-//	public QnA viewmyInquiry(int qnA_boardno);   ★ 이거는 지워야하는 함수★ ! 
+
 	public HashMap<String, Object> myInquiry(HashMap<String, Object> params, String user_id, int page);
 	public HashMap<String, Object> myWrites(String user_id, int page, HashMap<String, Object> params);
 	public HashMap<String, Object> selectmyLikes(HashMap<String, Object> params, String user_id, int page);
@@ -47,7 +47,14 @@ public interface UserService {
 	public int getMyMeetingLastPage(String user_id);
 	public int getMyLikesLastPage(String user_id);
 	public int getSkip(int page);
-	public File getAttachFile(String user_id); //★  9월6일자 추가된 부분(소현)★ 
-	public int updateUserPropic(MultipartHttpServletRequest multi);//★  9월6일자 추가된 부분(소현)★ 
-	public int deletePetAll(String user_id);//★  9월6일자 추가된 부분(소현)★ 
+	public File getAttachFile(String user_id); //
+	public int updateUserPropic(MultipartHttpServletRequest multi);//
+	public int deletePetAll(String user_id);//
+	
+	
+	public HashMap<String, Object>getUser (String user_id);   //★  9월7일자 추가된 부분(소현)★ 
+	
+	
+	
+	
 }

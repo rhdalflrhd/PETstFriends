@@ -102,7 +102,7 @@
 
 	</update>
 
-	<!--★ 펫 파일 삭제됨 9월6일자★(소현) -->
+	
 	<update id="updatePet" parameterType="pet">
 		update Pet set pet_name =
 		#{pet_name}, pet_species =
@@ -111,7 +111,7 @@
 	</update>
 
 
-<!-- ★★★여기요★★★ -->
+
 <update id="updateScore" parameterType="user">
 		update user set user_score=#{user_score}
 		where user_id = #{user_id}
@@ -126,11 +126,12 @@
 		select * from User where user_id = #{user_id}
 	</select>
 
+
 	<select id="selectPetAll" parameterType="String" resultType="pet">
 		select * from pet where user_id = #{user_id}
 	</select>
 
-	<!--★ 9월6일자 변경된 부분★(소현) -->
+	
 	<select id="selectmyWrite" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
 		select freeBoard_boardname AS "boardname",
@@ -153,7 +154,7 @@
 		meetingBoard_userId = #{user_id} limit #{skip},#{qty}
 	</select>
 
-<!--★  9월7일자 변경된 부분★(소현) -->
+
    <select id="selectmyLikes" parameterType="java.util.HashMap"
       resultType="java.util.HashMap">
       select fb.freeBoard_boardname AS "boardname",
@@ -185,7 +186,7 @@
       ml.meetingLikes_userId= #{user_id} limit #{skip},#{qty}
    </select>
 
-	<!--★ 9월6일자 변경된 부분★(소현) -->
+	
 	<select id="selectMyMeetingApply" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
 
@@ -202,7 +203,7 @@
 
 	</select>
 
-	<!--★ 9월6일자 변경된 부분★(소현) -->
+	
 	<select id="getWriteCount" parameterType="String" resultType="int">
 		select count(*) from (
 		select freeBoard_boardno from
@@ -220,7 +221,7 @@
 		) cnt;
 	</select>
 
-	<!--★ 9월6일자 변경된 부분★(소현) -->
+	
 	   <select id="getLikesCount" parameterType="String"
       resultType="int">
       select count(*) from (
@@ -236,13 +237,13 @@
       UNION
         select mb.meetingReview_no from meetingReview mb ,
       meetingLikes ml where
-      mb.mb.meetingReview_no = ml.reviewno and
+      mb.meetingReview_no = ml.reviewno and
       ml.meetingLikes_userId= #{user_id}
 
       ) cnt;
    </select>
 
-	<!--★ 9월6일자 변경된 부분(소현)★ -->
+	
 	<select id="getMymeetingCount" parameterType="String"
 		resultType="int">
 		select count(*) from (select mb.meeting_boardno from
@@ -269,10 +270,17 @@
 		order by user_no desc limit #{skip},#{numb}
 	</select>
 
-	<update id="updatePropic" parameterType="java.util.HashMap"> <!--★ 9월6일자 추가된 부분★(소현) -->
+	<update id="updatePropic" parameterType="java.util.HashMap"> 
 		update User set
 		user_proPic=#{user_proPic} where user_id=#{user_id}
 
 	</update>
+	
+		<select id="selectUser" parameterType="String" resultType="java.util.HashMap">   <!--★ 9월7일자 추가된 부분★(소현) -->
+		select * from User where user_id = #{user_id}
+	</select>
+	
+	
+	
 
 </mapper>

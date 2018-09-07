@@ -11,6 +11,7 @@ public interface MeetingCommentDao {
 	public boolean deleteComment(HashMap<String, Object> params);
 	public MeetingComment selectCommentOne(HashMap<String, Object> params);
 	public List<MeetingComment> selectCommentAll(int meeting_boardno);
-
+	public MeetingComment getCommentCount(int meeting_boardno);
+	public int getCommentCount2(int meeting_boardno);
 	
 }

@@ -88,16 +88,12 @@
 	<div class="wrapper">
 		<div class="container">
 			<br>
-			<div style="border-bottom: 2px solid brown; width: 30%;">
-				<div style="border-bottom: 5px solid #FFD232; width: 100%;">
-
-					<font
-						style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; font-size: 50px; color: #8B5927;">
-						펫프 Modify !</font>
+			<div style="border-bottom: 2px solid brown; width: 25%;">
+				<div style="border-bottom: 5px solid #FFD232; width: 70%;">
+					<h2 style="font: Comic Sans MS">펫프 Modify !</h2>
 				</div>
-
 			</div>
-			<div style="height: 500px; width: 90%;">
+			<div style="height: 600px; width: 90%;">
 				<form action="dogModifyFreeBoard.do" method="post"
 					id="modifyBoardFrm" enctype="multipart/form-data">
 					<div style="height: 20px;"></div>
@@ -125,15 +121,33 @@
 						type="hidden" id="freeBoard_content" name=freeBoard_content
 						value="${freeBoard.freeBoard_content }">
 					<center>
-						<input type="button" style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 40px; width: 80px; border: 1; border-color: #CD853F; border-radius: 25px;"
-							id="modifyBoard" value="수정" /> <br>
+						<input type="button" style="background-color: #EBC680"
+							id="modifyBoard" value="수정" /> 
+								<input type="button"
+					value="취소" onclick="history.back();" /><br><br>
 					</center>
 				</form>
 			</div>
+			<br>
 		</div>
 		<!-- container끝 -->
 	</div>
 	<!-- wrapper끝 -->
-	<%@ include file="/petst/footer.jsp"%>
+<%@ include file="/petst/footer.jsp"%>
+
+	<!-- js files -->
+	<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
+	<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
+	<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
+	<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
+	<script type="text/javascript" src="./Boot/js/scripts.js"></script>
+
+
 </body>
 </html>

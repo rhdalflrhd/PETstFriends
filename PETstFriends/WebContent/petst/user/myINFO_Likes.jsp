@@ -65,7 +65,7 @@
 <body>
 
 
-<div class="wrapper">
+<!-- <div class="wrapper"> -->
  
 <!--        <header id="header"> -->
 <%@ include file="/petst/header.jsp" %>
@@ -123,9 +123,10 @@
 				
 					<td align="center">${like.userId }</td>
 					<td align="center">
-					<fmt:parseDate value ="${like.writeDate }" var = "wriedate" pattern = "yyyymmdd" ></fmt:parseDate>
-					<fmt:formatDate value="${wriedate }"
-							pattern="yyyy-MM-dd" /></td>
+<%-- 					<fmt:parseDate value ="${like.writeDate }"  var = "wrtie" pattern = "yyyyMMdd" ></fmt:parseDate> --%>
+<%-- 					<fmt:formatDate value="${like.writeDate }"pattern="yyyy-MM-dd" /> --%>
+					${like.writeDate }
+					</td> 
 							
 				
 				</tr>

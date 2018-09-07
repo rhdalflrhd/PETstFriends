@@ -646,7 +646,7 @@ text-align: center;
 							var placeStr='';
 							$('#writeText').val('후기를 작성해주세요.');
 							
-							placeStr += '<div class="reviewBoard"><div><div>'
+							placeStr += '<div class="reviewBoard" ><div><div>'
 							+'<i class="fa fa-paw" style="font-size : 20px; color : red"></i>'
 							+data.place_usernickname+'</div><br><div class="place_onereview">'+
 							place_review.replace(/(?:\r\n|\r|\n)/g, '<br />') +'<br></div><div align="right">'

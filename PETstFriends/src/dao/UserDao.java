@@ -27,12 +27,12 @@ public interface UserDao {
 
 	public User selectUserbyEmail(String user_email);// d
 
-	public User selectUserbyName(String user_name); // 비번찾기할때 이름 있는지 확인할거//d
+	public User selectUserbyName(String user_name); //
 
 	// 소현
 	public void deleteUser(String user_id);// d
-
-	public void deletePet(int pet_no); // ★ 9월6일자 변경된 부분(소현)★
+public HashMap<String, Object>selectUser (String user_id); //★ 9월7일자 추가된 부분(소현)★
+	public void deletePet(int pet_no); // 
 
 	public int updateUser(HashMap<String, Object> params);// d
 
@@ -57,11 +57,11 @@ public interface UserDao {
 	public int getMymeetingCount(String user_id);// d
 
 	// 업데이트
-	public int updateScore(User user); // ★ 9월6일자 추가사항★
+	public int updateScore(User user); // 
 
-	public int updatePropic(HashMap<String, Object> params); // ★ 9월6일자 추가사항★
+	public int updatePropic(HashMap<String, Object> params); // 
 
-	public int deletePetAll(String user_id); // ★ 9월6일자 추가사항★
+	public int deletePetAll(String user_id); // 
 
 	// 회원관리-가은
 	public List<User> selectUserAll(HashMap<String, Object> params);// d

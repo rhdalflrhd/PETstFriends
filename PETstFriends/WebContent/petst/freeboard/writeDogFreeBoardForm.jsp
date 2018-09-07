@@ -85,10 +85,8 @@
 		<div class="container">
 		<br>
 				<div style="border-bottom: 2px solid brown; width: 25%;">
-               <div style="border-bottom: 5px solid #FFD232; width: 100%;">
-<!--                <h2>펫프 Write !</h2> -->
-<font style="font-family: 'NanumSquareRound', sans-serif; font-weight: bold; font-size: 50px; color: #8B5927;">
-						펫프 Write !</font>
+               <div style="border-bottom: 5px solid #FFD232; width: 70%;">
+               <h2>펫프 Write !</h2>
                </div>
                </div>
 				<div style="height:500px; width: 90%;">
@@ -115,8 +113,7 @@
 					</form>
 				</div>
 <center>
-				<input type="button" id="insertBoard" value="등록"
-				style="background-color: #CD853F; color: white; font-family: 'NanumSquareRound', sans-serif; font-size: 15px !important; font-weight: bold; height: 40px; width: 80px; border: 1; border-color: #CD853F; border-radius: 25px;" />
+				<input type="button" id="insertBoard" value="등록" />
 </center>
 	</div>
 		<!-- container끝 -->

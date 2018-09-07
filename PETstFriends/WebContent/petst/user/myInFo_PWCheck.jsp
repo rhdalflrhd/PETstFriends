@@ -75,7 +75,7 @@ $(document).ready(function(){
 					<div class="header">
 
 						<p>
-							<strong>회원님!</strong><br /> 회원님의 안전한 정보보호를 위해 비밀번호를 입력해주시기 바랍니다.
+							<strong>${user_id }회원님!</strong><br /> 회원님의 안전한 정보보호를 위해 비밀번호를 입력해주시기 바랍니다.
 						</p>
 					</div>
 					<div class="article">
