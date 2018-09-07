@@ -550,7 +550,7 @@ width: 150px;
 								<div class="col-xs-8">
 								<input type='file' id="user_proPic" class="form-control"
 										name="user_proPic" value="${params.user_proPic}" >
-								</div>
+								</div>d
 							</div>
 							<br>
 							<div class="form-group">
