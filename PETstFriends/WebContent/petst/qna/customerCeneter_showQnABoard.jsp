@@ -164,6 +164,7 @@ button{
 										<br>
 									<button type="button" id="replyBtn" style="width: 80px;">답하기</button>
 									<button class="deleteBtn">글 삭제하기</button>
+								
 									<button onclick="location.href='showQnAList.do?page=${page }&boardname=${boardname }'
 										+'&type=${type }&keyword=${keyword }&numb=${numb }'">글 목록으로</button>
 									</div>
@@ -179,6 +180,7 @@ button{
 								<button class="deleteBtn">글 삭제하기</button>
 						<button onclick="location.href='showQnAList.do?page=${page }&boardname=${boardname }'
 							+'&type=${type }&keyword=${keyword }&numb=${numb }'">글 목록으로</button>
+								<button type ="button" onclick="history.back();" >뒤로가기</button>
 							<br>
 							<br>
 							</div>

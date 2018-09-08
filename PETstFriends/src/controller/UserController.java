@@ -690,10 +690,13 @@ public class UserController {
 		return userService.stopUser(user_no, stopdate);
 	}
 	
+	//수정함?????????0908
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
 		System.out.println("logout.do 들어옴");	
 		session.removeAttribute("user_id");
+		session.removeAttribute("adminCheck");
+		session.removeAttribute("naver");
 		return "redirect:main.do";
 	}
 	

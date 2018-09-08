@@ -9,7 +9,7 @@
 	rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>네이버 회원가입</title>
+<title>네이버 회원가dfgd입s</title>
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
     <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
     <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
@@ -79,6 +79,8 @@ h, td, tr, input, select, FORM {
 				$('#phoneCheck').html('');
 			} else if (!(phonePattern.test($('#user_phone').val))) {
 				$('#phoneCheck').html('잘못된 입력입니다.');
+				$('#phoneCheck').text('잘못된 입력입니다.');
+				
 			} else {
 				$('#phoneCheck').html('');
 			}
@@ -129,21 +131,19 @@ h, td, tr, input, select, FORM {
 		$('#joinBtn').click(function() { //회원가입 //가입 조건 전체 확인
 		
 			alert($("input:radio[name=user_havePet]:checked").val())
-			alert('여기')
 			if ($('#idCheck').html() == '사용가능한 닉네임입니다.' && $('#phoneCheck').html() == '' && $('.user_havePet').is(':checked')) {
 				if ($("input:radio[name=user_havePet]:checked").val() == 1) {
-// 					$('#petTable_tbody tr').each(function() {
 						if (!($('.pet_name').val() == '') && !($('.pet_species').val() == 0) && !($('.pet_gender').val() == 0))
 							joinFun();
 						else
-							alert('필수 입력조건을 확인해주세요.');
-// 					})
+							alert('필수 입력조건을 확인해주세요.')
 				}
 				else
 					joinFun();
 			}
 			else
 				alert('필수 입력조건을 확인해주세요!');
+				alert($('#phoneCheck').html())
 			return false;
 		});
 		var joinFun = function() {
@@ -208,7 +208,7 @@ h, td, tr, input, select, FORM {
 				<label for="inputid" class="control-label col-xs-1">전화번호</label>
 				<div class="col-xs-4">
 				<input type="text" id="user_phone" name="user_phone" class="form-control" placeholder ="'010-1234-5678' 형식으로 입력해주세요.">
-				<span id='phoneCheck"'></span>
+				<span id='phoneCheck'></span>
 				</div></div><br><br>
 			
 					<div class="form-group">

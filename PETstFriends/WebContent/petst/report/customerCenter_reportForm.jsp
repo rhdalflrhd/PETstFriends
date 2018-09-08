@@ -150,16 +150,5 @@
 			</div>
 		</div>
 		</center>
-			<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
-	<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
-	<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
-	<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
-	<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
-	<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
-	<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
-	<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
-	<script type="text/javascript" src="./Boot/js/scripts.js"></script>
 </body>
 </html>

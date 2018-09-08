@@ -236,7 +236,7 @@ text-align: center;
 		   border-radius: 20%;
 }
 </style>
-<title>Insert title here</title>
+<title>플레이스</title>
 </head>
 <body>
 	<%@ include file="/petst/header.jsp"%>
@@ -388,7 +388,9 @@ text-align: center;
 	
 				// 페이지 번호를 표출합니다
 				displayPagination(pagination);			
-	
+				$(document).ready(function() {
+					$('#placeReview1').trigger("click");//페이지 넘길때마다 바뀜???
+				});
 			} else if (status === daum.maps.services.Status.ZERO_RESULT) {
 	
 				alert('검색 결과가 존재하지 않습니다.');
@@ -476,8 +478,13 @@ text-align: center;
 			itemStr += '  <span class="tel">' + places.phone + '</span>';
 			itemStr += '<a href=' + places.place_url + ' target="_blank">상세보기</a>';
 			var placesValue = places.x + '/' + places.y + '/' + places.place_name;
+			if(index==0){
+				itemStr += '<button id="placeReview1" value=' + placesValue + '>펫프 리뷰보기</button>' +
+				'</div>';
+			}else{
 			itemStr += '<button class="placeReview" value=' + placesValue + '>펫프 리뷰보기</button>' +
 				'</div>';
+			}
 			el.innerHTML = itemStr;
 			el.className = 'item';
 	
@@ -570,12 +577,18 @@ text-align: center;
 		$(document).ready(function() {
 			var sessionId = '<%=session.getAttribute("user_id") %>';
 			$(document).on('click', '.placeReview', function() {
+				reviewFun($(this).val());
+			});
+			$(document).on('click', '#placeReview1', function() {
+				reviewFun($(this).val());
+			});
+			var reviewFun = function(place_inform){
 				$('.hospitalName').empty();
 				$('#hospitalX').empty();
 				$('#hospitalY').empty();
 				$('#reviewList').empty();
 				$('#writeText').val('후기를 작성해주세요.');
-				var place_info = $(this).val(); //토크나이저로 분리하기
+				var place_info = place_inform; //토크나이저로 분리하기
 				var placeArray = place_info.split('/');
 				$('#hospitalReview').css('display', 'inline-block');
 				$('#hospitalX').val(placeArray[0]);
@@ -612,8 +625,7 @@ text-align: center;
 						alert(error)
 					}
 				});
-			});
-	
+			}
 			$('#writeText').on('keyup', function() {
 				if ($(this).val().length > 100) { //몇자 제한으로 할지 정하기??????????????
 					$(this).val($(this).val().substring(0, 100));
@@ -759,6 +771,9 @@ text-align: center;
 				if($(this).val()=='')
 					$(this).val('지역을 입력하세요.')
 			})
+			$(document).ready(function() {
+				$('#placeReview1').trigger("click");//맨처음만 호출되고 끝
+			});
 		});
 	</script>
 	<%@ include file="/petst/footer.jsp"%>

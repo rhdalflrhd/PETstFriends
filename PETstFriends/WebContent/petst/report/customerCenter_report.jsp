@@ -83,9 +83,9 @@ button, input[type="button"],input[type="submit"] {
 					"report_state" : report_state
 				},
 				success : function(data) {
-					tr.find("td").eq(5).html(state);  
-					tr.find("td").eq(6).empty();
-					tr.find("td").eq(6).append(btnStr);
+					tr.find("td").eq(6).html(state);  
+					tr.find("td").eq(7).empty();
+					tr.find("td").eq(7).append(btnStr);
 				},
 				error : function(xhrReq, status, error) {
 					alert(error)
@@ -148,7 +148,8 @@ button, input[type="button"],input[type="submit"] {
 					<thead>
 						<tr>
 						<th></th>
-							<th>글 번호</th>
+							<th>신고 번호</th>
+							<th>신고당한 ID</th>
 							<th>신고이유</th>
 							<th>게시글링크</th>
 							<th>작성일</th>
@@ -161,6 +162,7 @@ button, input[type="button"],input[type="submit"] {
 							<tr>
 							<td><input type="checkbox" value="${report.report_reportNo }" name="report_reportNo"></td>
 								<td>${report.report_reportNo }</td>
+								<td>${report.report_userId }</td>
 								<td width="30%;">${report.report_reportReason }</td>
 								<td width="15%;">
 								<c:if test="${report.report_boardname==2 }">
@@ -168,14 +170,14 @@ button, input[type="button"],input[type="submit"] {
 											var="path"></c:set>
 									</c:if> 
 								<c:if test="${report.report_boardname>=3 && report.report_boardname<=6 }">
-										<c:set value="selectOneBoard.do?boardno=${report.report_boardno }"
+										<c:set value="selectOneBoard.do?freeBoard_boardname=${report.report_boardname }&freeBoard_boardno=${report.report_boardno }"
 											var="path"></c:set>
 									</c:if> 
 									
 								<c:if test="${report.report_boardname>=7 && report.report_boardname<=9 }">
-										<c:set value="ReadTipBoard.do?boardno=${report.report_boardno }"
+										<c:set value="ReadTipBoard.do?boardname=${report.report_boardname }&boardno=${report.report_boardno }"
 											var="path"></c:set>
-								</c:if> <a onclick="window.open('${path}','width=#', 'height=#');"
+								</c:if> <a onclick="window.open('${path}','new','width=800px, height=400px, left=200px, top=100px');"
 									style="cursor: pointer;"> 해당 게시글로 가기</a></td>
 								<!-- 								경로정해지면 하기???????? -->
 								<td><c:set var="str1" value="${report.report_date }" />

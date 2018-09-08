@@ -70,9 +70,8 @@ public class NaverLoginTutorial {
 		if(userService.getUserbyId(user_id)) {//유저 아이디가 없으면 true, 회원가입창으로 
 			return "redirect:/terms_use.do";
 		}
-		if(naverUser.getId().equals("41455065"))//어드민 규정 바꾸기??????어드민은 네아로x
-			session.setAttribute("admin_check", 1);
 		session.setAttribute("user_id", naverUser.getId());
+		session.setAttribute("naver", naverUser);
 		return "redirect:/main.do";
 	}
     

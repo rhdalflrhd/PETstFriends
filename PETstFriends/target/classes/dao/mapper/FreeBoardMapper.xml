@@ -166,13 +166,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE freeLikes_userId= #{freeLikes_userId}
 	</delete>
 
-<update id="freeBoard_likeCnt_up" parameterType="java.util.HashMap">
+<update id="FreeBoard_likeCnt_up" parameterType="java.util.HashMap">
 		update freeBoard set 
 		freeBoard_LikeCount = freeBoard_LikeCount +1 
 		where freeBoard_boardname = #{freeBoard_boardname} and freeBoard_boardno = #{freeBoard_boardno}
 	</update>
 
-	<update id="freeBoard_likeCnt_down" parameterType="java.util.HashMap">
+	<update id="FreeBoard_likeCnt_down" parameterType="java.util.HashMap">
 		update freeBoard set 
 		freeBoard_LikeCount = freeBoard_LikeCount -1
 		where freeBoard_boardname = #{freeBoard_boardname} and freeBoard_boardno = #{freeBoard_boardno}

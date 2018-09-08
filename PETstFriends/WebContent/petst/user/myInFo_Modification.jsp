@@ -272,7 +272,7 @@
 					alert("인증번호 전송완료.");
 					//             alert(authNum);
 
-					$('#user_authNum').blur(function() {
+				  $('#auth_btn2').click(function(){
 
 
 						if ($('#user_authNum').val() == authNum) {
@@ -563,7 +563,7 @@
 							<label for="inputid" class="control-label col-xs-3">아이디</label>
 							<div class="col-xs-8">
 								<input type="text" name="user_id" id="user_id"
-									value=" ${user_id} " readonly="readonly"
+									value=" ${user_id}" readonly="readonly"
 									class="form-control">
 
 							</div>
@@ -705,8 +705,10 @@
 						<div class="form-group">
 							<label for="inputnum" class="control-label col-xs-3">인증번호*</label>
 							<div class="col-xs-8">
-								<input type="text" id="user_authNum" class="form-control">
-								<div id="lab1"></div>
+								<input type="text" id="user_authNum" class="form-control"><span id="lab1"></span></div>
+								<div class="col-xs-1">
+						<button type="button" id="auth_btn2" class="btn btn-warning btn-xs">확인</button></div><br>
+					</div>
 							</div>
 						</div>
 						<br>
