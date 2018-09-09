@@ -11,7 +11,7 @@
     <!-- favicon icon -->
     <link rel="shortcut icon" href="./assets/images/favicon.png">
 
-<title>로그인</title>
+<title>change pw</title>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
@@ -137,26 +137,33 @@
 <!--        <header id="header"> -->
          <%@ include file="/petst/header.jsp" %>
     <!--header section end-->
+    <div class="wrapper">
+		<div class="container">
+		<br>
+			<div style="border-bottom: 2px solid brown; width: 25%;">
+               <div style="border-bottom: 5px solid #FFD232; width: 70%;">
+               <h2>비밀번호 변경</h2>
+               </div>
+               </div>
 <center>
-<%-- ${msg  } --%>
-		<h1>
-			<b><font color="gray">PW찾기</font></b>
-		</h1>
-
+<div style="border: 1px solid blue;width: 700px; height: 450px;">
+<div class="container1" style="border: 1px solid red; width: 700px; height: 350px; ">
+	<br>
+	
 		<h2>새로운 비밀번호로 변경하세요!</h2>
 		- 비밀번호는 8~20자의 영문소문자, 숫자, 특수문자를 조합하여 사용 할 수 있습니다. <br>
 		- 특수문자를 추가하여 비밀번호를 사용하시면 비밀번호의 안전도가 높아져요. <br>
 
 <!-- 			--------------------------------------------------------------- -->
 <br>
-<table>
+<table class="table">
 					<tr>
-					<td>새 비밀번호</td>
+					<td align="right">새 비밀번호</td>
 					<td><input type="password" id="user_pass" name="user_pass"> <span
 						id='user_passResult'></span></td>
 				</tr>
 				<tr>
-					<td>비밀번호 확인</td>
+					<td align="right">비밀번호 확인</td>
 					<td><input type="password" id="user_pass2" name="user_pass2">
 					<span
 						id='user_passResult2'></span>
@@ -178,13 +185,16 @@
 			<tr>
 				<td colspan="4" align="center">
 
-					<button id="change" 
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">확인</button>
+					<button id="change">확인</button>
 				</td>
 			</tr>
 		
 </table>
+</div>
+</div>
 </center>
+</div>
+</div>
 <!-- <footer> -->
 <%@ include file="/petst/footer.jsp"%>
     <!--footer end-->

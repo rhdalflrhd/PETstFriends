@@ -51,10 +51,20 @@
 	<center>
 
 
-<div style="border: 1px solid red; width: 500px; height: 300px;">
-		<h2>${user_name }회원님</h2>
-		아이디: ${user_id } (가입일 : ${user_joinDate })
+<div style="width: 900px; height: 300px;">
+<div style=" width:700px; height:20px;"></div>
+<div style="border-top: 2px solid #dcdcdc; width: 900px;">
+</div>
+<div style=" width:700px; height:30px;"></div>
+		<h2><font style="color: hotpink"> ${user_name }</font> &nbsp; 회원님 !</h2>
+		<div style="border: 2px solid #dcdcdc; width:700px;height: 80px;"> 
+		<div style="width: 700px;height: 30px;"> 
+		
 		</div>
+		아이디 &nbsp;: &nbsp;<b> ${user_id } </b> &nbsp;&nbsp; (가입일 &nbsp;: &nbsp; ${user_joinDate }) 
+		</div>
+		<div style=" width:700px; height:30px;"></div>
+	
 		
 		
 		
@@ -67,12 +77,16 @@
 			<tr>
 				<td colspan="2" align="center">
 					<button onclick="location.href='loginForm.do'"
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">로그인하기</button>
+						style="width: 100px; height: 28px; border: 1 solid white">로그인</button>
 					<button id=pwFindBtn onclick="location.href='FindUserPwForm.do'"
-						style="width: 100px; height: 28px; background-color: #FFE6E6; border: 1 solid white">비밀번호찾기</button>
+						style="width: 100px; height: 28px; border: 1 solid white">비밀번호찾기</button>
 				</td>
 			</tr>
 		</table>
+		<div style=" width:700px; height:30px;"></div>
+		<div style="border-bottom: 2px solid #dcdcdc; width: 900px;">
+		
+			</div>
 		<span id="user_idList"></span>
 
 	</center>
@@ -80,6 +94,7 @@
    <%@ include file="/petst/footer.jsp" %>
     <!--footer end-->
 
+</div>
 </div>
 		
 <!-- js files -->

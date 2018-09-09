@@ -159,9 +159,9 @@
 
 <div class="container1" style="display: inline-block; width:80%; height:550px;">
 	    <div class="bs-example"  style=" border: 1px solid gray; border-top: none;">
-	<ul class="nav nav-tabs navbar-" >
-        <li  class="active" style="width: 50%"><a href="FindUserIdForm.do">아이디 찾기</a></li>
-        <li style="width: 50%"><a href="FindUserPwForm.do">비밀번호 찾기</a></li>
+	<ul class="nav nav-tabs navbar-" style="color: pink;">
+        <li  class="active" style="width: 50%; color: pink;"><a href="FindUserIdForm.do">아이디 찾기</a></li>
+        <li style="width: 50%; color: pink;" ><a href="FindUserPwForm.do">비밀번호 찾기</a></li>
 	</ul>
 
 <br>
