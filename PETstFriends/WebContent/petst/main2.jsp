@@ -1,30 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content=" ">
-    <meta name="author" content="ShapedTheme">
-
-<!-- favicon icon -->
-<link rel="shortcut icon" href="assets/images/favicon.png">
-<title>header</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 <!-- common css -->
-<!-- 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">     -->
-<!--     <link rel="stylesheet" href="./Boot/css/bootstrap.min.css"> -->
-<!--     <link rel="stylesheet" href="./Boot/css/font-awesome.min.css"> -->
-<!--     <link rel="stylesheet" href="./Boot/css/animate.min.css"> -->
-<!--     <link rel="stylesheet" href="./Boot/css/owl.carousel.css"> -->
-<!--     <link rel="stylesheet" href="./Boot/css/owl.theme.css"> -->
-<!--     <link rel="stylesheet" href="./Boot/css/slicknav.css"> -->
-<!--     <link rel="stylesheet" href="./Boot/style.css"> -->
-<!--     <link rel="stylesheet" href="./Boot/css/responsive.css"> -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">    
+    <link rel="stylesheet" href="./Boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Boot/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./Boot/css/animate.min.css">
+    <link rel="stylesheet" href="./Boot/css/owl.carousel.css">
+    <link rel="stylesheet" href="./Boot/css/owl.theme.css">
+    <link rel="stylesheet" href="./Boot/css/slicknav.css">
+    <link rel="stylesheet" href="./Boot/style.css">
+    <link rel="stylesheet" href="./Boot/css/responsive.css">
     <link rel="stylesheet" href="./Boot/css/weather-icons.css">
     <link rel="stylesheet" href="./Boot/css/weather-icons-wind.css">
    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -446,19 +439,84 @@ body {
 			</div>
 		</div>
 	    </header>	
-	    
-<!-- js files -->
-<script type="text/javascript" src="./Boot/js/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="./Boot/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="./Boot/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./Boot/js/smoothscroll.js"></script>
-<script type="text/javascript" src="./Boot/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="./Boot/js/imagesloaded.pkgd.js"></script>
-<script type="text/javascript" src="./Boot/js/isotope.2.2.2min.js"></script>
-<script type="text/javascript" src="./Boot/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="./Boot/js/jquery.stickit.min.js"></script>
-<script type="text/javascript" src="./Boot/js/jquery.slicknav.js"></script>
-<script type="text/javascript" src="./Boot/js/scripts.js"></script>	    
-	    
+	    <div class="wrapper">
+
+    <!--slider section start-->
+    <div class="slider-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="home-carousel">
+                        <div class="home-slider">
+                            <img src="Boot/images/home-2.jpg" alt="">
+
+                            <div class="home-overlay text-center">
+                                <p>November 21, 2015 | Lifestyle</p>
+
+                                <h2>
+                                    A Theme Beyond Your Imagination
+                                </h2>
+                                <a href="#" class="btn read-more text-uppercase">Read More</a>
+                            </div>
+                        </div>
+                        <div class="home-slider">
+                            <img src="Boot/images/home-3.jpg" alt="">
+
+                            <div class="home-overlay text-center">
+                                <p>November 21, 2015 | Lifestyle</p>
+
+                                <h2>
+                                    A Theme Beyond Your Imagination
+                                </h2>
+                                <a href="#" class="btn read-more text-uppercase">Read More</a>
+                            </div>
+                        </div>
+                        <div class="home-slider">
+                            <img src="Boot/images/home-3.jpg" alt="">
+
+                            <div class="home-overlay text-center">
+                                <p>November 21, 2015 | Lifestyle</p>
+
+                                <h2>
+                                    A Theme Beyond Your Imagination
+                                </h2>
+                                <a href="#" class="btn read-more text-uppercase">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--slider section end-->
+
+    <!--promo box start-->
+    <div class="promo-box text-uppercase text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-promo-box" id="meetingbox0">               
+                          
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-promo-box" id="meetingbox1">                     
+                            
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-promo-box" id="meetingbox2">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!--   <footer id="footer"> -->
+<%@ include file="/petst/footer.jsp" %>
+
 </body>
 </html>

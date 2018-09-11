@@ -74,11 +74,12 @@ public class MsgServiceImpl implements MsgService{
 		// TODO Auto-generated method stub
 		return (page - 1) * 10;
 	}
+	//고침?????
 	@Override
-	public int getMsgAdminLastPage() {
+	public int getMsgAdminLastPage(String msg_ReceiverId) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> param = new HashMap<String,Object>();
-		param.put("msg_ReceiverId", null);
+		param.put("msg_ReceiverId", msg_ReceiverId);
 		return (msgAdminDao.selectMsgAllAdimin(param).size() - 1 ) / 10 + 1;
 	}
 	@Override

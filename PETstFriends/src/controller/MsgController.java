@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import model.Msg;
 import service.MsgServiceImpl;
@@ -89,31 +90,18 @@ public class MsgController {
 		return showMsgAdmin;
 	}
 	
-
+	//고침????
 	@RequestMapping("showMsgListAdimin.do")
 	@ResponseBody
 	public HashMap<String, Object> showMsgListAdimin(Model model,@RequestParam(required = false) String msg_ReceiverId,
 			@RequestParam(defaultValue = "1") int page) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("showMsgListAdmin", msgServiceImpl.showMsgListAdmin(msg_ReceiverId));
+		result.put("key", msg_ReceiverId);
 		result.put("current", page);
 		result.put("start", msgServiceImpl.getStartPage(page));
 		result.put("end", msgServiceImpl.getEndPage(page));
-		result.put("last", msgServiceImpl.getMsgAdminLastPage());
-		result.put("skip",msgServiceImpl.getSkip(page));
-		JSONObject showMsgListAdmin = new JSONObject(result);
-		return showMsgListAdmin;
-	}
-	@RequestMapping("showMsgListAdimin1.do")
-	@ResponseBody
-	public HashMap<String, Object> showMsgListAdimin1(Model model,@RequestParam(required = false) String msg_ReceiverId,
-			@RequestParam(defaultValue = "1") int page) {
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("showMsgListAdmin", msgServiceImpl.showMsgListAdmin(msg_ReceiverId));
-		result.put("current", page);
-		result.put("start", msgServiceImpl.getStartPage(page));
-		result.put("end", msgServiceImpl.getEndPage(page));
-		result.put("last", msgServiceImpl.getMsgAdminLastPage());
+		result.put("last", msgServiceImpl.getMsgAdminLastPage(msg_ReceiverId));
 		result.put("skip",msgServiceImpl.getSkip(page));
 		JSONObject showMsgListAdmin = new JSONObject(result);
 		return showMsgListAdmin;

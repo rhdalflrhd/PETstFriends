@@ -18,6 +18,7 @@ public interface MsgService{
 	public int getStartPage(int page);
 	public int getEndPage(int page);
 	public int getSkip(int page);
-	public int getMsgAdminLastPage();
+	//고침????
+	public int getMsgAdminLastPage(String msg_ReceiverId);
 	public int getMsgLastPage(String msg_ReceiverId);
 }

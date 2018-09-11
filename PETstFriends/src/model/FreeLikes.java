@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Date;
-
 public class FreeLikes {
 	private int freeLikes_likeno;
 	private int freeLikes_boardname;

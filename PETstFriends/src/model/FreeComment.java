@@ -1,6 +1,5 @@
 package model;
 
-import java.sql.Date;
 
 public class FreeComment {
 	private int freeBoard_boardname;

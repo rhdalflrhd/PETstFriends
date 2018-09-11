@@ -101,13 +101,15 @@
 
 		$('#user_phone').blur(function() { //휴대폰 정규식----------------
 			var phonePattern = /^\d{3}-\d{3,4}-\d{4}$/;
-			if ($(this).val() == "") {
-				$('#phoneCheck').html('');
-			} else if (!(phonePattern.test($('#user_phone').val))) {
-				$('#phoneCheck').html('잘못된 입력입니다.');
-			} else {
-				$('#phoneCheck').html('');
+			if ((phonePattern.test($('#user_phone').val()))) {
+				$('#phoneCheck').html('');	
+			
 			}
+			else{
+				$('#phoneCheck').html('ex) 010-1234-5678 형식으로 입력해주세요.');
+
+			}
+	
 		});
 
 		//--------------------------------------------------------------------------------------
@@ -138,28 +140,28 @@
 
 
 		$('#user_email').blur(function() { //이메일 중복 검사-------------------------------------------------------
-			$.ajax({
-				method : 'GET',
-				url : 'emailCheck.do',
-				data : {
-					user_email : $('#user_email').val()
-				},
-				success : function(result) {
-					if (result == true) {
-						$('#email').html('사용 가능한 이메일 입니다.');
-					} else {
-						$('#email').html('기존 이메일과 일치합니다.');
-						$(this).focus();
-					}
-				},
-				error : function(xhrReq, status, error) {
-					alert(error)
-					alert("이메일을 입력해주세요")
-				}
-			});
-		}); //이메일 중복 검사-------------------------------------------------------
 
+	if($('#user_email').val() =='${params.user_email}' ){
+		$('#email').html('기존 이메일과 일치합니다.');
+}
+	else{
+	var emailPt = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	if((emailPt.test($('#user_email').val()))){
+		$('#email').html('사용가능한 Email입니다.');
+	}
+	else{
+		$('#email').html('다시 입력 해 주세요');
 
+	}
+	}
+	
+});
+			
+	
+			
+	 //이메일 중복 검사-------------------------------------------------------
+
+		
 	}); // 첫번째 스크립트 끝 
 </script>
 
@@ -452,6 +454,13 @@
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
+	
+	
+	
+
+
+	
+	
 </script>
 
 
@@ -495,6 +504,17 @@
 	float: left;
 	width: 30%;
 }
+th, td{
+padding: 5px;
+margin: 0px;
+}
+th{
+text-align: center;
+}
+select{
+height: 27px;
+width: 150px;
+}
 </style>
 
 </head>
@@ -532,11 +552,14 @@
 			<div class="left">
 						<form id="gofile" enctype="multipart/form-data">
 							<div class="form-group">
-								<input type="hidden" name="user_id" value="${user_id }">
+								<input type="hidden" name="user_id" value="${params.user_id }">
 								<label for="inputid" class="control-label col-xs-3">프사</label>
 								<div class="col-xs-8">
+								<c:if test="${params.user_proPic !=null && params.user_proPic!=''}">
 								<input type='file' id="user_proPic" class="form-control"
-										name="user_proPic" value="${user_proPic }" />
+										name="user_proPic" value="${params.user_proPic}" >
+										</c:if>
+										
 								</div>
 							</div>
 							<br>
@@ -544,9 +567,9 @@
 								<label for="inputid" class="control-label col-xs-3"></label>
 								<div class="col-xs-8">
 									<div id="pre">
-										<c:if test="${user_proPic !=null && user_proPic!=''}">
+										<c:if test="${params.user_proPic !=null && params.user_proPic!=''}">
 										<img id="blah"
-											src="downloadPropic.do?user_id=${user_id}"
+											src="downloadPropic.do?user_id=${params.user_id}"
 											width=" 200px" height="200px">
 								</c:if>
 									</div>
@@ -563,7 +586,7 @@
 							<label for="inputid" class="control-label col-xs-3">아이디</label>
 							<div class="col-xs-8">
 								<input type="text" name="user_id" id="user_id"
-									value=" ${user_id}" readonly="readonly"
+									value=" ${params.user_id}" readonly="readonly"
 									class="form-control">
 
 							</div>
@@ -576,7 +599,7 @@
 							<label for="inputid" class="control-label col-xs-3">이름</label>
 							<div class="col-xs-8">
 								<input type="text" name="user_name" id="user_name"
-									value="${user_name}" readonly="readonly"
+									value=" ${params.user_name}" readonly="readonly"
 									class="form-control">
 							</div>
 							<br>
@@ -588,7 +611,7 @@
 							<label for="inputnickname" class="control-label col-xs-3">닉네임*</label>
 							<div class="col-xs-8">
 								<input type="text" name="user_nickname" id="user_nickname"
-								 value="${user_nickname} " class="form-control">
+								 value="${params.user_nickname} " class="form-control">
 								<span id="nickname"></span>
 							</div>
 						</div>
@@ -601,7 +624,7 @@
 							<label for="inputphone" class="control-label col-xs-3">나의점수</label>
 							<div class="col-xs-8">
 								<input type="text" name="user_score" id="user_score"
-									value="${user_score} " readonly="readonly"
+									value="${params.user_score} " readonly="readonly"
 									class="form-control">
 							</div>
 						</div>
@@ -612,7 +635,7 @@
 							<label for="inputphone" class="control-label col-xs-3">전화번호</label>
 							<div class="col-xs-8">
 								<input type="text" name="user_phone" id="user_phone"
-									value="${user_phone} " class="form-control">
+									value="${params.user_phone} " class="form-control"><span id="phoneCheck"></span>
 							</div>
 						</div>
 						<br>
@@ -631,19 +654,19 @@
 									 <label><input
 										type="radio" name="user_havePet" class="user_havePet"
 										value="0">없음</label>
-										<c:if test="${user_havePet == 1 }">
+										<c:if test="${params.user_havePet == 1 }">
 										<script type="text/javascript">
 											$("input:radio[name='user_havePet']:radio[value='1']").prop("checked", true); // 강제선택하기
 										</script>
 										</c:if>
-										<c:if test="${user_havePet == 0 }">
+										<c:if test="${params.user_havePet == 0 }">
 										<script type="text/javascript">
 											$("input:radio[name='user_havePet']:radio[value='0']").prop("checked", true); // 강제선택하기
 										</script>
 										</c:if>
 										
 										
-										 <br> <br> <br> <br>
+										 <br> <br>
 
 								</div>
 							</div>
@@ -666,7 +689,7 @@
 						<br>
 
 						<div class="form-group">
-							<label for="inputnewpass" class="control-label col-xs-3">새비번*</label>
+							<label for="inputnewpass" class="control-label col-xs-3">새비번</label>
 							<div class="col-xs-8">
 								<input type="password" name="new_user_pass" id="new_user_pass"
 									class="form-control"><span id="pwd1ok"></span>
@@ -676,7 +699,7 @@
 						<br>
 						<br>
 						<div class="form-group">
-							<label for="inputpassch" class="control-label col-xs-3">새비번확인*</label>
+							<label for="inputpassch" class="control-label col-xs-3">새비번확인</label>
 							<div class="col-xs-8">
 								<input type="password" id="new_user_pass_chk"
 									class="form-control"> <span id="pwd2ok"></span> <font
@@ -691,7 +714,7 @@
 							<label for="inputemail" class="control-label col-xs-3">이메일*</label>
 							<div class="col-xs-8">
 								<input type="text" name="user_email" id="user_email"
-									value="${user_email} " class="form-control"><span
+									value="${params.user_email}" class="form-control"><span
 									id="email"></span>
 							</div>
 							<div class="col-xs-1">
@@ -722,58 +745,51 @@
 					</div>
 
 
-				</div>
 
 
 
 				<div class="project-details">
 
+		
+				<table id="petTable" style="display: none;">
+			<thead>
+			<tr>
+					<td colspan="5" align="right" class="addPet">반려동물 추가<i
+						class="fa fa-plus-square"></i></td>
+				</tr>
+				<tr>
+					<th width="150px;">이름 *</th>
+					<th width="150px;">종 *</th>
+					<th width="150px;">성별 *</th>
+					<th width="150px;">나이</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="petTable_tbody">
+				<tr>
+					<td><input type="text" class="pet_name" name="pet_name"></td>
 
-					<table id="petTable" style="display: none">
-						<thead>
-							<tr>
-								<td colspan="5" align="right" class="addPet">반려동물 추가<i
-									class="fa fa-plus-square"></i></td>
-							</tr>
-							<tr>
-								<th>이름 *</th>
-								<th>종 *</th>
-								<th>성별 *</th>
-								<th>나이</th>
-						
-								<th></th>
-							</tr>
-						</thead>
-						<tbody id="petTable_tbody">
-							<tr>
-								<td><input type="text" class="pet_name" name="pet_name"></td>
-								<td><select class="pet_species">
-										<option value="0">종 선택</option>
-										<option value="1">개</option>
-										<option value="2">고양이</option>
-										<option value="3">토끼</option>
-										<option value="4">기타</option>
-								</select></td>
-								<td><select class="pet_gender">
-										<option value="0">성별</option>
-										<option value="1">여</option>
-										<option value="2">남</option>
-										<option value="3">중성화</option>
-								</select></td>
-								<td><input type="text" class="pet_age"><input
-									type="hidden" class="pet_no" value="0"></td>
-							
-								<td class="removePet"><i class="fa fa-minus-square"></i></td>
+					<td><select class="pet_species">
+							<option value="0">종 선택</option>
+							<option value="1">개</option>
+							<option value="2">고양이</option>
+							<option value="3">토끼</option>
+							<option value="4">기타</option>
+					</select></td>
+					<td><select class="pet_gender">
+							<option value="0">성별</option>
+							<option value="1">여</option>
+							<option value="2">남</option>
+							<option value="3">중성화</option>
+					</select></td>
+					<td><input type="text" class="pet_age"><input type="hidden" class="pet_no"  value ="0" class="form-control"></td>
 
-
-							</tr>
-						</tbody>
-					</table>
+					<td class="removePet"></td>
+				</tr>
+			</tbody>
+		</table>
 					<br>
-
-
-
-				</div>
+	</div>
 
 
 				<center>
@@ -789,11 +805,9 @@
 				</center>
 			</div>
 
-		</div>
+	
 
-	</div>
 
-	</div>
 
 
 	<%@ include file="/petst/footer.jsp"%>

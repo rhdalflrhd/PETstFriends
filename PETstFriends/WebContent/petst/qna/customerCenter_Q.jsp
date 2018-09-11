@@ -49,9 +49,10 @@ cursor:pointer;
 </style>
 <script type="text/javascript">
 	 function FaqToggleDetail ( id ){
+		 alert(id)
 		var latestToggleObj = null;
 		var oObj = document.getElementById( id );	
-
+		alert(oObj)
 		if( this.latestToggleObj != null ){
 			this.latestToggleObj.className = (this.latestToggleObj.className + " none");
 		}

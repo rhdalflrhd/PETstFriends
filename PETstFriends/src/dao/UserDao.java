@@ -63,6 +63,8 @@ public interface UserDao {
 
 	public int deletePetAll(String user_id); // ★ 9월6일자 추가사항★
 
+	public HashMap<String, Object>selectUser (String user_id); //★ 9월11일자 추가된 부분(소현)★
+	
 	// 회원관리-가은
 	public List<User> selectUserAll(HashMap<String, Object> params);// d
 

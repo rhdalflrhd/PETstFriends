@@ -314,7 +314,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updatePet(HashMap<String, Object> params) { // 펫 수정하기
+	public boolean updatePet(HashMap<String, Object> params) { // 펫 수정하기   ★  9/11변경된부분★ 
 
 		String jsonStr = (String) params.get("jsonData");
 
@@ -336,7 +336,7 @@ public class UserServiceImpl implements UserService {
 				pet.setPet_gender(jOb.get("pet_gender").getAsInt());
 				pet.setPet_species(jOb.get("pet_species").getAsString());
 				pet.setPet_age(jOb.get("pet_age").getAsInt());
-				pet.setPet_file(jOb.get("pet_file").getAsString());
+			
 
 				udao.updatePet(pet);
 			}
@@ -596,6 +596,12 @@ public class UserServiceImpl implements UserService {
 
 	public int deletePetAll(String user_id) { // ★ 9월6일 추가된 함수★(소현)
 		return udao.deletePetAll(user_id);
+	}
+	
+	@Override
+	public HashMap<String, Object> getUser(String user_id) {    // ★ 9월7일 추가된 함수★(소현)
+		// TODO Auto-generated method stub 
+		return udao.selectUser(user_id);
 	}
 
 }

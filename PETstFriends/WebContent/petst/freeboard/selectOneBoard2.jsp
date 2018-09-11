@@ -732,7 +732,7 @@ var aaa = function(){
 </head>
 <body>
 
-<%-- 	<%@ include file="/petst/header.jsp"%> --%>
+	<%@ include file="/petst/header.jsp"%>
 	<div class="wrapper">
 		<div class="container">
 			<br>
@@ -991,7 +991,7 @@ var aaa = function(){
 		</table>
 		
 	</div>
-<%-- 	<%@ include file="/petst/footer.jsp"%> --%>
+	<%@ include file="/petst/footer.jsp"%>
 	<!-- js files -->
 
 </body>

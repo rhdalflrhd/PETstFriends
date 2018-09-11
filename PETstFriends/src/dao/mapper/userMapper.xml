@@ -275,4 +275,11 @@
 
 	</update>
 
+		<select id="selectUser" parameterType="String" resultType="java.util.HashMap">   <!--★ 9월7일자 추가된 부분★(소현) -->
+		select * from User where user_id = #{user_id}
+	</select>
+	
+	
+
+
 </mapper>

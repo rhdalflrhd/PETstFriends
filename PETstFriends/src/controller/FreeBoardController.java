@@ -287,8 +287,6 @@ public class FreeBoardController {
 				paramForLike.put("freeLikes_boardno", freeBoard_boardno);
 			   
 				if(user_idCheck != null ) {
-				System.out.println(user_idCheck+"아이디체크");
-				System.out.println(userService.selectUser(user_idCheck)+"유저");
 			   	String freeBoard_nickname = (String) userService.selectUser(user_idCheck).getUser_nickname();
 			   	mav.addObject("freeBoard_nickname", freeBoard_nickname);
 				if(freeboardService.countbyLike(paramForLike)==0){
@@ -298,7 +296,6 @@ public class FreeBoardController {
 			    FreeLikes fLikes = freeboardService.readFreeLikes(paramForLike);	 // 해당유저가 해당게시판의 해당게시글에 남긴 좋아요를 갖고옴.   
 			    int like_check = 0;
 			    like_check = fLikes.getFreeLikes_likeCheck();    //좋아요 체크 값  
-			    System.out.println("해당세션유저의 라이크체크값은: "+like_check);
 			    
 			    // 해당게시판에 있는 댓글리스트도 같이 보내줘야함 ㅇㅇ 
 //			    HashMap<String, Object> paramForComment = new HashMap<String, Object>();
@@ -306,7 +303,7 @@ public class FreeBoardController {
 //				paramForLike.put("freeComments_boardno", freeBoard_boardno);
 				mav.addObject("freeLikes_SessionuserlikeCheck", like_check);		
 			    }
-				mav.setViewName("freeboard/selectOneBoard");
+				mav.setViewName("freeboard/selectOneBoard2");
 				return mav;
 			}
 	//---------------------------------------------------------------------------------------

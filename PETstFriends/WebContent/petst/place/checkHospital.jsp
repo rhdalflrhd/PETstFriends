@@ -21,28 +21,29 @@
 	rel="stylesheet" />
 	<link rel="stylesheet" href="./Boot/style.css">
 <style>
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 .empty {
 	width: 10%;
-	height: 600px;
+	height: 611px;
 	display: inline-block;
 }
 
 #all {
 	/* position: relative; */
 	width: 57%;
-	height: 600px;
+	height: 611px;
 	display: inline-block;
 }
 
 #box {
 	/* position: relative; */
 	width: 100%;
-	height: 600px;
+	height: 611px;
 }
 
 #hospitalReview {
 	width: 23%;
-	height: 600px;
+	height: 611px;
 	position: absolute;
 	background-color: white;
 	display: inline-block;
@@ -68,7 +69,7 @@ height: 400px;
 .map_wrap {
 	position: relative;
 	width: 100%;
-	height: 600px;
+	height: 611px;
 	text-align: left;
 }
 
@@ -244,9 +245,9 @@ input[type="text"] {
 	border: 1px solid brown;
 }
 
-.reviewBoard {
-	border-bottom: 1px solid black; 
-} 
+/* .reviewBoard { */
+/* 	border-bottom: 1px solid black;  */
+/* }  */
 
 #submitBtn{
 display: inline-block; 
@@ -269,9 +270,29 @@ font-size: 15px;
 border: 1px solid orange; 
 background-color: white; 
 }
-
+.reviewBoard{
+position: relative; 
+width: 310px; 
+height: 120px;
+padding: 0px;
+background: ivory;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px; 
+border-radius: 10px;
+ color:saddlebrown;
+ font-family: 'NanumSquareRound', sans-serif;
+ }
+.hospitalName{
+font-size : 28px;
+font-weight : bold;
+ font-family: 'NanumSquareRound', sans-serif;
+}
+.p_nick{
+font-size: 18px;
+font-weight : bold;
+}
 </style>
-<title>Insert title here</title>
+<title>병원</title>
 </head>
 <body>
 
@@ -307,42 +328,28 @@ background-color: white;
 		</div>
 		
 		<div id="hospitalReview">
-		<div style="border: 1px solid orange; ">
-			<span class="hospitalName" style="font-size: 20px; font-weight: bold; color :saddlebrown;">병원명<i class="fa fa-hospital"></i></span>
-			<div style="width: 70%; height : 2px; border: 2px solid #5F5F5F"></div>
+		<div style="border: 1px solid orange;">
+			<span class="hospitalName">병원명<i class="fa fa-hospital"></i></span>
+			<div style="width: 70%; height : 8px; border-bottom: 3px solid #5F5F5F"></div>
 			<div style="height : 5px; "></div>
 			<input type="hidden" class="hospitalName">
 			<input type="hidden" id="hospitalX">
 			<input type="hidden" id="hospitalY">
 								
-			<div id="reviewList">
-					<div class="reviewBoard" style = " position: relative; padding: 0px;background: ivory;
-					moz-border-radius: 10px; color:saddlebrown;">
-					<div style="width: 90%; padding: 10px; border-bottom: 1px solid #eeeeee;" align="left">
-					<div><i class="fa fa-paw" style="font-size : 20px; color : red;"></i>
-					유저닉네임</div>
-					<br>
-					<div class="place_onereview">
-					플레이스 리뷰 <br>
-					</div>
-					<br>
-					<div align="right"><button class="deleteBtn">삭제</button>
-					<button class="modifyFormBtn" >수정</button>
-					<div style="height : 5px">
-					</div>
-					</div>
-					</div>
-					</div>
+			<div id="reviewList" style="background: ivory;">
 									
 		</div>
-			<div id="writeReview" align="center" style="background-color: orange;">
-			<div style="height: 5px;"></div>
-			<div>
-				<textarea id="writeText" rows="4" cols="35" style="height: 125px; color:saddlebrown;">후기를 작성해주세요.</textarea>
-			</div>
+			<div id="writeReview" style="background-color: #eeeeee;">
+			<div style="height: 5px; border-color: #eeeeee;"></div>
+			<div style="display: inline-block; width: 2%;"></div>
+			<div style="display: inline-block; width: 94%; padding: 0px;">
+				<textarea id="writeText" rows="4" style="margin: 0px; width:100%; height: 120px; color:saddlebrown;">후기를 작성해주세요.</textarea>
+			
 			<div align="right">
 				<button id="writeBtn" style="color:saddlebrown;">작성</button>
 			</div>
+			</div>
+			<div style="display: inline-block; width: 2%;"></div>
 			</div>
 
 		</div>
@@ -361,7 +368,7 @@ background-color: white;
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 			mapOption = {
 				center : new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-				level : 4 // 지도의 확대 레벨
+				level : 3 // 지도의 확대 레벨
 			};
 	
 		//지도를 생성합니다    
@@ -387,7 +394,7 @@ background-color: white;
 		searchPlaces();
 		//키워드 검색을 요청하는 함수입니다
 		function searchPlaces() {
-			var keyword = document.getElementById('keyword').value + '동물병원';
+			var keyword = document.getElementById('keyword').value + ' 동물병원';
 	
 			if (!keyword.replace(/^\s+|\s+$/g, '')) {
 				alert('키워드를 입력해주세요!');
@@ -633,9 +640,10 @@ background-color: white;
 						var placeStr = '';
 						for (var i in data) {
 							var place_review =data[i].place_review.replace(/(?:\r\n|\r|\n)/g, '<br />');
-							placeStr += '<div class="reviewBoard" style = " position: relative; width: 310px; height: 120px;padding: 0px;background: ivory;-webkit-border-radius: 10px;-moz-border-radius: 10px; border-radius: 10px; color:saddlebrown;"><div><div>'
-							+'<i class="fa fa-paw" style="font-size : 20px; color : red;"></i> '
-							+data[i].place_usernickname+'</div><br><div class="place_onereview">'
+							placeStr += '<div class="reviewBoard"><div><div>'
+							+'<i class="fa fa-paw" style="font-size : 25px; color : brown;"></i> <span class="p_nick">'
+							+data[i].place_usernickname+'</span></div><br><div style="display:inline-block; width: 10%;">'
+							+'</div><div class="place_onereview" style="display:inline-block; width: 85%;">'
 							+ place_review +'<br></div><br>';
 							if(sessionId==data[i].place_userid){
 								placeStr += '<div align="right"><button class="deleteBtn" value='+data[i].place_no+'>삭제</button>'
@@ -685,10 +693,11 @@ background-color: white;
 						success : function(data) {
 							var placeStr='';
 							$('#writeText').val('후기를 작성해주세요.');
-							
-							placeStr += '<div class="reviewBoard" style = " position: relative; width: 310px; height: 120px;padding: 0px;background: ivory;-webkit-border-radius: 10px;-moz-border-radius: 10px; border-radius: 10px; color:saddlebrown;"><div><div>'
-							+'<i class="fa fa-paw" style="font-size : 20px; color : red"></i>'
-							+data.place_usernickname+'</div><br><div class="place_onereview">'+
+							placeStr += '<div class="reviewBoard"><div><div>'
+							+'<i class="fa fa-paw" style="font-size : 25px; color : brown"></i><span class="p_nick"'
+							+'style="font-size: 18px; font-weight : bold;">'
+							+data.place_usernickname+' '+'</span></div><br><div style="display:inline-block; width: 10%;"></div>'
+							+'<div class="place_onereview" style="display:inline-block; width: 85%;">'+
 							place_review.replace(/(?:\r\n|\r|\n)/g, '<br />') +'<br></div><div align="right">'
 							+'<button class="deleteBtn" value='
 							+data.place_no+'>삭제</button>'
@@ -739,8 +748,10 @@ background-color: white;
 				for (var i = 2; i < placeArray.length; i++) 
 					place_review += placeArray[i];
 				var modifyFormStr = '';
-				modifyFormStr += '<div id="modifyForm"><textarea id="modifyText" style="width : 250px; height : 100px;">'+place_review+'</textarea><br><button id="modifyBtn" value='
-				+ place_no +'>수정하기 </button> <button id="cancelBtn" value='+place_no+"/"+place_review+'>취소</button></div>'
+				modifyFormStr += '<div><div style="display:inline-block; width:10%;"></div><div id="modifyForm" style="display:inline-block; width:80%;">'
+				+'<textarea id="modifyText" style="width : 100%; height : 80%;">'+place_review
+				+'</textarea><br><div align="right"><button id="modifyBtn" value='
+				+ place_no +'>수정하기 </button> <button id="cancelBtn" value='+place_no+"/"+place_review+'>취소</button></div></div><div>'
 				
 				
 				parent1.append(modifyFormStr);
@@ -769,11 +780,18 @@ background-color: white;
 						dataType : 'json',
 						success : function(data) {
 							modifyOne = false;
-							var placeStr = '<div><div><i class="fa fa-paw" style="font-size : 20px; color : red"></i>'+data.place_usernickname
-							+'</div><br><div class="place_onereview">' + place_review.replace(/(?:\r\n|\r|\n)/g, '<br />') +'<br></div>'
-							+'<div align="right"><button class="deleteBtn" value='+data.place_no+'>삭제</button>'
-							+'<button class="modifyFormBtn" value="'+data.place_no+'/'+place_review
-							+'">수정</button><div style="height : 5px"></div></div></div>';
+							var placeStr = '';
+							placeStr += '<div class="reviewBoard"><div><div>'
+							placeStr += '<i class="fa fa-paw" style="font-size : 25px; color : brown"></i><span class="p_nick"'
+							placeStr += 'style="font-size: 18px; font-weight : bold;">'
+							placeStr += data.place_usernickname+' '+'</span></div><br><div style="display:inline-block; width: 10%;"></div>'
+							placeStr += '<div class="place_onereview" style="display:inline-block; width: 85%;">'
+							placeStr += place_review.replace(/(?:\r\n|\r|\n)/g, '<br />') +'<br></div><div align="right">'
+							placeStr += '<button class="deleteBtn" value='
+							placeStr += data.place_no+'>삭제</button>'
+							placeStr += '<button class="modifyFormBtn" value='
+							placeStr += data.place_no+'/'+place_review+'>수정</button><div style="height : 5px"></div></div></div></div>';
+
 							parent1.append(placeStr);
 						$('#modifyForm').remove();
 						},

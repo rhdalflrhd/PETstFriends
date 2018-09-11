@@ -50,4 +50,5 @@ public interface UserService {
 	public File getAttachFile(String user_id); //★  9월6일자 추가된 부분(소현)★ 
 	public int updateUserPropic(MultipartHttpServletRequest multi);//★  9월6일자 추가된 부분(소현)★ 
 	public int deletePetAll(String user_id);//★  9월6일자 추가된 부분(소현)★ 
+	public HashMap<String, Object>getUser (String user_id);   //★  9월7일자 추가된 부분(소현)★ 
 }

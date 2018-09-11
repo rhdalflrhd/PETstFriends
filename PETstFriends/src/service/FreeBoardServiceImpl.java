@@ -533,8 +533,8 @@ return result2;
 				  }
 					
 				}else { //대댓
-				 if(bDao.selectOneComments(freeComments_parent).getFreeComments_content() ==""
-						 && bDao.groupCount(freeComments_commentno) == 2) {//패런트가코멘트넘인 원댓 지워지고 대댓 하나뿐인 경우
+				 if(bDao.selectOneComments(freeComments_parent).getFreeComments_content() ==null
+						 && bDao.groupCount(freeComments_parent) == 2) {//패런트가코멘트넘인 원댓 지워지고 대댓 하나뿐인 경우
 				   bDao.deleteComments(freeComments_commentno);//해당댓
 				   bDao.deleteComments(freeComments_parent);//해당 원댓
 				}

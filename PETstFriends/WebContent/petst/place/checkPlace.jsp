@@ -18,26 +18,27 @@
 <style>
 .empty {
 	width: 10%;
-	height: 600px;
+	height: 611px;
 	display: inline-block;
 }
 #all {
 	/* position: relative; */
-	width: 60%;
-	height: 600px;
+	width: 57%;
+	height: 611px;
 	display: inline-block;
 }
 #box {
 	/* position: relative; */
 	width: 100%;
-	height: 600px;
+	height: 611px;
 }
 #hospitalReview {
 	display: none;
-	width: 20%;
-	height: 600px;
+	width: 23%;
+	height: 611px;
 	position: absolute;
 	background-color: white;
+	display: inline-block;
 }
 #reviewList{
 overflow:auto;
@@ -57,7 +58,7 @@ height: 400px;
 .map_wrap {
 	position: relative;
 	width: 100%;
-	height: 600px;
+	height: 611px;
 	text-align: left;
 }
 #menu_wrap {
@@ -198,9 +199,9 @@ input[type="text"] {
 	border-radius: 10px;
 	border: 1px solid brown;
 }
-.reviewBoard {
-	border-bottom: 1px solid black; 
-} 
+/* .reviewBoard { */
+/* 	border-bottom: 1px solid black;  */
+/* }  */
 #submitBtn{
 display: inline-block; 
 color: brown; 
@@ -213,13 +214,40 @@ padding: 5px 10px;
 font-size: 15px;
 border: 1px solid orange; 
 background-color: white; 
-color:saddlebrown;
+}
+.deleteBtn, .modifyFormBtn{
+border-radius: 20%;
+padding: 3px;
+font-size: 15px;
+border: 1px solid orange; 
+background-color: white; 
 }
 ul {
     list-style:none;
 /*     margin:0; */
 /*     padding:0; */
 text-align: center;
+}
+.reviewBoard{
+position: relative; 
+width: 310px; 
+height: 120px;
+padding: 0px;
+background: ivory;
+/* -webkit-border-radius: 10px; */
+/* -moz-border-radius: 10px;  */
+/* border-radius: 10px; */
+ color:saddlebrown;
+ font-family: 'NanumSquareRound', sans-serif;
+ }
+.hospitalName{
+font-size : 28px;
+font-weight : bold;
+ font-family: 'NanumSquareRound', sans-serif;
+}
+.p_nick{
+font-size: 18px;
+font-weight : bold;
 }
 .placeCate {
     display: inline-block;
@@ -236,7 +264,7 @@ text-align: center;
 		   border-radius: 20%;
 }
 </style>
-<title>플레이스</title>
+<title>플레이스s</title>
 </head>
 <body>
 	<%@ include file="/petst/header.jsp"%>
@@ -246,18 +274,27 @@ text-align: center;
 		
 		<div>
 		<ul >
-		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 애견카페')" style ="background:#FFEE58;">애견카페</li>
-		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 고양이카페')">애묘카페</li>
-		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물용품')">반려동물용품</li>
-		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 펫샵')">펫샵</li>
-		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물 미용실')">미용실</li>
-		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물 호텔')">호텔</li>
+<!-- 		style ="background:#FFEE58;" -->
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 애견카페')" id="p1">애견카페</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 고양이카페')" id="p2">애묘카페</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물용품')" id="p3">반려동물용품</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물 미용실')" id="p4">미용실</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려동물 호텔')" id="p5">호텔</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 공원')" id="p6">공원</li>
+		<li class="placeCate" onclick="changeColor(this); selectPlaces(' 반려견 놀이터')" id="p7">놀이터</li>
 		</ul>
 		</div>
 		<br>
 		<div style="height: 4px;"></div>
 			<div>
-			<input type="text" value="종로구" id="keyword" size="20" style="inline-block; 
+			<c:if test="${mainKey != null }">
+			<c:set var="key" value="${mainKey }"></c:set>
+			</c:if>
+			<c:if test="${mainKey == null }">
+			<c:set var="key" value="종로구"></c:set>
+			</c:if>
+
+			<input type="text" value="${key }" id="keyword" size="20" style="inline-block; 
 				height: 40px; color: saddlebrown; width: 300px; cursor: text;">
 				<div id="submitBtn"><i class="fa fa-search" onclick="searchPlaces()"></i></div>
 			</div>
@@ -281,41 +318,40 @@ text-align: center;
 					<div id="pagination"></div>
 				</div>
 			</div>
-		</div>
-		
-		
+		</div>		
 		
 		<div id="hospitalReview">
-		<div style="border: 1px solid orange;  border-top-right-radius: 2em;">
-			<span class="hospitalName" style="font-size: 20px; font-weight: bold; color:saddlebrown"><i class="fa fa-hospital"></i></span>
-			<div style="width: 70%; height : 2px; border: 2px solid orange;"></div>
+		<div style="border: 1px solid orange; ">
+		
+			<span class="hospitalName">병원명<i class="fa fa-hospital"></i></span>
+			<div style="width: 70%; height : 8px; border-bottom: 3px solid #5F5F5F"></div>
+		
 			<div style="height : 5px; "></div>
 			<input type="hidden" class="hspitalName">
 			<input type="hidden" id="hospitalX">
 			<input type="hidden" id="hospitalY">
-
-			<div id="reviewList">
-				<div class="reviewBoard">
-					닉네임 <br> 후기글
-				</div>
+			<div id="reviewList" style="background: ivory;">
+	
 			</div>
-
-		</div>
-			<div id="writeReview" align="center" style="background-color: orange;">
-			<div style="height: 5px;"></div>
-			<div>
-				<textarea id="writeText" rows="4" cols="35" style="height: 125px; color:saddlebrown;">후기를 작성해주세요.</textarea>
-			</div>
+			<div id="writeReview" style="background-color: #eeeeee;">
+			<div style="height: 5px; border-color: #eeeeee;"></div>
+			<div style="display: inline-block; width: 2%;"></div>
+			<div style="display: inline-block; width: 94%; padding: 0px;">
+				<textarea id="writeText" rows="4" style="margin: 0px; width:100%; height: 120px; color:saddlebrown;">후기를 작성해주세요.</textarea>
+			
 			<div align="right">
-				<button id="writeBtn">작성</button>
+				<button id="writeBtn" style="color:saddlebrown;">작성</button>
 			</div>
 			</div>
+			<div style="display: inline-block; width: 2%;"></div>
+			</div>
+
 
 		</div>
 		<div class="empty"></div>
 	</div>
 	<div style="height: 50px;"></div>
-
+</div>
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f1c0b41584169b831e7cbe95bc02ea06&libraries=services">
@@ -361,8 +397,12 @@ text-align: center;
 			}
 			obj.style.background = '#FFEE58';
 		}
-		
-		selectPlaces('애견카페');
+// 		if(${mainPlace!= null}){
+			selectPlaces('${mainPlace}');
+// 			selectPlaces(' 애묘카페');
+// 		}else{
+// 			selectPlaces(' 애견카페');
+// 		}
 		searchPlaces();
 		
 		//키워드 검색을 요청하는 함수입니다
@@ -606,10 +646,11 @@ text-align: center;
 						var placeStr = '';
 						for (var i in data) {
 							var place_review =data[i].place_review.replace(/(?:\r\n|\r|\n)/g, '<br />');
-							placeStr += '<div class="reviewBoard" style = " color:saddlebrown;  position: relative; width: 310px; height: 120px;padding: 0px;background: ivory;-webkit-border-radius: 10px;-moz-border-radius: 10px; border-radius: 10px;"><div><div>'
-							+'<i class="fa fa-paw" style="font-size : 20px; color : red"></i>'
-							+data[i].place_usernickname+'</div><br><div class="place_onereview">'
-							+ place_review +'<br></div>';
+							placeStr += '<div class="reviewBoard"><div><div>'
+							+'<i class="fa fa-paw" style="font-size : 25px; color : brown;"></i> <span class="p_nick">'
+							+data[i].place_usernickname+'</span></div><br><div style="display:inline-block; width: 10%;">'
+							+'</div><div class="place_onereview" style="display:inline-block; width: 85%;">'
+							+ place_review +'<br></div><br>';
 							if(sessionId==data[i].place_userid){
 								placeStr += '<div align="right"><button class="deleteBtn" value='+data[i].place_no+'>삭제</button>'
 									+'<button class="modifyFormBtn" value="'+data[i].place_no+'/'+data[i].place_review+'">수정</button>'
@@ -658,9 +699,13 @@ text-align: center;
 							var placeStr='';
 							$('#writeText').val('후기를 작성해주세요.');
 							
+							var placeStr='';
+							$('#writeText').val('후기를 작성해주세요.');
 							placeStr += '<div class="reviewBoard"><div><div>'
-							+'<i class="fa fa-paw" style="font-size : 20px; color : red"></i>'
-							+data.place_usernickname+'</div><br><div class="place_onereview">'+
+							+'<i class="fa fa-paw" style="font-size : 25px; color : brown"></i><span class="p_nick"'
+							+'style="font-size: 18px; font-weight : bold;">'
+							+data.place_usernickname+' '+'</span></div><br><div style="display:inline-block; width: 10%;"></div>'
+							+'<div class="place_onereview" style="display:inline-block; width: 85%;">'+
 							place_review.replace(/(?:\r\n|\r|\n)/g, '<br />') +'<br></div><div align="right">'
 							+'<button class="deleteBtn" value='
 							+data.place_no+'>삭제</button>'
@@ -711,9 +756,11 @@ text-align: center;
 				for (var i = 2; i < placeArray.length; i++) 
 					place_review += placeArray[i];
 				var modifyFormStr = '';
-				modifyFormStr += '<div id="modifyForm"><textarea id="modifyText" style="width : 250px; height : 100px;">'+place_review+'</textarea><br><button id="modifyBtn" value='
-				+ place_no +'>수정하기 </button> <button id="cancelBtn" value='+place_no+"/"+place_review+'>취소</button></div>'
-				
+				modifyFormStr += '<div><div style="display:inline-block; width:10%;"></div><div id="modifyForm" style="display:inline-block; width:80%;">'
+					+'<textarea id="modifyText" style="width : 100%; height : 80%;">'+place_review
+					+'</textarea><br><div align="right"><button id="modifyBtn" value='
+					+ place_no +'>수정하기 </button> <button id="cancelBtn" value='+place_no+"/"+place_review+'>취소</button></div></div><div>'
+					
 				
 				parent1.append(modifyFormStr);
 				parent2.css("display", "none");
@@ -741,11 +788,22 @@ text-align: center;
 						dataType : 'json',
 						success : function(data) {
 							modifyOne = false;
-							var placeStr = '<div><div><i class="fa fa-paw" style="font-size : 20px; color : red"></i>'+data.place_usernickname
-							+'</div><br><div class="place_onereview">' + place_review.replace(/(?:\r\n|\r|\n)/g, '<br />') +'<br></div>'
-							+'<div align="right"><button class="deleteBtn" value='+data.place_no+'>삭제</button>'
-							+'<button class="modifyFormBtn" value="'+data.place_no+'/'+place_review
-							+'">수정</button><div style="height : 5px"></div></div></div>';
+							var placeStr = '';
+							placeStr += '<div class="reviewBoard"><div><div>'
+							placeStr += '<i class="fa fa-paw" style="font-size : 25px; color : brown"></i><span class="p_nick"'
+							placeStr += 'style="font-size: 18px; font-weight : bold;">'
+							placeStr += data.place_usernickname+' '+'</span></div><br><div style="display:inline-block; width: 10%;"></div>'
+							placeStr += '<div class="place_onereview" style="display:inline-block; width: 85%;">'
+							placeStr += place_review.replace(/(?:\r\n|\r|\n)/g, '<br />') +'<br></div><div align="right">'
+							placeStr += '<button class="deleteBtn" value='
+							placeStr += data.place_no+'>삭제</button>'
+							placeStr += '<button class="modifyFormBtn" value='
+							placeStr += data.place_no+'/'+place_review+'>수정</button><div style="height : 5px"></div></div></div></div>';
+// 							var placeStr = '<div><div><i class="fa fa-paw" style="font-size : 25px; color : brown"></i>'+data.place_usernickname
+// 							+'</div><br><div class="place_onereview">' + place_review.replace(/(?:\r\n|\r|\n)/g, '<br />') +'<br></div>'
+// 							+'<div align="right"><button class="deleteBtn" value='+data.place_no+'>삭제</button>'
+// 							+'<button class="modifyFormBtn" value="'+data.place_no+'/'+place_review
+// 							+'">수정</button><div style="height : 5px"></div></div></div>';
 							parent1.append(placeStr);
 						$('#modifyForm').remove();
 						},
@@ -774,6 +832,9 @@ text-align: center;
 			$(document).ready(function() {
 				$('#placeReview1').trigger("click");//맨처음만 호출되고 끝
 			});
+// 			var mainplace1 = '#'+'${mainPlace1}';
+			$('#'+'${mainPlace1}').css('background-color','#FFEE58');
+			
 		});
 	</script>
 	<%@ include file="/petst/footer.jsp"%>

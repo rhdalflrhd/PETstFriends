@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -66,7 +68,7 @@ public class UserController {
 			if(userService.selectUser(user_id).getUser_adminCheck()==1) {
 				session.setAttribute("adminCheck", 1);
 			}
-			//여기까지????
+			//여기까지????????
 			return true;
 		} else {
 			return false;
@@ -144,8 +146,17 @@ public class UserController {
 	}
 
 	@RequestMapping("/main.do") //
-	public String termsUse() {
-		return "main";
+	public String termsUse(Model model) {
+		Calendar cal = Calendar.getInstance();
+		int month = cal.get(cal.MONTH)+1;
+		if(month<3 || month>=11) {//겨울 11,1,2	
+		}else if(month<6){//봄 3,4,5
+		}else if(month<9) {//여름 6,7,8
+		}else {//가을 9,10
+		}
+		
+		
+		return "main3";
 	}
 
 	// ----------------------------------------------------------------------
@@ -302,31 +313,15 @@ public class UserController {
 			}
 			
 
-//			@RequestMapping("getUserId.do") // ★ 9월6일자 변경사항★(소현) 비번확인 후 마이페이지 보내줌
-//			public String UserUpdateForm(HttpServletRequest req, HttpServletResponse resp, Model model,
-//					@RequestParam String user_id, @RequestParam String user_pass) {
-//
-//				if (userService.selectUser(user_id).getUser_pass().equals(user_pass)) {
-//
-//					model.addAttribute("params", userService.selectUser(user_id));
-//
-//					return "user/myInFo_Modification";
-//				} else
-//
-//					return "user/myInFo_PWCheck";
-//			}
+		    @RequestMapping("getUserId.do")     // 비번확인 후 마이페이지 보내줌 (아직 비번체크x 해야됨 )   소현??????                                   
+	         public String UserUpdateForm(@RequestParam String user_id, HttpServletResponse resp, Model model) {
+	                  System.out.println("getUserId.do 들어옴");
 
-			@RequestMapping("getUserId.do")     // 비번확인 후 마이페이지 보내줌 (아직 비번체크x 해야됨 )                                      
-			public String UserUpdateForm(@RequestParam String user_id, HttpServletResponse resp, Model model) {
-						System.out.println("getUserId.do 들어옴");
-				model.addAttribute(userService.selectUser(user_id));
-				System.out.println("getUserId.do확인용: "+userService.selectUser(user_id));
-//				model.addAttribute("params", userService.selectUser(user_id));
-						return "user/myInFo_Modification" ;		
-				}
-						
+	            model.addAttribute("params", userService.getUser(user_id));
+	                  return "user/myInFo_Modification" ;      
+	            }
 			
-			@RequestMapping(value = "/petList.do") // ★ 9월6일자 변경사항★(소현) // 펫 리스트 보여주기
+			@RequestMapping(value = "/petList.do") // ★ 9월6일자 변경사항★(소현) // 펫 리스트 보여주기????
 			@ResponseBody
 			public void petList(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 				String user_id = (String) session.getAttribute("user_id");
@@ -364,7 +359,7 @@ public class UserController {
 
 			}
 			
-			@RequestMapping(value = "/passCheck.do") // 비밀번호 일치 검사    9월7일 !꼭
+			@RequestMapping(value = "/passCheck.do") // 비밀번호 일치 검사    9월7일 !꼭???
 			@ResponseBody
 			public boolean getUserPw(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 				System.out.println("passCheck.do 들어옴");
@@ -383,7 +378,7 @@ public class UserController {
 
 			}
 			
-			@RequestMapping(value = "/insertPet.do", method = RequestMethod.POST) // ★ 9월6일자 변경사항★(소현) 내정보수정에서 수정하기 누르면 회원수정/펫																			// 추가/ 펫 수정
+			@RequestMapping(value = "/insertPet.do", method = RequestMethod.POST) // ★ 9월6일자 변경사항★(소현) 내정보수정에서 수정하기 누르면 회원수정/펫					????														// 추가/ 펫 수정
 			@ResponseBody
 			public String updatePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
 					HttpServletRequest req, HttpSession session) {
@@ -423,7 +418,7 @@ public class UserController {
 				return msg;
 			}
 			
-			@RequestMapping("deleteUserForm.do") // ★ 9월6일자 변경사항★(소현) 탈퇴하기 누르면 비번확인폼으로이동
+			@RequestMapping("deleteUserForm.do") // ★ 9월6일자 변경사항★(소현) 탈퇴하기 누르면 비번확인폼으로이동???
 			public String userDeleteForm(HttpSession session, Model model) {
 				System.out.println("deleteUserForm.do 들어옴");
 				String user_id = (String) session.getAttribute("user_id");
@@ -431,7 +426,7 @@ public class UserController {
 				return "user/myInFo_MembershipDelete";
 			}
 			
-			@RequestMapping(value = "/deleteUser.do") // ★ 9월6일자 변경사항★(소현) 탈퇴전비밀번호 일치 검사
+			@RequestMapping(value = "/deleteUser.do") // ★ 9월6일자 변경사항★(소현) 탈퇴전비밀번호 일치 검사???
 			@ResponseBody
 			public boolean deleteUser(HttpServletRequest req, HttpServletResponse resp, HttpSession session,
 					@RequestParam String user_id, @RequestParam String user_pass) {
@@ -449,7 +444,7 @@ public class UserController {
 			}
 			
 			
-			@RequestMapping(value = "/deletePet.do") // ★ 9월6일자 변경사항★(소현) 마이페이지에서 펫 삭제하기
+			@RequestMapping(value = "/deletePet.do") // ★ 9월6일자 변경사항★(소현) 마이페이지에서 펫 삭제하기???
 			@ResponseBody
 			public String deletePet(@RequestParam HashMap<String, Object> params, HttpServletResponse resp,
 					HttpServletRequest req, HttpSession session) {
@@ -465,7 +460,7 @@ public class UserController {
 
 			}
 			
-			@RequestMapping(value = "myWritesList.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 쓴 게시글
+			@RequestMapping(value = "myWritesList.do", method = RequestMethod.GET) // ★ 9월6일자 변경사항★(소현) 내가 쓴 게시글???
 			public ModelAndView myWrites(Model model, @RequestParam(defaultValue = "1") int page,
 					@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type,
 					@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
@@ -716,5 +711,14 @@ public class UserController {
 		System.out.println(user_id + "유저아이디");
 		userService.updateUserPropic(multi);
 		session.setAttribute("id", multi.getParameter("user_id"));
+	}
+	//추가??????
+	@RequestMapping("userInfo.do")
+	public ModelAndView userInfo(@RequestParam String user_id) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("user", userService.selectUser(user_id));
+		mav.setViewName("manager/userform");
+		return mav;
+		
 	}
 }
